@@ -44,16 +44,11 @@ const userSchema = new mongoose.Schema({
   },
   totalSales: {
     type: Number,
-    validate: [validator.isInt, "This field should contain numbers only"],
     default: 0,
   },
   adress: {
     type: String,
     required: [true, "Please provide us your adress"],
-    validate: [
-      validator.isAlphanumeric,
-      "Adress must have letters and numbers only",
-    ],
   },
   rating: {
     type: Number,
