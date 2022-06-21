@@ -1,17 +1,10 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import NavbarComponent from "./components/Navbar/Navbar";
-import {getAllProducts} from "./redux/actions";
-
-
+import Products from "./components/Products/Products";
+import {app} from './App.module.css'
 function App() {
-  const dispatch = useDispatch()
-
-  useEffect(()=>{
-    dispatch(getAllProducts())
-  },[])
-  return <div className="App">
+  return <div className={app}>
     <NavbarComponent />
+    <Products/>
   </div>;
 }
 
