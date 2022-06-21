@@ -1,0 +1,7 @@
+.Products_Container{
+    width:65%;
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
