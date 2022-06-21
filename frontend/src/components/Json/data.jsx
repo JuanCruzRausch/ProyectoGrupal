@@ -1,4 +1,4 @@
-[
+const products = [
     {
         "productId": 1000,
         "productName": "delightful chocolate Ilise",
@@ -900,3 +900,5 @@
         "rating": 3
     }
 ]
+
+export default products;
