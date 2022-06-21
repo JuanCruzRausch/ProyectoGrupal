@@ -1,5 +1,5 @@
 import products from '../../components/Json/data'
-import {GET_ALL_PRODUCTS} from '../actions/index'
+import {GET_ALL_PRODUCTS, GET_PRODUCTS_BY_CATEGORY} from '../actions/index'
 
 const initialState = {
     Allproduct : [...products]
@@ -7,6 +7,11 @@ const initialState = {
 
 function reducer (state= initialState, {type, payload}){
     switch(type){
+        case GET_PRODUCTS_BY_CATEGORY:
+            return {
+            ...state,
+            Allproduct: payload,
+        }
         case GET_ALL_PRODUCTS:{
             return {
                 ...state,
