@@ -51,10 +51,13 @@ const publicationSchema = new Schema({
     default: true
   },
   date_created: {
-    type: Date
+    type: Date,
+    immutable: true,
+    default: () => Date.now()
   },
   last_update: {
-    type: Date
+    type: Date,
+    default: () => Date.now()
   },
   condition: {
     type: String,
