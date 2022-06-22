@@ -1,4 +1,4 @@
-const {Schema} = require("mongoose");
+const {Schema, model} = require("mongoose");
 const validator = require("validator");
 
 const publicationSchema = new Schema({
@@ -24,9 +24,6 @@ const publicationSchema = new Schema({
     type: String,
     enum: ['USD', 'ARS'],
     default: 'ARS'
-  },
-  start_time: {
-    type: String
   },
   status: {
     type: Boolean,
@@ -82,6 +79,6 @@ const publicationSchema = new Schema({
   },
 });
 
-const Publication = mongoose.model("Publication", publicationSchema);
+const Publication = model("Publication", publicationSchema);
 
 module.exports = Publication;
