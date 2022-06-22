@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { getProductByCategory } from "../../redux/actions"
-
+import {Navbarc} from './Navbar.module.css'
 function NavbarComponent() {
 
   const dispatch = useDispatch()
@@ -14,8 +14,8 @@ function NavbarComponent() {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Container fluid>
+    <Navbar className={Navbarc} expand="lg" >
+      <Container fluid >
         <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -59,11 +59,11 @@ function NavbarComponent() {
           <Form className="d-flex">
             <FormControl
               type="search"
-              placeholder="Search"
+              placeholder="buscar"
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success">Buscar</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

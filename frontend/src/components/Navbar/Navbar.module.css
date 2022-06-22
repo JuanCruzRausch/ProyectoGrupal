@@ -1,0 +1,12 @@
+.Navbarc{
+    background-color: #232f3e;
+}
+.Navbarc a {
+    color: white !important;
+}
+.Navbarc input{
+    background-color: rgba(227, 227, 227, 0.705);
+}
+.Navbarc ::placeholder{
+    color: black !important;
+}
