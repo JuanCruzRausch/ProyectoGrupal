@@ -46,9 +46,9 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  adress: {
+  address: {
     type: String,
-    required: [true, "Please provide us your adress"],
+    required: [true, "Please provide us your address"],
   },
   rating: {
     type: Number,
