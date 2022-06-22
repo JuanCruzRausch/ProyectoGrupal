@@ -1,13 +1,14 @@
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory } from "../../redux/actions"
 import {Navbarc} from './Navbar.module.css'
 function NavbarComponent() {
 
   const dispatch = useDispatch()
-
-  const handleOnSelect = (e) => {
+  const categories = useSelector(state=>state.categories)
+  
+  const handleOnSelectCategory = (e) => {
     e.preventDefault()
     console.log(e.target.innerText);
     dispatch(getProductByCategory())
@@ -25,30 +26,14 @@ function NavbarComponent() {
             navbarScroll
           >
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Vehiculos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Supermercados</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Tecnología</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Electrodomésticos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Hogar y Muebles</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Deportes y Fitness</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Belleza y Cuidado Personal</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Accesorio para Vehículos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Herramientas</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Construcción</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Inmuebles</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Compra Internacional</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Moda</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Juegos y Juguetes</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Bebés</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Productos Sustentables</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Salud y Equipamiento Médico</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Industrias y Oficinas</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Servicios</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Tiendas oficiales</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Ver más categorías
-              </NavDropdown.Item>
+              {
+                categories.map(category=>{
+                  return(
+                    <NavDropdown.Item key={category.id} onClick={e => handleOnSelectCategory(e)} href="#">{category.name}</NavDropdown.Item>
+                  )
+                }) 
+              }
+
             </NavDropdown>
             <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>

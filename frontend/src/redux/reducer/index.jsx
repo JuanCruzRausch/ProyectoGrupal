@@ -1,4 +1,5 @@
 import products from '../../components/Json/data';
+import categories from '../../components/Json/categories';
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_BY_CATEGORY,
@@ -7,6 +8,7 @@ import {
 
 const initialState = {
   Allproduct: [...products],
+  categories
 };
 
 function reducer(state = initialState, { type, payload }) {

@@ -3,6 +3,7 @@ export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY';
 export const ORDENADO = 'ORDENADO';
 import products from '../../components/Json/data';
 
+
 export function getProductByCategory() {
   return (dispatch) => {
     dispatch({
