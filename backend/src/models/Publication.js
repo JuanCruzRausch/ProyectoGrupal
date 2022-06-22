@@ -6,8 +6,8 @@ const publicationSchema = new Schema({
     type: String,
     required: [true, "Title is required"],
     validate: [validator.isAlphanumeric, "Title must have letters and numbers only"],
-    maxlength: [100, "A user name must have less or equal then 40 characters"],
-    minlength: [4, "A user name must have more or equal then 4 characters"],
+    maxlength: [100, "A title must have less or equal then 100 characters"],
+    minlength: [4, "A title must have more or equal then 4 characters"],
   },
   subtitle: {
     type: String,
