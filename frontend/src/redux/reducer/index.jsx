@@ -25,17 +25,17 @@ function reducer(state = initialState, { type, payload }) {
     case ORDENADO:
       let sortArray = [...state.Allproduct];
 
-      if (action.payload === 'A-Z')
+      if (payload === 'A-Z')
         sortArray = sortArray.sort((a, b) =>
           a.productName.localeCompare(b.productName)
         );
-      if (action.payload === 'Z-A')
+      if (payload === 'Z-A')
         sortArray = sortArray.sort((a, b) =>
           b.productName.localeCompare(a.productName)
         );
-      if (action.payload === 'High to Low Rating')
+      if (payload === 'High to Low Rating')
         sortArray = sortArray.sort((a, b) => b.rating - a.rating);
-      if (action.payload === 'Low to High Rating')
+      if (payload === 'Low to High Rating')
         sortArray = sortArray.sort((a, b) => a.rating - b.rating);
       //   if (action.payload === 'High to Low Price')
       //     sortArray = sortArray.sort(
@@ -47,7 +47,7 @@ function reducer(state = initialState, { type, payload }) {
       //     );
       return {
         ...state,
-        AllProduct: [...sortArray],
+        Allproduct: [...sortArray],
       };
     default:
       return state;

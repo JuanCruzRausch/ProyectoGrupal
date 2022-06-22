@@ -21,9 +21,11 @@ export function getAllProducts() {
   };
 }
 
-export const ordenado = (payload) => {
-  return {
-    type: ORDENADO,
-    payload,
+export function ordenado(payload) {
+  return (dispatch) => {
+    dispatch({
+      type: ORDENADO,
+      payload,
+    });
   };
-};
+}
