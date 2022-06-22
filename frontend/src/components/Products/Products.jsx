@@ -15,7 +15,7 @@ function Products() {
   return (
     <div className={Products_Container}>
     { Products.map((e) =>  
-        <SingleProduct key={e.id}
+        <SingleProduct key={e.productId}
             image={e.productImage} 
             name={e.productName} 
             price={e.productPrice} 
