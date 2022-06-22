@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts, ordenado } from '../../redux/actions/index';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
+import Filter from '../Filter/Filter'
 import { Products_Container } from './Products.module.css';
 
 function Products() {
@@ -16,6 +17,7 @@ function Products() {
   }, []);
   return (
     <div className={Products_Container}>
+      <Filter />
       <Sort />
       {Products.map((e) => (
         <SingleProduct
