@@ -1,28 +1,30 @@
-import React from 'react'
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {getAllProducts} from '../../redux/actions/index'
+import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../../redux/actions/index';
 import SingleProduct from '../SingleProduct/SingleProduct';
-import {Products_Container} from './Products.module.css'
+import Sort from '../Sort/Sort';
+import { Products_Container } from './Products.module.css';
 function Products() {
+  const dispatch = useDispatch();
+  const Products = useSelector((state) => state.Allproduct);
 
-    const dispatch = useDispatch()
-    const Products = useSelector(state => state.Allproduct)
-
-    useEffect(()=>{
-      dispatch(getAllProducts())
-    },[])
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
   return (
     <div className={Products_Container}>
-    { Products.map((e) =>  
-        <SingleProduct key={e.productId}
-            image={e.productImage} 
-            name={e.productName} 
-            price={e.productPrice} 
-        />)
-    }
+      <Sort />
+      {Products.map((e) => (
+        <SingleProduct
+          key={e.id}
+          image={e.productImage}
+          name={e.productName}
+          price={e.productPrice}
+        />
+      ))}
     </div>
-    )
+  );
 }
 
-export default Products
+export default Products;
