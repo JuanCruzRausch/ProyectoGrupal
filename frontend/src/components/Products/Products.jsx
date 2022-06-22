@@ -13,7 +13,7 @@ function Products() {
     dispatch(getAllProducts());
   }, []);
   return (
-    <div className={Products_Container}>
+    <div className={Products_Container}
       <Sort />
       {Products.map((e) => (
         <SingleProduct
@@ -23,6 +23,7 @@ function Products() {
           price={e.productPrice}
         />
       ))}
+
     </div>
   );
 }

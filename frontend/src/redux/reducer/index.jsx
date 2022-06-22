@@ -1,19 +1,27 @@
-import products from '../../components/Json/data';
-import { GET_ALL_PRODUCTS, ORDENADO } from '../actions/index';
+
+import products from '../../components/Json/data'
+import {GET_ALL_PRODUCTS, GET_PRODUCTS_BY_CATEGORY, ORDENADO} from '../actions/index'
+
 
 const initialState = {
   Allproduct: [...products],
 };
 
-function reducer(state = initialState, { type, payload }) {
-  switch (type) {
-    case GET_ALL_PRODUCTS: {
-      return {
-        ...state,
-        Allproduct: payload,
-      };
-    }
-    case ORDENADO:
+
+function reducer (state= initialState, {type, payload}){
+    switch(type){
+        case GET_PRODUCTS_BY_CATEGORY:
+            return {
+            ...state,
+            Allproduct: payload,
+        }
+        case GET_ALL_PRODUCTS:{
+            return {
+                ...state,
+                Allproduct: payload,
+            }
+        }
+         case ORDENADO:
       let sortArray = [...state.Allproduct];
 
       if (action.payload === 'A-Z')
@@ -40,9 +48,7 @@ function reducer(state = initialState, { type, payload }) {
         ...state,
         AllProduct: [...sortArray],
       };
-    default:
-      return state;
-  }
-}
+        default: return state
+
 
 export default reducer;
