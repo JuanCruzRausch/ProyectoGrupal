@@ -38,7 +38,7 @@ exports.post = async (req, res, next) => {
 exports.getAllPublications = catchAsync(async (req, res, next) => {
   const publications = await Publication.find();
 
-  if (publications <= 0) {
+  if (!publications) {
     return next(
       new AppError('There are no publications saved on the Data Base.', 404)
     );

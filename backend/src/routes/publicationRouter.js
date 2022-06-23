@@ -3,7 +3,9 @@ const publicationController = require('../controllers/publicationController');
 
 const publicationRouter = Router();
 
-publicationRouter.post('/', publicationController.post);
-publicationRouter.get('/', publicationController.getAllPublications);
+publicationRouter
+  .route('/')
+  .get(publicationController.getAllPublications)
+  .post(publicationController.post);
 
 module.exports = publicationRouter;
