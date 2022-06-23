@@ -42,10 +42,6 @@ const userSchema = new mongoose.Schema({
         "The passwords you provide are not equal, please write it again!",
     },
   },
-  totalSales: {
-    type: Number,
-    default: 0,
-  },
   address: {
     type: String,
     required: [true, "Please provide us your address"],
