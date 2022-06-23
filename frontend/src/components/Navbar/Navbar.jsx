@@ -1,24 +1,21 @@
 import React from 'react'
-import { useEffect } from 'react'
-import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button  } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCategory, getProductByCategory, BuscarProducto } from "../../redux/actions"
-import {Navbarc} from './Navbar.module.css'
+import { getProductByCategory, BuscarProducto } from "../../redux/actions"
+import {Navbarc, } from './Navbar.module.css'
+
 function NavbarComponent() {
   
   const dispatch = useDispatch()
-  const state = useSelector(state => state.AllCategory)
-  
-  
-  
-  
-  function handleOnSelect(e){
-    dispatch(getProductByCategory(e.target.value))
+  const categories = useSelector(state=>state.categories)
+
+  const handleOnSelectCategory = (e) => {
+    e.preventDefault()
+    console.log(e.target.innerText);
+    dispatch(getProductByCategory(e.target.innerText))
   }
   
-  useEffect(() =>{
-    dispatch(getAllCategory())
-  },[dispatch])
+
   return (
     <Navbar className={Navbarc} expand="lg" >
       <Container fluid >
@@ -30,14 +27,16 @@ function NavbarComponent() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Form.Select title="Categorías" id="navbarScrollingDropdown" onChange={e => handleOnSelect(e)}>
-              <option value="Todos">Todos</option>
+            <NavDropdown title="Categorías" id="navbarScrollingDropdown"  >
               {
-                state.map((e,i) => (
-                  <option value={e} key={i}>{e}</option>
-                ))
+                categories.map(category=>{
+                  return(
+                    <NavDropdown.Item key={category.id} onClick={e => handleOnSelectCategory(e)} href="#">{category.name}</NavDropdown.Item>
+                  )
+                }) 
               }
-            </Form.Select>
+
+            </NavDropdown>
             <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <Nav.Link href="#" disabled>

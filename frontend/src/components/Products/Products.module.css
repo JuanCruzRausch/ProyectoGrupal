@@ -1,7 +1,23 @@
-.Products_Container{
+
+.Filter_Container{
+    width: 15%;
+    display: inline;
+}
+.Cards_Container{
     width:80%;
     margin: 3vh auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+.Cards_Filter_Container{
+    width:100%;
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.Products_Container{
+    width:80%;
+    margin: 3vh auto;
 }
