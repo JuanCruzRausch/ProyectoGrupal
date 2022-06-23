@@ -1,6 +1,8 @@
-const User = require("../models/User");
-const Category = require("../models/Category");
-const Publication = require("../models/Publication");
+const User = require('../models/User');
+const Category = require('../models/Category');
+const Publication = require('../models/Publication');
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
 exports.post = async (req, res, next) => {
   try {
@@ -25,11 +27,27 @@ exports.post = async (req, res, next) => {
       rating: publication.address,
     });
     res.status(201).json({
-        status: 'created',
-        data: newPublication
-    })
+      status: 'created',
+      data: newPublication,
+    });
   } catch (error) {
     res.json({ message: error.message });
   }
 };
 
+exports.getAllPublications = catchAsync(async (req, res, next) => {
+  const publications = await Publication.find();
+
+  if (publications <= 0) {
+    return next(
+      new AppError('There are no publications saved on the Data Base.', 404)
+    );
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      publications,
+    },
+  });
+});
