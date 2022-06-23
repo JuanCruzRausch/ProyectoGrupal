@@ -35,7 +35,10 @@ exports.getCategories = async (req, res, next) => {
     const categoriesApi = await axios.get('https://api.mercadolibre.com/sites/MLA/categories');
     let categoriesArr= categoriesApi.data?.map(c=>c.name);
     for(let i=0;i<categoriesArr.length; i++){
-      await Category.create({name: categoriesArr[i]});
+      let found = await Category.findOne({name:categoriesArr[i]});
+      if(!found){
+        await Category.create({name: categoriesArr[i]});
+      }
     }
     res.status(201).json({
       status: "success",
