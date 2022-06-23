@@ -1,9 +1,9 @@
 const express = require("express");
-const authController = require("../controllers/authController");
+const categoryController = require("../controllers/categoryController");
 
 const categoriesRouter = express.Router();
 
-categoriesRouter.get('/categoriesInDB', authController.getCategories);
-// el middleware de categories en el mismo archivo que el middleware de user??
+categoriesRouter.get('/categoriesInDB', categoryController.getCategories);
+
 
 module.exports = categoriesRouter;
