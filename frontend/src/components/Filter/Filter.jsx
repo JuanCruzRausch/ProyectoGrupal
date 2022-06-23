@@ -1,8 +1,32 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { subtitle, container } from './Filter.module.css'
+import { getProductByCategory } from '../../redux/actions'
+// import { useEffect } from 'react'
 
 const Filter = (props) => {
-    const categories = useSelector(state => state.categories)
+
+    let categories = useSelector(state => state.categories)
+    const dispatch = useDispatch()
+    const products = useSelector(state=>state.Allproduct)
+
+    // useEffect(()=>{
+        
+    //     categories.forEach(category=>{
+    //         products.forEach((product, i) => {
+    //             if(product.category === category.name){
+    //                 categories[i].count++
+    //             }
+    //         });
+    //     })
+    // },[])
+
+    
+    const handleOnSelectCategory = (e) => {
+        e.preventDefault()
+        console.log(e.target.innerText)
+        dispatch(getProductByCategory(e.target.innerText))
+      }
+    
     return (
         <div className={container}>
             <span>
@@ -11,13 +35,13 @@ const Filter = (props) => {
                 </div>
                 {categories.map(category => {
                     return (
-                        <div>
-                            <a href='#'>
+                        <div key={category.id}>
+                            <a onClick={(e)=>handleOnSelectCategory(e)} href='#'>
                                 {category.name}
-                            <span>
-                                (0)
-                            </span>
                             </a>
+                            <span>
+                                {category.count}
+                            </span>
                         </div>
                     )
                 })}

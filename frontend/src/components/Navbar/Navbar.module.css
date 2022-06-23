@@ -3,11 +3,14 @@
     background-color: #232f3e;
 }
 .Navbarc a {
-    color: white !important;
+    color: rgb(0, 0, 0) !important;
 }
 .Navbarc input{
     background-color: rgba(227, 227, 227, 0.705);
 }
 .Navbarc ::placeholder{
     color: black !important;
+}
+.Navbarc a dropdown-item{
+    color: rgb(0, 0, 0) !important;
 }

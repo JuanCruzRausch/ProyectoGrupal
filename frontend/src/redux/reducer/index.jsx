@@ -1,22 +1,27 @@
 import products from '../../components/Json/data';
-import categories from '../../components/Json/categories';
+import categories from '../../components/Json/categories'
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
+  // GET_CATEGORIES,
+  GET_PRODUCT
 } from '../actions/index';
 
 const initialState = {
   Allproduct: [...products],
-  categories
+  FilterProducts: [...products],
+  categories,
 };
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_PRODUCTS_BY_CATEGORY:
+      const AllProd = state.FilterProducts
+      const filter = payload === "Todos" ? AllProd : AllProd.filter(e => e.category === payload)
       return {
         ...state,
-        Allproduct: payload,
+        Allproduct: filter,
       };
     case GET_ALL_PRODUCTS: {
       return {
@@ -24,29 +29,31 @@ function reducer(state = initialState, { type, payload }) {
         Allproduct: payload,
       };
     }
+    case GET_PRODUCT: 
+    return{
+      ...state,
+      Allproduct: state.Allproduct.filter(e => e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase()))
+    }
+    // case GET_CATEGORIES:
+    //   return {
+    //     ...state,
+    //     categories: payload,
+    //   }
     case ORDENADO:
       let sortArray = [...state.Allproduct];
 
       if (payload === 'A-Z')
         sortArray = sortArray.sort((a, b) =>
-          a.productName.localeCompare(b.productName)
+          a.title.localeCompare(b.title)
         );
       if (payload === 'Z-A')
         sortArray = sortArray.sort((a, b) =>
-          b.productName.localeCompare(a.productName)
+          b.title.localeCompare(a.title)
         );
-      if (payload === 'High to Low Rating')
-        sortArray = sortArray.sort((a, b) => b.rating - a.rating);
-      if (payload === 'Low to High Rating')
-        sortArray = sortArray.sort((a, b) => a.rating - b.rating);
-      //   if (action.payload === 'High to Low Price')
-      //     sortArray = sortArray.sort(
-      //       (a, b) => b.Number(productPrice) - a.Number(productPrice)
-      //     );
-      //   if (action.payload === 'Low to High Price')
-      //     sortArray = sortArray.sort(
-      //       (a, b) => a.Number(productPrice) - b.Number(productPrice)
-      //     );
+      if (payload === 'High to Low')
+        sortArray = sortArray.sort((a, b) => b.price - a.price);
+      if (payload === 'Low to High')
+        sortArray = sortArray.sort((a, b) => a.price - b.price);
       return {
         ...state,
         Allproduct: [...sortArray],

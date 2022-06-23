@@ -1,11 +1,11 @@
 const categories = [
     {
       "id": "MLA5725",
-      "name": "Accesorios para Vehículos"
+      "name": "Accesorios para Vehículos",
     },
     {
       "id": "MLA1512",
-      "name": "Agro"
+      "name": "Agro",
     },
     {
       "id": "MLA1403",

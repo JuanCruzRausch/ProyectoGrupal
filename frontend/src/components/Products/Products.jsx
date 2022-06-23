@@ -21,12 +21,12 @@ function Products() {
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} />
         <span className={Cards_Container}>
-          {Products.map((e) => (
+          {Products.map((e,i) => (
             <SingleProduct
-              key={e.id}
-              image={e.productImage}
-              name={e.productName}
-              price={e.productPrice}
+              key={i}
+              image={e.image}
+              name={e.title}
+              price={e.price}
             />
           ))}
         </span>
