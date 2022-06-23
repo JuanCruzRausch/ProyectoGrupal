@@ -1,13 +1,13 @@
 import React from 'react'
-import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button,  } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory } from "../../redux/actions"
-import {Navbarc} from './Navbar.module.css'
+import {Navbarc, } from './Navbar.module.css'
 function NavbarComponent() {
 
   const dispatch = useDispatch()
   const categories = useSelector(state=>state.categories)
-  
+
   const handleOnSelectCategory = (e) => {
     e.preventDefault()
     console.log(e.target.innerText);
@@ -25,11 +25,11 @@ function NavbarComponent() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <NavDropdown title="Categorías" id="navbarScrollingDropdown">
+            <NavDropdown title="Categorías" id="navbarScrollingDropdown"  >
               {
                 categories.map(category=>{
                   return(
-                    <NavDropdown.Item key={category.id} onClick={e => handleOnSelectCategory(e)} href="#">{category.name}</NavDropdown.Item>
+                    <NavDropdown.Item className={"bg-dark"} key={category.id} onClick={e => handleOnSelectCategory(e)} href="#">{category.name}</NavDropdown.Item>
                   )
                 }) 
               }

@@ -5,7 +5,7 @@ import { getAllProducts, ordenado } from '../../redux/actions/index';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter'
-import { Products_Container } from './Products.module.css';
+import { Products_Container, Cards_Container, Filter_Container, Cards_Filter_Container } from './Products.module.css';
 
 function Products() {
   const dispatch = useDispatch();
@@ -17,16 +17,20 @@ function Products() {
   }, []);
   return (
     <div className={Products_Container}>
-      <Filter />
-      <Sort />
-      {Products.map((e) => (
-        <SingleProduct
-          key={e.id}
-          image={e.productImage}
-          name={e.productName}
-          price={e.productPrice}
-        />
-      ))}
+      <Sort /> 
+      <div className={Cards_Filter_Container}>
+        <Filter className={Filter_Container} />
+        <span className={Cards_Container}>
+          {Products.map((e) => (
+            <SingleProduct
+              key={e.id}
+              image={e.productImage}
+              name={e.productName}
+              price={e.productPrice}
+            />
+          ))}
+        </span>
+      </div> 
     </div>
   );
 }
