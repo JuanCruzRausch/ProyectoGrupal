@@ -1,7 +1,8 @@
 import React from 'react'
 import {SingleProduct_container, SingleProduct_text,ProductFav,SingleProduct_buttons,SingleProduct_img} from './SingleProduct.module.css'
 import imagen from '../../assets/img/heart.png'
-function SingleProduct({image, name, price}) {
+import { Link } from 'react-router-dom';
+function SingleProduct({image, name, price, id}) {
   return (
     <div className={SingleProduct_container}>
         <div className={SingleProduct_img}>
@@ -9,11 +10,11 @@ function SingleProduct({image, name, price}) {
         </div>
         
         <div className={SingleProduct_text}>
-           <a href="">
+           <Link to={`/${id}`}>
                 <h1>
                     {name}
                 </h1>
-            </a> 
+           </Link> 
             <h2>
                 $ {price}
             </h2>
