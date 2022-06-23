@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
         "The passwords you provide are not equal, please write it again!",
     },
   },
+  registration_date: {
+    type: Date,
+    default: () => Date.now(),
+    immutable: true
+  },
   totalSales: {
     type: Number,
     default: 0,
@@ -50,11 +55,30 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide us your address"],
   },
-  rating: {
-    type: Number,
-    min: [1, "Rating must be above 1.0"],
-    max: [5, "Rating must be below 5.0"],
+  reputation: {
+    level: {
+      type: Number,
+      min: [1, "Rating must be above 1.0"], 
+      max: [5, "Rating must be below 5.0"], 
+    },
+    status: {
+      type: String,
+      enum: ['3_leader', '2_gold', '1_platinum']
+    }    
   },
+  favorites: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Publication'
+  },
+  interest: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Category'
+  },
+  transactionsTotal: {
+    canceled: Number,
+    completed: Number,
+    total: Number
+  }
 });
 
 const User = mongoose.model("User", userSchema);

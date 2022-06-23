@@ -9,7 +9,6 @@ exports.post = async (req, res, next) => {
     const category = await Category.find({ name: publication.category });
     const newPublication = await Publication.create({
       title: publication.title,
-      subtitle: publication.subtitle,
       descriptions: publication.descriptions,
       price: publication.price,
       currency: publication.currency,

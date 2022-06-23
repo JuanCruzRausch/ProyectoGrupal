@@ -9,9 +9,6 @@ const publicationSchema = new Schema({
     maxlength: [100, "A title must have less or equal then 100 characters"],
     minlength: [4, "A title must have more or equal then 4 characters"],
   },
-  subtitle: {
-    type: String,
-  },
   descriptions: {
     type: String,
     required: [true, 'Please provide some description']
@@ -67,6 +64,10 @@ const publicationSchema = new Schema({
   stock: {
     type: Number,
     default: 1,
+  },
+  totalSold: {
+    type: Number,
+    default: 0
   },
   address: {
     type: String,
