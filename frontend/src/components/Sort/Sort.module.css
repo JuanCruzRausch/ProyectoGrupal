@@ -1,0 +1,15 @@
+.SortContainer{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+.SortContainer select {
+    width: 15%;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: none;
+    display: flex;
+}
+.SortContainer option {
+    background: rgba(0, 0, 0, 0) !important;
+}

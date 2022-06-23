@@ -1,0 +1,132 @@
+.Detail_container{
+    width: 100%;
+}
+/* buttons top  */
+.Detail_Links{
+    width: 40%;
+    display: flex;
+    margin: 2vh 0;
+    justify-content: space-around;
+    justify-items: center;
+    align-self: center;
+}
+.Detail_Links button{
+    margin-left: 3vh;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 2.5vh;
+}
+.Detail_Links h2{
+    margin: auto;
+    font-size: 2.1vh;
+    font-weight: 300;
+}
+
+/* Item Details */
+
+.Detail_Item{
+    width: 70%;
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.Detail_Item_image{
+    width:40%;
+}
+.Detail_Item_image img{
+    width: 100%;
+}
+.Detail_Item_text{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 3vh;
+}
+.Detail_Item_text h1{
+font-style: normal;
+font-weight: 700;
+font-size: 3.4vh;
+line-height: 48px;
+display: flex;
+align-items: center;
+letter-spacing: 0.04em;
+}
+.Detail_Item_text .Item_text_stock {
+    width: 20%;
+    text-align: center;
+    color: white;
+    padding: .4vh;
+    background: #25E159;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+.Detail_Item_text h2 span{
+    font-weight: 700;
+}
+.Detail_Item_text h2 img{
+    width: 30px;
+    margin: 1.6vh 0;
+}
+.Detail_Item_text h2{
+    color: rgb(116, 111, 111);
+    font-weight: 300;
+    font-size: 2vh;
+}
+.EnvioGratis{
+    color: #00A650;
+    font-size: 2.5vh !important;
+    font-weight: 700;
+}
+/* Stock, price, buy, add cart */
+
+.Detail_CountPrice{
+    display: flex;
+    height:200px;
+    width: 70%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1vh;
+    margin:10vh auto;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+.Detail_CountPrice .ButtonCompra{
+    margin: auto 0;
+    padding: 1vh;
+    color: rgb(255, 254, 254);
+    border: none;
+    background-color: #FFA41C;
+    border-radius: 15px;
+}
+.CountPrice_AddCart{
+    background-color: #FFFFFF !important;
+    border: none;
+}
+.CountPrice_AddCart img{
+    width: 30px;
+}
+
+/* Detail Description */
+
+.Detail_Description{
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+    margin: auto;
+    border-radius: 15px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.Detail_Description_Detail{
+    width: 60%;   
+}
+.Detail_Description_payment{
+    border-left: rgb(125, 124, 124) 1px solid;
+    margin:0 auto;
+    width: 30%;
+}
