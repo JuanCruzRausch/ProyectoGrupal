@@ -1,18 +1,24 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { getProductByCategory } from "../../redux/actions"
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllCategory, getProductByCategory, BuscarProducto } from "../../redux/actions"
 import {Navbarc} from './Navbar.module.css'
 function NavbarComponent() {
-
+  
   const dispatch = useDispatch()
-
-  const handleOnSelect = (e) => {
-    e.preventDefault()
-    console.log(e.target.innerText);
-    dispatch(getProductByCategory())
+  const state = useSelector(state => state.AllCategory)
+  
+  
+  
+  
+  function handleOnSelect(e){
+    dispatch(getProductByCategory(e.target.value))
   }
-
+  
+  useEffect(() =>{
+    dispatch(getAllCategory())
+  },[dispatch])
   return (
     <Navbar className={Navbarc} expand="lg" >
       <Container fluid >
@@ -24,32 +30,14 @@ function NavbarComponent() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <NavDropdown title="Categorías" id="navbarScrollingDropdown">
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Vehiculos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Supermercados</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Tecnología</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Electrodomésticos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Hogar y Muebles</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Deportes y Fitness</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Belleza y Cuidado Personal</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Accesorio para Vehículos</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Herramientas</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Construcción</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Inmuebles</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Compra Internacional</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Moda</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Juegos y Juguetes</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Bebés</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Productos Sustentables</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Salud y Equipamiento Médico</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Industrias y Oficinas</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Servicios</NavDropdown.Item>
-              <NavDropdown.Item onClick={e => handleOnSelect(e)} href="#">Tiendas oficiales</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Ver más categorías
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Form.Select title="Categorías" id="navbarScrollingDropdown" onChange={e => handleOnSelect(e)}>
+              <option value="Todos">Todos</option>
+              {
+                state.map((e,i) => (
+                  <option value={e} key={i}>{e}</option>
+                ))
+              }
+            </Form.Select>
             <Nav.Link href="#action1">Home</Nav.Link>
             <Nav.Link href="#action2">Link</Nav.Link>
             <Nav.Link href="#" disabled>
@@ -62,6 +50,7 @@ function NavbarComponent() {
               placeholder="buscar"
               className="me-2"
               aria-label="Search"
+              onChange={(e) => dispatch(BuscarProducto(e.target.value))}
             />
             <Button variant="outline-success">Buscar</Button>
           </Form>

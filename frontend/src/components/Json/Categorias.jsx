@@ -1,4 +1,4 @@
-[
+const Categorias = [
     "Accesorios para Vehículos",
     "Agro",
     "Alimentos y Bebidas",
@@ -32,3 +32,5 @@
     "Souvenirs, Cotillón y Fiestas",
     "Otras categorías"
 ]
+
+export default Categorias;
