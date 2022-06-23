@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const {Schema, model} = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please tell us your name!"],
@@ -47,10 +47,6 @@ const userSchema = new mongoose.Schema({
     default: () => Date.now(),
     immutable: true
   },
-  totalSales: {
-    type: Number,
-    default: 0,
-  },
   address: {
     type: String,
     required: [true, "Please provide us your address"],
@@ -75,12 +71,21 @@ const userSchema = new mongoose.Schema({
     ref: 'Category'
   },
   transactionsTotal: {
-    canceled: Number,
-    completed: Number,
-    total: Number
+    canceled: {
+      type: Number,
+      default: 0
+    },
+    completed: {
+      type: Number,
+      default: 0
+    },
+    total: {
+      type: Number,
+      default: 0
+    }
   }
 });
 
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
 module.exports = User;
