@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Category = require("../models/Category");
+const axios = require("axios");
 
 exports.signup = async (req, res, next) => {
   try {
