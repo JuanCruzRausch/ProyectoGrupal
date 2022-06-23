@@ -6,6 +6,7 @@ import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter'
 import { Products_Container, Cards_Container, Filter_Container, Cards_Filter_Container } from './Products.module.css';
+import Carousell from '../Carousel/Carousel';
 
 function Products() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Products() {
   }, []);
   return (
     <div className={Products_Container}>
+      <Carousell />
       <Sort /> 
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} />

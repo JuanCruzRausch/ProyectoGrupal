@@ -1,0 +1,28 @@
+.Count{
+    display: flex;
+    color: black !important;
+    justify-content: space-around;
+}
+.Counter{
+    display: flex;
+    margin: 0 3vh;
+    
+}
+.counterbutton{
+    width: 50px;
+    border-radius: 15px;
+    border: none;
+    margin: 0 15px ;
+}
+.Counter h1{
+    
+    color: black;
+}
+.Counterstock{
+    display: flex;
+}
+.Counterstock h2{
+    text-align: center;
+    font-size: 2.2vh;
+    color: rgb(209, 209, 209);
+}
