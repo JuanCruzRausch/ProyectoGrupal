@@ -17,12 +17,12 @@ function Products() {
   return (
     <div className={Products_Container}>
       <Sort />
-      {Products.map((e) => (
+      {Products.map((e,i) => (
         <SingleProduct
-          key={e.id}
-          image={e.productImage}
-          name={e.productName}
-          price={e.productPrice}
+          key={i}
+          image={e.image}
+          name={e.title}
+          price={e.price}
         />
       ))}
     </div>
