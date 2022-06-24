@@ -1,4 +1,3 @@
-import products from '../../components/Json/data';
 import categories from '../../components/Json/categories'
 import {
   GET_ALL_PRODUCTS,
@@ -10,9 +9,9 @@ import {
 } from '../actions/index';
 
 const initialState = {
-  allProductCache: [...products],
-  Allproduct: [...products],
-  FilterProducts: [...products],
+  allProductCache: [],
+  Allproduct: [],
+  FilterProducts: [],
   Detail:[],
   categories,
 };
