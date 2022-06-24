@@ -2,9 +2,10 @@ import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
-import {Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
+import { Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
 import { useState } from 'react'
+import { scrollToProducts } from '../variablesGlobales'
 
 function NavbarComponent() {
 
@@ -20,6 +21,7 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
+    window.scrollTo(0, scrollToProducts)
     dispatch(BuscarProducto(search))
   }
 
@@ -34,6 +36,7 @@ function NavbarComponent() {
   const handleOnSelectCategory = (e) => {
     e.preventDefault()
     dispatch(getProductByCategory(e.target.innerText))
+    window.scrollTo(0, scrollToProducts)
   }
 
 
@@ -59,7 +62,7 @@ function NavbarComponent() {
                 }) 
               }
             </NavDropdown>
-            <Nav.Link href="/">Incio</Nav.Link>
+            <Nav.Link href="/">Ofertas</Nav.Link>
             <Nav.Link href="#action2">Mi perfil</Nav.Link>
             <img className={cartIMG} src={cart} alt="cart"/>
           </Nav>

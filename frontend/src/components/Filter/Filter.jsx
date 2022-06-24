@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { subtitle, container } from './Filter.module.css'
 import { getProductByCategory } from '../../redux/actions'
 import { useState, useEffect } from 'react'
+import { scrollToProducts } from '../variablesGlobales'
 // import { useEffect } from 'react'
 
 const Filter = (props) => {
@@ -26,6 +27,7 @@ const Filter = (props) => {
     const handleOnSelectCategory = (e) => {
         e.preventDefault()
         dispatch(getProductByCategory(e.target.innerText))
+        window.scrollTo(0, 650)
       }
     
     return (
