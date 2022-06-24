@@ -1,5 +1,6 @@
 .Detail_container{
     width: 100%;
+    background-color: #eceded;
 }
 /* buttons top  */
 .Detail_Links{
@@ -31,7 +32,7 @@
     margin: 3vh auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 .Detail_Item_image{
     width:40%;
@@ -40,11 +41,11 @@
     width: 100%;
 }
 .Detail_Item_text{
-    width: 60%;
+    width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    margin-left: 3vh;
+    justify-content: space-evenly;
+    align-content: space-between;
 }
 .Detail_Item_text h1{
 font-style: normal;
@@ -77,15 +78,15 @@ letter-spacing: 0.04em;
     font-size: 2vh;
 }
 .EnvioGratis{
-    color: #00A650;
+    color: #00A650 !important;
     font-size: 2.5vh !important;
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 /* Stock, price, buy, add cart */
 
 .Detail_CountPrice{
     display: flex;
-    height:200px;
+    height:150px;
     width: 70%;
     align-items: center;
     justify-content: space-evenly;
@@ -123,10 +124,80 @@ letter-spacing: 0.04em;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .Detail_Description_Detail{
+    padding: 3vh;
     width: 60%;   
 }
+.userData{
+    display: flex;
+    justify-content: space-evenly;
+    align-content:flex-start;
+    align-items: flex-end;
+}
+.userData h1{
+    color: #000000;
+    margin: 0;
+    text-decoration: underline 2px !important;
+}
+.userData h2{
+    color: #00A650;
+    margin: 0;
+}
+.userData img{
+    width: 40px;
+}
+.Detail_Description_Detail h2 {
+    font-weight: 300;
+    font-size: 4vh;
+
+}
+.Detail_Description_Detail p {
+    margin-top: 4vh;
+    width: 70%;
+    line-height: 5vh;
+    font-weight: 400;
+    font-size: 2vh;
+}
 .Detail_Description_payment{
-    border-left: rgb(125, 124, 124) 1px solid;
+    border-left: rgba(125, 124, 124, 0.531) 1px solid;
     margin:0 auto;
     width: 30%;
+    padding: 3vh;
+    display: flex;
+    flex-direction: column;
+}
+.Payment_methods{
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.Payment_methods div{
+    margin: 1.5vh 0;
+}
+.Payment_methods div img{
+    margin: 0 1vh;
+}
+
+/* Preguntas y Respuestas */
+
+.PyR_container{
+    padding: 3vh;
+    border-radius: 15px;
+    width: 70%;
+    background: #ffffff77;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 5vh auto;
+}
+.PyR_content{
+    margin:3vh 0;
+}
+.PyR_content_Pregunta{
+    color: grey;
+    font-size: 2.5vh;
+}
+
+.PyR_content_Respuesta{ 
+    color: black;
+    font-size: 2.8vh;
+    margin-left: 3vh;
 }

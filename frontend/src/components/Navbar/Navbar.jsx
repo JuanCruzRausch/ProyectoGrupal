@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button  } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
-import {Navbarc,cartIMG } from './Navbar.module.css'
+import {Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
 function NavbarComponent() {
   
@@ -19,7 +19,7 @@ function NavbarComponent() {
   return (
     <Navbar className={Navbarc} expand="lg" >
       <Container fluid >
-        <Navbar.Brand href="#">Minimal Store</Navbar.Brand>
+        <Navbar.Brand href="/">Minimal Store</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -31,7 +31,9 @@ function NavbarComponent() {
               {
                 categories.map(category=>{
                   return(
-                    <NavDropdown.Item key={category.id} onClick={e => handleOnSelectCategory(e)} href="#">{category.name}</NavDropdown.Item>
+                    <NavDropdown.Item key={category.id} className={DropdownA}
+                    onClick={e => handleOnSelectCategory(e)} href="#">{category.name}
+                    </NavDropdown.Item>
                   )
                 }) 
               }
