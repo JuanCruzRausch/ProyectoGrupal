@@ -16,7 +16,6 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
-    console.log(search)
     dispatch(BuscarProducto(search))
   }
 
@@ -63,7 +62,7 @@ function NavbarComponent() {
               className="me-2"
               aria-label="Search"
               onChange={(e) => searchOnChange(e)} />
-            <Button variant="outline-success">Buscar</Button>
+            <Button type="submit" variant="outline-success">Buscar</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
