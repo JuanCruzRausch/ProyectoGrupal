@@ -9,6 +9,7 @@ import {
 } from '../actions/index';
 
 const initialState = {
+  allProductCache: [...products],
   Allproduct: [...products],
   FilterProducts: [...products],
   categories,
@@ -32,13 +33,9 @@ function reducer(state = initialState, { type, payload }) {
     case GET_PRODUCT: 
     return{
       ...state,
-      Allproduct: state.Allproduct.filter(e => e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase()))
+      Allproduct: state.allProductCache.filter(e => e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase()))
     }
-    // case GET_CATEGORIES:
-    //   return {
-    //     ...state,
-    //     categories: payload,
-    //   }
+
     case ORDENADO:
       let sortArray = [...state.Allproduct];
 
