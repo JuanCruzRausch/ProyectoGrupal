@@ -35,27 +35,21 @@ exports.post = async (req, res, next) => {
   }
 };
 
+exports.getAllPublications = catchAsync(async (req, res, next) => {
+  const limit = parseInt(req.query.limit, 10) || 20;
+  const page = parseInt(req.query.page, 10) || 1;
+  const publications = await Publication.paginate({}, {limit, page});
 
-exports.getAllPublications = (req, res) => {
-  Publication.find({}, function (err, publications) {
-    User.populate(
-      Dev
-      publications,
-      { path: 'seller' },
-      function (err, publications) {
-        Category.populate(
-          publications,
-          { path: 'category' },
-          function (err, publications) {
-            res.status(200).json({
-              status: 'success',
-              data: {
-                publications,
-              },
-            });
-          }
-        );
-      }
+  if (!publications) {
+    return next(
+      new AppError('There are no publications saved on the Data Base.', 404)
     );
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      publications,
+    },
   });
-};
+});
