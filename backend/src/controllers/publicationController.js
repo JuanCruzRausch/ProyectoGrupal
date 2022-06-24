@@ -36,7 +36,7 @@ exports.post = async (req, res, next) => {
 };
 
 
-exports.getAllPublications = (req, res) => {
+/* exports.getAllPublications = (req, res) => {
   Publication.find({}, function (err, publications) {
     User.populate(
       Dev,
@@ -59,3 +59,4 @@ exports.getAllPublications = (req, res) => {
     );
   });
 };
+*/
