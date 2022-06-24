@@ -20,7 +20,7 @@ function NavbarComponent() {
     dispatch(BuscarProducto(search))
   }
 
-  const searchOnChange = (e) => {
+  function searchOnChange(e) {
     setSearch(e.target.value)
   }
 
