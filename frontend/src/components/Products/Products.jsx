@@ -29,7 +29,7 @@ function Products() {
               image={e.image}
               name={e.title}
               price={e.price}
-              id= {e.id}
+              id= {e._id}
             />
           ))}
         </span>
