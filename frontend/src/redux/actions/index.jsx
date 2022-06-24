@@ -3,6 +3,7 @@ export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY';
 export const ORDENADO = 'ORDENADO';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 import products from '../../components/Json/data';
 // import categorias from '../../components/Json/Categorias'
 
@@ -21,7 +22,13 @@ export function getProductByCategory(payload) {
       payload
   };
 }
-
+export function GetProductById(id){
+  console.log(id);
+  return{
+    type: GET_PRODUCT_BY_ID,
+    payload: id,
+  }
+}
 // export function getAllCategory(payload) {
 //   return (dispatch) => {
 //     dispatch({

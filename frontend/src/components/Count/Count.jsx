@@ -7,7 +7,7 @@ import {Count,Counterstock,Counter,counterbutton} from './Count.module.css'
        <div className={Count}>
         <div className={Counter}>
            {
-             count < stock? <button className={counterbutton} onClick={() => onAdd(count+1, price+=price)}><h1>+</h1></button> : <button className={counterbutton} onClick={() => onAdd(count+1) }disabled><h1>+</h1></button>
+             count < stock? <button className={counterbutton} onClick={() => onAdd(count+1)}><h1>+</h1></button> : <button className={counterbutton} onClick={() => onAdd(count+1) }disabled><h1>+</h1></button>
             }
            <h1>{count}</h1>
            {
@@ -16,7 +16,6 @@ import {Count,Counterstock,Counter,counterbutton} from './Count.module.css'
           </div>
           <div className={Counterstock}>
            <h2>stock disponible<br />{stock}</h2>
-           <h2>{price}</h2>
           </div>
        </div>
      )
