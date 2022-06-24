@@ -39,7 +39,7 @@ exports.post = async (req, res, next) => {
 exports.getAllPublications = (req, res) => {
   Publication.find({}, function (err, publications) {
     User.populate(
-      Dev
+      Dev,
       publications,
       { path: 'seller' },
       function (err, publications) {
