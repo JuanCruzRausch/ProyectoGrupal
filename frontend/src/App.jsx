@@ -10,8 +10,8 @@ import Perfil from './components/Perfil/Perfil';
 function App() {
   return (
     <div className={app}>
-      <NavbarComponent />
       <BrowserRouter>
+        <NavbarComponent />
         <Routes>
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/signin" element={<SigninScreen />} />

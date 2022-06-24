@@ -1,12 +1,20 @@
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
-import {Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
+import { Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
-import {useState} from "react"
+import { useState } from 'react'
+import { scrollToProducts } from '../variablesGlobales'
 
 function NavbarComponent() {
+
+  let navigate = useNavigate()
+  //las siguiente tres líneas aún no tienen uso, estoy tratanodo de hacer un autocompletado en el serchbar con ellas
+  let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
+  const [display, setDisplay] = useState([...productsCache])
+  const [displayFlag, setDisplayFlag] = useState(false)
 
   const [search, setSearch] = useState("")
   const dispatch = useDispatch()
@@ -16,17 +24,24 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
-    console.log(search)
+    navigate("/")
+    window.scrollTo(0, scrollToProducts)
     dispatch(BuscarProducto(search))
   }
 
-  const searchOnChange = (e) => {
+  function searchOnChange(e) {
     setSearch(e.target.value)
+    setDisplay([...productsCache])
+    setDisplay([...productsCache.filter(e => e.toLocaleLowerCase().includes(search.toLocaleLowerCase()))])
+    e.target.value && setDisplayFlag(true)
+    !e.target.value && setDisplayFlag(false)
   }
 
   const handleOnSelectCategory = (e) => {
+    navigate("/")
     e.preventDefault()
     dispatch(getProductByCategory(e.target.innerText))
+    window.scrollTo(0, scrollToProducts)
   }
 
 
@@ -52,7 +67,7 @@ function NavbarComponent() {
                 }) 
               }
             </NavDropdown>
-            <Nav.Link href="/">Inicio</Nav.Link>
+            <Nav.Link href="/">Ofertas</Nav.Link>
             <Nav.Link href="#action2">Mi perfil</Nav.Link>
             <img className={cartIMG} src={cart} alt="cart"/>
           </Nav>

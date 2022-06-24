@@ -2,7 +2,8 @@ import { ordenado } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
-import {SortContainer} from './Sort.module.css'
+import {SortContainer} from './Sort.module.css';
+import { scrollToProducts } from '../variablesGlobales';
 export default function Sort() {
   const [order, setOrder] = useState('');
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Sort() {
     e.preventDefault();
     dispatch(ordenado(e.target.value));
     setOrder(`Ordenado ${e.target.value}`);
+    window.scrollTo(0, scrollToProducts)
   };
 
   return (

@@ -17,6 +17,7 @@ import cart from '../../assets/img/cart.png'
 import gps from '../../assets/img/gps.png'
 import user from '../../assets/img/user.png'
 import {Detail_container, Detail_Links, Detail_Item,Detail_CountPrice,Detail_Item_image, Detail_Item_text,Item_text_stock, CountPrice_AddCart,EnvioGratis,Detail_Description,ButtonCompra, Detail_Description_Detail, Detail_Description_payment,userData,Payment_methods, PyR_container,PyR_content, PyR_content_Pregunta, PyR_content_Respuesta} from './ProductDetail.module.css'
+import { scrollToProducts } from '../variablesGlobales';
 
 function ProductDetail() {
     const [count, setcount] = useState(0)
@@ -33,7 +34,7 @@ function ProductDetail() {
   return (
     <div className={Detail_container}>
         <div className={Detail_Links}>
-            <Link to="/">
+            <Link to="/" onClick={()=> window.scrollTo(0, scrollToProducts)}>
                 <button>
                     Atras
                 </button>

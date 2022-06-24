@@ -2,11 +2,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { subtitle, container } from './Filter.module.css'
 import { getProductByCategory } from '../../redux/actions'
 import { useState, useEffect } from 'react'
+import { scrollToProducts } from '../variablesGlobales'
 // import { useEffect } from 'react'
 
 const Filter = (props) => {
     const [categories, setCategories] = useState([...(useSelector(state => state.categories)).map(category => {return {...category, count:0}})])
-    
     const dispatch = useDispatch()
     const products = useSelector(state=>state.Allproduct)
 
@@ -26,6 +26,7 @@ const Filter = (props) => {
     const handleOnSelectCategory = (e) => {
         e.preventDefault()
         dispatch(getProductByCategory(e.target.innerText))
+        window.scrollTo(0, scrollToProducts)
       }
     
     return (
@@ -40,7 +41,7 @@ const Filter = (props) => {
                             <a onClick={(e)=>handleOnSelectCategory(e)} href='#'>
                                 {category.name} 
                             </a>
-                            <a onClick={(e)=>handleOnSelectCategory(e)} href="#">
+                            <a onClick={(e)=>e.preventDefault()} href="#">
                                 ({category.count})
                             </a>
                         </div>
