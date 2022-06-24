@@ -63,8 +63,8 @@ function ProductDetail() {
             </div>
         </div>
         <div className={Detail_CountPrice}>
-            <Count onAdd={setcount} count={count} stock={RES[0].stock} price={RES[0].price} />
             <h1>${RES[0].price}</h1>
+            <Count onAdd={setcount} count={count} stock={RES[0].stock} price={RES[0].price} />
             <button className={ButtonCompra}>Comprar</button>
             <button className={CountPrice_AddCart}><img src={cart}/></button>
         </div>

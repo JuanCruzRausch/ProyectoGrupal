@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <NavbarComponent />
         <Routes>
-          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/editar" element={<Perfil />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/:_id" element={<ProductDetail />} />

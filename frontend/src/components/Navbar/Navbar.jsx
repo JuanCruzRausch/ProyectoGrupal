@@ -67,8 +67,8 @@ function NavbarComponent() {
                 }) 
               }
             </NavDropdown>
-            <Nav.Link href="/">Ofertas</Nav.Link>
-            <Nav.Link href="#action2">Mi perfil</Nav.Link>
+            <Nav.Link href="/signin">Iniciar sesion</Nav.Link>
+            <Nav.Link href="/perfil/editar">Mi perfil</Nav.Link>
             <img className={cartIMG} src={cart} alt="cart"/>
           </Nav>
           <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
