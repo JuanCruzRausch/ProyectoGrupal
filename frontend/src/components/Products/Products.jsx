@@ -23,7 +23,7 @@ function Products() {
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} />
         <span className={Cards_Container}>
-          {Products.map((e,i) => (
+          {Products.filter((e,i)=>i<=20).map((e,i) => (
             <SingleProduct
               key={i}
               image={e.image}
