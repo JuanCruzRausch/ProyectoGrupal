@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,7 +10,7 @@ import { scrollToProducts } from '../variablesGlobales'
 
 function NavbarComponent() {
 
-  
+  let navigate = useNavigate()
   let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
   const [display, setDisplay] = useState([...productsCache])
   const [displayFlag, setDisplayFlag] = useState(false)
@@ -34,6 +35,7 @@ function NavbarComponent() {
   }
 
   const handleOnSelectCategory = (e) => {
+    navigate("/")
     e.preventDefault()
     dispatch(getProductByCategory(e.target.innerText))
     window.scrollTo(0, scrollToProducts)

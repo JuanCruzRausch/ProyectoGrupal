@@ -5,13 +5,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import SignupScreen from './components/SignupScreen/SignupScreen';
 import SigninScreen from './components/SigninScreen/SigninScreen';
+import Perfil from './components/Perfil/Perfil';
 
 function App() {
   return (
     <div className={app}>
-      <NavbarComponent />
       <BrowserRouter>
+        <NavbarComponent />
         <Routes>
+          <Route path="/perfil" element={<Perfil />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/:id" element={<ProductDetail />} />

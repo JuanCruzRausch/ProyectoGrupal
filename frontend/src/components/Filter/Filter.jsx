@@ -7,7 +7,6 @@ import { scrollToProducts } from '../variablesGlobales'
 
 const Filter = (props) => {
     const [categories, setCategories] = useState([...(useSelector(state => state.categories)).map(category => {return {...category, count:0}})])
-    
     const dispatch = useDispatch()
     const products = useSelector(state=>state.Allproduct)
 
@@ -27,7 +26,7 @@ const Filter = (props) => {
     const handleOnSelectCategory = (e) => {
         e.preventDefault()
         dispatch(getProductByCategory(e.target.innerText))
-        window.scrollTo(0, 650)
+        window.scrollTo(0, scrollToProducts)
       }
     
     return (
