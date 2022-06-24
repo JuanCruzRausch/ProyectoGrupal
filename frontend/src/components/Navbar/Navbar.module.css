@@ -4,13 +4,16 @@
 .Navbarc{
     background-color: #fbcb0b;
     padding: 4vh;
-    height: 10vh;
     display: flex !important;
     justify-content: space-around !important;
 }
 .Navbarc a {
     margin: auto 5vh;
     color: rgb(0, 0, 0) !important;
+}
+.DropdownA{
+    background: rgba(0, 0, 0, 0);
+    margin: auto !important;
 }
 .Navbarc input{
     background-color: rgba(227, 227, 227, 0.705);
