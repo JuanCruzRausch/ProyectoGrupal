@@ -8,6 +8,7 @@ import { useState } from 'react'
 
 function NavbarComponent() {
 
+  
   let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
   const [display, setDisplay] = useState([...productsCache])
   const [displayFlag, setDisplayFlag] = useState(false)
