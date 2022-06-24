@@ -52,7 +52,7 @@ function NavbarComponent() {
                 }) 
               }
             </NavDropdown>
-            <Nav.Link href="/">Incio</Nav.Link>
+            <Nav.Link href="/">Inicio</Nav.Link>
             <Nav.Link href="#action2">Mi perfil</Nav.Link>
             <img className={cartIMG} src={cart} alt="cart"/>
           </Nav>
@@ -63,7 +63,7 @@ function NavbarComponent() {
               className="me-2"
               aria-label="Search"
               onChange={(e) => searchOnChange(e)} />
-            <Button variant="outline-success">Buscar</Button>
+            <Button type="submit" variant="outline-success">Buscar</Button>
           </Form>
         </Navbar.Collapse>
       </Container>

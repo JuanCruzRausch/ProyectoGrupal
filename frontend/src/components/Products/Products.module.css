@@ -4,6 +4,7 @@
     display: inline;
 }
 .Cards_Container{
+    height: max-content;
     width:80%;
     margin: 3vh auto;
     display: flex;
