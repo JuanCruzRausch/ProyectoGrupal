@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
 import {Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
+import {useState} from "react"
 
 function NavbarComponent() {
 
+  const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
 
@@ -20,10 +22,6 @@ function NavbarComponent() {
 
   const searchOnChange = (e) => {
     setSearch(e.target.value)
-    setDisplay([...productsCache])
-    setDisplay([...productsCache.filter(e => e.toLocaleLowerCase().includes(search.toLocaleLowerCase()))])
-    e.target.value && setDisplayFlag(true)
-    !e.target.value && setDisplayFlag(false)
   }
 
   const handleOnSelectCategory = (e) => {
