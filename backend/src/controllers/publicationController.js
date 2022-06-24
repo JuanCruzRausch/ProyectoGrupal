@@ -35,19 +35,25 @@ exports.post = async (req, res, next) => {
   }
 };
 
-exports.getAllPublications = catchAsync(async (req, res, next) => {
-  const publications = await Publication.find();
-
-  if (!publications) {
-    return next(
-      new AppError('There are no publications saved on the Data Base.', 404)
-    );
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
+exports.getAllPublications = (req, res) => {
+  Publication.find({}, function (err, publications) {
+    User.populate(
       publications,
-    },
+      { path: 'seller' },
+      function (err, publications) {
+        Category.populate(
+          publications,
+          { path: 'category' },
+          function (err, publications) {
+            res.status(200).json({
+              status: 'success',
+              data: {
+                publications,
+              },
+            });
+          }
+        );
+      }
+    );
   });
-});
+};
