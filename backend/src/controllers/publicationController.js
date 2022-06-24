@@ -36,6 +36,8 @@ exports.post = async (req, res, next) => {
 };
 
 exports.getAllPublications = (req, res) => {
+  let limit = req.query.limit * 1 || 20;
+  let page = req.query.page * 1 || 1;
   Publication.find({}, function (err, publications) {
     User.populate(
       publications,
@@ -45,10 +47,16 @@ exports.getAllPublications = (req, res) => {
           publications,
           { path: 'category' },
           function (err, publications) {
+            let pubs = publications.slice((page - 1) * limit, page * limit);
             res.status(200).json({
               status: 'success',
               data: {
-                publications,
+                publications_total: publications.length,
+                publications_per_page: pubs.length,
+                nextPage:
+                  publications.length / limit < page + 1 ? null : page + 1,
+                prevPage: page - 1 < 1 ? null : page - 1,
+                publications: pubs,
               },
             });
           }
