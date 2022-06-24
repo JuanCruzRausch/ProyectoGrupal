@@ -65,3 +65,4 @@ exports.getAllPublications = (req, res) => {
     );
   });
 };
+

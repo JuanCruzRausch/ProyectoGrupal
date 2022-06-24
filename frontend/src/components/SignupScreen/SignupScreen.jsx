@@ -30,11 +30,11 @@ export default function SignupScreen() {
             <Form.Control type="password" required />
           </Form.Group>
           <div className="mb-3">
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">Crear Cuenta</Button>
           </div>
           <div className="mb-3">
-            Already have an account?{' '}
-            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+            Ya tienes cuenta?{' '}
+            <Link to={`/signin?redirect=${redirect}`}>Inicia sesión</Link>
           </div>
         </Form>
       </div>

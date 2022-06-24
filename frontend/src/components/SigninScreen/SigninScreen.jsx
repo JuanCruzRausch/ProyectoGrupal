@@ -10,7 +10,7 @@ export default function SigninScreen() {
   return (
     <Container className={Small_Container}>
       <div className={Form_Div}>
-        <h1 className="my-3">Sign In</h1>
+        <h1 className="my-3">Iniciar sesion</h1>
         <Form>
           <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email</Form.Label>
@@ -21,11 +21,10 @@ export default function SigninScreen() {
             <Form.Control type="password" required />
           </Form.Group>
           <div className="mb-3">
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Iniciar sesion</Button>
           </div>
           <div className="mb-3">
-            New customer?{' '}
-            <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+            <Link to={`/signup?redirect=${redirect}`}>Crear cuenta nueva</Link>
           </div>
         </Form>
       </div>

@@ -10,7 +10,7 @@ import Carousell from '../Carousel/Carousel';
 
 function Products() {
   const dispatch = useDispatch();
-  const Products = useSelector((state) => state.Allproduct);
+  const productos = useSelector((state) => state.Allproduct);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -23,13 +23,13 @@ function Products() {
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} />
         <span className={Cards_Container}>
-          {Products.filter((e,i)=>i<=20).map((e,i) => (
+          {productos.map((e,i) => (
             <SingleProduct
               key={i}
               image={e.image}
               name={e.title}
               price={e.price}
-              id= {e.id}
+              id= {e._id}
             />
           ))}
         </span>
