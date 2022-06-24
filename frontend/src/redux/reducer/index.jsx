@@ -2,6 +2,7 @@ import products from '../../components/Json/data';
 import categories from '../../components/Json/categories'
 import {
   GET_ALL_PRODUCTS,
+  GET_PRODUCT_BY_ID,
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
   // GET_CATEGORIES,
@@ -12,6 +13,7 @@ const initialState = {
   allProductCache: [...products],
   Allproduct: [...products],
   FilterProducts: [...products],
+  Detail:[],
   categories,
 };
 
@@ -28,6 +30,7 @@ function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         Allproduct: payload,
+        Detail: payload,
       };
     }
     case GET_PRODUCT: 
@@ -35,7 +38,11 @@ function reducer(state = initialState, { type, payload }) {
       ...state,
       Allproduct: state.allProductCache.filter(e => e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase()))
     }
-
+    case GET_PRODUCT_BY_ID:
+      return{
+        ...state,
+        Detail: payload,
+      }
     case ORDENADO:
       let sortArray = [...state.Allproduct];
 
