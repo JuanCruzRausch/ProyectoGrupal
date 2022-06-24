@@ -36,7 +36,9 @@ exports.post = async (req, res, next) => {
 };
 
 exports.getAllPublications = catchAsync(async (req, res, next) => {
-  const publications = await Publication.find();
+  const limit = parseInt(req.query.limit, 10) || 20;
+  const page = parseInt(req.query.page, 10) || 1;
+  const publications = await Publication.paginate({}, {limit, page});
 
   if (!publications) {
     return next(

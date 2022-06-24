@@ -1,5 +1,6 @@
 const {Schema, model} = require("mongoose");
 const validator = require("validator");
+const mongoosePaginate = require("mongoose-paginate-v2")
 
 const publicationSchema = new Schema({
   title: {
@@ -80,6 +81,9 @@ const publicationSchema = new Schema({
   },
 });
 
+publicationSchema.plugin(mongoosePaginate)
+
 const Publication = model("Publication", publicationSchema);
+
 
 module.exports = Publication;
