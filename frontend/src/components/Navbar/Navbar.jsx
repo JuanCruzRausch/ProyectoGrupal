@@ -11,9 +11,11 @@ import { scrollToProducts } from '../variablesGlobales'
 function NavbarComponent() {
 
   let navigate = useNavigate()
+  //las siguiente tres líneas aún no tienen uso, estoy tratanodo de hacer un autocompletado en el serchbar con ellas
   let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
   const [display, setDisplay] = useState([...productsCache])
   const [displayFlag, setDisplayFlag] = useState(false)
+
   const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
@@ -22,6 +24,7 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
+    navigate("/")
     window.scrollTo(0, scrollToProducts)
     dispatch(BuscarProducto(search))
   }

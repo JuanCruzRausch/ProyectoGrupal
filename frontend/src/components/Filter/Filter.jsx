@@ -41,7 +41,7 @@ const Filter = (props) => {
                             <a onClick={(e)=>handleOnSelectCategory(e)} href='#'>
                                 {category.name} 
                             </a>
-                            <a onClick={(e)=>handleOnSelectCategory(e)} href="#">
+                            <a onClick={(e)=>e.preventDefault()} href="#">
                                 ({category.count})
                             </a>
                         </div>
