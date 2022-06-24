@@ -22,7 +22,7 @@ export default function Sort() {
       <Form.Select  onChange={(e) => handleChange(e)}>
         {/* <option value="High to Low Price">mayor precio</option>
           <option value="Low to High Price">menor precio</option> */}
-        <option value="" defaultValue>Seleccionar uno</option>
+        <option value="" defaultValue>Ordena por</option>
         <option value="A-Z">A-Z</option>
         <option value="Z-A">Z-A</option>
         <option value="High to Low">Mayor precio</option>
