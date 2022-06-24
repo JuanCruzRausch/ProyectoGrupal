@@ -1,7 +1,8 @@
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductByCategory, BuscarProducto } from "../../redux/actions"
+import { getProductByCategory, BuscarProducto, Navbarc, cartIMG } from "../../redux/actions"
+import cart from '../../assets/img/cartICON.png'
 import { Navbarc, Autocomplete } from './Navbar.module.css'
 import { useState } from 'react'
 
@@ -38,15 +39,14 @@ function NavbarComponent() {
 
   return (
     <div>
-
       <Navbar className={Navbarc} expand="lg" >
         <Container fluid >
-          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+          <Navbar.Brand href="#">Minimal Store</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
+
               navbarScroll
             >
               <NavDropdown title="Categorías" id="navbarScrollingDropdown"  >
@@ -57,16 +57,12 @@ function NavbarComponent() {
                     )
                   })
                 }
-
               </NavDropdown>
-              <Nav.Link href="#action1">Home</Nav.Link>
-              <Nav.Link href="#action2">Link</Nav.Link>
-              <Nav.Link href="#" disabled>
-                Link
-              </Nav.Link>
+              <Nav.Link href="/">Incio</Nav.Link>
+              <Nav.Link href="#action2">Mi perfil</Nav.Link>
+              <img className={cartIMG} src={cart} alt="cart" />
             </Nav>
             <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
-
               <FormControl
                 onClick={() => !search && setDisplayFlag(!displayFlag) && searchOnChange()}
                 type="search"

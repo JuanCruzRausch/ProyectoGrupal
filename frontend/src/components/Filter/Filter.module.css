@@ -1,8 +1,10 @@
 .subtitle{
     font-weight: 700;
+    font-size: 4vh;
+    margin-bottom: 2vh;
 }
 .container{
    display: flex;
     width: 20%;
-    
+    line-height: 4vh;
 }

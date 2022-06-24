@@ -1,11 +1,11 @@
-const fs = require("fs");
-const axios = require("axios");
+const fs = require('fs');
+const axios = require('axios');
 
 const getData = async (cant) => {
   try {
-    console.log("Starting the task...");
+    console.log('Starting the task...');
     const dataApiCat = await axios.get(
-      "https://api.mercadolibre.com/sites/MLA/categories"
+      'https://api.mercadolibre.com/sites/MLA/categories'
     );
 
     let prodArr = [];
@@ -122,15 +122,15 @@ const getData = async (cant) => {
         prodArr.push(product);
       }
       if (j === 15) {
-        console.log("Task half done...");
+        console.log('Task half done...');
       } else if (j === 25) {
-        console.log("Task almost done...");
+        console.log('Task almost done...');
       }
     }
-    fs.writeFile("./data.json", JSON.stringify(prodArr), (err) => {
+    fs.writeFile('./data.json', JSON.stringify(prodArr), (err) => {
       if (err) console.log(err);
       else {
-        console.log("File written successfully");
+        console.log('File written successfully');
       }
     });
   } catch (e) {
