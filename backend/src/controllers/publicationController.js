@@ -42,14 +42,11 @@ exports.getAllPublications = catchAsync(async (req, res, next) => {
 
   if (!publications) {
     return next(
-      new AppError('There are no publications saved on the Data Base.', 404)
-    );
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      publications,
-    },
-  });
+      new AppError('There are no publications saved on the Data Base.', 404))
+      }
+   res.status(200).json({
+      status: 'success',
+      data: {publications}
+    })
 });
+

@@ -30,7 +30,7 @@ function ProductDetail() {
         dispatch(getAllProducts())
     },[])
 
-    const RES = State?.filter(e => e.id === (params.id))
+    const RES = State?.filter(e => e._id === (params._id))
   return (
     <div className={Detail_container}>
         <div className={Detail_Links}>
@@ -39,7 +39,7 @@ function ProductDetail() {
                     Atras
                 </button>
             </Link>
-            <h2>{RES[0].category}</h2>
+            <h2>{RES[0].category.name}</h2>
         </div>
         <div className={Detail_Item}>
             <div className={Detail_Item_image}>
