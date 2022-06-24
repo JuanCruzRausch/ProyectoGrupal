@@ -1,4 +1,6 @@
-
+.Autocomplete{
+    display: absolute;
+}
 .Navbarc{
     background-color: #fbcb0b;
     padding: 4vh;
