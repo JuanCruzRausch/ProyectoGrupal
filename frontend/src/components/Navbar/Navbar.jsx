@@ -16,7 +16,6 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
-    console.log(search)
     dispatch(BuscarProducto(search))
   }
 
