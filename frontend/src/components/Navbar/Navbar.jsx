@@ -6,16 +6,14 @@ import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
 import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
 import { useState } from 'react'
-import { scrollToProducts } from '../variablesGlobales'
 
-function NavbarComponent() {
+function NavbarComponent(props) {
 
   let navigate = useNavigate()
-  //las siguiente tres líneas aún no tienen uso, estoy tratanodo de hacer un autocompletado en el serchbar con ellas
+
   let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
   const [display, setDisplay] = useState([...productsCache])
   const [displayFlag, setDisplayFlag] = useState(false)
-
   const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
@@ -24,8 +22,8 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
+    props.scrollTo()
     navigate("/")
-    window.scrollTo(0, scrollToProducts)
     dispatch(BuscarProducto(search))
   }
 
@@ -38,9 +36,9 @@ function NavbarComponent() {
   }
 
   const handleOnSelectCategory = (e) => {
-    window.scrollTo(0, scrollToProducts)
-    navigate("/")
     e.preventDefault()
+    props.scrollTo()
+    navigate("/")
     dispatch(getProductByCategory(e.target.innerText))
     
   }
