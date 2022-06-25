@@ -13,6 +13,7 @@ const initialState = {
   Allproduct: [],
   FilterProducts: [],
   Detail:[],
+  pagina: 1,
   categories,
 };
 
