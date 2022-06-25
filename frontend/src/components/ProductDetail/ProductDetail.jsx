@@ -23,20 +23,18 @@ import { scrollToProducts } from '../variablesGlobales';
 function ProductDetail() {
     const [count, setcount] = useState(0)
     const params = useParams()
-    const dispatch = useDispatch();
     const State = useSelector(state => state.Allproduct)
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-        dispatch(getAllProducts())
     },[])
 
     const RES = State?.filter(e => e._id === (params._id))
 
-    const [imgs, setimgs] = useState(RES[0].image)
+    const [imgs, setimgs] = useState(RES[0]?.image)
 
     const handleSelect = (index) =>{
-      setimgs(RES[0].pictures[index])
+      setimgs(RES[0]?.pictures[index])
   }
     
   return (
@@ -48,47 +46,47 @@ function ProductDetail() {
                     Atras
                 </button>
             </Link>
-            <h2>{RES[0].category.name}</h2>
+            <h2>{RES[0]?.category.name}</h2>
         </div>
         <div className={Detail_Item}>
             <div className={Detail_Item_image}>
                 <div className={Detail_Item_pictures}>
                 {
-                    RES[0].pictures?.map((e,i)=> <img key={e.id} onClick={()=> handleSelect(i)} src={e} />)
+                    RES[0]?.pictures?.map((e,i)=> <img key={e.id} onClick={()=> handleSelect(i)} src={e} />)
                 }
                 </div>
-            <img className={SelectedImg} src={imgs} alt={RES[0].title}/>
+            <img className={SelectedImg} src={imgs} alt={RES[0]?.title}/>
             </div>
             <div className={Detail_Item_text}>
-                <h1>{RES[0].title}</h1>
+                <h1>{RES[0]?.title}</h1>
 
-                {RES[0].stock ? 
+                {RES[0]?.stock ? 
                 <h2 className={Item_text_stock}>En stock</h2> : null}
 
                 <h2><img src={gps} /><span>Ubicación</span> <br />
-                {RES[0].province}</h2>
+                {RES[0]?.province}</h2>
 
-                {RES[0].freeShipping === true ?
+                {RES[0]?.freeShipping === true ?
                  <h2 className={EnvioGratis}>envio gratis</h2> : null}
 
                 <h2><span>condición:</span> <br/>
-                {RES[0].condition === "new" ? "nuevo" : "usado"}</h2>
+                {RES[0]?.condition === "new" ? "nuevo" : "usado"}</h2>
 
             </div>
         </div>
         <div className={Detail_CountPrice}>
-            <h1>${RES[0].price}</h1>
-            <Count onAdd={setcount} count={count} stock={RES[0].stock} price={RES[0].price} />
+            <h1>${RES[0]?.price}</h1>
+            <Count onAdd={setcount} count={count} stock={RES[0]?.stock} price={RES[0]?.price} />
             <button className={ButtonCompra}>Comprar</button>
             <button className={CountPrice_AddCart}><img src={cart}/></button>
         </div>
         <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
-        {RES[0].seller? 
+        {RES[0]?.seller? 
         <div className={userData}>
             <img src={user}/>
-            <h1>{RES[0].seller.name}</h1>
-            <h2>{RES[0].seller.reputation?.status}
+            <h1>{RES[0]?.seller.name}</h1>
+            <h2>{RES[0]?.seller.reputation?.status}
             </h2>
         </div> : null }
         <hr/>
