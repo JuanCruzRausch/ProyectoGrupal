@@ -11,7 +11,7 @@ export const SET_PAGE = 'SET_PAGE'
 
 export function getAllProducts(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page )
+    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
@@ -20,7 +20,7 @@ export function getAllProducts(page) {
 
 export function getPaginate(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page)
+    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }

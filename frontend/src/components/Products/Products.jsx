@@ -5,7 +5,7 @@ import { getAllProducts, getPaginate, ordenado, setActive } from '../../redux/ac
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter'
-import { Products_Container, Cards_Container, Filter_Container, Cards_Filter_Container } from './Products.module.css';
+import { Products_Container, Cards_Container, Filter_Container, Cards_Filter_Container,Products_Paginate } from './Products.module.css';
 import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -13,6 +13,7 @@ function Products({ refElement, scrollTo }) {
   const dispatch = useDispatch(); 
   const productos = useSelector((state) => state.Allproduct);
   let Active = useSelector(state=> state.pagina)
+
   useEffect(() => {
     dispatch(getAllProducts(Active));
     dispatch(ordenado());
@@ -39,7 +40,7 @@ const handleGetProducts = (pagina) =>{
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} scrollTo={scrollTo} />
         <span className={Cards_Container}>
-          {productos.map((e,i) => (
+          {productos.filter((e,i)=> {return i<=15*Active && i>=15*(Active-1)} ).map((e,i) => (
             <SingleProduct
               key={i}
               image={e.thumbnail}
@@ -50,8 +51,8 @@ const handleGetProducts = (pagina) =>{
           ))}
         </span>
       </div> 
-      <div>
-      <Pagination>
+      <div className={Products_Paginate}>
+      <Pagination size="lg">
         {items}
         </Pagination>
       </div>

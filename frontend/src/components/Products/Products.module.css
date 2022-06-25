@@ -3,6 +3,18 @@
     width: 15%;
    
 }
+.Products_Paginate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Products_Paginate ul li span{
+    border: none;
+    text-align: center;
+}
+
 @media (max-width: 700px){
    
 }
