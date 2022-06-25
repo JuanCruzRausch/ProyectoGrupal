@@ -25,8 +25,8 @@ const Filter = (props) => {
     
     const handleOnSelectCategory = (e) => {
         e.preventDefault()
-        dispatch(getProductByCategory(e.target.innerText))
         window.scrollTo(0, scrollToProducts)
+        dispatch(getProductByCategory(e.target.innerText))
       }
     
     return (

@@ -1,3 +1,7 @@
+.datalist{
+    margin-right: 1vh;
+    border-radius: 5px;
+}
 .Autocomplete{
     display: absolute;
 }
