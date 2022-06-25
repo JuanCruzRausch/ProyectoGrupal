@@ -35,18 +35,34 @@ exports.post = async (req, res, next) => {
   }
 };
 
-exports.getAllPublications = catchAsync(async (req, res, next) => {
-  const limit = parseInt(req.query.limit, 10) || 20;
-  const page = parseInt(req.query.page, 10) || 1;
-  const publications = await Publication.paginate({}, {limit, page});
-
-  if (!publications) {
-    return next(
-      new AppError('There are no publications saved on the Data Base.', 404))
+exports.getAllPublications = (req, res) => {
+  let limit = req.query.limit * 1 || 20;
+  let page = req.query.page * 1 || 1;
+  Publication.find({}, function (err, publications) {
+    User.populate(
+      publications,
+      { path: 'seller' },
+      function (err, publications) {
+        Category.populate(
+          publications,
+          { path: 'category' },
+          function (err, publications) {
+            let pubs = publications.slice((page - 1) * limit, page * limit);
+            res.status(200).json({
+              status: 'success',
+              data: {
+                publications_total: publications.length,
+                publications_per_page: pubs.length,
+                nextPage:
+                  publications.length / limit < page + 1 ? null : page + 1,
+                prevPage: page - 1 < 1 ? null : page - 1,
+                publications: pubs,
+              },
+            });
+          }
+        );
       }
-   res.status(200).json({
-      status: 'success',
-      data: {publications}
-    })
-});
+    );
+  });
+};
 
