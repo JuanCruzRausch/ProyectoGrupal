@@ -19,7 +19,7 @@ function Products({ refElement, scrollTo }) {
   return (
     <div className={Products_Container}>
       <Carousell />
-      <Sort ref={refElement}/> 
+      <Sort ref={refElement} scrollTo={scrollTo}/> 
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} scrollTo={scrollTo} />
         <span className={Cards_Container}>

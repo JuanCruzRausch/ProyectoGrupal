@@ -2,7 +2,8 @@
     text-decoration: none !important;
 }
 .SingleProduct_container{
-    width: 85%;
+    min-width: 400px;
+    width: 100%;
     height: 190px;
     border-radius: 15px;
     margin: 2vh ;
@@ -12,8 +13,11 @@
     align-self: flex-end;
 }
 
+
 .SingleProduct_img img{
-    height: 190px;
+    width: 18vh;
+    height: auto;
+    max-height: 190px;
     object-fit: cover;
     margin: auto;
     border-radius: 12px;

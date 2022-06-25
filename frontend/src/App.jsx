@@ -11,7 +11,6 @@ import { useRef } from 'react'
 function App() {
   const scrollTo = useRef()
   const scrollToSort = () =>{
-    console.log(scrollTo)
     scrollTo.current.scrollIntoView()
   }
   return (

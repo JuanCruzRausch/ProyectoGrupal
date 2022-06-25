@@ -16,7 +16,7 @@ const Sort= React.forwardRef((props, ref) => {
     e.preventDefault();
     dispatch(ordenado(e.target.value));
     setOrder(`Ordenado ${e.target.value}`);
-    window.scrollTo(0, scrollToProducts)
+    props.scrollTo()
   };
 
   return (

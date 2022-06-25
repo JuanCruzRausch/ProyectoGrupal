@@ -1,3 +1,6 @@
+.categoryItem{
+    display: block;
+}
 .subtitle{
     font-weight: 700;
     font-size: 4vh;
@@ -7,4 +10,12 @@
    display: flex;
     width: 20%;
     line-height: 4vh;
+}
+@media (max-width: 700px){
+    .categoryItem {
+        display:inline;
+    }
+    .Container{
+     flex-direction: column;  
+    }
 }
