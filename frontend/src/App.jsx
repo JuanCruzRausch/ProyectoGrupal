@@ -6,7 +6,11 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 import SignupScreen from './components/SignupScreen/SignupScreen';
 import SigninScreen from './components/SigninScreen/SigninScreen';
 import Perfil from './components/Perfil/Perfil';
+<<<<<<< HEAD
 import { useRef } from 'react'
+=======
+import Cart from './components/Cart/Cart';
+>>>>>>> Dev
 
 function App() {
   const scrollTo = useRef()
@@ -18,6 +22,7 @@ function App() {
       <BrowserRouter>
         <NavbarComponent scrollTo={scrollToSort}/>
         <Routes>
+          <Route path="/Cart" element={ <Cart /> } />
           <Route path="/perfil/editar" element={<Perfil />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
