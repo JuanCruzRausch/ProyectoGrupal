@@ -16,7 +16,8 @@ import visadebito from '../../assets/img/cards/visadebito.svg'
 import cart from '../../assets/img/cart.png'
 import gps from '../../assets/img/gps.png'
 import user from '../../assets/img/user.png'
-import {Detail_container, Detail_Links, Detail_Item,Detail_CountPrice,Detail_Item_image, Detail_Item_text,Item_text_stock, CountPrice_AddCart,EnvioGratis,Detail_Description,ButtonCompra, Detail_Description_Detail, Detail_Description_payment,userData,Payment_methods, PyR_container,PyR_content, PyR_content_Pregunta, PyR_content_Respuesta} from './ProductDetail.module.css'
+import arrow from '../../assets/img/leftarrow.png'
+import {Detail_container, Detail_Links, Detail_Item,Detail_CountPrice,Detail_Item_image, Detail_Item_text,Item_text_stock, CountPrice_AddCart,EnvioGratis,Detail_Description,ButtonCompra, Detail_Description_Detail, Detail_Description_payment,userData,Payment_methods, PyR_container,PyR_content, PyR_content_Pregunta, PyR_content_Respuesta, Detail_Item_pictures,SelectedImg} from './ProductDetail.module.css'
 import { scrollToProducts } from '../variablesGlobales';
 
 function ProductDetail() {
@@ -24,17 +25,25 @@ function ProductDetail() {
     const params = useParams()
     const dispatch = useDispatch();
     const State = useSelector(state => state.Allproduct)
-    
+
     useEffect(()=>{
         window.scrollTo(0, 0)
         dispatch(getAllProducts())
     },[])
 
     const RES = State?.filter(e => e._id === (params._id))
+
+    const [imgs, setimgs] = useState(RES[0].image)
+
+    const handleSelect = (index) =>{
+      setimgs(RES[0].pictures[index])
+  }
+    
   return (
     <div className={Detail_container}>
         <div className={Detail_Links}>
             <Link to="/" onClick={()=> window.scrollTo(0, scrollToProducts)}>
+                <img src={arrow} alt="back" />
                 <button>
                     Atras
                 </button>
@@ -43,7 +52,12 @@ function ProductDetail() {
         </div>
         <div className={Detail_Item}>
             <div className={Detail_Item_image}>
-            <img src={RES[0].image} alt={RES[0].title}/>
+                <div className={Detail_Item_pictures}>
+                {
+                    RES[0].pictures?.map((e,i)=> <img key={e.id} onClick={()=> handleSelect(i)} src={e} />)
+                }
+                </div>
+            <img className={SelectedImg} src={imgs} alt={RES[0].title}/>
             </div>
             <div className={Detail_Item_text}>
                 <h1>{RES[0].title}</h1>
