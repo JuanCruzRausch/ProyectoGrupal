@@ -83,6 +83,10 @@ const userSchema = new Schema({
       type: Number,
       default: 0
     }
+  },
+  Account_verification: {
+    type: Boolean,
+    defautl: false
   }
 });
 
