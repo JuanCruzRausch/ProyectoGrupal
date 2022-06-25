@@ -4,6 +4,7 @@ import {
   GET_PRODUCT_BY_ID,
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
+  SET_PAGE,
   // GET_CATEGORIES,
   GET_PRODUCT
 } from '../actions/index';
@@ -19,6 +20,8 @@ const initialState = {
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
+    case SET_PAGE :
+      return { ...state, pagina: payload}
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache
       const filter = payload === "Todos" ? AllProd : AllProd.filter(e => e.category.name === payload)
