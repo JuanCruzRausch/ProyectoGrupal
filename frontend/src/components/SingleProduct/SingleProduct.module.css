@@ -16,8 +16,9 @@
 .SingleProduct_img img{
     width: 18vh;
     height: auto;
-    max-height: 190px;
-    object-fit: cover;
+    height: 170px;
+    width: 170px;
+    object-fit: contain;
     margin: auto;
     border-radius: 12px;
 }
@@ -44,6 +45,7 @@
     color: #333333;
 }
 .SingleProduct_buttons{
+    width: 200px;
     margin-right: 3vh;
     display: flex;
     justify-self: flex-end;
@@ -53,14 +55,20 @@
 .SingleProduct_buttons button{
     align-self: flex-end;
     margin: auto;
-    background-color: rgb(11, 175, 189);
-    color: rgb(255, 255, 255);
+    font-weight: 400;
+    color: rgb(138, 138, 138);
+    background-color: #ffffff;
+    box-shadow:  10px -10px 20px #efefef,
+                 -12px 12px 35px #ffffff;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 12px;
 }
 .SingleProduct_buttons button img{
     width: 35px;
+}
+.SingleProduct_buttons button img:active{
+    background: rgba(255, 0, 0, 1);
 }
 .ProductFav{
     background-color: #e9e4e417 !important;

@@ -20,7 +20,7 @@ function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache
-      const filter = payload === "Todos" ? AllProd : AllProd.filter(e => e.category === payload)
+      const filter = payload === "Todos" ? AllProd : AllProd.filter(e => e.category.name === payload)
       return {
         ...state,
         Allproduct: filter,
