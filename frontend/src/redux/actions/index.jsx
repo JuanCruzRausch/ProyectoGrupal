@@ -11,7 +11,7 @@ export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export function getAllProducts() {
   return async (dispatch) => {
     return axios("http://localhost:5050/publication")
-     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications.docs}),
+     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
