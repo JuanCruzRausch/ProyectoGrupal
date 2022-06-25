@@ -6,6 +6,7 @@ import ProductDetail from './components/ProductDetail/ProductDetail';
 import SignupScreen from './components/SignupScreen/SignupScreen';
 import SigninScreen from './components/SigninScreen/SigninScreen';
 import Perfil from './components/Perfil/Perfil';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <NavbarComponent />
         <Routes>
+          <Route path="/Cart" element={ <Cart /> } />
           <Route path="/perfil/editar" element={<Perfil />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />

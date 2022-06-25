@@ -26,7 +26,7 @@ function Products() {
           {productos.map((e,i) => (
             <SingleProduct
               key={i}
-              image={e.image}
+              image={e.thumbnail}
               name={e.title}
               price={e.price}
               id= {e._id}
