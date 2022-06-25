@@ -12,10 +12,12 @@
     align-self: flex-end;
 }
 
+
 .SingleProduct_img img{
-    height: 170px;
-    width: 170px;
-    object-fit: contain;
+    width: 18vh;
+    height: auto;
+    max-height: 190px;
+    object-fit: cover;
     margin: auto;
     border-radius: 12px;
 }

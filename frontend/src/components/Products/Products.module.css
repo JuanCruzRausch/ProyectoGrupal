@@ -1,7 +1,10 @@
 
 .Filter_Container{
     width: 15%;
-    display: inline;
+   
+}
+@media (max-width: 700px){
+   
 }
 .Cards_Container{
     height: max-content;
@@ -19,7 +22,18 @@
     justify-content: space-around;
     align-content: flex-start;
 }
+@media (max-width: 700px){
+    .Cards_Filter_Container{
+        flex-direction: column-reverse;
+        align-content: center;
+    }
+}
 .Products_Container{
     width:80%;
     margin: auto;
+}
+@media (max-width: 700px){
+    .Products_Container{
+        width:100%;
+    }
 }

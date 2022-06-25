@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { subtitle, container } from './Filter.module.css'
+import { subtitle, container, categoryItem } from './Filter.module.css'
 import { getProductByCategory } from '../../redux/actions'
 import { useState, useEffect } from 'react'
 import { scrollToProducts } from '../variablesGlobales'
@@ -25,8 +25,8 @@ const Filter = (props) => {
     
     const handleOnSelectCategory = (e) => {
         e.preventDefault()
+        props.scrollTo()
         dispatch(getProductByCategory(e.target.innerText))
-        window.scrollTo(0, scrollToProducts)
       }
     
     return (
@@ -37,7 +37,7 @@ const Filter = (props) => {
                 </div>
                 {categories.map(category => {
                     return (
-                        <div key={category.id}>
+                        <div className={categoryItem} key={category.id}>
                             <a onClick={(e)=>handleOnSelectCategory(e)} href='#'>
                                 {category.name} 
                             </a>

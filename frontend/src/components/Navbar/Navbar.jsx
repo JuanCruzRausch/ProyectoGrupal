@@ -3,19 +3,17 @@ import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
-import { Navbarc,cartIMG,DropdownA } from './Navbar.module.css'
+import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
 import { useState } from 'react'
-import { scrollToProducts } from '../variablesGlobales'
 
-function NavbarComponent() {
+function NavbarComponent(props) {
 
   let navigate = useNavigate()
-  //las siguiente tres líneas aún no tienen uso, estoy tratanodo de hacer un autocompletado en el serchbar con ellas
+
   let productsCache = [...(useSelector(state => state.allProductCache)).map(e => e.title)]
   const [display, setDisplay] = useState([...productsCache])
   const [displayFlag, setDisplayFlag] = useState(false)
-
   const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
@@ -24,8 +22,8 @@ function NavbarComponent() {
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
+    props.scrollTo()
     navigate("/")
-    window.scrollTo(0, scrollToProducts)
     dispatch(BuscarProducto(search))
   }
 
@@ -38,10 +36,11 @@ function NavbarComponent() {
   }
 
   const handleOnSelectCategory = (e) => {
-    navigate("/")
     e.preventDefault()
+    props.scrollTo()
+    navigate("/")
     dispatch(getProductByCategory(e.target.innerText))
-    window.scrollTo(0, scrollToProducts)
+    
   }
 
 
@@ -53,31 +52,35 @@ function NavbarComponent() {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            
+
             navbarScroll
           >
             <NavDropdown title="Categorías" id="navbarScrollingDropdown"  >
               {
-                categories.map(category=>{
-                  return(
+                categories.map(category => {
+                  return (
                     <NavDropdown.Item key={category.id} className={DropdownA}
-                    onClick={e => handleOnSelectCategory(e)} href="#">{category.name}
+                      onClick={e => handleOnSelectCategory(e)} href="#">{category.name}
                     </NavDropdown.Item>
                   )
-                }) 
+                })
               }
             </NavDropdown>
             <Nav.Link href="/signin">Iniciar sesion</Nav.Link>
             <Nav.Link href="/perfil/editar">Mi perfil</Nav.Link>
-            <img className={cartIMG} src={cart} alt="cart"/>
+            <img className={cartIMG} src={cart} alt="cart" />
           </Nav>
           <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
-            <FormControl
-              type="search"
-              placeholder="buscar"
-              className="me-2"
-              aria-label="Search"
+            <input type="text" 
+              className={datalist}
+              placeholder="...buscar"
+              list="data" 
               onChange={(e) => searchOnChange(e)} />
+              <datalist id="data">
+                {display.map((item, key) =>
+                  <option key={key} value={item} />
+                )}
+                </datalist>
             <Button type="submit" variant="outline-success">Buscar</Button>
           </Form>
         </Navbar.Collapse>

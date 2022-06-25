@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import {SortContainer} from './Sort.module.css';
 import { scrollToProducts } from '../variablesGlobales';
-export default function Sort() {
+const Sort= React.forwardRef((props, ref) => {
   const [order, setOrder] = useState('');
   const dispatch = useDispatch();
 
@@ -16,11 +16,11 @@ export default function Sort() {
     e.preventDefault();
     dispatch(ordenado(e.target.value));
     setOrder(`Ordenado ${e.target.value}`);
-    window.scrollTo(0, scrollToProducts)
+    props.scrollTo()
   };
 
   return (
-    <div className={SortContainer}>
+    <div className={SortContainer} ref={ref}>
       <Form.Select  onChange={(e) => handleChange(e)}>
         {/* <option value="High to Low Price">mayor precio</option>
           <option value="Low to High Price">menor precio</option> */}
@@ -32,4 +32,6 @@ export default function Sort() {
       </Form.Select>
     </div>
   );
-}
+})
+
+export default Sort
