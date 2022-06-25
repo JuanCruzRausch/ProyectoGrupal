@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts, getPaginate, ordenado } from '../../redux/actions/index';
+import { getAllProducts, getPaginate, ordenado, setActive } from '../../redux/actions/index';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter'
@@ -10,11 +10,11 @@ import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
 
 function Products({ refElement, scrollTo }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const productos = useSelector((state) => state.Allproduct);
-  const [Active, setActive] = useState(1)
+  let Active = useSelector(state=> state.pagina)
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getAllProducts(Active));
     dispatch(ordenado());
     
   }, []);
@@ -29,7 +29,7 @@ function Products({ refElement, scrollTo }) {
 }
 const handleGetProducts = (pagina) =>{
   dispatch(getPaginate(pagina)),
-  setActive(pagina)
+  dispatch(setActive(pagina))
 }
 
   return (

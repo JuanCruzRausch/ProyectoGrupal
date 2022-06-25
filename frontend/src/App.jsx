@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import SignupScreen from './components/SignupScreen/SignupScreen';
 import SigninScreen from './components/SigninScreen/SigninScreen';
+import PerfilEditar from './components/PerfilEditar/PerfilEditar';
 import Perfil from './components/Perfil/Perfil';
 import { useRef } from 'react'
 import Cart from './components/Cart/Cart';
@@ -20,7 +21,8 @@ function App() {
         <NavbarComponent scrollTo={scrollToSort}/>
         <Routes>
           <Route path="/Cart" element={ <Cart /> } />
-          <Route path="/perfil/editar" element={<Perfil />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/:_id" element={<ProductDetail />} />

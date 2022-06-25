@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getAllProducts } from '../../redux/actions';
 import Count from '../Count/Count';
 import mercadopago from '../../assets/img/cards/mercadopago.svg'
@@ -24,6 +24,12 @@ function ProductDetail() {
     const [count, setcount] = useState(0)
     const params = useParams()
     const State = useSelector(state => state.Allproduct)
+    const navigate = useNavigate()
+    
+    const atras = () =>{
+        navigate(-1)
+        window.scrollTo(0, scrollToProducts)
+    }
 
     useEffect(()=>{
         window.scrollTo(0, 0)
@@ -40,19 +46,19 @@ function ProductDetail() {
   return (
     <div className={Detail_container}>
         <div className={Detail_Links}>
-            <Link to="/" onClick={()=> window.scrollTo(0, scrollToProducts)}>
+            <div onClick={()=> atras()}>
                 <img src={arrow} alt="back" />
                 <button>
                     Atras
                 </button>
-            </Link>
+            </div>
             <h2>{RES[0]?.category.name}</h2>
         </div>
         <div className={Detail_Item}>
             <div className={Detail_Item_image}>
                 <div className={Detail_Item_pictures}>
                 {
-                    RES[0]?.pictures?.map((e,i)=> <img key={e.id} onClick={()=> handleSelect(i)} src={e} />)
+                    RES[0]?.pictures?.filter((e,i)=>i<=5).map((e,i)=> <img key={i} onClick={()=> handleSelect(i)} src={e} />)
                 }
                 </div>
             <img className={SelectedImg} src={imgs} alt={RES[0]?.title}/>
