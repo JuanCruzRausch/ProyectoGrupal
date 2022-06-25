@@ -1,34 +1,89 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Container_Small, Form_Div } from './Perfil.module.css';
-
+import React from 'react'
+import { Link } from 'react-router-dom'
+import {Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
 export default function Perfil() {
+    const perfil = {
+        nombre: "Juanito Perez",
+        email: "juanito312@gmail.com",
+        photo: "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg",
+        address: "calle 76 # 35 - 22",
+        reputation: 5,
+        status: "platinium",
+        register_date:"20/06/2020",
+        interest: [{
+            "id": "MLA1367",
+            "name": "Antigüedades y Colecciones"
+          },
+          {
+            "id": "MLA1368",
+            "name": "Arte, Librería y Mercería"
+          },
+          {
+            "id": "MLA1743",
+            "name": "Autos, Motos y Otros"
+          },],
+        transactions: {
+            completed:4,
+            canceled: 2,
+            total: 9
+        }        
+    }
+     
   return (
-    <div className={Container_Small}>
-      <div className={Form_Div}>
-        <h1 className="my-3">Perfil</h1>
-        <form>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control required />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" required />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control type="password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label>Confirmar Contraseña</Form.Label>
-            <Form.Control type="password" />
-          </Form.Group>
-          <div className="mb-3">
-            <Button type="submit">Editar</Button>
-          </div>
-        </form>
-      </div>
+<div className={Container}>
+    <div className={Container_card}>
+        <div className={Container_Perfil}>
+        <div className={Container_img_button}>
+        <img src="https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" alt="perfil-img"/>
+        <Link to="/perfil/editar">
+            <button>
+            Editar perfil
+            </button>
+        </Link>
+        </div>
+        <div className={Container_text}>
+        <div>
+            nombre: <h1>{perfil.nombre}</h1>
+        </div>
+        <div>
+            Email: <h2>{perfil.email}</h2>
+        </div>
+        <div>
+            dirección: <h2>{perfil.address}</h2>
+        </div>
+        <div>
+            reputación: <h2>{perfil.reputation}</h2>
+        </div>
+        <div>
+            status: <h2>{perfil.status}</h2>
+        </div>
+        <div className={Text_intereses}>
+           intereses: 
+            {perfil.interest?.map((e,i)=>
+            <div className={Intereses_container} key={i}> 
+           <h2>{e.name}</h2> 
+            </div>)}
+        </div>
+        <div >
+            registrado desde: <h2>{perfil.register_date}</h2>
+        </div>
+        <div className={Text_transacciones}>
+            transacciones: 
+            <div>
+            <div>
+              <h3 className={Text_completed}>completadas: {perfil.transactions.completed}</h3>
+            </div>
+            <div>
+              <h3 className={Text_canceled}>canceladas:  {perfil.transactions.canceled}</h3>
+            </div>
+            <div>
+               <h3 className={Text_total}>totales: {perfil.transactions.total}</h3>
+            </div>
+            </div>
+        </div>
     </div>
-  );
+    </div>
+</div>
+</div>
+  )
 }

@@ -5,12 +5,13 @@ export const ORDENADO = 'ORDENADO';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
+export const SET_PAGE = 'SET_PAGE'
 
 // import categorias from '../../components/Json/Categorias'
 
-export function getAllProducts() {
+export function getAllProducts(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication" )
+    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
@@ -19,12 +20,18 @@ export function getAllProducts() {
 
 export function getPaginate(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page)
+    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
 
+export function setActive(page) {
+  return {
+    type: SET_PAGE,
+    payload: page
+  }
+}
 
 export function BuscarProducto(title){
   return function (dispatch){
