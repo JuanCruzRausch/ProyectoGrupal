@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -67,8 +67,8 @@ function NavbarComponent(props) {
               }
             </NavDropdown>
             <Nav.Link href="/signin">Iniciar sesion</Nav.Link>
-            <Nav.Link href="/perfil/editar">Mi perfil</Nav.Link>
-            <img className={cartIMG} src={cart} alt="cart" />
+            <Nav.Link href="/perfil">Mi perfil</Nav.Link>
+            <Link to="/cart"><img className={cartIMG} src={cart} alt="cart" /></Link>
           </Nav>
           <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
             <input type="text" 
