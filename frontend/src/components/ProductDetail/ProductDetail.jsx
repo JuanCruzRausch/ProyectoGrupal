@@ -161,7 +161,7 @@ function ProductDetail(props) {
             </div>
             <div className={PyR_content}>
                 <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-                <h3 className={PyR_content_Respuesta}>Enanos</h3>
+                <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
             </div>
         </div>
     </div>

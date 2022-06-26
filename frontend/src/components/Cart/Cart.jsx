@@ -13,7 +13,7 @@ function Cart() {
             <div>
                 <img src={EmptyCart}  alt="emptyCart"/>
                 <h1>Tu carrito está vacío!</h1>
-                <Nav.Link>
+                <Nav.Link href="/">
                    <h2>Regresar a la tienda</h2>
                 </Nav.Link>
             </div>

@@ -9,7 +9,7 @@ export const SET_PAGE = 'SET_PAGE'
 
 // import categorias from '../../components/Json/Categorias'
 
-export function getAllProducts(page) {
+export function getAllProducts() {
   return async (dispatch) => {
     return axios("http://localhost:5050/publication?page=" + 1 + "&&limit=640")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),

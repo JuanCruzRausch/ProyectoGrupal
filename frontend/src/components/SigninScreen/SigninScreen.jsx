@@ -21,6 +21,11 @@ export default function SigninScreen() {
             <Form.Control type="password" required />
           </Form.Group>
           <div className="mb-3">
+            <Button variant="success" type="submit">
+              Iniciar con Google
+            </Button>
+          </div>
+          <div className="mb-3">
             <Button type="submit">Iniciar sesion</Button>
           </div>
           <div className="mb-3">
