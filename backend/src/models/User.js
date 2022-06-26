@@ -6,7 +6,10 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please tell us your name!"],
-    validate: [validator.isAlpha, "Name must have letters only"],
+    validate: {
+      validator: val => validator.isAlpha(val, ["en-US"], { ignore: " " }), //" =" => " " & "-"
+      message: "Name must have letters only",
+    },
     maxlength: [40, "A user name must have less or equal then 40 characters"],
     minlength: [4, "A user name must have more or equal then 4 characters"],
   },

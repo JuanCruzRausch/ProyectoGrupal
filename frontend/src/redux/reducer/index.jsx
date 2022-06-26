@@ -6,7 +6,8 @@ import {
   ORDENADO,
   SET_PAGE,
   // GET_CATEGORIES,
-  GET_PRODUCT
+  GET_PRODUCT,
+  SIGN_UP_ALERT
 } from '../actions/index';
 
 const initialState = {
@@ -16,10 +17,18 @@ const initialState = {
   Detail:[],
   pagina: 1,
   categories,
+  signUpAlert:""
 };
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
+    case SIGN_UP_ALERT :
+      if( payload === "success"){
+        return {...state, signUpAlert: "success"}      
+      }
+      if( payload === "fail"){
+        return {...state, signUpAlert: "fail"}
+      }
     case SET_PAGE :
       return { ...state, pagina: payload}
     case GET_PRODUCTS_BY_CATEGORY:

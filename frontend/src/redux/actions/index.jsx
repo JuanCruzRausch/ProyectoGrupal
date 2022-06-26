@@ -5,9 +5,24 @@ export const ORDENADO = 'ORDENADO';
 export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
-export const SET_PAGE = 'SET_PAGE'
+export const SET_PAGE = 'SET_PAGE';
+export const SIGN_UP_ALERT = 'SIGN_UP_ALERT'
 
 // import categorias from '../../components/Json/Categorias'
+export function signUp(data) {
+  return async (dispatch) => {
+    return axios.post("http://localhost:5050/users/signup",{
+      ...data,
+      photo:"",
+    })
+    .then(res => {
+      dispatch({type:SIGN_UP_ALERT, payload: res.data?.status })
+      
+    })
+    .catch(e=> dispatch({type:SIGN_UP_ALERT, payload: "fail" }))
+
+  }
+}
 
 export function getAllProducts() {
   return async (dispatch) => {
