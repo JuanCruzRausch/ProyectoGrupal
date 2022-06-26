@@ -29,14 +29,23 @@ function reducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: filter,
       };
-    case GET_ALL_PRODUCTS: {
+    case GET_ALL_PRODUCTS: 
+      let categoriesCount=state.categories.map(category => {return {...category, count:0}})
+      categoriesCount.forEach(category=>{
+        payload.forEach((product, i) => {
+            if(product.category.name === category.name){
+               category.count+=1 
+            }
+        });
+    })
       return {
         ...state,
+        categories: categoriesCount,
         allProductCache: payload,
         Allproduct: payload,
         Detail: payload,
       };
-    }
+    
     case GET_PRODUCT: 
     return{
       ...state,

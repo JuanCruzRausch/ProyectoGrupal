@@ -25,7 +25,7 @@ function App() {
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
-          <Route path="/:_id" element={<ProductDetail />} />
+          <Route path="/:_id" element={<ProductDetail scrollTo={scrollToSort}/>} />
           <Route path="/" element={<Products refElement={scrollTo} scrollTo={scrollToSort}/>} />
         </Routes>
       </BrowserRouter>
