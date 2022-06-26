@@ -20,7 +20,7 @@ import arrow from '../../assets/img/leftarrow.png'
 import {Detail_container, Detail_Links, Detail_Item,Detail_CountPrice,Detail_Item_image, Detail_Item_text,Item_text_stock, CountPrice_AddCart,EnvioGratis,Detail_Description,ButtonCompra, Detail_Description_Detail, Detail_Description_payment,userData,Payment_methods, PyR_container,PyR_content, PyR_content_Pregunta, PyR_content_Respuesta, Detail_Item_pictures,SelectedImg} from './ProductDetail.module.css'
 import { scrollToProducts } from '../variablesGlobales';
 
-function ProductDetail() {
+function ProductDetail(props) {
     const [count, setcount] = useState(0)
     const params = useParams()
     const State = useSelector(state => state.Allproduct)
@@ -28,7 +28,7 @@ function ProductDetail() {
     
     const atras = () =>{
         navigate(-1)
-        window.scrollTo(0, scrollToProducts)
+        props.scrollTo()
     }
 
     useEffect(()=>{

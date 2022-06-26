@@ -11,7 +11,7 @@ export const SET_PAGE = 'SET_PAGE'
 
 export function getAllProducts(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
+    return axios("http://localhost:5050/publication?page=" + page + "&&limit=640")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }

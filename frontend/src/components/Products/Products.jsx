@@ -20,8 +20,9 @@ function Products({ refElement, scrollTo }) {
     
   }, []);
   let items = [];
+  let length=Math.ceil(productos.length/15)<8?Math.ceil(productos.length/15):8
 
-  for (let number = 1; number <= 10; number++) {
+  for (let number = 1; number <= length; number++) {
     items.push(
       <Pagination.Item key={number} active={number === Active} onClick={() =>handleGetProducts(number)}>
       {number}
@@ -29,7 +30,7 @@ function Products({ refElement, scrollTo }) {
   );
 }
 const handleGetProducts = (pagina) =>{
-  dispatch(getPaginate(pagina)),
+  // dispatch(getPaginate(pagina)),
   dispatch(setActive(pagina))
 }
 

@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProductByCategory, BuscarProducto, } from "../../redux/actions"
+import { getProductByCategory, BuscarProducto, setActive } from "../../redux/actions"
 import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css'
 import cart from '../../assets/img/cartICON.png'
 import { useState } from 'react'
@@ -17,13 +17,15 @@ function NavbarComponent(props) {
   const [search, setSearch] = useState("")
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
+  
 
 
 
   const searchOnSubmit = (e) => {
     e.preventDefault()
-    props.scrollTo()
     navigate("/")
+    props.scrollTo()
+    dispatch(setActive(1))
     dispatch(BuscarProducto(search))
   }
 
@@ -37,8 +39,9 @@ function NavbarComponent(props) {
 
   const handleOnSelectCategory = (e) => {
     e.preventDefault()
-    props.scrollTo()
+    window.scrollTo(0,650)
     navigate("/")
+    dispatch(setActive(1))
     dispatch(getProductByCategory(e.target.innerText))
     
   }
@@ -47,7 +50,9 @@ function NavbarComponent(props) {
   return (
     <Navbar className={Navbarc} expand="lg" >
       <Container fluid >
-        <Navbar.Brand href="/">Minimal Store</Navbar.Brand>
+        <Navbar.Brand href="#" onClick={(e)=>{
+              e.preventDefault()
+              navigate("/")}}>Minimal Store</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -66,8 +71,12 @@ function NavbarComponent(props) {
                 })
               }
             </NavDropdown>
-            <Nav.Link href="/signin">Iniciar sesion</Nav.Link>
-            <Nav.Link href="/perfil">Mi perfil</Nav.Link>
+            <Nav.Link href="#" onClick={(e)=>{
+              e.preventDefault()
+              navigate("/signin")}}>Iniciar sesion</Nav.Link>
+            <Nav.Link href="#" onClick={(e)=>{
+              e.preventDefault()
+              navigate("/perfil")}}>Mi perfil</Nav.Link>
             <Link to="/cart"><img className={cartIMG} src={cart} alt="cart" /></Link>
           </Nav>
           <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
