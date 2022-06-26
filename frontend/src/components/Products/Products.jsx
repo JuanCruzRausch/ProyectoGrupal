@@ -16,7 +16,7 @@ function Products({ refElement, scrollTo }) {
 
   useEffect(() => {
     dispatch(getAllProducts(Active));
-    dispatch(ordenado());
+    dispatch(ordenado(Active));
     
   }, []);
   let items = [];
