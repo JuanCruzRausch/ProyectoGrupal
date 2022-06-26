@@ -9,11 +9,11 @@ const Filter = (props) => {
     
     const categories = useSelector(state => state.categories)
     const dispatch = useDispatch()
-    const handleOnSelectCategory = (e) => {
+    const handleOnSelectCategory = (e, categoryName) => {
         dispatch(setActive(1))
         e.preventDefault()
         props.scrollTo()
-        dispatch(getProductByCategory(e.target.innerText))
+        dispatch(getProductByCategory(categoryName))
       }
     
     return (
@@ -25,11 +25,8 @@ const Filter = (props) => {
                 {categories.map(category => {
                     return (
                         <div className={categoryItem} key={category.id}>
-                            <a onClick={(e)=>handleOnSelectCategory(e)} href='#'>
-                                {category.name} 
-                            </a>
-                            <a onClick={(e)=>e.preventDefault()} href="#">
-                                ({category.count||0})
+                            <a onClick={(e)=>handleOnSelectCategory(e, category.name)} href='#'>
+                                {category.name} ({category.count||0})
                             </a>
                         </div>
                     )
