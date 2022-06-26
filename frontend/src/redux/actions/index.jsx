@@ -8,6 +8,15 @@ export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE'
 
 // import categorias from '../../components/Json/Categorias'
+export function signUp(data) {
+  return async (dispatch) => {
+    return axios.post("http://localhost:5050/users/signup",{
+      ...data,
+      photo:"",
+    })
+    .then(res => console.log(res))
+  }
+}
 
 export function getAllProducts() {
   return async (dispatch) => {

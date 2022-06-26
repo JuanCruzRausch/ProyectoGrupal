@@ -10,10 +10,10 @@ exports.signup = async (req, res, next) => {
       photo: req.body.photo,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
-      adress: req.body.adress,
+      address: req.body.address,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       status: "success",
       data: {
         user: newUser,
