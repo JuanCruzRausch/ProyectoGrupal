@@ -15,8 +15,10 @@ function Products({ refElement, scrollTo }) {
   let Active = useSelector(state=> state.pagina)
 
   useEffect(() => {
-    dispatch(getAllProducts(Active));
-    dispatch(ordenado(Active));
+    if(!productos?.length){
+      dispatch(getAllProducts(Active));
+      dispatch(ordenado());
+    }
     
   }, []);
   let items = [];
