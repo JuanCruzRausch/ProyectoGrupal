@@ -2,11 +2,14 @@ import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { Small_Container, Form_Div } from './Signup.module.css';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signUp } from '../../redux/actions';
+import swal from 'sweetalert'
+
 
 export default function SignupScreen() {
   const { search } = useLocation();
+  const alert = useSelector(state => state.signUpAlert)
   const redirectInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectInUrl ? redirectInUrl : '/';
   const dispatch = useDispatch();
@@ -17,6 +20,22 @@ export default function SignupScreen() {
     passwordConfirm:"",
     address: ""
   })
+  React.useEffect(() => {
+    if(alert === "success"){
+      swal({
+        title: `Usuario Creado`,
+        text: `Enviamos un email de confirmación a ${data.email}`,
+        icon: "success"
+      })
+    }
+    if(alert === "fail"){
+      swal({
+        title: "el usuario no fue creado",
+        text: "Verifica que los datos este correctos",
+        icon: "error"
+      })
+    }
+  },[alert])
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(signUp(data));
