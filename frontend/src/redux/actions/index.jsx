@@ -15,11 +15,10 @@ export function signUp(data) {
       ...data,
       photo:"",
     })
-    .then(res => {
-      dispatch({type:SIGN_UP_ALERT, payload: res.data?.status })
-      
-    })
+    .then(res => dispatch({type:SIGN_UP_ALERT, payload: res.data?.status }))
+    .then(()=> dispatch({type:SIGN_UP_ALERT, payload: "none"}))
     .catch(e=> dispatch({type:SIGN_UP_ALERT, payload: "fail" }))
+    .then(()=> dispatch({type:SIGN_UP_ALERT, payload: "none"}))
 
   }
 }
