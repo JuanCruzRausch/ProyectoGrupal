@@ -22,7 +22,7 @@ function Products({ refElement, scrollTo }) {
     
   }, []);
   let items = [];
-  let length=Math.ceil(productos.length/15)<8?Math.ceil(productos.length/15):8
+  let length=productos.length/15<8?Math.ceil(productos.length/15):8
 
   for (let number = 1; number <= length; number++) {
     items.push(

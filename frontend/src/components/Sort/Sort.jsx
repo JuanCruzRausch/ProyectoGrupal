@@ -1,4 +1,4 @@
-import { ordenado } from '../../redux/actions';
+import { ordenado, setActive } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,7 @@ const Sort= React.forwardRef((props, ref) => {
     e.preventDefault();
     dispatch(ordenado(e.target.value));
     setOrder(`Ordenado ${e.target.value}`);
+    dispatch(setActive(1))
     props.scrollTo()
   };
 

@@ -18,7 +18,7 @@ export default function SignupScreen() {
     email: "",
     password: "",
     passwordConfirm:"",
-    address: ""
+    address: "avenida buena vida"
   })
   React.useEffect(() => {
     if(alert === "success"){
@@ -27,11 +27,12 @@ export default function SignupScreen() {
         text: `Enviamos un email de confirmación a ${data.email}`,
         icon: "success"
       })
+
     }
     if(alert === "fail"){
       swal({
         title: "el usuario no fue creado",
-        text: "Verifica que los datos este correctos",
+        text: "Verifica que los datos esten correctos",
         icon: "error"
       })
     }
@@ -64,14 +65,14 @@ export default function SignupScreen() {
             type="email" 
             required />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="email">
+          {/* <Form.Group className="mb-3" controlId="email">
             <Form.Label>dirección</Form.Label>
             <Form.Control 
             onChange={ e => handleOnChange(e)} 
             value={data.address} 
             name="address"  
             required />
-          </Form.Group>
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Contraseña</Form.Label>
             <Form.Control 

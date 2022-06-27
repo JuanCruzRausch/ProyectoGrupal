@@ -6,7 +6,9 @@ function SingleProduct({image, name, price, id}) {
   return (
     <div className={SingleProduct_container}>
         <div className={SingleProduct_img}>
-            <img src={image}/>
+            <Link to={`/${id}`}>
+                <img src={image}/>
+            </Link> 
         </div>
         
         <div className={SingleProduct_text}>
