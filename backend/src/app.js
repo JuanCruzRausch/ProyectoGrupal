@@ -22,6 +22,8 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+//Rutas 
 app.use('/users', userRouter);
 app.use('/categories', categoriesRouter);
 app.use('/publication', publicationRouter);
