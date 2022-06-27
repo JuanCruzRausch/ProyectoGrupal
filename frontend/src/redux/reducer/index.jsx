@@ -1,4 +1,4 @@
-import categories from '../../components/Json/categories'
+import categories from '../../components/Json/categories';
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -7,41 +7,46 @@ import {
   SET_PAGE,
   // GET_CATEGORIES,
   GET_PRODUCT,
-  SIGN_UP_ALERT
+  SIGN_UP_ALERT,
 } from '../actions/index';
 
 const initialState = {
   allProductCache: [],
   Allproduct: [],
   FilterProducts: [],
-  Detail:[],
+  Detail: [],
   pagina: 1,
   categories,
-  signUpAlert:""
+  signUpAlert: '',
 };
 
-function reducer(state = initialState, { type, payload }) {
+function productReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case SIGN_UP_ALERT :
-        return {...state, signUpAlert: payload}      
-    case SET_PAGE :
-      return { ...state, pagina: payload}
+    case SIGN_UP_ALERT:
+      return { ...state, signUpAlert: payload };
+    case SET_PAGE:
+      return { ...state, pagina: payload };
     case GET_PRODUCTS_BY_CATEGORY:
-      const AllProd = state.allProductCache
-      const filter = payload === "Todos" ? AllProd : AllProd.filter(e => e.category.name === payload)
+      const AllProd = state.allProductCache;
+      const filter =
+        payload === 'Todos'
+          ? AllProd
+          : AllProd.filter((e) => e.category.name === payload);
       return {
         ...state,
         Allproduct: filter,
       };
-    case GET_ALL_PRODUCTS: 
-      let categoriesCount=state.categories.map(category => {return {...category, count:0}})
-      categoriesCount.forEach(category=>{
+    case GET_ALL_PRODUCTS:
+      let categoriesCount = state.categories.map((category) => {
+        return { ...category, count: 0 };
+      });
+      categoriesCount.forEach((category) => {
         payload.forEach((product, i) => {
-            if(product.category.name === category.name){
-               category.count+=1 
-            }
+          if (product.category.name === category.name) {
+            category.count += 1;
+          }
         });
-    })
+      });
       return {
         ...state,
         categories: categoriesCount,
@@ -49,28 +54,26 @@ function reducer(state = initialState, { type, payload }) {
         Allproduct: payload,
         Detail: payload,
       };
-    
-    case GET_PRODUCT: 
-    return{
-      ...state,
-      Allproduct: state.allProductCache.filter(e => e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase()))
-    }
+
+    case GET_PRODUCT:
+      return {
+        ...state,
+        Allproduct: state.allProductCache.filter((e) =>
+          e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase())
+        ),
+      };
     case GET_PRODUCT_BY_ID:
-      return{
+      return {
         ...state,
         Detail: payload,
-      }
+      };
     case ORDENADO:
       let sortArray = [...state.Allproduct];
 
       if (payload === 'A-Z')
-        sortArray = sortArray.sort((a, b) =>
-          a.title.localeCompare(b.title)
-        );
+        sortArray = sortArray.sort((a, b) => a.title.localeCompare(b.title));
       if (payload === 'Z-A')
-        sortArray = sortArray.sort((a, b) =>
-          b.title.localeCompare(a.title)
-        );
+        sortArray = sortArray.sort((a, b) => b.title.localeCompare(a.title));
       if (payload === 'High to Low')
         sortArray = sortArray.sort((a, b) => b.price - a.price);
       if (payload === 'Low to High')
@@ -84,4 +87,4 @@ function reducer(state = initialState, { type, payload }) {
   }
 }
 
-export default reducer;
+export default productReducer;

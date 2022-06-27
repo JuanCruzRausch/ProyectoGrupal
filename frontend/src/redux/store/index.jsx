@@ -1,10 +1,18 @@
-//index de prueba
-
-import reducer from '../reducer';
-import {createStore, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import productReducer from '../reducer/index';
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const initialState = {};
 
-export default store; 
+const rootReducer = combineReducers({
+  productReducer,
+});
+
+const store = createStore(
+  rootReducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(thunk))
+);
+
+export default store;
