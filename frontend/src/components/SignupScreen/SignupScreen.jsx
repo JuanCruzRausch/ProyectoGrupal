@@ -13,26 +13,27 @@ export default function SignupScreen() {
   const redirect = redirectInUrl ? redirectInUrl : '/';
   const dispatch = useDispatch();
   const [data, setData] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    address: '',
-  });
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm:"",
+    address: "avenida buena vida"
+  })
   React.useEffect(() => {
     if (alert === 'success') {
       swal({
         title: `Usuario Creado`,
         text: `Enviamos un email de confirmación a ${data.email}`,
-        icon: 'success',
-      });
+        icon: "success"
+      })
+
     }
     if (alert === 'fail') {
       swal({
-        title: 'el usuario no fue creado',
-        text: 'Verifica que los datos este correctos',
-        icon: 'error',
-      });
+        title: "el usuario no fue creado",
+        text: "Verifica que los datos esten correctos",
+        icon: "error"
+      })
     }
   }, [alert]);
   const handleOnSubmit = (e) => {
@@ -65,15 +66,14 @@ export default function SignupScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="email">
+          {/* <Form.Group className="mb-3" controlId="email">
             <Form.Label>dirección</Form.Label>
-            <Form.Control
-              onChange={(e) => handleOnChange(e)}
-              value={data.address}
-              name="address"
-              required
-            />
-          </Form.Group>
+            <Form.Control 
+            onChange={ e => handleOnChange(e)} 
+            value={data.address} 
+            name="address"  
+            required />
+          </Form.Group> */}
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Contraseña</Form.Label>
             <Form.Control

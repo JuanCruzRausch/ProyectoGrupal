@@ -23,12 +23,7 @@ const initialState = {
 function productReducer(state = initialState, { type, payload }) {
   switch (type) {
     case SIGN_UP_ALERT:
-      if (payload === 'success') {
-        return { ...state, signUpAlert: 'success' };
-      }
-      if (payload === 'fail') {
-        return { ...state, signUpAlert: 'fail' };
-      }
+      return { ...state, signUpAlert: payload };
     case SET_PAGE:
       return { ...state, pagina: payload };
     case GET_PRODUCTS_BY_CATEGORY:
