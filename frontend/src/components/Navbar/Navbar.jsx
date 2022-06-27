@@ -23,13 +23,15 @@ function NavbarComponent(props) {
   let navigate = useNavigate();
 
   let productsCache = [
-    ...useSelector((state) => state.allProductCache).map((e) => e.title),
+    ...useSelector((state) => state.productReducer.allProductCache).map(
+      (e) => e.title
+    ),
   ];
   const [display, setDisplay] = useState([...productsCache]);
   const [displayFlag, setDisplayFlag] = useState(false);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categories);
+  const categories = useSelector((state) => state.productReducer.categories);
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +79,7 @@ function NavbarComponent(props) {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" navbarScroll>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
-              {categories.map((category) => {
+              {categories?.map((category) => {
                 return (
                   <NavDropdown.Item
                     key={category.id}
