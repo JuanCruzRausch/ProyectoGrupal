@@ -8,4 +8,13 @@ publicationRouter
   .get(publicationController.getAllPublications)
   .post(publicationController.post);
 
+publicationRouter
+  .route('/idArray')
+  .get(publicationController.getPublicationidArray)
+  
+publicationRouter
+  .route('/:id')
+  .get(publicationController.getPublicationID)
+
+
 module.exports = publicationRouter;

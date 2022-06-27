@@ -79,3 +79,35 @@ exports.getAllPublications = async (req, res) => {
   //   );
   // });
 };
+
+
+exports.getPublicationID = async (req, res, next) => {
+  const {id} = req.params
+  if(!id) return next(new AppError('ID required', 400))
+  try {
+    const publication = await Publication.findOne({_id: id})
+    res.status(200).json({
+      status: 'success',
+      data: publication
+    })
+  } catch (error) {
+    return next(new AppError('Post not found', 404))
+  }
+}
+
+exports.getPublicationidArray = async (req, res, next) => {
+  const {idArray} = req.body
+  if(!idArray) return next(new AppError('ID Array Required', 400))
+  try {
+    const result = [];
+    for (let i = 0; i < idArray.length; i++) {
+      result.push( await Publication.findOne({_id: idArray[i]}))
+    }
+    res.status(200).json({
+      status: 'success',
+      data: result
+    })
+  } catch (error) {
+    return next(new AppError('Post not found', 404))
+  }
+}
