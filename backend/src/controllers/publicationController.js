@@ -35,34 +35,47 @@ exports.post = async (req, res, next) => {
   }
 };
 
-exports.getAllPublications = (req, res) => {
-  let limit = req.query.limit * 1 || 20;
-  let page = req.query.page * 1 || 1;
-  Publication.find({}, function (err, publications) {
-    User.populate(
-      publications,
-      { path: 'seller' },
-      function (err, publications) {
-        Category.populate(
-          publications,
-          { path: 'category' },
-          function (err, publications) {
-            let pubs = publications.slice((page - 1) * limit, page * limit);
-            res.status(200).json({
-              status: 'success',
-              data: {
-                publications_total: publications.length,
-                publications_per_page: pubs.length,
-                nextPage:
-                  publications.length / limit < page + 1 ? null : page + 1,
-                prevPage: page - 1 < 1 ? null : page - 1,
-                publications: pubs,
-              },
-            });
-          }
-        );
-      }
-    );
-  });
-};
+exports.getAllPublications = async (req, res) => {
+  const publications = await Publication.find({})
+    .populate({ path: 'seller' })
+    .populate({ path: 'category', select: 'name -_id' });
 
+  let pubs = publications.filter((e) => e.seller !== null);
+
+  res.status(200).json({
+    status: 'success',
+    total: pubs.length,
+    data: {
+      pubs,
+    },
+  });
+
+  // let limit = req.query.limit * 1 || 20;
+  // let page = req.query.page * 1 || 1;
+  // const publications = await Publication.find({}, function (err, publications) {
+  //   User.populate(
+  //     publications,
+  //     { path: 'seller' },
+  //     function (err, publications) {
+  //       Category.populate(
+  //         publications,
+  //         { path: 'category' },
+  //         function (err, publications) {
+  //           let pubs = publications.slice((page - 1) * limit, page * limit);
+  //           res.status(200).json({
+  //             status: 'success',
+  //             data: {
+  //               publications_total: publications.length,
+  //               publications_per_page: pubs.length,
+  //               nextPage:
+  //                 publications.length / limit < page + 1 ? null : page + 1,
+  //               prevPage: page - 1 < 1 ? null : page - 1,
+  //               publications: pubs,
+  //             },
+  //           });
+  //         }
+  //       );
+  //     }
+  //   );
+  // });
+};
