@@ -20,13 +20,24 @@
     margin: auto !important;
 }
 .Navbarc input{
+    border: none;
     background-color: rgba(227, 227, 227, 0.705);
 }
 .Navbarc ::placeholder{
-    color: black !important;
+    padding: 5px;
+    color: rgba(0, 0, 0, 0.466) !important;
 }
 .Navbarc a dropdown-item{
     color: rgb(0, 0, 0) !important;
+}
+.Navbarc Button{
+    border-radius: 15px;
+    border: rgba(0, 0, 0, 0.1) 1px solid;
+    color: black;
+}
+.Navbarc Button:hover{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.96);
 }
 .cartIMG{
     margin: auto;
