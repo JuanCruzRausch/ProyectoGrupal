@@ -5,7 +5,7 @@ import {
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
   SET_PAGE,
-  // GET_CATEGORIES,
+  MAX_AND_MIN_PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
 } from '../actions/index';
@@ -18,10 +18,19 @@ const initialState = {
   pagina: 1,
   categories,
   signUpAlert: '',
+  maxMinPrice:{
+    max: Infinity,
+    min: -Infinity
+  }
 };
 
 function productReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case MAX_AND_MIN_PRICE:
+      if((payload.max-payload.min)>=0){
+        if(payload.max==0) payload.max = Infinity
+        if(payload.min==0) payload.min = -Infinity
+        return {...state, maxMinPrice: {max: payload.max, min: payload.min}}}
     case SIGN_UP_ALERT:
       return { ...state, signUpAlert: payload };
     case SET_PAGE:
@@ -34,7 +43,7 @@ function productReducer(state = initialState, { type, payload }) {
           : AllProd.filter((e) => e.category.name === payload);
       return {
         ...state,
-        Allproduct: filter,
+        Allproduct: filter.filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
       };
     case GET_ALL_PRODUCTS:
       let categoriesCount = state.categories.map((category) => {
@@ -60,7 +69,7 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: state.allProductCache.filter((e) =>
           e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase())
-        ),
+        ).filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
       };
     case GET_PRODUCT_BY_ID:
       return {

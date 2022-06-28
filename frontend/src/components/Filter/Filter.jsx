@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
 import { getProductByCategory, setActive } from '../../redux/actions';
-import { useState, useEffect } from 'react';
-import { scrollToProducts } from '../variablesGlobales';
+import PriceFilter from '../PriceFilter/PriceFilter';
 // import { useEffect } from 'react'
 
 const Filter = (props) => {
@@ -18,6 +17,10 @@ const Filter = (props) => {
   return (
     <div className={container}>
       <span>
+        <div className={subtitle}>Precio</div>
+        <PriceFilter/>
+
+        {/* categorias */}
         <div className={subtitle}>categorías</div>
         {categories.map((category) => {
           return (
