@@ -21,7 +21,7 @@ const Filter = (props) => {
         <PriceFilter/>
 
         {/* categorias */}
-        <div className={subtitle}>categorías</div>
+        <div className={subtitle}>Categorías</div>
         {categories.map((category) => {
           return (
             <div className={categoryItem} key={category.id}>
