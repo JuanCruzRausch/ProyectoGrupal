@@ -1,9 +1,25 @@
 import React from 'react'
+import swal from 'sweetalert';
 import {SingleProduct_container, SingleProduct_text,ProductFav,SingleProduct_buttons,SingleProduct_img} from './SingleProduct.module.css'
 import imagen from '../../assets/img/heart.png'
 import { Link } from 'react-router-dom';
-function SingleProduct({image, name, price, id}) {
-  return (
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+function SingleProduct({image, name, price, id, ADDtoCart}) {
+    const selector = useSelector(state=> state.CartReducer.cart)
+    function handleAddtoCart(){
+        ADDtoCart(id)
+        swal({
+            text:`Producto agregado correctamente`,
+            icon: "success",
+            buttons: false,
+            timer:900,
+        })
+    }
+    useEffect(()=> {
+        localStorage.setItem("cart",JSON.stringify(selector))
+    },[selector])
+    return (
     <div className={SingleProduct_container}>
         <div className={SingleProduct_img}>
             <Link to={`/${id}`}>
@@ -22,7 +38,7 @@ function SingleProduct({image, name, price, id}) {
             </h2>
         </div>
         <div className={SingleProduct_buttons}>
-            <button>
+            <button onClick={() => handleAddtoCart()}>
             Agregar al carrito
             </button>
             <button className={ProductFav}>
