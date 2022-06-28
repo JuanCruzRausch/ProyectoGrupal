@@ -6,7 +6,7 @@ const LoginButton = () => {
 
   function login(){
     loginWithRedirect()
-    .then(e=>console.log(e))
+  
   }
   return <button onClick={() =>login() }>Log In</button>;
 };
