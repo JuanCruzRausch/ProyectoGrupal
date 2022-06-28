@@ -63,8 +63,9 @@ function NavbarComponent(props) {
     dispatch(setActive(1));
     dispatch(getProductByCategory(e.target.innerText));
   };
-  function refreshPage() {
-    window.location.reload(false);
+  function refreshPage(e) {
+    e.preventDefault()
+    navigate("/")
   }
 
   const { user, isAuthenticated, isLoading } = useAuth0();

@@ -28,8 +28,8 @@ function productReducer(state = initialState, { type, payload }) {
   switch (type) {
     case MAX_AND_MIN_PRICE:
       if((payload.max-payload.min)>=0){
-        if(payload.max==0) payload.max = Infinity
-        if(payload.min==0) payload.min = -Infinity
+        if(payload.max<=0) payload.max = Infinity
+        if(payload.min<=0) payload.min = -Infinity
         return {...state, maxMinPrice: {max: payload.max, min: payload.min}}}
     case SIGN_UP_ALERT:
       return { ...state, signUpAlert: payload };
