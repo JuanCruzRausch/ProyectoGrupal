@@ -31,7 +31,6 @@ export function getAllProducts() {
   }
 }
 
-
 export function getPaginate(page) {
   return async (dispatch) => {
     return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")

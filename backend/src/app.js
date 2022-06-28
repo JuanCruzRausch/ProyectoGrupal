@@ -7,6 +7,7 @@ const globalerrorHandler = require('./controllers/appErrorController');
 const userRouter = require('./routes/userRouter');
 const categoriesRouter = require('./routes/categoriesRouter');
 const publicationRouter = require('./routes/publicationRouter');
+const commonUserRouter = require('./routes/commonUserRouter');
 
 
 
@@ -23,10 +24,11 @@ app.use((req, res, next) => {
   next();
 });
 
-//Rutas 
+app.use('/commonuser', commonUserRouter)
 app.use('/users', userRouter);
 app.use('/categories', categoriesRouter);
 app.use('/publication', publicationRouter);
+
 
 
 app.all('*', (req, res, next) => {

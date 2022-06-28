@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllProducts,
@@ -19,10 +19,16 @@ import {
 } from './Products.module.css';
 import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
+import { AddToCart, getProductsCart } from '../../redux/actions/CartActions';
 
 function Products({ refElement, scrollTo }) {
+
+  JSON.parse(localStorage.getItem(("cart")))
   const dispatch = useDispatch();
+
   const productos = useSelector((state) => state.productReducer.Allproduct);
+
+
   let Active = useSelector((state) => state.productReducer.pagina);
 
   useEffect(() => {
@@ -30,7 +36,9 @@ function Products({ refElement, scrollTo }) {
       dispatch(getAllProducts(Active));
       dispatch(ordenado());
     }
+    dispatch(getProductsCart())
   }, []);
+
   let items = [];
   let length = productos.length / 15 < 8 ? Math.ceil(productos.length / 15) : 8;
 
@@ -63,6 +71,8 @@ function Products({ refElement, scrollTo }) {
             })
             .map((e, i) => (
               <SingleProduct
+                ADDtoCart={() => 
+                  dispatch(AddToCart(e._id))}
                 key={i}
                 image={e.thumbnail}
                 name={e.title}
