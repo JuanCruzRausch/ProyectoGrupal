@@ -68,7 +68,6 @@ function NavbarComponent(props) {
   }
 
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
   return (
     <Navbar className={Navbarc} expand="lg">
       <Container fluid>
