@@ -54,7 +54,7 @@ const commonUser = new Schema({
             floor: String,
             number: String
         },
-        ref: String
+        reference: String
     },
     phone:{
         type: String,
