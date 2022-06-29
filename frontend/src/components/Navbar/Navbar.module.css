@@ -3,6 +3,14 @@
     width: 25px;
     height: auto;
 }
+.LoginContainer{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.LoginContainer a {
+    margin: auto !important;
+}
 .datalist{
     margin-right: 1vh;
     border-radius: 5px;
@@ -24,10 +32,11 @@
     background: rgba(0, 0, 0, 0);
     margin: auto !important;
 }
-.Navbarc input{
+.Navbarc input, button{
     border: none;
     background-color: rgba(227, 227, 227, 0.705);
 }
+
 .Navbarc ::placeholder{
     padding: 5px;
     color: rgba(0, 0, 0, 0.466) !important;
@@ -37,7 +46,7 @@
 }
 .Navbarc Button{
     border-radius: 15px;
-    border: rgba(0, 0, 0, 0.1) 1px solid;
+    border: none;
     color: black;
 }
 .Navbarc Button:hover{

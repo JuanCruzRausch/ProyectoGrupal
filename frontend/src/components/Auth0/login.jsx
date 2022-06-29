@@ -9,7 +9,7 @@ const LoginButton = () => {
     loginWithRedirect()
   }
   
-  return <div><Nav.Link href="#" onClick={(e) => login(e) }>Log In</Nav.Link></div>
+  return <div><Nav.Link href="#" onClick={(e) => login(e) }>Ingresar</Nav.Link></div>
 };
 
 export default LoginButton;
