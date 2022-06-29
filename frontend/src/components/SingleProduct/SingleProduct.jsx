@@ -1,5 +1,4 @@
 import React from 'react';
-import swal from 'sweetalert';
 import {
   SingleProduct_container,
   SingleProduct_text,
@@ -11,19 +10,26 @@ import imagen from '../../assets/img/heart.png';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import {ToastContainer, toast} from 'react-toastify'
+
+
 function SingleProduct({ image, name, price, id, ADDtoCart }) {
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   function handleAddtoCart() {
     ADDtoCart(id);
-    swal({
-      text: `Producto agregado correctamente`,
-      icon: 'success',
-      buttons: false,
-      timer: 900,
-    });
+    toast.success("Item Agregado Correctamente", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
   }
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(selector));
+    
     //console.log(localStorage);
   }, [selector]);
 
@@ -47,6 +53,17 @@ function SingleProduct({ image, name, price, id, ADDtoCart }) {
           <img src={imagen} />
         </button>
       </div>
+      <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+      />
     </div>
   );
 }

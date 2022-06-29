@@ -7,7 +7,6 @@ import {
 } from '../actions/CartActions';
 
 const CartInitialState = {
-  products: [],
   cart: {
     cartItem: [
       ...(JSON.parse(localStorage.getItem('cart')) === null
@@ -17,27 +16,31 @@ const CartInitialState = {
     shippingAddress: {},
   },
 };
-
 function CartReducer(state = CartInitialState, { type, payload }) {
+
   switch (type) {
-    case GET_PRODUCTS:
-      return {
-        ...state,
-        products: payload,
-      };
     case ADD_TO_CART:
       const item = payload;
+      
+      var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
+
+      localStorage.setItem('prices', JSON.stringify(TotalPrice))
       return {
         ...state,
         cart: {
           ...state.cart,
-          cartItem: [...state.cart.cartItem, { ...item, quantity: 1 }],
+          cartItem: [...state.cart.cartItem, { ...item, quantity: 1}],
         },
       };
     case REMOVE_FROM_CART:
       const carrito = state.cart.cartItem;
+
       const filtro = carrito.filter((item) => item._id !== payload);
+
+      TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
+      TotalPrice = TotalPrice - filtro
       localStorage.setItem('cart', JSON.stringify(filtro));
+      localStorage.setItem('prices', JSON.stringify(TotalPrice));
       return {
         ...state,
         cart: { ...state.cart, cartItem: [...filtro] },
