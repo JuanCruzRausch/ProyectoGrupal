@@ -1,6 +1,5 @@
 const express = require('express');
 const morgan = require('morgan');
-
 const AppError = require('./utils/appError');
 const globalerrorHandler = require('./controllers/appErrorController');
 const userRouter = require('./routes/userRouter');
@@ -25,6 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes
 app.use('/subcategory', subCategoryRouter);
 app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
