@@ -4,10 +4,6 @@ const validator = require('validator');
 const subCategory = new Schema({
   name: {
     type: String,
-    validate: {
-      validator: (val) => validator.isAlpha(val, ['en-US'], { ignore: ' ' }),
-      message: 'Category name should contain only letters',
-    },
   },
   properties: [
     {

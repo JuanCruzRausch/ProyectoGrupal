@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const AppError = require('./utils/appError');
 const globalerrorHandler = require('./controllers/appErrorController');
 const userRouter = require('./routes/userRouter');
-const categoriesRouter = require('./routes/categoriesRouter');
+const categoriesTestRouter = require('./routes/categoryTestRouter');
 const publicationRouter = require('./routes/publicationRouter');
 const commonUserRouter = require('./routes/commonUserRouter');
 const subCategoryRouter = require('./routes/subCategoryRouter');
@@ -25,11 +25,11 @@ app.use((req, res, next) => {
 });
 
 // Routes
+app.use('/categories', categoriesTestRouter);
 app.use('/subcategory', subCategoryRouter);
 app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
 app.use('/users', userRouter);
-app.use('/categories', categoriesRouter);
 app.use('/publication', publicationRouter);
 
 app.all('*', (req, res, next) => {

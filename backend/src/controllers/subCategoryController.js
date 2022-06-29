@@ -2,7 +2,7 @@ const SubCategory = require('../models/SubCategory');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
-exports.postSubCategory = catchAsync(async (req, res, next) => {
+exports.postSubCategory = catchAsync(async (req, res) => {
   const newSubCategory = await SubCategory.create({
     name: req.body.name,
     properties: req.body.properties,
