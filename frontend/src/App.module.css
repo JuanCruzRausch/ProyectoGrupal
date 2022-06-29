@@ -1,3 +1,5 @@
 .app{
     background-color: #eceded;
+    text-transform: capitalize;
+    height: 100%;
 }

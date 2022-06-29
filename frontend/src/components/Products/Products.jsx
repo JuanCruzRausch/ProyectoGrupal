@@ -20,7 +20,7 @@ import {
 import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
 import { AddToCart, getProductsCart } from '../../redux/actions/CartActions';
-
+import 'react-toastify/dist/ReactToastify.css';
 function Products({ refElement, scrollTo }) {
 
   JSON.parse(localStorage.getItem(("cart")))
@@ -53,6 +53,9 @@ function Products({ refElement, scrollTo }) {
       </Pagination.Item>
     );
   }
+  const handleAddToCart = (id) =>{
+    dispatch(AddToCart(id))
+  }
   const handleGetProducts = (pagina) => {
     // dispatch(getPaginate(pagina)),
     dispatch(setActive(pagina));
@@ -72,7 +75,7 @@ function Products({ refElement, scrollTo }) {
             .map((e, i) => (
               <SingleProduct
                 ADDtoCart={() => 
-                  dispatch(AddToCart(e._id))}
+                  handleAddToCart(e._id)}
                 key={i}
                 image={e.thumbnail}
                 name={e.title}
@@ -85,6 +88,7 @@ function Products({ refElement, scrollTo }) {
       <div className={Products_Paginate}>
         <Pagination size="lg">{items}</Pagination>
       </div>
+      
     </div>
   );
 }

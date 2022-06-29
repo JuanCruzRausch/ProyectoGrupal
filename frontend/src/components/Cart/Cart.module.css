@@ -1,6 +1,4 @@
-.CartContainer{
-    height: 90vh;
-}
+
 .CartDiv{
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: #fff;
@@ -20,36 +18,89 @@
 .CartDiv div{
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-.CartDiv div:last-child{
-    display: flex;
-    height: 500px;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-.CartDiv div:last-child h1{
-    font-weight: 300;
-    color: grey;
 }
 
-.CartDiv div:last-child h2{
-    font-weight: 600;
-    color: rgb(95, 95, 95);
-    background: #ffffff;
-    box-shadow:  12px -12px 24px #e3e3e3,
-                 -12px 12px 24px #ffffff;
-    padding: 1.5vh;
-    border-radius: 15px;
-}
-
-.CartDiv div:last-child h2:active{
-    background: #ffffff;
-    box-shadow: inset 8px -8px 16px #e3e3e3,
-                inset -8px 8px 16px #ffffff;
-    
-    
-}
 .CartDiv img{
     width: 250px;
+}
+
+.ItemsContainer{
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+}
+
+.ItemsInCart{
+    width: 66%;
+    margin: auto;
+    display: flex !important;
+    align-items: flex-start !important;
+}
+
+.ItemsContainer_SingleItem{
+    width: 80%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row !important;
+}
+
+.ItemsContainer_SingleItem img {
+    height: 100px;
+    width: 100px;
+}
+.ItemsContainer_SingleItem h1{
+    width: 40%;
+}
+ .ItemsContainer_SingleItem h1, h2{
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    font-size: 1rem !important;
+ }
+ .ItemsContainer_SingleItem button{
+    background-color: red;
+    border: none;
+    text-align: center;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    color: white;
+ }
+.Cart_Checkout{
+    text-align: center;
+    width: 30%;
+    justify-content: center;
+    align-self: flex-end;
+}
+
+.Cart_Checkout button{
+    height: 45px;
+    font-size: 1.3rem;
+    margin: 3vh auto;
+    border: none;
+    border-radius: 10px;
+    background-color: #3483FA;
+    color: white;
+    width: 90%;
+}
+
+.Cart_Checkout button:hover{
+    background-color: #7faff8;
+}
+
+.Cart_Checkout button:last-child{
+    margin: 0 auto;
+    width: 80%;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+}
+
+.Cart_Checkout button:last-child:hover{
+    background-color: rgb(255, 81, 81);
+    color: white;
+}
+
+.Checkout_total{
+    width: auto;
 }
