@@ -15,7 +15,7 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css';
+import { Navbarc, cartIMG, DropdownA, datalist, logo } from './Navbar.module.css';
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
