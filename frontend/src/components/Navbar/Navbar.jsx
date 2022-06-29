@@ -18,8 +18,8 @@ import {
 import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css';
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
-import LoginButton from '../login';
-import LogoutButton from '../logout';
+import LoginButton from '../Auth0/login';
+import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function NavbarComponent(props) {
@@ -35,6 +35,7 @@ function NavbarComponent(props) {
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.productReducer.categories);
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
@@ -68,8 +69,7 @@ function NavbarComponent(props) {
     navigate('/');
   }
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  //console.log('USER-----', user);
+ 
   return (
     <Navbar className={Navbarc} expand="lg">
       <Container fluid>
@@ -138,25 +138,31 @@ function NavbarComponent(props) {
             </Button>
           </Form>
         </Navbar.Collapse>
-        {isAuthenticated ? (
-          <div>
-            {user.email_verified ? (
-              <div>
-                <img src={user.picture} alt={user.name} />
-                <h2>{user.nickname}</h2>
-                <LogoutButton />
+          {isAuthenticated ? (
+            <div>
+              <div >
+                <NavDropdown title={user.nickname}> 
+                  {user.email_verified ? (
+                    <div>
+                      <NavDropdown.Item>Favoritos</NavDropdown.Item>
+                      <NavDropdown.Item onClick={()=> navigate("/perfil")}>perfil</NavDropdown.Item>
+                      <NavDropdown.Divider />
+                      <LogoutButton />
+                    </div>
+                ) : (
+                  <h4>please verify you email  <LogoutButton /></h4>
+                  )}
+                </NavDropdown>  
               </div>
-            ) : (
-              <div>
-                <p>{user.nickname}</p>
-                <p>please verify you email</p>
-                <LogoutButton />
-              </div>
+              <Container>                
+                <Link to="/">
+                  <img className={logo} src={user.picture} alt={user.name} />
+                </Link>
+              </Container>
+            </div>
+          ) : (
+            <LoginButton />
             )}
-          </div>
-        ) : (
-          <LoginButton />
-        )}
       </Container>
     </Navbar>
   );
