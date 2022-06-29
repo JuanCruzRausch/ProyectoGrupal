@@ -5,7 +5,6 @@ const commonUser = new Schema({
 
     name:{
         type: String,
-        require: [true,"Please tell us your name!"],
         validate: {
             validator: val => validator.isAlpha(val, ["en-US"],{ignore: " "}),
             message: "Name must have letters only"
@@ -15,7 +14,6 @@ const commonUser = new Schema({
     },
     lastname:{
         type: String,
-        require: [true,"Please tell us your lastname!"],
         validate: {
             validator: val => validator.isAlpha(val, ["en-US"],{ignore: " "}),
             message: "Lastname must have letters only"
@@ -23,11 +21,11 @@ const commonUser = new Schema({
         minlength: [2, "User lastname must have at least 2 letters"],
         maxlength: [40, "User lastname can only have 40 letters"],
     }, 
+    password: {
+        type: String
+    },
     nickname:{
         type: String,
-        default: function(){
-            return this.name + " " + this.lastname;
-        }
     }, 
     country:{
         type: String,
@@ -72,7 +70,7 @@ const commonUser = new Schema({
         type: Date,
         default: ()=>Date.now(),
         immutable:true
-    }
+    },
 })
 
 const CommonUser = model("CommonUser", commonUser)

@@ -6,6 +6,7 @@ exports.post = catchAsync(async(req,res,next)=>{
     const newUser = await CommonUser.create ({
         name: req.body.name,
         lastname: req.body.lastname,
+        password: req.body.password,
         country: req.body.country,
         email:req.body.email,
         role: req.body.role,
@@ -28,3 +29,16 @@ exports.post = catchAsync(async(req,res,next)=>{
     res.status(201).json({status:"success", data: newUser})
     next()
 })
+
+exports.getUserEmail = async (req, res, next) => {
+    try {
+        const {email} = req.params
+        const user = await CommonUser.findOne({email})
+        res.status(200).json({
+            status: 'success',
+            data: user
+        })
+    } catch (error) {
+        return next(new AppError('bad request', 400))
+    }
+}
