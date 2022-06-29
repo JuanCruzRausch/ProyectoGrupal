@@ -1,5 +1,5 @@
-const User = require("../models/User");
-const axios = require('axios')
+const User = require('../models/User');
+const axios = require('axios');
 
 exports.signup = async (req, res, next) => {
   try {
@@ -14,7 +14,7 @@ exports.signup = async (req, res, next) => {
     });
 
     return res.status(201).json({
-      status: "success",
+      status: 'success',
       data: {
         user: newUser,
       },
@@ -22,10 +22,31 @@ exports.signup = async (req, res, next) => {
   } catch (e) {
     console.log(e);
     res.status(400).json({
-      status: "fail",
+      status: 'fail',
       message: e,
     });
   }
   next();
 };
 
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    await axios.post(
+      'https://dev-dzo-bi6q.us.auth0.com/dbconnections/change_password',
+      {
+        client_id: 'WdVad5B4d483KNuDKngTtCfBnH2ErkIR',
+        email: email,
+        connection: 'test',
+      },
+      { header: { 'content-type': 'application/json' } }
+    );
+
+    res.status(200).json({
+      status: 'success',
+      data: `We've just sent you an email to reset your password`
+    })
+  } catch (error) {
+    return next(new AppError('Bad request', 400))
+  }
+};
