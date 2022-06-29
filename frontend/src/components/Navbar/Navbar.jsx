@@ -36,7 +36,7 @@ function NavbarComponent(props) {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.productReducer.categories);
   const { user, isAuthenticated, isLoading } = useAuth0();
-  
+
   const searchOnSubmit = (e) => {
     e.preventDefault();
     navigate("/");
@@ -150,7 +150,7 @@ function NavbarComponent(props) {
                       <LogoutButton />
                     </div>
                 ) : (
-                  <h2>please verify you email  <LogoutButton /></h2>
+                  <h4>please verify you email  <LogoutButton /></h4>
                   )}
                 </NavDropdown>  
               </div>
