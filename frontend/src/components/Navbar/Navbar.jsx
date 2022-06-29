@@ -147,9 +147,11 @@ function NavbarComponent(props) {
                 <LogoutButton />
               </div>
             ) : (
-              <h2>
-                please verify you email <LogoutButton />
-              </h2>
+              <div>
+                <p>{user.nickname}</p>
+                <p>please verify you email</p>
+                <LogoutButton />
+              </div>
             )}
           </div>
         ) : (
