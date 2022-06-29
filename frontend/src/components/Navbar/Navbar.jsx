@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
 import {
   Navbar,
   Container,
@@ -8,19 +8,19 @@ import {
   Form,
   FormControl,
   Button,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+} from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getProductByCategory,
   BuscarProducto,
   setActive,
-} from "../../redux/actions";
-import { Navbarc, cartIMG, DropdownA, datalist } from "./Navbar.module.css";
-import cart from "../../assets/img/cartICON.png";
-import { useState } from "react";
-import LoginButton from "../login";
-import LogoutButton from "../logout";
-import { useAuth0 } from "@auth0/auth0-react";
+} from '../../redux/actions';
+import { Navbarc, cartIMG, DropdownA, datalist } from './Navbar.module.css';
+import cart from '../../assets/img/cartICON.png';
+import { useState } from 'react';
+import LoginButton from '../login';
+import LogoutButton from '../logout';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function NavbarComponent(props) {
   let navigate = useNavigate();
@@ -32,13 +32,13 @@ function NavbarComponent(props) {
   ];
   const [display, setDisplay] = useState([...productsCache]);
   const [displayFlag, setDisplayFlag] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.productReducer.categories);
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate('/');
     props.scrollTo();
     dispatch(setActive(1));
     dispatch(BuscarProducto(search));
@@ -59,16 +59,17 @@ function NavbarComponent(props) {
   const handleOnSelectCategory = (e) => {
     e.preventDefault();
     window.scrollTo(0, 650);
-    navigate("/");
+    navigate('/');
     dispatch(setActive(1));
     dispatch(getProductByCategory(e.target.innerText));
   };
-  function refreshPage() {
-    window.location.reload(false);
+  function refreshPage(e) {
+    e.preventDefault();
+    navigate('/');
   }
 
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
+  //console.log('USER-----', user);
   return (
     <Navbar className={Navbarc} expand="lg">
       <Container fluid>
@@ -101,7 +102,7 @@ function NavbarComponent(props) {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/signin");
+                navigate('/signin');
               }}
             >
               Iniciar sesion
@@ -110,7 +111,7 @@ function NavbarComponent(props) {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                navigate("/perfil");
+                navigate('/perfil');
               }}
             >
               Mi perfil

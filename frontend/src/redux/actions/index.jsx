@@ -7,7 +7,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE';
 export const SIGN_UP_ALERT = 'SIGN_UP_ALERT'
-
+export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE"
 // import categorias from '../../components/Json/Categorias'
 export function signUp(data) {
   return async (dispatch) => {
@@ -31,13 +31,16 @@ export function getAllProducts() {
   }
 }
 
-
 export function getPaginate(page) {
   return async (dispatch) => {
     return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
+}
+
+export function setMaxMinPrice(filterPrice){
+  return { type: MAX_AND_MIN_PRICE, payload: filterPrice }
 }
 
 export function setActive(page) {
