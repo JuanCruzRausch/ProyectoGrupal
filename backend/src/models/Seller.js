@@ -14,7 +14,7 @@ const sellerSchema = new Schema({
         fb: String,
         tw: String,
     },
-    subsidiary:[{
+    subsidiary:{
         google_map: String,
         province: String,
         city: String,
@@ -22,7 +22,7 @@ const sellerSchema = new Schema({
         street: String,
         number: String,
         reference: String
-    }],
+    },
     active_pub:{
         type:[Schema.Types.ObjectId],
         ref: 'PublicationTest'

@@ -8,6 +8,7 @@ const userRouter = require('./routes/userRouter');
 const categoriesRouter = require('./routes/categoriesRouter');
 const publicationRouter = require('./routes/publicationRouter');
 const commonUserRouter = require('./routes/commonUserRouter');
+const sellerRouter = require('./routes/sellerRouter');
 
 
 
@@ -24,7 +25,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/commonuser', commonUserRouter)
+app.use('/seller', sellerRouter);
+app.use('/commonuser', commonUserRouter);
 app.use('/users', userRouter);
 app.use('/categories', categoriesRouter);
 app.use('/publication', publicationRouter);
