@@ -15,7 +15,11 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
+<<<<<<< HEAD
 import { Navbarc, cartIMG, DropdownA, datalist, logo } from './Navbar.module.css';
+=======
+import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer } from './Navbar.module.css';
+>>>>>>> Dev
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
@@ -98,24 +102,7 @@ function NavbarComponent(props) {
                 );
               })}
             </NavDropdown>
-            <Nav.Link
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/signin');
-              }}
-            >
-              Iniciar sesion
-            </Nav.Link>
-            <Nav.Link
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/perfil');
-              }}
-            >
-              Mi perfil
-            </Nav.Link>
+
             <Link to="/cart">
               <img className={cartIMG} src={cart} alt="cart" />
             </Link>
@@ -139,7 +126,7 @@ function NavbarComponent(props) {
           </Form>
         </Navbar.Collapse>
           {isAuthenticated ? (
-            <div>
+            <div className={LoginContainer}>
               <div >
                 <NavDropdown title={user.nickname}> 
                   {user.email_verified ? (
@@ -156,7 +143,7 @@ function NavbarComponent(props) {
               </div>
               <Container>                
                 <Link to="/">
-                  <img className={logo} src={user.picture} alt={user.name} />
+                  <img className={logo} src={user.picture} />
                 </Link>
               </Container>
             </div>
