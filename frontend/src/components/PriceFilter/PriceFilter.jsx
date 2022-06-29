@@ -15,26 +15,26 @@ export default function PriceFilter() {
     <div>
         <h6>Máximo </h6>
         <div >    
-            <div class="input-group mb-3" >
-                <span class="input-group-text">$</span>
+            <div className="input-group mb-3" >
+                <span className="input-group-text">$</span>
                 <input value = {maxMinPrice.max} 
-                className = {widthInput} 
+                className = "form-control"
                 onChange= {(e)=>handleOnChange(e)}
                 name = "max"
-                type = "number" class="form-control" aria-label="Amount (to the nearest dollar)"/>
-                <span class="input-group-text">.00</span>
+                type = "number"  aria-label="Amount (to the nearest dollar)"/>
+                <span className="input-group-text">.00</span>
             </div>
         </div>
          <h6>Mínimo </h6>
          <div  >
-            <div class="input-group mb-3">
-                <span class="input-group-text">$</span>
+            <div className="input-group mb-3">
+                <span className="input-group-text">$</span>
                 <input value= {maxMinPrice.min} 
-                className = {widthInput}
+                className = "form-control"
                 onChange = {(e)=>handleOnChange(e)} 
                 name = "min"
-                type="number" class="form-control" aria-label="Amount (to the nearest dollar)"/>
-                <span class="input-group-text">.00</span>
+                type="number" aria-label="Amount (to the nearest dollar)"/>
+                <span className="input-group-text">.00</span>
             </div>
          </div>
     </div>
