@@ -21,6 +21,7 @@ import { useState } from 'react';
 import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
+import logo from './Navbar.module.css'
 
 function NavbarComponent(props) {
   let navigate = useNavigate();
