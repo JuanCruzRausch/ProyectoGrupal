@@ -13,7 +13,7 @@ const sellerSchema = new Schema({
     fb: String,
     tw: String,
   },
-  subsidiary: [
+  subsidiary: 
     {
       google_map: String,
       province: String,
@@ -23,7 +23,6 @@ const sellerSchema = new Schema({
       number: String,
       reference: String,
     },
-  ],
   active_pub: {
     type: [Schema.Types.ObjectId],
     ref: 'PublicationTest',
@@ -56,6 +55,7 @@ const sellerSchema = new Schema({
     immutable: true,
   },
 });
+
 const Seller = model('Seller', sellerSchema);
 
 module.exports = Seller;

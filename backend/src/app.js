@@ -8,6 +8,7 @@ const categoriesRouter = require('./routes/categoriesRouter');
 const publicationRouter = require('./routes/publicationRouter');
 const commonUserRouter = require('./routes/commonUserRouter');
 const subCategoryRouter = require('./routes/subCategoryRouter');
+const sellerRouter = require('./routes/sellerRouter');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/subcategory', subCategoryRouter);
+app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
 app.use('/users', userRouter);
 app.use('/categories', categoriesRouter);
