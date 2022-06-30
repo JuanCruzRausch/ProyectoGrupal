@@ -22,9 +22,8 @@ import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
 import { AddToCart} from '../../redux/actions/CartActions';
 import sindicato from '../../assets/img/enanoenojado.webp';
-
-import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../Loading/Loading';
+import { AddToFav } from '../../redux/actions/FavActions';
 function Products({ refElement, scrollTo }) {
   JSON.parse(localStorage.getItem('cart'));
   const dispatch = useDispatch();
@@ -60,6 +59,9 @@ function Products({ refElement, scrollTo }) {
   const handleAddToCart = (id) => {
     dispatch(AddToCart(id));
   };
+  const handleAddtoFav = (id)=>{
+    dispatch(AddToFav(id))
+  }
   const handleGetProducts = (pagina) => {
     // dispatch(getPaginate(pagina)),
     dispatch(setActive(pagina));
@@ -89,6 +91,7 @@ function Products({ refElement, scrollTo }) {
             .map((e, i) => (
               <SingleProduct
                 ADDtoCart={() => handleAddToCart(e._id)}
+                ADDtoFav={()=> handleAddtoFav(e._id)}
                 key={i}
                 image={e.thumbnail}
                 name={e.title}

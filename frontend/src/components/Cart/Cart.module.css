@@ -31,15 +31,16 @@
 }
 
 .ItemsInCart{
-    width: 60%;
+    width: 75%;
     margin: auto 0;
     display: flex;
 }
 
 .ItemsContainer_SingleItem{
+    margin: 20px 0;
     display: flex !important;
     flex-direction: row !important;
-    justify-content: space-around !important;
+    justify-content: space-between !important;
 }
 
 .ItemsContainer_SingleItem img {
@@ -47,7 +48,7 @@
     width: 100px;
 }
 .ItemsContainer_SingleItem h1{
-    width: 40%;
+    width: 25%;
 }
  .ItemsContainer_SingleItem h1, h2{
     text-align: center;
@@ -55,18 +56,32 @@
     align-content: center;
     font-size: 1rem !important;
  }
- .ItemsContainer_SingleItem button{
-    background-color: red;
-    border: none;
-    text-align: center;
-    border-radius: 50%;
+ .Buttons{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: space-around !important;
+ }
+ .Buttons button{
     width: 30px;
-    height: 30px;
+    border-radius: 15px;
+    border: none;
+    margin: 0 15px ;
+ }
+ .Buttons h1{
+    margin: auto;
+    align-items: center;
+ }
+ .EliminarItem{
+    border-radius: 15px;
+    background-color: red;
     color: white;
+    height: fit-content;
+    margin: auto 0;
  }
 .Cart_Checkout{
     text-align: center;
-    width: 25%;
+    width: 20%;
     justify-content: center;
     align-self: flex-end;
 }
@@ -89,7 +104,7 @@
 .Cart_Checkout button:last-child{
     margin: 0 auto;
     width: 80%;
-    background-color: red;
+    background-color: rgb(0, 0, 0);
     color: white;
     font-weight: 600;
 }

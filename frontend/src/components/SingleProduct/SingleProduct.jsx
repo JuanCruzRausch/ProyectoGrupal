@@ -12,8 +12,22 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
-function SingleProduct({ image, name, price, id, ADDtoCart }) {
+function SingleProduct({ image, name, price, id, ADDtoCart, ADDtoFav }) {
+
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
+  const FavState = useSelector(state=> state.FavReducer.Favs)
+  function handleAddtoFav(){
+    ADDtoFav(id)
+    toast('🦄 Item añadido a favoritos!', {
+      position: "top-right",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
   function handleAddtoCart() {
     ADDtoCart(id);
     toast.success('Item Agregado Correctamente', {
@@ -26,6 +40,10 @@ function SingleProduct({ image, name, price, id, ADDtoCart }) {
       progress: undefined,
     });
   }
+  useEffect(()=> {
+    localStorage.setItem('favs',JSON.stringify(FavState))
+  },[FavState])
+  
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(selector));
 
@@ -48,7 +66,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart }) {
       </div>
       <div className={SingleProduct_buttons}>
         <button onClick={() => handleAddtoCart(id)}>Agregar al carrito</button>
-        <button className={ProductFav}>
+        <button className={ProductFav} onClick={() => handleAddtoFav(id)}>
           <img src={imagen} />
         </button>
       </div>
