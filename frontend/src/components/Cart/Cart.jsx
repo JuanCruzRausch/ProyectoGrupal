@@ -1,9 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ClearFromCart, DeleteFromCart } from '../../redux/actions/CartActions';
-import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total} from './Cart.module.css';
+import { ClearFromCart, DeleteFromCart, IncreaseCart, DecreaseCart } from '../../redux/actions/CartActions';
+import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer} from './Cart.module.css';
 import { useNavigate } from 'react-router-dom';
 import EmptyCart from '../../assets/img/emptycart.svg';
+import {ToastContainer, toast} from 'react-toastify'
+
 function Cart() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -13,9 +15,33 @@ function Cart() {
 
   function handleClear() {
     dispatch(ClearFromCart());
-    navigate('/');
+    toast.info('Carrito vacío', {
+      position: "top-right",
+      autoClose: 900,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      })
+
+      setTimeout(()=>{
+           navigate('/');
+      },1200)
   }
-  const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price, 0))
+  function handleDelete(e){
+    dispatch(DeleteFromCart(e))
+    toast.error('Item borrado de su carrito', {
+      position: "top-right",
+      autoClose: 800,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
+  }
+  const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
 
   return (
     <div>
@@ -31,10 +57,23 @@ function Cart() {
                 <div className={ItemsContainer_SingleItem} key={i}>
                   <img src={e.thumbnail}/>
                   <h1>{e.title}</h1>
-                  <h2>${e.price}</h2>
-                  <h2>{e.quantity}</h2>
-                  <button onClick={() => dispatch(DeleteFromCart(e._id))}>
-                    x
+                  <h2>Valor unitario${Math.round(e.price)}</h2>
+                  <h2>Total: ${Math.round(e.price*e.quantity)}</h2>
+                  <div>
+                    <button onClick={() => 
+                      dispatch(IncreaseCart(e.product))}>+</button>
+                    <h2>{e.quantity}</h2>
+                    <button onClick={() =>{
+                      if(e.quantity>1){
+                        dispatch(DecreaseCart(e.product))
+                      }
+                      else 
+                       handleDelete(e.product)}
+                       }>-</button>
+                  </div>
+                  <button onClick={() => 
+                    dispatch(DeleteFromCart(e.product))}>
+                    Eliminar del carrito
                   </button>
                 </div>
               ))}
@@ -48,7 +87,7 @@ function Cart() {
              </div> 
             </div>
           ) : (
-            <div>
+            <div className={EmptyCartContainer}>
               <img src={EmptyCart} alt="emptyCart" />
               <h1>Tu carrito está vacío!</h1>
               <a href="/">
@@ -58,6 +97,17 @@ function Cart() {
           )}
         </div>
       </div>
+      <ToastContainer
+          position="top-right"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+      />
     </div>
   );
 }

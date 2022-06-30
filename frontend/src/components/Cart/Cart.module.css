@@ -27,21 +27,19 @@
 .ItemsContainer{
     display: flex !important;
     flex-direction: row !important;
-    justify-content: space-around !important;
+    justify-content: space-between !important;
 }
 
 .ItemsInCart{
-    width: 66%;
-    margin: auto;
-    display: flex !important;
-    align-items: flex-start !important;
+    width: 60%;
+    margin: auto 0;
+    display: flex;
 }
 
 .ItemsContainer_SingleItem{
-    width: 80%;
-    justify-content: space-between;
-    display: flex;
+    display: flex !important;
     flex-direction: row !important;
+    justify-content: space-around !important;
 }
 
 .ItemsContainer_SingleItem img {
@@ -68,7 +66,7 @@
  }
 .Cart_Checkout{
     text-align: center;
-    width: 30%;
+    width: 25%;
     justify-content: center;
     align-self: flex-end;
 }
@@ -103,4 +101,21 @@
 
 .Checkout_total{
     width: auto;
+}
+
+.EmptyCartContainer{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.EmptyCartContainer a{
+    color: black;
+    text-align: center;
+}
+.EmptyCartContainer a h2{
+    font-size: 3rem !important;
+    text-align: center;
 }
