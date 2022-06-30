@@ -8,6 +8,7 @@ const publicationRouter = require('./routes/publicationRouter');
 const commonUserRouter = require('./routes/commonUserRouter');
 const subCategoryRouter = require('./routes/subCategoryRouter');
 const sellerRouter = require('./routes/sellerRouter');
+const publicationTestRouter = require('./routes/publicationTestRouter');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
 app.use('/users', userRouter);
 app.use('/publication', publicationRouter);
+app.use('/publicationtest', publicationTestRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
