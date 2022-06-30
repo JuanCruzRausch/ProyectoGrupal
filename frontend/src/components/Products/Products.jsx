@@ -63,45 +63,35 @@ function Products({ refElement, scrollTo }) {
     dispatch(setActive(pagina));
   };
 
-  if (!productos.length) {
-    return <Loading />;
-  } else {
-    return (
-      <div className={Products_Container}>
-        <Carousell />
-        <Sort ref={refElement} scrollTo={scrollTo} />
-        <div className={Cards_Filter_Container}>
-          <Filter className={Filter_Container} scrollTo={scrollTo} />
-          <span className={Cards_Container}>
-            {!productos.length && (
-              <div className={ErrorEnano}>
-                <h1>los enanos no hicieron los productos</h1>
-                <h1>los enanos exigen un aumento salarial</h1>
-                <img src={sindicato} />
-              </div>
-            )}
-            {productos
-              .filter((e, i) => {
-                return i <= 15 * Active && i >= 15 * (Active - 1);
-              })
-              .map((e, i) => (
-                <SingleProduct
-                  ADDtoCart={() => handleAddToCart(e._id)}
-                  key={i}
-                  image={e.thumbnail}
-                  name={e.title}
-                  price={e.price}
-                  id={e._id}
-                />
-              ))}
-          </span>
-        </div>
-        <div className={Products_Paginate}>
-          <Pagination size="lg">{items}</Pagination>
-        </div>
+  return (
+    <div className={Products_Container}>
+      <Carousell />
+      <Sort ref={refElement} scrollTo={scrollTo} />
+      <div className={Cards_Filter_Container}>
+        <Filter className={Filter_Container} scrollTo={scrollTo} />
+        <span className={Cards_Container}>
+          {!productos.length && <Loading />}
+          {productos
+            .filter((e, i) => {
+              return i <= 15 * Active && i >= 15 * (Active - 1);
+            })
+            .map((e, i) => (
+              <SingleProduct
+                ADDtoCart={() => handleAddToCart(e._id)}
+                key={i}
+                image={e.thumbnail}
+                name={e.title}
+                price={e.price}
+                id={e._id}
+              />
+            ))}
+        </span>
       </div>
-    );
-  }
+      <div className={Products_Paginate}>
+        <Pagination size="lg">{items}</Pagination>
+      </div>
+    </div>
+  );
 }
 
 export default Products;
