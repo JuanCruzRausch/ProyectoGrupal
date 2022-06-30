@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const validator = require('validator');
 
 const publicationTestSchema = new Schema({
   title: {
@@ -8,7 +7,14 @@ const publicationTestSchema = new Schema({
       true,
       'Please add a title that contains key words of the product',
     ],
-    validate: [validator.isAscii, 'Title can have any character'],
+    validate: {
+      validator: function (e) {
+        return /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(
+          e
+        );
+      },
+      message: 'Title should only contain numbers and letters',
+    },
     maxlength: [100, 'A title must have less or equal then 100 characters'],
     minlength: [4, 'A title must have more or equal then 4 characters'],
   },
@@ -134,6 +140,10 @@ const publicationTestSchema = new Schema({
   questions: {
     type: [Schema.Types.ObjectId],
     ref: 'Questions',
+  },
+  transactions: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Transaction',
   },
 });
 
