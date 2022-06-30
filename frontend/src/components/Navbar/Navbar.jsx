@@ -15,13 +15,12 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer } from './Navbar.module.css';
+import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo } from './Navbar.module.css';
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
-import logo from './Navbar.module.css'
 
 function NavbarComponent(props) {
   let navigate = useNavigate();
@@ -129,11 +128,12 @@ function NavbarComponent(props) {
                   {user.email_verified ? (
                     <div>
                       <NavDropdown.Item>Favoritos</NavDropdown.Item>
+                      <NavDropdown.Item onClick={()=>navigate("/shipping")}>Shipping</NavDropdown.Item>
                       <NavDropdown.Item onClick={()=> navigate("/perfil")}>perfil</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <LogoutButton />
                     </div>
-                ) : (
+                  ): (
                   <h4>please verify you email  <LogoutButton /></h4>
                   )}
                 </NavDropdown>  

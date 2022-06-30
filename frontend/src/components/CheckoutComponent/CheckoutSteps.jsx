@@ -1,7 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { checkout_step } from 'CheckoutSteps.module.css';
+import { checkout_step } from './CheckoutSteps.module.css';
 
 export default function CheckoutSteps(props) {
   return (
