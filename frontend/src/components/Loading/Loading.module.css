@@ -1,0 +1,18 @@
+.spinner_box {
+  height: 100vh;
+  position: relative;
+}
+.spinner {
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  -ms-transform: (-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.spinner_spinner {
+  width: 80px !important;
+  height: 80px !important;
+  border: 10px solid currentColor !important;
+  border-right-color: transparent !important;
+}

@@ -10,26 +10,25 @@ import imagen from '../../assets/img/heart.png';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import {ToastContainer, toast} from 'react-toastify'
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function SingleProduct({ image, name, price, id, ADDtoCart }) {
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   function handleAddtoCart() {
     ADDtoCart(id);
-    toast.success("Item Agregado Correctamente", {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
+    toast.success('Item Agregado Correctamente', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(selector));
-    
+
     //console.log(localStorage);
   }, [selector]);
 
@@ -54,15 +53,15 @@ function SingleProduct({ image, name, price, id, ADDtoCart }) {
         </button>
       </div>
       <ToastContainer
-          position="top-right"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
     </div>
   );
