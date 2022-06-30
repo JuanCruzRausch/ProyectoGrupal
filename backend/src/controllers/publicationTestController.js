@@ -94,6 +94,6 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
 exports.deletePublicationTest = catchAsync(async(req,res,next)=>{
   const {id} = req.params;
   const publi_delete = await PublicationTest.deleteOne({id});
-  res.status(204).json({status:'succes', data: publi_delete});
+  res.status(204).json({status:'succes', data: 'done'});
   next();
 });
