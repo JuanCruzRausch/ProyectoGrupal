@@ -15,11 +15,7 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-<<<<<<< HEAD
-import { Navbarc, cartIMG, DropdownA, datalist, logo } from './Navbar.module.css';
-=======
-import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer } from './Navbar.module.css';
->>>>>>> Dev
+import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo } from './Navbar.module.css';
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
@@ -132,6 +128,7 @@ function NavbarComponent(props) {
                   {user.email_verified ? (
                     <div>
                       <NavDropdown.Item>Favoritos</NavDropdown.Item>
+                      <NavDropdown.Item onClick={()=>navigate("/shipping")}>Shipping</NavDropdown.Item>
                       <NavDropdown.Item onClick={()=> navigate("/perfil")}>perfil</NavDropdown.Item>
                       <NavDropdown.Divider />
                       <LogoutButton />
