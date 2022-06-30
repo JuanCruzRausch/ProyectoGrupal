@@ -10,6 +10,7 @@ import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress"
 import Perfil from "./components/Perfil/Perfil";
 import { useRef } from "react";
 import Cart from "./components/Cart/Cart";
+import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 
 function App() {
   const scrollTo = useRef();
@@ -22,7 +23,8 @@ function App() {
         <NavbarComponent scrollTo={scrollToSort} />
         <Routes>
           <Route path="/Cart" element={<Cart />} />
-          <Route path="/Shipping" element={<ShippingAddress />} />
+          <Route path="/placeorder" element={<PlaceOrder/>}/>
+          <Route path="/shipping" element={<ShippingAddress />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />

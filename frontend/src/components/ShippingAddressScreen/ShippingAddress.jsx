@@ -3,18 +3,24 @@ import { Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CheckoutSteps from '../CheckoutComponent/CheckoutSteps';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import validateFunction from '../validate';
 import { Container_Small, Form_Div } from './Shipping.module.css';
+import countries from '../Json/countries.jsx'
+import states from '../Json/states.jsx'
+import { saveShippingAddress } from '../../redux/actions/CartActions'
 //import { ToastContainer, toast } from 'react-toastify';
 
 function ShippingAddress() {
+  const shipping = useSelector(state=>state.CartReducer.cart.shippingAddress)
   const navigate = useNavigate();
+  const [countryId, setCountryId] = useState([]);
   const [data, setData] = useState({
     address: '',
     city: '',
     postalCode: '',
     country: '',
+    state: '',
     fullName: '',
   });
   const [validate, setValidate] = useState({
@@ -22,6 +28,7 @@ function ShippingAddress() {
     city: true,
     postalCode: true,
     country: true,
+    state: true,
     fullName: true,
   });
 
@@ -38,28 +45,31 @@ function ShippingAddress() {
       navigate('/signin');
     }
   }, [user, navigate]);
-  const handleOnChange = (e) => {
+  const handleOnChange = (e , id) => {
     setValidate({
       ...validate,
       [e.target.name]: validateFunction(e.target.value),
     });
-    setData({
-      ...data,
+    dispatch(saveShippingAddress({
+      ...shipping,
       [e.target.name]: e.target.value,
-    });
+    }));
+    if (e.target.name == "country"){
+      setCountryId(id)
+    }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (
-      data.fullName &&
-      data.address &&
-      data.country &&
-      data.city &&
-      data.postalCode
+      shipping.fullName &&
+      shipping.address &&
+      shipping.country &&
+      shipping.city &&
+      shipping.postalCode
     ) {
-      dispatch(saveShipping({ address, city, postalCode, country }));
-      navigate('/payment');
+
+      navigate('/PlaceOrder');
     }
   };
 
@@ -74,51 +84,58 @@ function ShippingAddress() {
               <Form.Label>Nombre Completo</Form.Label>
               <Form.Control
                 name="fullName"
-                value={data.fullName}
+                value={shipping.fullName}
                 onChange={(e) => handleOnChange(e)}
                 required
               />
               {validate.fullName === false && <p>debe tener un nombre</p>}
             </Form.Group>
+            <Form.Label>Pais</Form.Label>
+            <Form.Select 
+            aria-label="Default select example" 
+            value={shipping.country} 
+            name = "country"
+            onChange={(e)=>handleOnChange(e)}>
+              <option>Seleccione un pais</option>
+              {countries.filter(e=> e.name_es !=="").map(country => <option >{country.name}</option> )}
+            </Form.Select>
+            <Form.Label>Provincia</Form.Label>
+            <Form.Select aria-label="Default select example"
+                  value={shipping.state} 
+                  name = "state"
+                  onChange={(e)=>handleOnChange(e)}>
+              <option>Seleccione una provincia</option>
+              {states.filter(state => state.country_name === shipping.country).map(state => <option value={state.name}>{state.name}</option> )}
+            </Form.Select>
+            <Form.Group className="mb-3" controlId="city">
+              <Form.Label>Ciudad</Form.Label>
+              <Form.Control
+                name="city"
+                value={shipping.city}
+                onChange={(e) => handleOnChange(e)}
+                required
+              />
+              {validate.city === false && <p>debe tener una ciudad</p>}
+            </Form.Group>
             <Form.Group className="mb-3" controlId="address">
               <Form.Label>Dirección</Form.Label>
               <Form.Control
-                value={data.address}
+                value={shipping.address}
                 name="address"
                 onChange={(e) => handleOnChange(e)}
                 required
               />
               {validate.address === false && <p>debe tener una dirección</p>}
             </Form.Group>
-            <Form.Group className="mb-3" controlId="city">
-              <Form.Label>Ciudad</Form.Label>
-              <Form.Control
-                name="city"
-                value={data.city}
-                onChange={(e) => handleOnChange(e)}
-                required
-              />
-              {validate.city === false && <p>debe tener una ciudad</p>}
-            </Form.Group>
             <Form.Group className="mb-3" controlId="postalCode">
               <Form.Label>Código Postal</Form.Label>
               <Form.Control
                 name="postalCode"
-                value={data.postalCode}
+                value={shipping.postalCode}
                 onChange={(e) => handleOnChange(e)}
                 required
               />
               {validate.postalCode === false && <p>codigo postal requerido</p>}
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="country">
-              <Form.Label>Pais</Form.Label>
-              <Form.Control
-                value={data.country}
-                name="country"
-                onChange={(e) => handleOnChange(e)}
-                required
-              />
-              {validate.country === false && <p>debe tener un país</p>}
             </Form.Group>
             <div className="mb-3">
               <Button variant="primary" type="submit">

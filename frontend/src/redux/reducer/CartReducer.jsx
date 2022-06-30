@@ -4,7 +4,8 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   INCREASE,
-  DECREASE
+  DECREASE,
+  SAVE_SHIPPING_ADDRESS
 } from '../actions/CartActions';
 
 const CartInitialState = {
@@ -20,6 +21,8 @@ const CartInitialState = {
 function CartReducer(state = CartInitialState, { type, payload }) {
 
   switch (type) {
+    case SAVE_SHIPPING_ADDRESS:
+      return {...state, cart: {...state.cart, shippingAddress: {...payload}} }
     case ADD_TO_CART:
       const item = payload;
       
