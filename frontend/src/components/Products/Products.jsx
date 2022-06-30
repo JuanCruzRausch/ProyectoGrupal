@@ -20,7 +20,7 @@ import {
 } from './Products.module.css';
 import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
-import { AddToCart, getProductsCart } from '../../redux/actions/CartActions';
+import { AddToCart} from '../../redux/actions/CartActions';
 import sindicato from '../../assets/img/enanoenojado.webp';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,7 +38,6 @@ function Products({ refElement, scrollTo }) {
       dispatch(getAllProducts(Active));
       dispatch(ordenado());
     }
-    dispatch(getProductsCart());
   }, []);
 
   let items = [];

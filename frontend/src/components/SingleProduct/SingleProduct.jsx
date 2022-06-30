@@ -47,7 +47,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart }) {
         <h2>$ {price}</h2>
       </div>
       <div className={SingleProduct_buttons}>
-        <button onClick={() => handleAddtoCart()}>Agregar al carrito</button>
+        <button onClick={() => handleAddtoCart(id)}>Agregar al carrito</button>
         <button className={ProductFav}>
           <img src={imagen} />
         </button>
