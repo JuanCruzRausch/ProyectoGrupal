@@ -139,7 +139,7 @@ const publicationTestSchema = new Schema({
   },
   questions: {
     type: [Schema.Types.ObjectId],
-    ref: 'Questions',
+    ref: 'QandA',
   },
   transactions: {
     type: [Schema.Types.ObjectId],
