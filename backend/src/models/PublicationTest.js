@@ -10,6 +10,7 @@ const publicationTestSchema = new Schema({
       ],
   maxlength: [100, 'A title must have less or equal then 100 characters'],
   minlength: [4, 'A title must have more or equal then 4 characters'],
+    },
   description: {
     type: String,
     required:[true, 'Please provide some description']
