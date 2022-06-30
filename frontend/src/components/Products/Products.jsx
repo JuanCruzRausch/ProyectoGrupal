@@ -16,22 +16,20 @@ import {
   Filter_Container,
   Cards_Filter_Container,
   Products_Paginate,
-  ErrorEnano
+  ErrorEnano,
 } from './Products.module.css';
 import Carousell from '../Carousel/Carousel';
 import Pagination from 'react-bootstrap/Pagination';
 import { AddToCart, getProductsCart } from '../../redux/actions/CartActions';
-import sindicato from '../../assets/img/enanoenojado.webp'
-
+import sindicato from '../../assets/img/enanoenojado.webp';
 
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../Loading/Loading';
 function Products({ refElement, scrollTo }) {
-
-  JSON.parse(localStorage.getItem(("cart")))
+  JSON.parse(localStorage.getItem('cart'));
   const dispatch = useDispatch();
 
   const productos = useSelector((state) => state.productReducer.Allproduct);
-
 
   let Active = useSelector((state) => state.productReducer.pagina);
 
@@ -40,7 +38,7 @@ function Products({ refElement, scrollTo }) {
       dispatch(getAllProducts(Active));
       dispatch(ordenado());
     }
-    dispatch(getProductsCart())
+    dispatch(getProductsCart());
   }, []);
 
   let items = [];
@@ -57,9 +55,9 @@ function Products({ refElement, scrollTo }) {
       </Pagination.Item>
     );
   }
-  const handleAddToCart = (id) =>{
-    dispatch(AddToCart(id))
-  }
+  const handleAddToCart = (id) => {
+    dispatch(AddToCart(id));
+  };
   const handleGetProducts = (pagina) => {
     // dispatch(getPaginate(pagina)),
     dispatch(setActive(pagina));
@@ -72,27 +70,14 @@ function Products({ refElement, scrollTo }) {
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} scrollTo={scrollTo} />
         <span className={Cards_Container}>
-          {
-            !productos.length && (
-              <div className={ErrorEnano}> 
-                <h1>
-                  los enanos no hicieron los productos
-                </h1>
-                <h1>
-                  los enanos exigen un aumento salarial
-                </h1>
-                <img src={sindicato} />
-              </div>
-            )
-          }
+          {!productos.length && <Loading />}
           {productos
             .filter((e, i) => {
               return i <= 15 * Active && i >= 15 * (Active - 1);
             })
             .map((e, i) => (
               <SingleProduct
-                ADDtoCart={() => 
-                  handleAddToCart(e._id)}
+                ADDtoCart={() => handleAddToCart(e._id)}
                 key={i}
                 image={e.thumbnail}
                 name={e.title}
@@ -105,7 +90,6 @@ function Products({ refElement, scrollTo }) {
       <div className={Products_Paginate}>
         <Pagination size="lg">{items}</Pagination>
       </div>
-      
     </div>
   );
 }
