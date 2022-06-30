@@ -58,9 +58,13 @@
 }
 .cartIMG{
     margin: auto;
-    width: 38px;
+    width: 35px;
 }
 .Cart{
     display: flex;
     flex-direction: row;
+}
+.Cart h6{
+    font-weight: 700;
+    margin-left: 4px;
 }

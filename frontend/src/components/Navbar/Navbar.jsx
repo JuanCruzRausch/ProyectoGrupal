@@ -6,7 +6,6 @@ import {
   Nav,
   NavDropdown,
   Form,
-  FormControl,
   Button,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +15,7 @@ import {
   setActive,
 } from '../../redux/actions';
 import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo, Cart } from './Navbar.module.css';
+import EmptyCart from '../../assets/img/emptycart.svg'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
@@ -101,12 +101,13 @@ function NavbarComponent(props) {
               })}
             </NavDropdown>
 
-            <Link to="/cart" className={Cart}>
-              <img className={cartIMG} src={cart} alt="cart" />
-              {
-                CartState.length>0 ?
-                <h6>{CartState.length}</h6> :
-                null
+            <Link to="/cart" >
+              { 
+                CartState.length>0 ? <div className={Cart}>
+                  <img className={cartIMG} src={cart} alt="cart" />
+                  <h6>{CartState.length}</h6>
+                </div> :
+                <img className={cartIMG} src={EmptyCart} alt="cart" />
               }
             </Link>
           </Nav>
@@ -134,7 +135,7 @@ function NavbarComponent(props) {
                 <NavDropdown title={user.nickname}> 
                   {user.email_verified ? (
                     <div>
-                      <NavDropdown.Item>Favoritos</NavDropdown.Item>
+                      <NavDropdown.Item onClick={()=>navigate("/favoritos")}>Favoritos</NavDropdown.Item>
                       <NavDropdown.Item onClick={()=>navigate("/shipping")}>Shipping</NavDropdown.Item>
                       <NavDropdown.Item onClick={()=> navigate("/perfil")}>perfil</NavDropdown.Item>
                       <NavDropdown.Divider />
