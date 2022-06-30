@@ -15,7 +15,7 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo } from './Navbar.module.css';
+import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo, Cart } from './Navbar.module.css';
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
@@ -32,9 +32,11 @@ function NavbarComponent(props) {
   ];
   const [display, setDisplay] = useState([...productsCache]);
   const [displayFlag, setDisplayFlag] = useState(false);
+  const CartState = useSelector(state=> state.CartReducer.cart.cartItem)
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.productReducer.categories);
+
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const searchOnSubmit = (e) => {
@@ -99,8 +101,13 @@ function NavbarComponent(props) {
               })}
             </NavDropdown>
 
-            <Link to="/cart">
+            <Link to="/cart" className={Cart}>
               <img className={cartIMG} src={cart} alt="cart" />
+              {
+                CartState.length>0 ?
+                <h6>{CartState.length}</h6> :
+                null
+              }
             </Link>
           </Nav>
           <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>

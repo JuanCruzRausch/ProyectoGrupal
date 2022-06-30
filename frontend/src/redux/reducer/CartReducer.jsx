@@ -3,7 +3,8 @@ import {
   REMOVE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
-  GET_PRODUCTS,
+  INCREASE,
+  DECREASE
 } from '../actions/CartActions';
 
 const CartInitialState = {
@@ -25,17 +26,55 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
 
       localStorage.setItem('prices', JSON.stringify(TotalPrice))
+
+      const product = state.cart.cartItem.find(x => x.product === item.product);
+
+      if (product) {
+        return {
+          ...state,
+          cart: {
+            ...state.cart,
+            cartItem: state.cart.cartItem.map(x => x.product === product.product ? item : x)
+          }
+        }
+      }
+      return {
+        ...state,
+        cart:{
+          ...state.cart,
+          cartItem: [...state.cart.cartItem, item] }
+        }
+        
+    case INCREASE :
       return {
         ...state,
         cart: {
           ...state.cart,
-          cartItem: [...state.cart.cartItem, { ...item, quantity: 1}],
-        },
-      };
+          cartItem: state.cart.cartItem.map((item) => { 
+            if(item.product === payload){
+              return {...item, quantity:item.quantity+1} 
+            }return item 
+          })
+        }
+      }
+
+    case DECREASE:
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          cartItem: state.cart.cartItem.map((item) => { 
+            if(item.product === payload){
+              return {...item, quantity:item.quantity-1} 
+            }return item 
+          })
+        }
+      }
+
     case REMOVE_FROM_CART:
       const carrito = state.cart.cartItem;
 
-      const filtro = carrito.filter((item) => item._id !== payload);
+      const filtro = carrito.filter((item) => item.product !== payload);
 
       TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
       TotalPrice = TotalPrice - filtro
