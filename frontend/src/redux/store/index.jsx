@@ -4,12 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import productReducer from '../reducer/products';
 import CartReducer from '../reducer/CartReducer'
 import userReducer from '../reducer/userReducer'
+import FavReducer from '../reducer/FavReducer';
 const initialState = {};
 
 const rootReducer = combineReducers({
   productReducer,
   CartReducer,
-  userReducer
+  userReducer,
+  FavReducer
 });
 
 const store = createStore(

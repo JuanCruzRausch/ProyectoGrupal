@@ -10,7 +10,8 @@ import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress"
 import Perfil from "./components/Perfil/Perfil";
 import { useRef } from "react";
 import Cart from "./components/Cart/Cart";
-
+import Favoritos from "./components/Favoritos/Favoritos";
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const scrollTo = useRef();
   const scrollToSort = () => {
@@ -21,6 +22,7 @@ function App() {
       <BrowserRouter>
         <NavbarComponent scrollTo={scrollToSort} />
         <Routes>
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Shipping" element={<ShippingAddress />} />
           <Route path="/perfil" element={<Perfil />} />
