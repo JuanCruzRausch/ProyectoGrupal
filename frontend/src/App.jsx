@@ -12,6 +12,7 @@ import { useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import Favoritos from "./components/Favoritos/Favoritos";
 import 'react-toastify/dist/ReactToastify.css';
+import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 function App() {
   const scrollTo = useRef();
   const scrollToSort = () => {
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/placeorder" element={<PlaceOrder/>}/>
           <Route path="/Shipping" element={<ShippingAddress />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editar" element={<PerfilEditar />} />
