@@ -2,7 +2,7 @@
   border-bottom: 0.2rem solid #a0a0a0;
   color: #a0a0a0;
 }
-.checkout-step > div.active {
+.checkout_step > div.active {
   border-bottom: 0.2rem solid #fbcb0b;
   color: #fbcb0b;
 }
