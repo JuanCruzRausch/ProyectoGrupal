@@ -28,13 +28,16 @@ import Loading from '../Loading/Loading';
 function Products({ refElement, scrollTo }) {
   JSON.parse(localStorage.getItem('cart'));
   const dispatch = useDispatch();
-
   const productos = useSelector((state) => state.productReducer.Allproduct);
-
   let Active = useSelector((state) => state.productReducer.pagina);
+  const [loading, setLoading] = React.useState("spin")
+  const noProducts = () =>{
+    setTimeout(()=>setLoading("enanos") ,10000)
+  }
 
   useEffect(() => {
     if (!productos?.length) {
+      noProducts()
       dispatch(getAllProducts(Active));
       dispatch(ordenado());
     }
@@ -69,7 +72,16 @@ function Products({ refElement, scrollTo }) {
       <div className={Cards_Filter_Container}>
         <Filter className={Filter_Container} scrollTo={scrollTo} />
         <span className={Cards_Container}>
-          {!productos.length && <Loading />}
+          {!productos.length && loading === "spin" && <Loading />}
+          {!productos.length && loading === "enanos" && (  <div className={ErrorEnano}> 
+                <h1>
+                  los enanos no hicieron los productos
+                </h1>
+                <h1>
+                  los enanos exigen un aumento salarial
+                </h1>
+                <img src={sindicato} />
+              </div>)}
           {productos
             .filter((e, i) => {
               return i <= 15 * Active && i >= 15 * (Active - 1);
