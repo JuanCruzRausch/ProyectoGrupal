@@ -2,6 +2,7 @@ import NavbarComponent from "./components/Navbar/Navbar";
 import Products from "./components/Products/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
+import Favoritos from './components/Favoritos/Favoritos'
 import SignupScreen from "./components/SignupScreen/SignupScreen";
 import SigninScreen from "./components/SigninScreen/SigninScreen";
 import PerfilEditar from "./components/PerfilEditar/PerfilEditar";
@@ -61,6 +62,7 @@ function App() {
         </div>
         </> */}
         <Routes>
+          <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder/>}/>
           <Route path="/shipping" element={<ShippingAddress />} />

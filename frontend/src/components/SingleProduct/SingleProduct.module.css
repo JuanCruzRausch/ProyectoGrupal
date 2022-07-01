@@ -27,22 +27,30 @@
     cursor: pointer;
 }
 .SingleProduct_text{
-    margin: auto;
+    margin: auto; 
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 .SingleProduct_text h1{
-    font-size: 2vh;
-    margin: 1.4vh 0;
+    font-size: 1.3rem;
+    width: 80%;
+    margin: 1rem 0;
     color: #333333;
     font-weight: 300;
 }
 .SingleProduct_text h2{
-    font-size: 2.5vh;
+    align-self: flex-start;
+    font-size: 1.8rem !important;
     font-weight: 700;
-    color: #333333;
+    color: #000000;
+}
+.SingleProduct_text h3{
+    align-self: flex-start;
+    color: #00A650 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
 }
 .SingleProduct_buttons{
     width: 200px;
@@ -55,11 +63,8 @@
 .SingleProduct_buttons button{
     align-self: flex-end;
     margin: auto;
-    font-weight: 400;
-    color: rgb(138, 138, 138);
-    background-color: #ffffff;
-    box-shadow:  10px -10px 20px #efefef,
-                 -12px 12px 35px #ffffff;
+    font-weight: 500;
+    color: rgb(101, 101, 101);
     border: none;
     border-radius: 10px;
     padding: 12px;
@@ -67,8 +72,8 @@
 .SingleProduct_buttons button img{
     width: 35px;
 }
-.SingleProduct_buttons button img:active{
-    background: rgba(255, 0, 0, 1);
+.ProductFav:active{
+    background: rgba(255, 0, 0, 1) !important;
 }
 .ProductFav{
     background-color: #e9e4e417 !important;

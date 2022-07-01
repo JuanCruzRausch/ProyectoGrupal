@@ -92,6 +92,7 @@ function Products({ refElement, scrollTo }) {
               <SingleProduct
                 ADDtoCart={() => handleAddToCart(e._id)}
                 ADDtoFav={()=> handleAddtoFav(e._id)}
+                Shipping={e.freeShipping}
                 key={i}
                 image={e.thumbnail}
                 name={e.title}
