@@ -91,9 +91,32 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deletePublicationTest = catchAsync(async(req,res,next)=>{
-  const {id} = req.params;
-  const publi_delete = await PublicationTest.deleteOne({id});
-  res.status(204).json({status:'succes', data: 'done'});
+exports.deletePublicationTest = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const publi_delete = await PublicationTest.deleteOne({ id });
+  res.status(204).json({ status: 'succes', data: 'done' });
   next();
+});
+
+exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
+  let limit = req.query.limit * 1 || 20;
+  let page = req.query.page * 1 || 1;
+ const publications = await PublicationTest.find({})
+    .populate({path: 'seller'})
+    .populate({ path: 'category' })
+    .populate({ path: 'subCategory' })
+    // .populate({ path: 'questions'})
+    .populate({ path: 'transactions'})
+  let pubs = publications.slice((page - 1) * limit, page * limit);
+  res.status(200).json({
+    status:'success',
+    data:{
+      publications_total: publications.length,
+      publications_per_page: pubs.length,
+      nextPage:
+        publications.length / limit < page + 1 ? null : page + 1,
+      prevPage: page - 1 < 1 ? null: page - 1,
+      publications : pubs,
+    }
+  })
 });
