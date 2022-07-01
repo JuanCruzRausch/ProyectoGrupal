@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const qandA = new Schema({
+const qandaSchema = new Schema({
     publication_id:{
         type: Schema.Types.ObjectId,
         immutable: true,
@@ -29,6 +29,6 @@ const qandA = new Schema({
     },
 });
 
-const QuestionsandAnswers = model('QandA',qandA);
+const QandA = model('QandA',qandaSchema);
 
-module.exports = QuestionsandAnswers;
+module.exports = QandA;
