@@ -23,6 +23,11 @@ export function AddToCart(id){
         )
     }         
 }
+export function sendOrder (){
+   
+  return {type:CLEAR_CART}
+      
+}
 export function IncreaseCart(id){
     console.log(id);
     return{
