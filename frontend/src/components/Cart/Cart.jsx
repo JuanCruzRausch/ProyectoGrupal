@@ -80,7 +80,7 @@ function Cart() {
                 <div className={Checkout_total}>
                 <h1>Total: $ {Math.ceil(PrecioTotal)}</h1>
               </div>
-              <button>Checkout</button>
+              <button onClick={()=>navigate('/shipping')}>Checkout</button>
               <button onClick={() => handleClear()}>Borrar carrito</button>
              </div> 
             </div>

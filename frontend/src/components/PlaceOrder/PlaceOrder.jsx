@@ -8,11 +8,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import {  useSelector } from 'react-redux'
 import { logo, container } from './PlaceOrder.module.css'
 import CheckoutSteps from '../CheckoutComponent/CheckoutSteps';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useDispatch } from 'react-redux';
+import { sendOrder } from '../../redux/actions/CartActions'
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
   const { cartItem, shippingAddress } = useSelector(state=>state.CartReducer.cart);
-//   const { cart, userInfo } = state;
+  const { user } = useAuth0();
+  //   const { cart, userInfo } = state;
 
 //   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; //123.1234 => 123.12
 //   const price = round2(
@@ -24,13 +28,23 @@ export default function PlaceOrderScreen() {
 
 const state = useSelector((state) => state.CartReducer.cart.cartItem);
 const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
+const dispatch = useDispatch()
 JSON.parse(localStorage.getItem('cart'));
+const placeOrderHandler = async () =>{
+  
+  dispatch(sendOrder({
+    PrecioTotal,
+    cartItem,
+    shippingAddress,
+    user    
+  }))
+  navigate("/")
+};
 
 
 
 
-
-  const placeOrderHandler = async () => {};
+  
 
   return (
     <div >
@@ -44,14 +58,12 @@ JSON.parse(localStorage.getItem('cart'));
             <Card.Body>
               <Card.Title>Datos de Envío</Card.Title>
               <Card.Text>
-                <strong>Nombre:</strong> {shippingAddress.fullName} <br />
-                <strong>Dirección: </strong> {shippingAddress.address},
-                {shippingAddress.city}, {shippingAddress.state},
-                {shippingAddress.country} <br />
-              </Card.Text>
-              <Card.Text>
-                  <strong>Código Postal:</strong>
-                  {shippingAddress.postalCode}
+                <strong>Nombre:</strong> {shippingAddress?.fullName} <br />
+                <strong>Pais: </strong> {shippingAddress?.country} <br />
+                <strong>Provincia:</strong> {shippingAddress?.state} <br />
+                <strong>Municipio:</strong> {shippingAddress?.city} <br />
+                <strong>Dirección:</strong> {shippingAddress?.address} <br />
+                <strong>Código Postal:</strong> {shippingAddress?.postalCode} <br />
               </Card.Text>
               <Link to="/shipping">Editar</Link>
             </Card.Body>
@@ -63,7 +75,7 @@ JSON.parse(localStorage.getItem('cart'));
             <Card.Body>
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
-                {cartItem.map((item) => (
+                {cartItem?.map((item) => (
                   <ListGroup.Item key={item.product}>
                     <Row className="align-items-center">
                       <Col md={6}>
@@ -93,30 +105,30 @@ JSON.parse(localStorage.getItem('cart'));
               <Card.Title>Resumen de Orden</Card.Title>
               <ListGroup variant="flush">
 
-                {/* <ListGroup.Item>
+                <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>${cartItem.price.toFixed(2)}</Col>
+                    <Col>${Number(PrecioTotal).toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Shipping</Col>
-                    <Col>${cartItem.shippingPrice.toFixed(2)}</Col>
+                    <Col>Costo de envío</Col>
+                    <Col>${0.00}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Tax</Col>
-                    <Col>${cart.taxPrice.toFixed(2)}</Col>
+                    <Col>Iva</Col>
+                    <Col>${0.00}</Col>
                   </Row>
-                </ListGroup.Item> */}
+                </ListGroup.Item>
 
                 <ListGroup.Item>
                   <Row>
                     <Col>Valor Total</Col>
                     <Col>
-                      <strong>${Math.round(PrecioTotal)}</strong>
+                      <strong>${Number(PrecioTotal).toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -127,7 +139,7 @@ JSON.parse(localStorage.getItem('cart'));
                       onClick={placeOrderHandler}
                       disabled={cartItem.length === 0}
                     >
-                      Place Order
+                      Comprar
                     </Button>
                   </div>
                 </ListGroup.Item>
