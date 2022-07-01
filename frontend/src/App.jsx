@@ -11,6 +11,7 @@ import Perfil from "./components/Perfil/Perfil";
 import { useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const scrollTo = useRef();

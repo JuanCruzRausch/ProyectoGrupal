@@ -6,6 +6,8 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import {  useSelector } from 'react-redux'
+import { logo, container } from './PlaceOrder.module.css'
+import CheckoutSteps from '../CheckoutComponent/CheckoutSteps';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
@@ -20,24 +22,38 @@ export default function PlaceOrderScreen() {
 //   cart.taxPrice = round2(0.15 * cart.itemsPrice);
 //   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
+const state = useSelector((state) => state.CartReducer.cart.cartItem);
+const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
+JSON.parse(localStorage.getItem('cart'));
+
+
+
+
+
   const placeOrderHandler = async () => {};
 
   return (
-    <div>
-      
-      <h1 className="my-3">Preview Order</h1>
+    <div >
+    <CheckoutSteps step1 step2  step3></CheckoutSteps>
+    <div className={container}>
+
+      <h1 className="my-3">Orden de Compra</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Datos de Envío</Card.Title>
               <Card.Text>
-                <strong>Name:</strong> {shippingAddress.fullName} <br />
-                <strong>Address: </strong> {shippingAddress.address},
-                {shippingAddress.city}, {shippingAddress.postalCode},
-                {shippingAddress.country}
+                <strong>Nombre:</strong> {shippingAddress.fullName} <br />
+                <strong>Dirección: </strong> {shippingAddress.address},
+                {shippingAddress.city}, {shippingAddress.state},
+                {shippingAddress.country} <br />
               </Card.Text>
-              <Link to="/shipping">Edit</Link>
+              <Card.Text>
+                  <strong>Código Postal:</strong>
+                  {shippingAddress.postalCode}
+              </Card.Text>
+              <Link to="/shipping">Editar</Link>
             </Card.Body>
           </Card>
 
@@ -48,25 +64,25 @@ export default function PlaceOrderScreen() {
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
                 {cartItem.map((item) => (
-                  <ListGroup.Item key={item.id}>
+                  <ListGroup.Item key={item.product}>
                     <Row className="align-items-center">
                       <Col md={6}>
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="img-fluid rounded img-thumbnail"
+                        <img className= {logo}
+                          src={item.thumbnail}
+                          alt={item.title}
+                        //   className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
-                        <Link to={`/product/${item.id}`}>{item.name}</Link>
+                        <Link to={`/${item.product}`}>{item.title}</Link>
                       </Col>
                       <Col md={3}>
-                        <span>cantidad</span>
+                        <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>${item.price}</Col>
+                      <Col md={3}>${Math.round(item.quantity*item.price)}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
-              <Link to="/cart">Edit</Link>
+              <Link to="/cart">Editar</Link>
             </Card.Body>
           </Card>
         </Col>
@@ -74,8 +90,9 @@ export default function PlaceOrderScreen() {
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Order Summery</Card.Title>
+              <Card.Title>Resumen de Orden</Card.Title>
               <ListGroup variant="flush">
+
                 {/* <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
@@ -94,11 +111,12 @@ export default function PlaceOrderScreen() {
                     <Col>${cart.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item> */}
+
                 <ListGroup.Item>
                   <Row>
-                    <Col>Order Total</Col>
+                    <Col>Valor Total</Col>
                     <Col>
-                      <strong>78787</strong>
+                      <strong>${Math.round(PrecioTotal)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -118,6 +136,7 @@ export default function PlaceOrderScreen() {
           </Card>
         </Col>
       </Row>
+    </div>
     </div>
   );
 }

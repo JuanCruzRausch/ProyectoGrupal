@@ -41,7 +41,7 @@ function ShippingAddress() {
   };
 
   useEffect(() => {
-    if (!user?.email_verified) {
+    if (!user?.email_verified&&(!shipping.fullName&&!shipping.country&&!shipping.city&&!shipping.postalCode)) {
       navigate('/signin');
     }
   }, [user, navigate]);
@@ -69,7 +69,7 @@ function ShippingAddress() {
       shipping.postalCode
     ) {
 
-      navigate('/PlaceOrder');
+      navigate('/placeorder');
     }
   };
 
@@ -96,7 +96,7 @@ function ShippingAddress() {
             value={shipping.country} 
             name = "country"
             onChange={(e)=>handleOnChange(e)}>
-              <option>Seleccione un pais</option>
+              <option value='' disabled default>Seleccione un pais</option>
               {countries.filter(e=> e.name_es !=="").map(country => <option >{country.name}</option> )}
             </Form.Select>
             <Form.Label>Provincia</Form.Label>
@@ -104,7 +104,7 @@ function ShippingAddress() {
                   value={shipping.state} 
                   name = "state"
                   onChange={(e)=>handleOnChange(e)}>
-              <option>Seleccione una provincia</option>
+              <option value='' disabled default>Seleccione una provincia</option>
               {states.filter(state => state.country_name === shipping.country).map(state => <option value={state.name}>{state.name}</option> )}
             </Form.Select>
             <Form.Group className="mb-3" controlId="city">

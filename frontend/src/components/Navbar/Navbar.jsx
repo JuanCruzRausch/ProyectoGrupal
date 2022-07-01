@@ -8,13 +8,22 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { 
+  useDispatch, 
+  useSelector } from 'react-redux';
 import {
   getProductByCategory,
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { Navbarc, cartIMG, DropdownA, datalist, LoginContainer, logo, Cart } from './Navbar.module.css';
+import { 
+  Navbarc, 
+  cartIMG, 
+  DropdownA, 
+  datalist, 
+  LoginContainer, 
+  logo, 
+  Cart } from './Navbar.module.css';
 import EmptyCart from '../../assets/img/emptycart.svg'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
@@ -59,12 +68,12 @@ function NavbarComponent(props) {
     !e.target.value && setDisplayFlag(false);
   }
 
-  const handleOnSelectCategory = (e) => {
+  const handleOnSelectCategory = (e, name) => {
     e.preventDefault();
     window.scrollTo(0, 650);
     navigate('/');
     dispatch(setActive(1));
-    dispatch(getProductByCategory(e.target.innerText));
+    dispatch(getProductByCategory(name));
   };
   function refreshPage(e) {
     e.preventDefault();
@@ -92,7 +101,7 @@ function NavbarComponent(props) {
                   <NavDropdown.Item
                     key={category.id}
                     className={DropdownA}
-                    onClick={(e) => handleOnSelectCategory(e)}
+                    onClick={(e) => handleOnSelectCategory(e, category.name)}
                     href="#"
                   >
                     {category.name}

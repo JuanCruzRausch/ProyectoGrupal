@@ -3,6 +3,7 @@
   color: #a0a0a0;
 }
 .checkout_step > div.active {
-  border-bottom: 0.2rem solid #fbcb0b;
-  color: #fbcb0b;
+  border-bottom: 0.2rem solid rgb(20, 119, 0);
+  color: rgb(20, 119, 0);
 }
+
