@@ -2,17 +2,17 @@ const {Schema, model} = require('mongoose');
 
 const qandA = new Schema({
     publication_id:{
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         immutable: true,
         ref:'PublicationTest'
     },
     seller_id:{
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         immutable: true,
         ref:'Seller'
     },
     buyer_id:{
-        type: Schema.Type.ObjectId,
+        type: Schema.Types.ObjectId,
         immutable: true,
         ref:'CommonUser'
     },
