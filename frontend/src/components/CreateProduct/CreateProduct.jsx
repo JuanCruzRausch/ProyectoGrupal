@@ -10,7 +10,10 @@ function CreateProduct() {
 
     const dispatch = useDispatch()
     const CATEGORIAS = useSelector((state) => state.productReducer.Categories)
-    const [stock, setstock] = useState({ options: [], stocktotal:0})
+    const [stock, setstock] = useState({ options: []})
+    var combination = []
+    var stocky = 0
+
     useEffect(()=>{
         dispatch(getAllCategories())
     },[dispatch])
@@ -32,11 +35,25 @@ function CreateProduct() {
             location:"",
             visibility:0
         })
+ 
     function handleOptions(e){
+        combination.push({[e.target.name]:e.target.value})
+
         setstock(
             {
                 ...stock,
-                options: {...stock.options, [e.target.name]: e.target.value}
+                options: [...stock.options.push({combination, stock}) ]
+            }
+        )
+    }
+    function submitStock(){
+        setstock({
+            options: stock.options.push({combination: [...combination], stock:stocky})
+        })
+        setdata(
+            {
+                ...data,
+                stock
             }
         )
     }
@@ -45,6 +62,14 @@ function CreateProduct() {
             {
                 ...data,
                 [e.target.name]: e.target.value
+            }
+        )
+    }
+    function handleStock(e){
+        setstock(
+            {
+                ...stock,
+                stock: e.target.value
             }
         )
     }
@@ -150,13 +175,13 @@ function CreateProduct() {
                         </div>))}
                         <Form.Label>Stock</Form.Label>
                     <Form.Control
-                        name="stocktotal"
+                        name="stock"
                         type="number"
-                        value={stock.stocktotal}
-                        onChange={(e) => handleOptions(e)}
+                        value={stock.stock}
+                        onChange={(e) => handleStock(e)}
                         required
                     />
-                        <button>Guardar Stock</button>
+                        <button onClick={submitStock}>Guardar Stock</button>
                     </Form>
                     : null
                    } 
