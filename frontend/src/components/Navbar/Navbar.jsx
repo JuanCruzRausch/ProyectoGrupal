@@ -23,7 +23,8 @@ import {
   datalist, 
   LoginContainer, 
   logo, 
-  Cart } from './Navbar.module.css';
+  Cart,
+  Publicar } from './Navbar.module.css';
 import EmptyCart from '../../assets/img/emptycart.svg'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
@@ -110,6 +111,15 @@ function NavbarComponent(props) {
               })}
             </NavDropdown>
 
+            <Link to="/publicar" >
+              { 
+                isAuthenticated ? 
+                <div className={Publicar}>
+                  <h5>Publica tu producto</h5>
+                </div> :
+                null
+              }
+            </Link>
             <Link to="/cart" >
               { 
                 CartState.length>0 ? <div className={Cart}>

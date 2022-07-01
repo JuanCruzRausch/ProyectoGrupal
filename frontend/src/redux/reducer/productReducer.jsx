@@ -8,6 +8,7 @@ import {
   MAX_AND_MIN_PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
+  CREATE_PRODUCT,
 } from '../actions/index';
 
 const initialState = {
@@ -91,6 +92,10 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: [...sortArray],
       };
+    case CREATE_PRODUCT:
+      return{
+        ...state,
+      }
     default:
       return state;
   }

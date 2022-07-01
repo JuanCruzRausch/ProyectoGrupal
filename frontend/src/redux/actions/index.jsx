@@ -8,7 +8,9 @@ export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE';
 export const SIGN_UP_ALERT = 'SIGN_UP_ALERT'
 export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE"
+export const CREATE_PRODUCT = "CREATE_PRODUCT"
 // import categorias from '../../components/Json/Categorias'
+
 export function signUp(data) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/users/signup",{
@@ -88,4 +90,11 @@ export function ordenado(payload) {
       payload,
     });
   };
+}
+
+export function createproduct(payload){
+  return async function(dispatch){
+    const data = await axios.post("http://localhost:5050/publicationtest")
+    return data 
+  }
 }

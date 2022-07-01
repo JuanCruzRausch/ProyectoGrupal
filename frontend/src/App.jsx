@@ -16,6 +16,7 @@ import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { app, checkbox, label, ball,darkmode } from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -62,6 +63,7 @@ function App() {
         </div>
         </> */}
         <Routes>
+          <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder/>}/>
