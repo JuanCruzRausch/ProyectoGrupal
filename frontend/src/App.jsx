@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 import 'react-toastify/dist/ReactToastify.css';
-import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
+// import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { app, checkbox, label, ball,darkmode } from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
