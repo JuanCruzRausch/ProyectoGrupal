@@ -9,9 +9,11 @@ import { Container_Small, Form_Div } from './Shipping.module.css';
 import countries from '../Json/countries.jsx'
 import states from '../Json/states.jsx'
 import { saveShippingAddress } from '../../redux/actions/CartActions'
+
 //import { ToastContainer, toast } from 'react-toastify';
 
 function ShippingAddress() {
+
   const shipping = useSelector(state=>state.CartReducer.cart.shippingAddress)
   const navigate = useNavigate();
   const [countryId, setCountryId] = useState([]);
@@ -32,7 +34,7 @@ function ShippingAddress() {
     fullName: true,
   });
 
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   const dispatch = useDispatch();
 
@@ -41,8 +43,8 @@ function ShippingAddress() {
   };
 
   useEffect(() => {
-    if (!user?.email_verified&&(!shipping.fullName&&!shipping.country&&!shipping.city&&!shipping.postalCode)) {
-      navigate('/signin');
+    if (!user?.email_verified) {
+       loginWithRedirect()
     }
   }, [user, navigate]);
   const handleOnChange = (e , id) => {
@@ -97,7 +99,7 @@ function ShippingAddress() {
             name = "country"
             onChange={(e)=>handleOnChange(e)}>
               <option value='' disabled default>Seleccione un pais</option>
-              {countries.filter(e=> e.name_es !=="").map(country => <option >{country.name}</option> )}
+              {countries.filter(e=> e.name_es !=="").map(country => <option key={country.id}>{country.name}</option> )}
             </Form.Select>
             <Form.Label>Provincia</Form.Label>
             <Form.Select aria-label="Default select example"
@@ -105,7 +107,7 @@ function ShippingAddress() {
                   name = "state"
                   onChange={(e)=>handleOnChange(e)}>
               <option value='' disabled default>Seleccione una provincia</option>
-              {states.filter(state => state.country_name === shipping.country).map(state => <option value={state.name}>{state.name}</option> )}
+              {states.filter(state => state.country_name === shipping.country).map(state => <option key={state.id} value={state.name}>{state.name}</option> )}
             </Form.Select>
             <Form.Group className="mb-3" controlId="city">
               <Form.Label>Ciudad</Form.Label>

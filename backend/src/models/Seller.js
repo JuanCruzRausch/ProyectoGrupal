@@ -31,8 +31,11 @@ const sellerSchema = new Schema({
     ref: 'PublicationTest',
   },
   reputation: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Transaction',
+    value: Number,
+    votes: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Transaction'
+    }
   },
   transactionsTotal: {
     transactionHistory: {

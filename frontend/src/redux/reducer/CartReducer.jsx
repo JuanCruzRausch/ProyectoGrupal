@@ -101,9 +101,10 @@ function CartReducer(state = CartInitialState, { type, payload }) {
         },
       };
     case CLEAR_CART:
-      localStorage.clear();
+      // localStorage.clear();
       return {
-        cart: { cartItem: [] },
+        ...state,
+        cart: {shippingAddress:{...state.cart.shippingAddress}, cartItem: [] },
       };
     default:
       return state;

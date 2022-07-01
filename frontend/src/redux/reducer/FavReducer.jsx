@@ -4,10 +4,10 @@ import {
 } from '../actions/FavActions'
 
 const FavInitialState= {
-    Favs : [ 
-        ...(JSON.parse(localStorage.getItem('favs')) === null
-    ? []
-    : JSON.parse(localStorage.getItem('favs')))]
+  Favs : [ 
+    ...(JSON.parse(localStorage.getItem('favs')) === null
+? []
+: JSON.parse(localStorage.getItem('favs')))]
 }
 
 function FavReducer(state= FavInitialState, {type, payload}){
