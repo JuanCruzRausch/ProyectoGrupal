@@ -9,6 +9,7 @@ import {
   GET_PRODUCT,
   SIGN_UP_ALERT,
   CREATE_PRODUCT,
+  GET_ALL_CATEGORIES
 } from '../actions/index';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   Detail: [],
   pagina: 1,
   categories,
+  Categories: [],
   signUpAlert: '',
   maxMinPrice:{
     max: Infinity,
@@ -36,6 +38,11 @@ function productReducer(state = initialState, { type, payload }) {
       return { ...state, signUpAlert: payload };
     case SET_PAGE:
       return { ...state, pagina: payload };
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        Categories:payload
+      }
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache;
       const filter =
@@ -92,10 +99,6 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: [...sortArray],
       };
-    case CREATE_PRODUCT:
-      return{
-        ...state,
-      }
     default:
       return state;
   }
