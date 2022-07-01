@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const sellerSchema = new Schema({
   user: {
-    type: [Schema.Types.ObjectId],
+    type: Schema.Types.ObjectId,
     ref: 'CommonUser',
   },
   brand: {
@@ -31,8 +31,11 @@ const sellerSchema = new Schema({
     ref: 'PublicationTest',
   },
   reputation: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Transaction',
+    value: Number,
+    votes: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Transaction'
+    }
   },
   transactionsTotal: {
     transactionHistory: {

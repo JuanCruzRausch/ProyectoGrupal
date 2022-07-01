@@ -5,13 +5,15 @@ import productReducer from '../reducer/productReducer';
 import CartReducer from '../reducer/CartReducer'
 import userReducer from '../reducer/userReducer'
 import FavReducer from '../reducer/FavReducer';
+import darkModeReducer from '../reducer/DarkmodeReducer';
 const initialState = {};
 
 const rootReducer = combineReducers({
   productReducer,
   CartReducer,
   userReducer,
-  FavReducer
+  FavReducer,
+  darkMode: darkModeReducer,
 });
 
 const store = createStore(

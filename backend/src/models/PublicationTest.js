@@ -39,6 +39,9 @@ const publicationTestSchema = new Schema({
       message: 'A promotion price must be lower than the base price',
     },
   },
+  finalPrice: {
+    type: Number,
+  },
   currency: {
     type: String,
     enum: ['USD', 'ARS'],
@@ -60,17 +63,15 @@ const publicationTestSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'SubCategory',
   },
-  sellerShipping: {
-    type: Boolean,
-    default: true,
-  },
-  freeShipping: {
-    type: Boolean,
-    default: false,
-  },
-  pickup: {
-    type: Boolean,
-    default: false,
+  shipping: {
+    shippingType: {
+      type: String,
+      enum: ['normal', 'free', 'seller', 'pickup'],
+    },
+    shippingPrice: {
+      type: Number,
+      default: 0,
+    },
   },
   condition: {
     type: String,

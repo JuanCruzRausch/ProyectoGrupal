@@ -11,8 +11,10 @@ exports.post = catchAsync(async(req,res,next)=>{
 });
 
 exports.getAllCategoryTest = catchAsync(async (req, res, next) => {
-    const categories = await CategoryTest.find({}).populate({
+    const categories = await CategoryTest.find({}).select('-__v')
+      .populate({
       path: 'subcategories',
+      select: '-__v'
     });
   
     if (categories.length <= 0) {
