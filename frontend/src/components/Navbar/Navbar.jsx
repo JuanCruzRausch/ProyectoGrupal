@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Navbar,
   Container,
@@ -8,23 +8,26 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
-import { 
-  useDispatch, 
-  useSelector } from 'react-redux';
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
 import {
   getProductByCategory,
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { 
-  Navbarc, 
-  cartIMG, 
-  DropdownA, 
-  datalist, 
-  LoginContainer, 
-  logo, 
+import { setUser } from '../../redux/actions/userAction'
+import {
+  Navbarc,
+  cartIMG,
+  DropdownA,
+  datalist,
+  LoginContainer,
+  logo,
   Cart,
-  Publicar } from './Navbar.module.css';
+  Publicar
+} from './Navbar.module.css';
 import EmptyCart from '../../assets/img/emptycart.svg'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
@@ -34,6 +37,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 function NavbarComponent(props) {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let productsCache = [
     ...useSelector((state) => state.productReducer.allProductCache).map(
@@ -42,12 +46,16 @@ function NavbarComponent(props) {
   ];
   const [display, setDisplay] = useState([...productsCache]);
   const [displayFlag, setDisplayFlag] = useState(false);
-  const CartState = useSelector(state=> state.CartReducer.cart.cartItem)
+  const CartState = useSelector(state => state.CartReducer.cart.cartItem)
   const [search, setSearch] = useState('');
-  const dispatch = useDispatch();
-  const categories = useSelector((state) => state.productReducer.categories);
 
+  const categories = useSelector((state) => state.productReducer.categories);
+  const userLogged = useSelector((state) => state.userReducer.user)
   const { user, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    user?dispatch(setUser(user)):null
+  })
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
@@ -81,7 +89,7 @@ function NavbarComponent(props) {
     navigate('/');
   }
 
- 
+
   return (
     <Navbar className={Navbarc} expand="lg">
       <Container fluid>
@@ -112,21 +120,21 @@ function NavbarComponent(props) {
             </NavDropdown>
 
             <Link to="/publicar" >
-              { 
-                isAuthenticated ? 
-                <div className={Publicar}>
-                  <h5>Publica tu producto</h5>
-                </div> :
-                null
+              {
+                isAuthenticated ?
+                  <div className={Publicar}>
+                    <h5>Publica tu producto</h5>
+                  </div> :
+                  null
               }
             </Link>
             <Link to="/cart" >
-              { 
-                CartState.length>0 ? <div className={Cart}>
+              {
+                CartState.length > 0 ? <div className={Cart}>
                   <img className={cartIMG} src={cart} alt="cart" />
                   <h6>{CartState.length}</h6>
                 </div> :
-                <img className={cartIMG} src={EmptyCart} alt="cart" />
+                  <img className={cartIMG} src={EmptyCart} alt="cart" />
               }
             </Link>
           </Nav>
@@ -148,32 +156,32 @@ function NavbarComponent(props) {
             </Button>
           </Form>
         </Navbar.Collapse>
-          {isAuthenticated ? (
-            <div className={LoginContainer}>
-              <div >
-                <NavDropdown title={user.nickname}> 
-                  {user.email_verified ? (
-                    <div>
-                      <NavDropdown.Item onClick={()=>navigate("/favoritos")}>Favoritos</NavDropdown.Item>
-                      <NavDropdown.Item onClick={()=>navigate("/shipping")}>Shipping</NavDropdown.Item>
-                      <NavDropdown.Item onClick={()=> navigate("/perfil")}>perfil</NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <LogoutButton />
-                    </div>
-                  ): (
-                  <h4>please verify you email  <LogoutButton /></h4>
-                  )}
-                </NavDropdown>  
-              </div>
-              <Container>                
-                <Link to="/">
-                  <img className={logo} src={user.picture} />
-                </Link>
-              </Container>
+        {isAuthenticated ? (
+          <div className={LoginContainer}>
+            <div >
+              <NavDropdown title={user.nickname}>
+                {userLogged?.email_verified ? (
+                  <div>
+                    <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => navigate("/shipping")}>Shipping</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => navigate("/perfil")}>perfil</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <LogoutButton />
+                  </div>
+                ) : (                  
+                  <p>please verify you email </p>
+                )}
+              </NavDropdown>
             </div>
-          ) : (
-            <LoginButton />
-            )}
+            <Container>
+              <Link to="/">
+                <img className={logo} src={user.picture} />
+              </Link>
+            </Container>
+          </div>
+        ) : (
+          <LoginButton />
+        )}
       </Container>
     </Navbar>
   );
