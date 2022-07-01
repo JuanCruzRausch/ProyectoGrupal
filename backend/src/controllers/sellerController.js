@@ -19,15 +19,7 @@ exports.post = catchAsync(async(req,res,next)=>{
             street: req.body.subsidiary.street,
             number: req.body.subsidiary.number,
             reference: req.body.subsidiary.reference
-        },
-        active_pub: req.body.active_pub,
-        inactive_pub: req.body.inactive_pub,
-        reputation: req.body.reputation,
-        transactionsTotal: {
-            canceled: req.body.transactionsTotal.canceled,
-            completed: req.body.transactionsTotal.completed,
-            total: req.body.transactionsTotal.total
-          }
+        }
     });
     res.status(201).json({status:"success", data: newSeller})
     next();
