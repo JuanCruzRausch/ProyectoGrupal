@@ -9,6 +9,7 @@ const commonUserRouter = require('./routes/commonUserRouter');
 const subCategoryRouter = require('./routes/subCategoryRouter');
 const sellerRouter = require('./routes/sellerRouter');
 const publicationTestRouter = require('./routes/publicationTestRouter');
+const qandaRouter = require('./routes/qandaRouter')
 const transactionsRouter = require('./routes/transactionsRouter');
 
 const app = express();
@@ -34,6 +35,7 @@ app.use('/commonuser', commonUserRouter);
 app.use('/users', userRouter);
 app.use('/publication', publicationRouter);
 app.use('/publicationtest', publicationTestRouter);
+app.use('/qanda', qandaRouter);
 app.use('/transactions', transactionsRouter)
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
