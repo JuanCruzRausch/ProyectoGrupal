@@ -120,3 +120,28 @@ exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
     }
   })
 });
+
+exports.getPublicationTestID = catchAsync(async(req,res,next)=>{
+  const {id} = req.params;
+  if(!id) return next(new AppError('ID is required, 400'));
+
+  const publi = await PublicationTest.findOne({_id:id});
+
+      // .populate({path: 'seller'})
+      // .populate({ path: 'category' })
+      // .populate({ path: 'subCategory' })
+      // .populate({ path: 'questions'})
+      // .populate({ path: 'transactions'})
+
+  if(publi.length <=0){
+    return next(new AppError('The id does not match with any product',400));
+  }
+  res.status(200).json({
+    status: 'success',
+    data:{
+      publi,
+    },
+  });
+});
+
+
