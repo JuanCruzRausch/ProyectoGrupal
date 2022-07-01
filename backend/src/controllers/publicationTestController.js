@@ -120,12 +120,13 @@ exports.deletePublicationTest = catchAsync(async (req, res, next) => {
 exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
   let limit = req.query.limit * 1 || 20;
   let page = req.query.page * 1 || 1;
-  const publications = await PublicationTest.find({})
-    .populate({ path: 'seller' })
-    .populate({ path: 'category' })
-    .populate({ path: 'subCategory' })
-    .populate({ path: 'questions' })
-    .populate({ path: 'transactions' });
+ const publications = await PublicationTest.find({}).select('-__v')
+    .populate({path: 'seller', select:'-user -non_answered -answered -inactive_pub -__v'})
+    .populate({ path: 'category', select: '-subcategories -__v' })
+    .populate({ path: 'subCategory', select: '-properties -__v' })
+    .populate({ path: 'questions'})
+    .populate({ path: 'transactions'})
+
   let pubs = publications.slice((page - 1) * limit, page * limit);
   res.status(200).json({
     status: 'success',
@@ -143,16 +144,16 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new AppError('ID is required, 400'));
 
-  const publi = await PublicationTest.findOne({ _id: id });
+  const publi = await PublicationTest.findOne({_id:id})
+      .populate({path: 'seller'})
+      .populate({ path: 'category' })
+      .populate({ path: 'subCategory' })
+      .populate({ path: 'questions'})
+      .populate({ path: 'transactions'})
 
-  // .populate({path: 'seller'})
-  // .populate({ path: 'category' })
-  // .populate({ path: 'subCategory' })
-  // .populate({ path: 'questions'})
-  // .populate({ path: 'transactions'})
+  if(!publi){
+    return next(new AppError('The id does not match with any product',404));
 
-  if (publi.length <= 0) {
-    return next(new AppError('The id does not match with any product', 400));
   }
   res.status(200).json({
     status: 'success',
