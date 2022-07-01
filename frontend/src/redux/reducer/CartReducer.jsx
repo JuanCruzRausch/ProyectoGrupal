@@ -15,13 +15,18 @@ const CartInitialState = {
         ? []
         : JSON.parse(localStorage.getItem('cart'))),
     ],
-    shippingAddress: {},
+    shippingAddress: 
+      localStorage.getItem('shippingAddress')
+      ? JSON.parse(localStorage.getItem('shippingAddress'))
+      : {},
+    
   },
 };
 function CartReducer(state = CartInitialState, { type, payload }) {
 
   switch (type) {
     case SAVE_SHIPPING_ADDRESS:
+      localStorage.setItem('shippingAddress', JSON.stringify(payload));
       return {...state, cart: {...state.cart, shippingAddress: {...payload}} }
     case ADD_TO_CART:
       const item = payload;
