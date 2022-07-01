@@ -1,11 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
 import { Form } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { CreateDiv } from './CreateProduct.module.css'
 import states from '../Json/states.jsx'
+import { useEffect } from 'react'
+import { getAllCategories } from '../../redux/actions'
 function CreateProduct() {
-    const categorias = useSelector((state) => state.productReducer.categories);
+
+    const dispatch = useDispatch()
+    const CATEGORIAS = useSelector((state) => state.productReducer.Categories)
+    const [stock, setstock] = useState({ options: [], stocktotal:0})
+    useEffect(()=>{
+        dispatch(getAllCategories())
+    },[dispatch])
+
     const [data, setdata] = useState(
         {
             title: "",
@@ -18,14 +27,19 @@ function CreateProduct() {
             subCategory: "",
             shipping: { shippingtype: "" },
             condition: "",
-            stock: { options: [], stocktotal:0},
+            stock,
             brand:"",
             location:"",
             visibility:0
         })
-    const [errors, seterrors] = useState({})
-    const [isSubmit, setisSubmit] = useState(false)
-    
+    function handleOptions(e){
+        setstock(
+            {
+                ...stock,
+                options: {...stock.options, [e.target.name]: e.target.value}
+            }
+        )
+    }
     function handleOnChange(e){
         setdata(
             {
@@ -34,7 +48,11 @@ function CreateProduct() {
             }
         )
     }
+    const subcategories = CATEGORIAS?.find(e=> e.name === data.category)
+    const objects = subcategories?.subcategories.find((e) => e.name === data.subCategory)
+    console.log(objects);
     console.log(data);
+    console.log(stock);
     return (
         <div className={CreateDiv}>
             <h1>Publica tu Producto</h1>
@@ -88,15 +106,63 @@ function CreateProduct() {
                         name="category"
                         onChange={(e)=>handleOnChange(e)}>
                         <option value='' disabled default>Seleccione una categoria</option>
-                        {categorias.filter(e=> e.name !=="").map(e => <option key={e.id}>{e.name}</option>)}
+                        {CATEGORIAS?.filter(e=> e.name !=="").map(e => <option key={e.id}>{e.name}</option>)}
                     </Form.Select>
-                   <Form.Label>Sub-Categoria</Form.Label>
-                    <Form.Control
-                        name="subCategory"
+                   {
+                    subcategories ?
+                    <Form.Label>Sub-Categoria</Form.Label>
+                    : null
+                   } 
+                    {
+                    subcategories ? 
+                    <Form.Select 
+                        aria-label="Default select example" 
                         value={data.subCategory}
-                        onChange={(e) => handleOnChange(e)}
+                        name="subCategory"
+                        onChange={(e)=>handleOnChange(e)}>
+                        <option value='' disabled default>Seleccione una categoria</option>
+                        {subcategories?.subcategories.map(e => <option value={e.name} key={e.id}>{e.name}</option>)}
+                    </Form.Select>
+                    : null
+                    }
+
+
+                    {/*        STOCK TRABAJAR ACA          */}
+                   {
+                    objects ? 
+                    <Form 
+                        aria-label="Default select example" 
+                        value={stock.options}
+                        name="subCategory"
+                        onChange={(e)=>handleOptions(e)}>
+                        {objects?.properties.map(e =>(<div>
+                            <label>{e.nameprop}</label>
+                            { e.options.length >0 ?
+                            <Form.Select
+                            name={e.nameprop}
+                            value={stock.options[e.nameprop]}
+                            >{
+                                e.options.map(e =><option >{e}</option>) 
+                            }
+                            </Form.Select> 
+                             :
+                             <input name={e.nameprop}/>}
+                        </div>))}
+                        <Form.Label>Stock</Form.Label>
+                    <Form.Control
+                        name="stocktotal"
+                        type="number"
+                        value={stock.stocktotal}
+                        onChange={(e) => handleOptions(e)}
                         required
                     />
+                        <button>Guardar Stock</button>
+                    </Form>
+                    : null
+                   } 
+
+
+
                     <Form.Label>Envío</Form.Label>
                     <Form.Control
                         name="shipping"
@@ -108,12 +174,12 @@ function CreateProduct() {
                     <Form.Select 
                         aria-label="Default select example"
                             name="condition"
-                            value=''
+                            value={data.condition}
                             onChange={(e) => handleOnChange(e)}
                             required>
-                            <option>Condición</option>
-                            <option>Nuevo</option>
-                            <option>Usado</option>
+                            <option value='' disabled>Condición</option>
+                            <option value='new'>Nuevo</option>
+                            <option value="used">Usado</option>
                     </Form.Select>
                    <Form.Label>Stock</Form.Label>
                     <Form.Control

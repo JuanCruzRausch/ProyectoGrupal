@@ -9,8 +9,8 @@ export const SET_PAGE = 'SET_PAGE';
 export const SIGN_UP_ALERT = 'SIGN_UP_ALERT'
 export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE"
 export const CREATE_PRODUCT = "CREATE_PRODUCT"
+export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES"
 // import categorias from '../../components/Json/Categorias'
-
 export function signUp(data) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/users/signup",{
@@ -30,6 +30,13 @@ export function getAllProducts() {
     return axios("http://localhost:5050/publication?page=" + 1 + "&&limit=640")
      .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
+  }
+}
+
+export function getAllCategories(){
+  return async (dispatch) => {
+    return axios("http://localhost:5050/categories")
+    .then(res => dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories}))
   }
 }
 
@@ -74,14 +81,14 @@ export function GetProductById(_id){
     payload: _id,
   }
 }
-// export function getAllCategory(payload) {
-//   return (dispatch) => {
-//     dispatch({
-//       type: GET_CATEGORIES,
-//       payload: [...categorias]
-//     })
-//   }
-// }
+export function getAllCategory(payload) {
+  return (dispatch) => {
+    dispatch({
+     type: GET_CATEGORIES,
+     payload: [...categorias]
+     })
+  }
+ }
 
 export function ordenado(payload) {
   return (dispatch) => {
@@ -90,11 +97,4 @@ export function ordenado(payload) {
       payload,
     });
   };
-}
-
-export function createproduct(payload){
-  return async function(dispatch){
-    const data = await axios.post("http://localhost:5050/publicationtest")
-    return data 
-  }
 }
