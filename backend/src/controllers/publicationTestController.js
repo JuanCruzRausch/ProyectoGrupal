@@ -105,7 +105,7 @@ exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
     .populate({path: 'seller'})
     .populate({ path: 'category' })
     .populate({ path: 'subCategory' })
-    // .populate({ path: 'questions'})
+    .populate({ path: 'questions'})
     .populate({ path: 'transactions'})
   let pubs = publications.slice((page - 1) * limit, page * limit);
   res.status(200).json({
