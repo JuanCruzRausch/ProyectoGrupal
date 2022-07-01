@@ -4,5 +4,5 @@ const publicationTestController = require('../controllers/publicationTestControl
 const publicationTestRouter = Router();
 
 publicationTestRouter.post('/', publicationTestController.postPublicationTest);
-
+publicationTestRouter.delete('/:id',publicationTestController.deletePublicationTest);
 module.exports = publicationTestRouter;

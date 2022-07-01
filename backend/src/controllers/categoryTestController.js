@@ -9,3 +9,20 @@ exports.post = catchAsync(async(req,res,next)=>{
     })
     res.status(201).json({status:"success", data: newCategory})
 });
+
+exports.getAllCategoryTest = catchAsync(async (req, res, next) => {
+    const categories = await CategoryTest.find({}).populate({
+      path: 'subcategories',
+    });
+  
+    if (categories.length <= 0) {
+      return next(new AppError('No categories found', 404));
+    }
+  
+    res.status(200).json({
+      status: 'success',
+      data: {
+        categories,
+      },
+    });
+  });
