@@ -18,14 +18,7 @@ const CartInitialState = {
     shippingAddress: 
       localStorage.getItem('shippingAddress')
       ? JSON.parse(localStorage.getItem('shippingAddress'))
-      : {
-        address: '',
-        city: '',
-        postalCode: '',
-        country: '',
-        state: '',
-        fullName: '',
-      },
+      : {},
     
   },
 };
@@ -108,9 +101,7 @@ function CartReducer(state = CartInitialState, { type, payload }) {
         },
       };
     case CLEAR_CART:
-      const shippingAddress = localStorage.getItem("shippingAddress")
-      localStorage.clear();
-      localStorage.setItem("shippingAddress", shippingAddress)
+      // localStorage.clear();
       return {
         ...state,
         cart: {shippingAddress:{...state.cart.shippingAddress}, cartItem: [] },
