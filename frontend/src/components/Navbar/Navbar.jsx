@@ -28,7 +28,7 @@ import {
   Cart,
   Publicar
 } from './Navbar.module.css';
-import EmptyCart from '../../assets/img/emptycart.svg'
+import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
 import LoginButton from '../Auth0/login';
@@ -55,7 +55,7 @@ function NavbarComponent(props) {
 
   useEffect(() => {
     user?dispatch(setUser(user)):null
-  },[setUser])
+  },[user])
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
