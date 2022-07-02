@@ -12,7 +12,7 @@ function CreateProduct() {
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState('')
   const [uploadedImg, setUploaded] = useState("");
   const [data, setData] = useState({
       title: "",
@@ -43,10 +43,12 @@ function CreateProduct() {
 
   const handleOnSubmitImages = async (e) =>{
     e.preventDefault()
-    const result = await axios.post("http://localhost:5050/image", { image })
+    const result = await axios.post("http://localhost:5050/publicationtest/upload-image", { image })
     try{
       const uploaded = result
+      console.log(uploaded)
       setUploaded(uploaded)
+
     }catch(e){
       console.log(e)
     }
@@ -108,15 +110,22 @@ function CreateProduct() {
             required
           />
           <Form.Label>Imagenes</Form.Label>
-          <Form.Control
+          {/* <Form.Control
             type="file"
             multiple
             name="pictures"
             value={data.pictures}
             accept="image/jpg, image/jpeg, image/png"
-            onChange={(e) => handleOnSubmitImages(e)}
-            required
+            onChange={(e) => setImage(e.target.files)}
+            
+            // required
+          /> */}
+          <input
+          type="file"
+          onChange={(e) => setImage(e.target.files)}
           />
+          
+          <button onClick={(e)=>handleOnSubmitImages(e)}>agregar imagen</button>
           <Form.Label>Precio</Form.Label>
           <Form.Control
             type="number"
