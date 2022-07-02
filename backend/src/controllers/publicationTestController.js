@@ -166,6 +166,7 @@ exports.postImages = catchAsync(async (req, res, next) => {
     const uploader = async (path) => await cloudinary.uploads(path, 'Images');
     const urls = []
     const files = req.files
+    console.log(files)
     for(const file of files){
       const {path} = file;
       const newPath = await uploader(path)

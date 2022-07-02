@@ -2,71 +2,59 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv } from "./CreateProduct.module.css";
+import { CreateDiv, logo } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
+import { addPublication } from '../../redux/actions/index'
 function CreateProduct() {
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
-  const [images, setImages] = useState('')
-  const [uploadedImg, setUploaded] = useState("");
+  const [images, setImages] = useState([]);
+  const [uploadedImg, setUploaded] = useState([]);
   const [data, setData] = useState({
-      title: "",
-      description: "",
-      pictures: [],
-      price: 0,
-      currency: "",
-      seller: "",
-      category: "",
-      subCategory: "",
-      shipping: { shippingtype: "" },
-      condition: "",
-      stock: {options:[]},
-      brand: "",
-      location: "",
-      visibility: 0,
-    });
-    const subcategories = CATEGORIAS?.find((e) => e.name === data.category);
-    const objects = subcategories?.subcategories.find(
-      (e) => e.name === data.subCategory
-    );
-    
-    
-    
+    title: "",
+    description: "",
+    pictures: [],
+    price: 0,
+    currency: "",
+    seller: "62bf48e53682a40660d2c540",
+    category: "",
+    subCategory: "",
+    shipping: { shippingtype: "" },
+    condition: "",
+    stock: { options: [] },
+    brand: "",
+    location: "",
+    visibility: 0,
+  });
+  const subcategories = CATEGORIAS?.find((e) => e.name === data.category);
+  const objects = subcategories?.subcategories.find(
+    (e) => e.name === data.subCategory
+  );
+
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  const handleOnChangeImages = async (e) =>{
-    setImages(e)
-    const f = new FormData();
-    console.log(f)
-    f.append("image", e)
-    console.log(f)
-    const result = await axios.post("http://localhost:5050/publicationtest/upload-image", f, { headers:{'content-type':"multipart/form-data"}})
-    .catch(res => console.log(res))
-    try{
-      console.log(result)
-      // const uploaded = result
-      // console.log(uploaded)
-      // setUploaded(uploaded)
-
-    }catch(e){
-      console.log(e)
-    }
+  const deleteImg = (i) =>{
+    setImages([...images.filter((e)=> e[0].name!== i)])
   }
+  const handleOnChangeImages =  (file) => {
+    setImages([...images, file]);
+     
+  };
   function handleShipping(e) {
-      setData({
-          ...data,
-          shipping:{shippingtype: e.target.value}
-      })
+    setData({
+      ...data,
+      shipping: { shippingtype: e.target.value },
+    });
   }
-  function handleCombinations(e,i) {
-    setCombination({...combination,[e.target.name]:e.target.value})
+  function handleCombinations(e, i) {
+    setCombination({ ...combination, [e.target.name]: e.target.value });
   }
   function handleOnChange(e) {
     setData({
@@ -75,36 +63,65 @@ function CreateProduct() {
     });
   }
   function handleStock(e) {
-      setStock(e.target.value)
+    setStock(e.target.value);
+  }
+  async function handleOnSubmit(e) {
+    e.preventDefault()
+    // f.append("image", images[0][0])
+    let arrayImg = []
+    for(let i = 0; i <images.length; i ++){
+      let f = new FormData();
+      f.append("image", images[i][0]);
+      let result = await axios
+        .post("http://localhost:5050/publicationtest/upload-image", f, {
+          headers: { "content-type": "multipart/form-data" },
+        })
+        .catch((res) => console.log(res));
+        console.log(result)
+      arrayImg.push(result.data.data[0].imageURL)
+    }
+    setData({...data, pictures: [...arrayImg]})
+    console.log(data)
+    dispatch( addPublication( data ))
+    // try {
+      
+    //   setUploaded([...uploadedImg, result.data.data[0].imageURL])
+    //   console.log(uploaded)
+    //   setUploaded(uploaded)
+    // } catch (e) {
+    //   console.log(e);
+    // }
+
   }
   function submitStock(e) {
-      e.preventDefault()
-      let arr = []
-    for (const element in combination){
-        arr.push({name: element, value: combination[element]})
+    e.preventDefault();
+    let arr = [];
+    for (const element in combination) {
+      arr.push({ name: element, value: combination[element] });
     }
     setData({
-        ...data,
-        stock: {options: [...data.stock.options,{combination: [...arr], stock}]}
-    })
-    setStock(0)
-    setCombination({})
+      ...data,
+      stock: {
+        options: [...data.stock.options, { combination: [...arr], stock }],
+      },
+    });
+    setStock(0);
+    setCombination({});
   }
 
-//   console.log(objects);
-//   console.log(data);
-//   console.log(stock);
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <Form>
+      {images.length>0&&images.map(e=> <span ><span>{e[0].name}</span><button onClick={()=>deleteImg(e[0].name)}>X</button> </span>)}
+      <Form onSubmit={(e)=> handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
           <Form.Control
+            accept = "image/jpg, image/png, image/jpeg"
             name="title"
             value={data.title}
             onChange={(e) => handleOnChange(e)}
-            required
+            // required
           />
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
@@ -113,15 +130,15 @@ function CreateProduct() {
             onChange={(e) => handleOnChange(e)}
             as="textarea"
             rows={3}
-            required
+            // required
           />
           <Form.Label>Imagenes</Form.Label>
           <Form.Control
             type="file"
             multiple
-            name="pictures"
-            onChange={(e)=>handleOnChangeImages(e.target.files)}
-            required
+            name="image"
+            onChange={(e) => handleOnChangeImages(e.target.files)}
+            // required
           />
           <Form.Label>Precio</Form.Label>
           <Form.Control
@@ -129,7 +146,7 @@ function CreateProduct() {
             name="price"
             value={data.price}
             onChange={(e) => handleOnChange(e)}
-            required
+            // required
           />
           <Form.Label>Moneda</Form.Label>
           <Form.Select
@@ -187,17 +204,21 @@ function CreateProduct() {
                     <Form.Select
                       name={e.nameprop}
                       value={combination[i]?.value}
-                      onChange={(e)=>handleCombinations(e,i)}
+                      onChange={(e) => handleCombinations(e, i)}
                     >
-                    <option default value='' >{e.nameprop}</option>
+                      <option default value="">
+                        {e.nameprop}
+                      </option>
                       {e.options.map((e, i) => (
                         <option key={i}>{e}</option>
                       ))}
                     </Form.Select>
                   ) : (
-                    <input 
-                    onChange={(e)=>handleCombinations(e,i)}
-                    name={e.nameprop} value={combination[i]?.value} />
+                    <input
+                      onChange={(e) => handleCombinations(e, i)}
+                      name={e.nameprop}
+                      value={combination[i]?.value}
+                    />
                   )}
                 </div>
               ))}
@@ -207,9 +228,9 @@ function CreateProduct() {
                 type="number"
                 value={stock}
                 onChange={(e) => handleStock(e)}
-                required
+                // required
               />
-              <button onClick={(e)=>submitStock(e)}>Guardar Stock</button>
+              <button onClick={(e) => submitStock(e)}>Guardar Stock</button>
             </Form>
           ) : null}
 
@@ -218,7 +239,7 @@ function CreateProduct() {
             name="shippingtype"
             value={data.shipping.shippingtype}
             onChange={(e) => handleShipping(e)}
-            required
+            // required
           />
           <Form.Label>Condición</Form.Label>
           <Form.Select
@@ -226,7 +247,7 @@ function CreateProduct() {
             name="condition"
             value={data.condition}
             onChange={(e) => handleOnChange(e)}
-            required
+            // required
           >
             <option value="" disabled>
               Condición
@@ -246,7 +267,7 @@ function CreateProduct() {
             name="brand"
             value={data.brand}
             onChange={(e) => handleOnChange(e)}
-            required
+            // required
           />
           <Form.Label>Ubicación</Form.Label>
           <Form.Select
@@ -271,9 +292,10 @@ function CreateProduct() {
             name="visibility"
             value={data.visibility}
             onChange={(e) => handleOnChange(e)}
-            required
+            // required
           />
         </Form.Group>
+        <button type="submit">submit</button>
       </Form>
     </div>
   );
