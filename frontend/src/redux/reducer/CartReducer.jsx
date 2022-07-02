@@ -5,7 +5,8 @@ import {
   CLEAR_CART,
   INCREASE,
   DECREASE,
-  SAVE_SHIPPING_ADDRESS
+  SAVE_SHIPPING_ADDRESS,
+  ORDER_PRODUCT
 } from '../actions/CartActions';
 
 const CartInitialState = {
@@ -18,9 +19,9 @@ const CartInitialState = {
     shippingAddress: 
       localStorage.getItem('shippingAddress')
       ? JSON.parse(localStorage.getItem('shippingAddress'))
-      : {},
-    
+      : {}, 
   },
+  SingleCart:[]
 };
 function CartReducer(state = CartInitialState, { type, payload }) {
 
@@ -52,7 +53,6 @@ function CartReducer(state = CartInitialState, { type, payload }) {
           ...state.cart,
           cartItem: [...state.cart.cartItem, item] }
         }
-        
     case INCREASE :
       return {
         ...state,
@@ -78,7 +78,11 @@ function CartReducer(state = CartInitialState, { type, payload }) {
           })
         }
       }
-
+    case ORDER_PRODUCT :
+      return {
+        ...state,
+        SingleCart: payload
+      }
     case REMOVE_FROM_CART:
       const carrito = state.cart.cartItem;
 
@@ -105,6 +109,7 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       return {
         ...state,
         cart: {shippingAddress:{...state.cart.shippingAddress}, cartItem: [] },
+        SingleCart: []
       };
     default:
       return state;

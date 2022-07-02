@@ -24,10 +24,15 @@ import { AddToCart} from '../../redux/actions/CartActions';
 import sindicato from '../../assets/img/enanoenojado.webp';
 import Loading from '../Loading/Loading';
 import { AddToFav } from '../../redux/actions/FavActions';
+
+
 function Products({ refElement, scrollTo }) {
+
   JSON.parse(localStorage.getItem('cart'));
+  const [count, setcount] = React.useState(1);
   const dispatch = useDispatch();
   const productos = useSelector((state) => state.productReducer.Allproduct);
+
   let Active = useSelector((state) => state.productReducer.pagina);
   const [loading, setLoading] = React.useState("spin")
   const noProducts = () =>{
@@ -57,7 +62,7 @@ function Products({ refElement, scrollTo }) {
     );
   }
   const handleAddToCart = (id) => {
-    dispatch(AddToCart(id));
+    dispatch(AddToCart(id,count));
   };
   const handleAddtoFav = (id)=>{
     dispatch(AddToFav(id))

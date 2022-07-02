@@ -27,6 +27,7 @@ export default function PlaceOrderScreen() {
 //   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
 const state = useSelector((state) => state.CartReducer.cart.cartItem);
+const SingleCart = useSelector((state) => state.CartReducer.SingleCart);
 const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
 const dispatch = useDispatch()
 JSON.parse(localStorage.getItem('cart'));
@@ -41,11 +42,7 @@ const placeOrderHandler = async () =>{
   navigate("/")
 };
 
-
-
-
-  
-
+console.log(SingleCart.price === undefined && cartItem.length === 0);
   return (
     <div className={GeneralContainer}>
     <CheckoutSteps step1 step2  step3></CheckoutSteps>
@@ -73,7 +70,26 @@ const placeOrderHandler = async () =>{
             <Card.Body>
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
-                {cartItem?.map((item) => (
+                {
+                  SingleCart.title !== undefined ?
+                    <ListGroup.Item>
+                      <Row className="align-items-center">
+                        <Col md={6}>
+                          <img className= {logo}
+                            src={SingleCart.thumbnail}
+                            alt={SingleCart.title}
+                          //   className="img-fluid rounded img-thumbnail"
+                          ></img>{' '}
+                          <Link to={`/${SingleCart.product}`}>{SingleCart.title}</Link>
+                        </Col>
+                        <Col md={3}>
+                          <span>{SingleCart.quantity}</span>
+                        </Col>
+                        <Col md={3}>${Math.round(SingleCart.quantity*SingleCart.price)}</Col>
+                      </Row>
+                    </ListGroup.Item>
+                  :
+                cartItem?.map((item) => (
                   <ListGroup.Item key={item.product}>
                     <Row className="align-items-center">
                       <Col md={6}>
@@ -90,7 +106,8 @@ const placeOrderHandler = async () =>{
                       <Col md={3}>${Math.round(item.quantity*item.price)}</Col>
                     </Row>
                   </ListGroup.Item>
-                ))}
+                ))
+                }
               </ListGroup>
               <Link to="/cart">Editar</Link>
             </Card.Body>
@@ -105,7 +122,13 @@ const placeOrderHandler = async () =>{
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>${Number(PrecioTotal).toFixed(2)}</Col>
+                    <Col>$
+                    {
+                     SingleCart.price !== undefined ? 
+                     Math.round(SingleCart.quantity*SingleCart.price)
+                    : Number(PrecioTotal).toFixed(2)
+                    }
+                    </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -125,7 +148,13 @@ const placeOrderHandler = async () =>{
                   <Row>
                     <Col>Valor Total</Col>
                     <Col>
-                      <strong>${Number(PrecioTotal).toFixed(2)}</strong>
+                      <strong>${
+
+                      SingleCart.price !== undefined ? 
+                      Math.round(SingleCart.quantity*SingleCart.price)
+                     : Number(PrecioTotal).toFixed(2)
+
+                      }</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -134,7 +163,7 @@ const placeOrderHandler = async () =>{
                     <Button
                       type="button"
                       onClick={placeOrderHandler}
-                      disabled={cartItem.length === 0}
+                      disabled={cartItem.length === 0 && SingleCart.price == undefined}
                     >
                       Comprar
                     </Button>

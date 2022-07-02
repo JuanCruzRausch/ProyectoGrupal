@@ -12,7 +12,11 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
+
+
 function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav }) {
+  const [count, setcount] = useState(1);
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   const FavState = useSelector(state=> state.FavReducer.Favs)
   const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -30,7 +34,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
     });
   }
   function handleAddtoCart() {
-    ADDtoCart(id)
+    ADDtoCart(id,count)
     toast.success('Item Agregado Correctamente', {
       position: 'top-right',
       autoClose: 1000,
@@ -67,7 +71,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
         }
       </div>
       <div className={SingleProduct_buttons}>
-        <button onClick={() => handleAddtoCart(id)}>Agregar al carrito</button>
+        <button onClick={() => handleAddtoCart(id,count)}>Agregar al carrito</button>
         <button onClick={() => 
             isAuthenticated ?
           handleAddtoFav(id)
