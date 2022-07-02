@@ -169,7 +169,10 @@ function NavbarComponent(props) {
                     <LogoutButton />
                   </div>
                 ) : (                  
-                  <p>please verify you email </p>
+                  <div>
+                    <p>please verify you email </p>
+                    <LogoutButton />
+                  </div>   
                 )}
               </NavDropdown>
             </div>
