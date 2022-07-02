@@ -8,5 +8,5 @@ publicationTestRouter.post('/', publicationTestController.postPublicationTest);
 publicationTestRouter.delete('/:id', publicationTestController.deletePublicationTest);
 publicationTestRouter.get('/', publicationTestController.getAllPublicationTest);
 publicationTestRouter.get('/:id', publicationTestController.getPublicationTestID);
-publicationTestRouter.post('/upload-image', upload.single('image'), publicationTestController.postImages);
+publicationTestRouter.post('/upload-image', upload.array('image'), publicationTestController.postImages);
 module.exports = publicationTestRouter;

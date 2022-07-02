@@ -12,7 +12,7 @@ function CreateProduct() {
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
-  const [image, setImage] = useState('')
+  const [images, setImages] = useState('')
   const [uploadedImg, setUploaded] = useState("");
   const [data, setData] = useState({
       title: "",
@@ -41,15 +41,19 @@ function CreateProduct() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  const handleOnSubmitImages = async (e) =>{
-    e.preventDefault()
-
-    console.log(image)
-    const result = await axios.post("http://localhost:5050/publicationtest/upload-image", { image })
+  const handleOnChangeImages = async (e) =>{
+    setImages(e)
+    const f = new FormData();
+    console.log(f)
+    f.append("image", e)
+    console.log(f)
+    const result = await axios.post("http://localhost:5050/publicationtest/upload-image", f, { headers:{'content-type':"multipart/form-data"}})
+    .catch(res => console.log(res))
     try{
-      const uploaded = result
-      console.log(uploaded)
-      setUploaded(uploaded)
+      console.log(result)
+      // const uploaded = result
+      // console.log(uploaded)
+      // setUploaded(uploaded)
 
     }catch(e){
       console.log(e)
@@ -93,13 +97,6 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <form enctype="multipart/form-data">
-            <input
-            type="file"
-            onChange={(e) => setImage(e.target.files)}
-            />
-            <button type="submit" onSubmit={(e)=>handleOnSubmitImages(e)}>agregar imagen</button>
-          </form>
       <Form>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -119,18 +116,13 @@ function CreateProduct() {
             required
           />
           <Form.Label>Imagenes</Form.Label>
-          {/* <Form.Control
+          <Form.Control
             type="file"
             multiple
             name="pictures"
-            value={data.pictures}
-            accept="image/jpg, image/jpeg, image/png"
-            onChange={(e) => setImage(e.target.files)}
-            
-            // required
-          /> */}
-         
-          
+            onChange={(e)=>handleOnChangeImages(e.target.files)}
+            required
+          />
           <Form.Label>Precio</Form.Label>
           <Form.Control
             type="number"
