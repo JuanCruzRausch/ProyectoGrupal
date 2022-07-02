@@ -62,6 +62,7 @@ function CreateProduct() {
       [e.target.name]: e.target.value,
     });
   }
+  
   function handleStock(e) {
     setStock(e.target.value);
   }
@@ -80,17 +81,14 @@ function CreateProduct() {
         console.log(result)
       arrayImg.push(result.data.data[0].imageURL)
     }
-    setData({...data, pictures: [...arrayImg]})
+  
     console.log(data)
-    dispatch( addPublication( data ))
-    // try {
-      
-    //   setUploaded([...uploadedImg, result.data.data[0].imageURL])
-    //   console.log(uploaded)
-    //   setUploaded(uploaded)
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    dispatch( addPublication( {
+      ...data, 
+      pictures: [...arrayImg],
+      category: subcategories?._id,
+      subCategory: objects?._id
+    }))
 
   }
   function submitStock(e) {
