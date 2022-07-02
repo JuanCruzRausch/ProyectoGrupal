@@ -55,7 +55,7 @@ function NavbarComponent(props) {
 
   useEffect(() => {
     user?dispatch(setUser(user)):null
-  },[dispatch])
+  },[setUser])
 
   const searchOnSubmit = (e) => {
     e.preventDefault();
