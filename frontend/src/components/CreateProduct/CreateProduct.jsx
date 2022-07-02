@@ -43,6 +43,8 @@ function CreateProduct() {
 
   const handleOnSubmitImages = async (e) =>{
     e.preventDefault()
+
+    console.log(image)
     const result = await axios.post("http://localhost:5050/publicationtest/upload-image", { image })
     try{
       const uploaded = result
@@ -91,6 +93,13 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
+      <form enctype="multipart/form-data">
+            <input
+            type="file"
+            onChange={(e) => setImage(e.target.files)}
+            />
+            <button type="submit" onSubmit={(e)=>handleOnSubmitImages(e)}>agregar imagen</button>
+          </form>
       <Form>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -120,12 +129,8 @@ function CreateProduct() {
             
             // required
           /> */}
-          <input
-          type="file"
-          onChange={(e) => setImage(e.target.files)}
-          />
+         
           
-          <button onClick={(e)=>handleOnSubmitImages(e)}>agregar imagen</button>
           <Form.Label>Precio</Form.Label>
           <Form.Control
             type="number"
