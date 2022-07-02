@@ -11,8 +11,11 @@ function CreateProduct() {
     const dispatch = useDispatch()
     const CATEGORIAS = useSelector((state) => state.productReducer.Categories)
     const [stock, setstock] = useState({ options: []})
-    var combination = []
-    var stocky = 0
+    const [options, setOptions] = useState({
+        combination:[],
+        stock:0
+    })
+
 
     useEffect(()=>{
         dispatch(getAllCategories())
@@ -37,12 +40,12 @@ function CreateProduct() {
         })
  
     function handleOptions(e){
-        combination.push({[e.target.name]:e.target.value})
+       
 
-        setstock(
+        setOptions(
             {
-                ...stock,
-                options: [...stock.options.push({combination, stock}) ]
+                ...options,
+                combinanions:[...options.combinations,{[e.target.name]:e.target.value}]
             }
         )
     }
@@ -157,21 +160,21 @@ function CreateProduct() {
                     objects ? 
                     <Form 
                         aria-label="Default select example" 
-                        value={stock.options}
-                        name="subCategory"
-                        onChange={(e)=>handleOptions(e)}>
-                        {objects?.properties.map(e =>(<div>
+                       >
+                        {objects?.properties.map((e,i)=>(<div>
                             <label>{e.nameprop}</label>
                             { e.options.length >0 ?
                             <Form.Select
                             name={e.nameprop}
-                            value={stock.options[e.nameprop]}
+                            value={options.combination[i].name}
                             >{
                                 e.options.map(e =><option >{e}</option>) 
                             }
                             </Form.Select> 
                              :
-                             <input name={e.nameprop}/>}
+                             <input name={e.nameprop}
+                             value={options.combination[i].name}
+                             />}
                         </div>))}
                         <Form.Label>Stock</Form.Label>
                     <Form.Control
