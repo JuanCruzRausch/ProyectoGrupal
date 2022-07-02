@@ -6,6 +6,7 @@ import Favoritos from './components/Favoritos/Favoritos'
 import SignupScreen from "./components/SignupScreen/SignupScreen";
 import SigninScreen from "./components/SigninScreen/SigninScreen";
 import PerfilEditar from "./components/PerfilEditar/PerfilEditar";
+import Dashboard from "./components/Dashboard/Dashboard";
 import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress";
 import Perfil from "./components/Perfil/Perfil";
 import { useEffect, useRef } from "react";
@@ -63,6 +64,7 @@ function App() {
         </div>
         </> */}
         <Routes>
+          <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />

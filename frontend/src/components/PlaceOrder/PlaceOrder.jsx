@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import {  useSelector } from 'react-redux'
-import { logo, container } from './PlaceOrder.module.css'
+import { logo, container, GeneralContainer } from './PlaceOrder.module.css'
 import CheckoutSteps from '../CheckoutComponent/CheckoutSteps';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
@@ -47,10 +47,10 @@ const placeOrderHandler = async () =>{
   
 
   return (
-    <div >
+    <div className={GeneralContainer}>
     <CheckoutSteps step1 step2  step3></CheckoutSteps>
     <div className={container}>
-
+      <button onClick={() => navigate(-1)}>Atras</button>
       <h1 className="my-3">Orden de Compra</h1>
       <Row>
         <Col md={8}>
@@ -68,8 +68,6 @@ const placeOrderHandler = async () =>{
               <Link to="/shipping">Editar</Link>
             </Card.Body>
           </Card>
-
-
 
           <Card className="mb-3">
             <Card.Body>
@@ -98,7 +96,6 @@ const placeOrderHandler = async () =>{
             </Card.Body>
           </Card>
         </Col>
-
         <Col md={4}>
           <Card>
             <Card.Body>
