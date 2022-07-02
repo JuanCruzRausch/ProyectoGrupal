@@ -73,7 +73,8 @@
     align-items: center;
  }
  .EliminarItem{
-    border-radius: 15px;
+    border-radius: 14px;
+    padding: .4rem;
     background-color: red;
     color: white;
     height: fit-content;
