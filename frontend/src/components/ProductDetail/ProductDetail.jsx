@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { Link, useNavigate } from 'react-router-dom';
-import { getAllProducts } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 import Count from '../Count/Count';
 import mercadopago from '../../assets/img/cards/mercadopago.svg';
 import naranja from '../../assets/img/cards/naranja.svg';
@@ -13,10 +12,11 @@ import americanexpress from '../../assets/img/cards/americanexpress.svg';
 import pagofacil from '../../assets/img/cards/pagofacil.svg';
 import rapipago from '../../assets/img/cards/rapipago.svg';
 import visadebito from '../../assets/img/cards/visadebito.svg';
-import cart from '../../assets/img/cart.png';
+import cart from '../../assets/img/addcart.png';
 import gps from '../../assets/img/gps.png';
 import user from '../../assets/img/user.png';
 import arrow from '../../assets/img/leftarrow.png';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   Detail_container,
   Detail_Links,
@@ -41,10 +41,13 @@ import {
   SelectedImg,
 } from './ProductDetail.module.css';
 import { scrollToProducts } from '../variablesGlobales';
+import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 
 function ProductDetail(props) {
-  const [count, setcount] = useState(0);
+  const dispatch = useDispatch()
+  const [count, setcount] = useState(1);
   const params = useParams();
+  const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   const State = useSelector((state) => state.productReducer.Allproduct);
   const navigate = useNavigate();
 
@@ -57,6 +60,27 @@ function ProductDetail(props) {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(selector));
+    //console.log(localStorage);
+  }, [selector]);
+
+  function ADDtoCart(){
+      dispatch(AddToCart(RES[0]?._id, count))
+      toast.success('Item Agregado Correctamente', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+    }
+  function handleSetOrder(){
+    dispatch(OrderSingleProduct(RES[0]?._id, count))
+    navigate('/shipping')
+  }
   const RES = State?.filter((e) => e._id === params._id);
 
   const [imgs, setimgs] = useState(RES[0]?.image);
@@ -64,7 +88,6 @@ function ProductDetail(props) {
   const handleSelect = (index) => {
     setimgs(RES[0]?.pictures[index]);
   };
-
   return (
     <div className={Detail_container}>
       <div className={Detail_Links}>
@@ -106,6 +129,8 @@ function ProductDetail(props) {
           </h2>
         </div>
       </div>
+
+
       <div className={Detail_CountPrice}>
         <h1>${RES[0]?.price}</h1>
         <Count
@@ -114,11 +139,11 @@ function ProductDetail(props) {
           stock={RES[0]?.stock}
           price={RES[0]?.price}
         />
-        <button className={ButtonCompra}>Comprar</button>
-        <button className={CountPrice_AddCart}>
-          <img src={cart} />
-        </button>
+        <button onClick={()=> handleSetOrder()} className={ButtonCompra}>Comprar</button>
+        <img className={CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
+
+
       <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
           {RES[0]?.seller ? (
@@ -205,6 +230,17 @@ function ProductDetail(props) {
           <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
