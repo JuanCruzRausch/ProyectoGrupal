@@ -25,6 +25,13 @@ export function signUp(data) {
   }
 }
 
+export function addPublication( data ) {
+  return async (dispatch) => {
+    return axios.post("http://localhost:5050/publicationtest", data)
+    .then(res => console.log(res))
+  }
+}
+
 export function getAllProducts() {
   return async (dispatch) => {
     return axios("http://localhost:5050/publication?page=" + 1 + "&&limit=640")
