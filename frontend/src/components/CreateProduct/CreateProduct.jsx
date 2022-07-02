@@ -11,6 +11,9 @@ function CreateProduct() {
     const dispatch = useDispatch()
     const CATEGORIAS = useSelector((state) => state.productReducer.Categories)
     const [stock, setstock] = useState({ options: []})
+    const [combination, setCombination] = useState({
+        color:'';
+    })
     const [options, setOptions] = useState({
         combination:[],
         stock:0
