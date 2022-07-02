@@ -6,11 +6,14 @@ import { CreateDiv } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
+import axios from "axios";
 function CreateProduct() {
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
+  const [image, setImage] = useState([])
+  const [uploadedImg, setUploaded] = useState("");
   const [data, setData] = useState({
       title: "",
       description: "",
@@ -36,10 +39,18 @@ function CreateProduct() {
     
   useEffect(() => {
     dispatch(getAllCategories());
-    
   }, [dispatch]);
 
- 
+  const handleOnSubmitImages = async (e) =>{
+    e.preventDefault()
+    const result = await axios.post("http://localhost:5050/image", { image })
+    try{
+      const uploaded = result
+      setUploaded(uploaded)
+    }catch(e){
+      console.log(e)
+    }
+  }
   function handleShipping(e) {
       setData({
           ...data,
@@ -68,6 +79,8 @@ function CreateProduct() {
         ...data,
         stock: {options: [...data.stock.options,{combination: [...arr], stock}]}
     })
+    setStock(0)
+    setCombination({})
   }
 
 //   console.log(objects);
@@ -100,7 +113,8 @@ function CreateProduct() {
             multiple
             name="pictures"
             value={data.pictures}
-            onChange={(e) => handleOnChange(e)}
+            accept="image/jpg, image/jpeg, image/png"
+            onChange={(e) => handleOnSubmitImages(e)}
             required
           />
           <Form.Label>Precio</Form.Label>
