@@ -7,14 +7,6 @@ const publicationTestSchema = new Schema({
       true,
       'Please add a title that contains key words of the product',
     ],
-    validate: {
-      validator: function (e) {
-        return /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(
-          e
-        );
-      },
-      message: 'Title should only contain numbers and letters',
-    },
     maxlength: [100, 'A title must have less or equal then 100 characters'],
     minlength: [4, 'A title must have more or equal then 4 characters'],
   },
