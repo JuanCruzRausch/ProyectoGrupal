@@ -1,15 +1,14 @@
-import {} from '../actions/userAction.jsx'
+import {SET_USER} from '../actions/userAction.jsx'
 
 
 
 const initialState={
-    user:{
-
-    }
+    user:null
 };
 
 function userReducer (state = initialState, { type, payload}) {
     switch(type){
+        case SET_USER: return {...state, user:payload}
         default: return state
     }
 };

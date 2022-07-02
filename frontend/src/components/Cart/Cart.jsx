@@ -55,12 +55,8 @@ function Cart() {
                 <div className={ItemsContainer_SingleItem} key={i}>
                   <img src={e.thumbnail}/>
                   <h1>{e.title}</h1>
-                  <h2>Valor ${Math.round(e.price)}</h2>
                   <h2>Total: ${Math.round(e.price*e.quantity)}</h2>
                   <div className={Buttons}>
-                    <button onClick={() => 
-                      dispatch(IncreaseCart(e.product))}>+</button>
-                    <h1>{e.quantity}</h1>
                     <button onClick={() =>{
                       if(e.quantity>1){
                         dispatch(DecreaseCart(e.product))
@@ -68,10 +64,13 @@ function Cart() {
                       else 
                        handleDelete(e.product)}
                        }>-</button>
+                    <h1>{e.quantity}</h1>
+                    <button onClick={() => 
+                      dispatch(IncreaseCart(e.product))}>+</button>
                   </div>
                   <button className={EliminarItem} onClick={() => 
                     dispatch(DeleteFromCart(e.product))}>
-                    Eliminar del carrito
+                    Eliminar
                   </button>
                 </div>
               ))}
