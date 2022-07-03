@@ -5,3 +5,11 @@
     width: 200px;
     height: auto;
 }
+.img{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.img div{
+    display: inline;
+    margin-right: 3vh;
+}

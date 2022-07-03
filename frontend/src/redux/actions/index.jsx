@@ -6,10 +6,11 @@ export const GET_PRODUCT = 'GET_PRODUCT';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE';
-export const SIGN_UP_ALERT = 'SIGN_UP_ALERT'
-export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE"
-export const CREATE_PRODUCT = "CREATE_PRODUCT"
-export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES"
+export const SIGN_UP_ALERT = 'SIGN_UP_ALERT';
+export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
+export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 // import categorias from '../../components/Json/Categorias'
 export function signUp(data) {
   return async (dispatch) => {
@@ -28,7 +29,8 @@ export function signUp(data) {
 export function addPublication( data ) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/publicationtest", data)
-    .then(res => console.log(res))
+    .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
+    .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
   }
 }
 

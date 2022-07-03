@@ -2,14 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
 import { addPublication } from '../../redux/actions/index'
+import swal from 'sweetalert';
+
 function CreateProduct() {
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
+  const alert = useSelector((state)=> state.productReducer.publicationAlert)
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
@@ -37,15 +40,24 @@ function CreateProduct() {
   );
 
   useEffect(() => {
+    if(alert==="success"){
+    swal({
+      title: `Publicación creada`,
+      icon: "success"
+    })}
+    if(alert === "error"){
+      swal({
+        title: `Error en la publicación`,
+        icon: "error"
+      })}
     dispatch(getAllCategories());
-  }, [dispatch]);
+  }, [dispatch, alert]);
 
   const deleteImg = (i) =>{
     setImages([...images.filter((e)=> e[0].name!== i)])
   }
   const handleOnChangeImages =  (file) => {
     setImages([...images, file]);
-     
   };
   function handleShipping(e) {
     setData({
@@ -68,6 +80,14 @@ function CreateProduct() {
   }
   async function handleOnSubmit(e) {
     e.preventDefault()
+    if(data.stock.options.length<1){
+      swal({
+        title: `Aún no ha agregado ningún stock`,
+        icon: "error"
+      })
+    return
+    }
+    
     // f.append("image", images[0][0])
     let arrayImg = []
     for(let i = 0; i <images.length; i ++){
@@ -93,6 +113,9 @@ function CreateProduct() {
   }
   function submitStock(e) {
     e.preventDefault();
+    if(stock===0){
+      return
+    }
     let arr = [];
     for (const element in combination) {
       arr.push({ name: element, value: combination[element] });
@@ -110,7 +133,6 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      {images.length>0&&images.map(e=> <span ><span>{e[0].name}</span><button onClick={()=>deleteImg(e[0].name)}>X</button> </span>)}
       <Form onSubmit={(e)=> handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -119,7 +141,7 @@ function CreateProduct() {
             name="title"
             value={data.title}
             onChange={(e) => handleOnChange(e)}
-            // required
+            required
           />
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
@@ -128,7 +150,7 @@ function CreateProduct() {
             onChange={(e) => handleOnChange(e)}
             as="textarea"
             rows={3}
-            // required
+            required
           />
           <Form.Label>Imagenes</Form.Label>
           <Form.Control
@@ -136,15 +158,19 @@ function CreateProduct() {
             multiple
             name="image"
             onChange={(e) => handleOnChangeImages(e.target.files)}
-            // required
+            required
           />
+          <div className={img}>
+            {images.length>0&&images.map((e,i)=> <div key={i} className={img}><span>{e[0].name}</span><button onClick={()=>deleteImg(e[0].name)}>X</button> </div>)}
+          </div>
+
           <Form.Label>Precio</Form.Label>
           <Form.Control
             type="number"
             name="price"
             value={data.price}
             onChange={(e) => handleOnChange(e)}
-            // required
+            required
           />
           <Form.Label>Moneda</Form.Label>
           <Form.Select
@@ -226,9 +252,11 @@ function CreateProduct() {
                 type="number"
                 value={stock}
                 onChange={(e) => handleStock(e)}
-                // required
+                required
               />
-              <button onClick={(e) => submitStock(e)}>Guardar Stock</button>
+              <div className={img}>
+                <button onClick={(e) => submitStock(e)}>Guardar Stock</button>
+              </div>
             </Form>
           ) : null}
 
@@ -237,7 +265,7 @@ function CreateProduct() {
             name="shippingtype"
             value={data.shipping.shippingtype}
             onChange={(e) => handleShipping(e)}
-            // required
+            required
           />
           <Form.Label>Condición</Form.Label>
           <Form.Select
@@ -245,7 +273,7 @@ function CreateProduct() {
             name="condition"
             value={data.condition}
             onChange={(e) => handleOnChange(e)}
-            // required
+            required
           >
             <option value="" disabled>
               Condición
@@ -265,7 +293,7 @@ function CreateProduct() {
             name="brand"
             value={data.brand}
             onChange={(e) => handleOnChange(e)}
-            // required
+            required
           />
           <Form.Label>Ubicación</Form.Label>
           <Form.Select
@@ -290,7 +318,7 @@ function CreateProduct() {
             name="visibility"
             value={data.visibility}
             onChange={(e) => handleOnChange(e)}
-            // required
+            required
           />
         </Form.Group>
         <button type="submit">submit</button>
