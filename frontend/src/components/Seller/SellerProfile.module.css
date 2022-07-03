@@ -1,5 +1,12 @@
 .Container{
     width: 100%;
+    height: 100vh;
+    padding: 20px;
+}
+.Container button{
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
 }
 .Titles{
     width: 100%;
