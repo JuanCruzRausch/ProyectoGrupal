@@ -2,11 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
-<<<<<<< HEAD
-
-=======
 import { useSelector } from 'react-redux';
->>>>>>> 6def01e (second commit)
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
