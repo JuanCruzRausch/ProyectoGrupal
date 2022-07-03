@@ -5,7 +5,7 @@ const AppError = require('../utils/appError');
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
     name: req.body.name,
-    lastname: req.body.lastname,
+    last_name: req.body.last_name,
     password: req.body.password,
     country: req.body.country,
     email: req.body.email,
@@ -31,11 +31,12 @@ exports.post = catchAsync(async (req, res, next) => {
 });
 
 exports.updateToUser = async (req, res, next) => {
+  console.log(req.body)
   try {
     const {
-      id,
+      _id,
       name,
-      lastname,
+      last_name,
       nickname,
       country,
       address,
@@ -44,8 +45,8 @@ exports.updateToUser = async (req, res, next) => {
       photo,
     } = req.body;
     const userUpdated = await CommonUser.updateOne(
-      { _id: id },
-      { name, lastname, nickname, country, address, phone, credit_card, photo }
+      
+      { name, last_name, nickname, country, address, phone, credit_card, photo, _id }
     );
     res.status(200).json({
         status: 'success',

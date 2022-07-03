@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useSelector } from 'react-redux';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const userState = useSelector( state => state.userReducer.user)
+  const registered = userState?.registration_date.split("-")
+  console.log(userState)
     const perfil = {
         nombre: "Juanito Perez",
         email: "juanito312@gmail.com",
@@ -38,7 +41,8 @@ export default function Perfil() {
     { isAuthenticated? (<div className={Container_card}>
           <div className={Container_Perfil}>
           <div className={Container_img_button}>
-          <img src={user.picture} alt="perfil-img"/>
+          {useState?.photo?(<img src={userState.photo} alt="perfil-img"/>):
+          (<img src={user.picture} alt="perfil-img"/>)}
           <Link to="/perfil/editar">
               <button>
               Editar perfil
@@ -62,14 +66,23 @@ export default function Perfil() {
           <div>
               Email: <h2>{user.email}</h2>
           </div>
-          <div>
-              dirección: <h2>{perfil.address}</h2>
-          </div>
+          {userState?.address?(<div>
+              Provincia: <h2>{perfil.address}</h2>
+              Ciudad: <h2>{perfil.address}</h2>
+              Código Postal: <h2>{perfil.address}</h2>
+              Calle: <h2>{perfil.address}</h2>
+              Número: <h2>{perfil.address}</h2>
+              {userState.address.dpto?(<span>Departamento: 
+                <h2>{perfil.address.dpto.floor}</h2>
+                <h2>{perfil.address.dpto.number}</h2>
+                </span>)
+                :null}
+          </div>):null}
           <div>
               reputación: <h2>{perfil.reputation}</h2>
           </div>
           <div>
-              status: <h2>{perfil.status}</h2>
+              Role: <h2>{userState.role}</h2>
           </div>
           <div className={Text_intereses}>
             intereses: 
@@ -79,8 +92,16 @@ export default function Perfil() {
               </div>)}
           </div>
           <div >
-              registrado desde: <h2>{perfil.register_date}</h2>
+              registrado desde: 
+              <h2>Año: {registered[0]}</h2>
+              <h2>Mes: {registered[1]}</h2>
           </div>
+          <div>
+             télefono: <h2>{userState.phone}</h2>
+          </div>
+          {userState?.credit_card?(<div>
+             Número de Cuenta: <h2>{userState.credit_card}</h2>
+          </div>):null}
           <div className={Text_transacciones}>
               transacciones: 
               <div>

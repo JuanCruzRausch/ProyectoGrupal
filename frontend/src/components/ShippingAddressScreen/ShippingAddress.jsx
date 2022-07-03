@@ -98,7 +98,7 @@ function ShippingAddress() {
             value={shipping.country} 
             name = "country"
             onChange={(e)=>handleOnChange(e)}>
-              <option value='' disabled default>Seleccione un pais</option>
+              <option value='' default>Seleccione un pais</option>
               {countries.filter(e=> e.name_es !=="").map(country => <option key={country.id}>{country.name}</option> )}
             </Form.Select>
             <Form.Label>Provincia</Form.Label>

@@ -2,22 +2,23 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from '../../redux/actions/index'
-import swal from 'sweetalert';
+import { addPublication } from "../../redux/actions/index";
+import swal from "sweetalert";
+import { ToastContainer, toast } from "react-toastify";
 
 function CreateProduct() {
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
-  const alert = useSelector((state)=> state.productReducer.publicationAlert)
+  const alert = useSelector((state) => state.productReducer.publicationAlert);
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
   const [images, setImages] = useState([]);
-  const [uploadedImg, setUploaded] = useState([]);
+  const [stockTotal, setStockTotal] = useState(0)
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -40,23 +41,25 @@ function CreateProduct() {
   );
 
   useEffect(() => {
-    if(alert==="success"){
-    swal({
-      title: `Publicación creada`,
-      icon: "success"
-    })}
-    if(alert === "error"){
+    if (alert === "success") {
+      swal({
+        title: `Publicación creada`,
+        icon: "success",
+      });
+    }
+    if (alert === "error") {
       swal({
         title: `Error en la publicación`,
-        icon: "error"
-      })}
+        icon: "error",
+      });
+    }
     dispatch(getAllCategories());
   }, [dispatch, alert]);
 
-  const deleteImg = (i) =>{
-    setImages([...images.filter((e)=> e[0].name!== i)])
-  }
-  const handleOnChangeImages =  (file) => {
+  const deleteImg = (i) => {
+    setImages([...images.filter((e) => e[0].name !== i)]);
+  };
+  const handleOnChangeImages = (file) => {
     setImages([...images, file]);
   };
   function handleShipping(e) {
@@ -74,23 +77,22 @@ function CreateProduct() {
       [e.target.name]: e.target.value,
     });
   }
-  
+
   function handleStock(e) {
     setStock(e.target.value);
   }
   async function handleOnSubmit(e) {
-    e.preventDefault()
-    if(data.stock.options.length<1){
+    e.preventDefault();
+    if (data.stock.options.length < 1) {
       swal({
         title: `Aún no ha agregado ningún stock`,
-        icon: "error"
-      })
-    return
+        icon: "error",
+      });
+      return;
     }
-    
-    // f.append("image", images[0][0])
-    let arrayImg = []
-    for(let i = 0; i <images.length; i ++){
+
+    let arrayImg = [];
+    for (let i = 0; i < images.length; i++) {
       let f = new FormData();
       f.append("image", images[i][0]);
       let result = await axios
@@ -98,23 +100,23 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-        console.log(result)
-      arrayImg.push(result.data.data[0].imageURL)
+      console.log(result);
+      arrayImg.push(result.data.data[0].imageURL);
     }
-  
-    console.log(data)
-    dispatch( addPublication( {
-      ...data, 
-      pictures: [...arrayImg],
-      category: subcategories?._id,
-      subCategory: objects?._id
-    }))
 
+    dispatch(
+      addPublication({
+        ...data,
+        pictures: [...arrayImg],
+        category: subcategories?._id,
+        subCategory: objects?._id,
+      })
+    );
   }
   function submitStock(e) {
     e.preventDefault();
-    if(stock===0){
-      return
+    if (stock <= 0) {
+      return;
     }
     let arr = [];
     for (const element in combination) {
@@ -126,18 +128,41 @@ function CreateProduct() {
         options: [...data.stock.options, { combination: [...arr], stock }],
       },
     });
+    
+    setStockTotal(Number(stockTotal)+Number(stock))
     setStock(0);
     setCombination({});
+
+    toast.success('Stock agregado Correctamente', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <Form onSubmit={(e)=> handleOnSubmit(e)}>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <Form onSubmit={(e) => handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
           <Form.Control
-            accept = "image/jpg, image/png, image/jpeg"
+            accept="image/jpg, image/png, image/jpeg"
             name="title"
             value={data.title}
             onChange={(e) => handleOnChange(e)}
@@ -160,8 +185,14 @@ function CreateProduct() {
             onChange={(e) => handleOnChangeImages(e.target.files)}
             required
           />
-          <div className={img}>
-            {images.length>0&&images.map((e,i)=> <div key={i} className={img}><span>{e[0].name}</span><button onClick={()=>deleteImg(e[0].name)}>X</button> </div>)}
+          <div >
+            {images.length > 0 &&
+              images.map((e, i) => (
+                <span key={i} className={img}>
+                  <span>{e[0].name}</span>
+                  <button onClick={() => deleteImg(e[0].name)}>X</button>{" "}
+                </span>
+              ))}
           </div>
 
           <Form.Label>Precio</Form.Label>
@@ -221,9 +252,16 @@ function CreateProduct() {
           {/*        STOCK TRABAJAR ACA          */}
           {objects ? (
             <Form aria-label="Default select example">
+              <div className={linea}></div>
+              <div>
+
+                <h2>
+                  características Especiales:
+                </h2>
+              </div>
               {objects?.properties.map((e, i) => (
-                <div key={e._id}>
-                  <label>{e.nameprop}</label>
+                <div key={e._id} >
+                  <label>{e.nameprop}: </label>
                   {e.options.length > 0 ? (
                     <Form.Select
                       name={e.nameprop}
@@ -238,11 +276,11 @@ function CreateProduct() {
                       ))}
                     </Form.Select>
                   ) : (
-                    <input
-                      onChange={(e) => handleCombinations(e, i)}
-                      name={e.nameprop}
-                      value={combination[i]?.value}
-                    />
+                    <Form.Control
+                    name={e.nameprop}
+                    value={combination[i]?.value}
+                    onChange={(e) => handleCombinations(e, i)}
+                  />
                   )}
                 </div>
               ))}
@@ -255,8 +293,11 @@ function CreateProduct() {
                 required
               />
               <div className={img}>
-                <button onClick={(e) => submitStock(e)}>Guardar Stock</button>
+                <div>
+                  <button onClick={(e) => submitStock(e)}>Agregar Stock</button>
+                </div>
               </div>
+              <div className={linea}></div>
             </Form>
           ) : null}
 
@@ -281,13 +322,6 @@ function CreateProduct() {
             <option value="new">Nuevo</option>
             <option value="used">Usado</option>
           </Form.Select>
-          {/* <Form.Label>Stock</Form.Label>
-          <Form.Control
-            name="stock"
-            value={data.stock}
-            onChange={(e) => handleOnChange(e)}
-            required
-          /> */}
           <Form.Label>Marca</Form.Label>
           <Form.Control
             name="brand"
@@ -321,7 +355,16 @@ function CreateProduct() {
             required
           />
         </Form.Group>
-        <button type="submit">submit</button>
+        <div className={img}>
+          <div>
+            <h1>
+              Cantidad Total: {stockTotal}
+            </h1>
+          </div>
+          <span>
+            <button type="submit">publicar</button>
+          </span>
+        </div>
       </Form>
     </div>
   );
