@@ -156,23 +156,23 @@ export default function SellerProfile() {
           <h2>Aceite Motul 8100 X-Cess 5w40 X 5 Lts.</h2>
           <h2>$8250</h2>
         </div>
-        <h3>Hola, te sirven 3 enanos? gracias</h3>
+        <h3>Hola, tenes stock? gracias</h3>
       </div>
       <hr/>
       <div className={PreguntasPreguntas}>
         <div className={Preguntas}>
-          <h2>Enano bostero para asados</h2>
-          <h2>$95000</h2>
+          <h2>Xiaomi Mi Smart Band 6 1.56 Caja De Plástico Pc Black</h2>
+          <h2>$5400</h2>
         </div>
-        <h3>aguante bokita</h3>
+        <h3>se puede jugar al fortnite?</h3>
       </div>
       <hr/>
       <div className={PreguntasPreguntas}>
         <div className={Preguntas}>
-          <h2>Enano para fiesta</h2>
-          <h2>$2</h2>
+          <h2>Escultura de enano de blancanieves </h2>
+          <h2>$2500</h2>
         </div>
-        <h3>Hola, te sirve un ford ka? gracias</h3>
+        <h3>Hola, cuantos enanos vienen? gracias</h3>
       </div>
       <hr/>
     </div>
