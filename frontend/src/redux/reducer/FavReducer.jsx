@@ -27,6 +27,18 @@ function FavReducer(state= FavInitialState, {type, payload}){
             return {
               ...state,
                 Favs: [...state.Favs, item] }
+
+        case REMOVE_FROM_FAV:
+            const favoritos = state.Favs;
+            console.log(favoritos);
+            const filtro = favoritos.filter((item) => item.product !== payload);
+            console.log(filtro);
+            localStorage.setItem('cart', JSON.stringify(filtro));
+
+            return {
+              ...state,
+              Favs: filtro
+            };
         default: return state
     }
 }

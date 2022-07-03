@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import NewNavBar from "./components/NewNavBar/NewNavBar";
+import Footer from "./components/Footer/Footer";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -87,6 +88,7 @@ function App() {
             element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

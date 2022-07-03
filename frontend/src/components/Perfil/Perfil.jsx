@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
 export default function Perfil() {
@@ -38,26 +38,34 @@ export default function Perfil() {
      
   return (
 <div className={Container}>
-    { isAuthenticated? (<div className={Container_card}>
+    { isAuthenticated? (
+    <div className={Container_card}>
+      <div>
+
           <div className={Container_Perfil}>
           <div className={Container_img_button}>
           {useState?.photo?(<img src={userState.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
-          <Link to="/perfil/editar">
-              <button>
-              Editar perfil
-              </button>
-          </Link>
-          <Link to="/enano">
-              <button>
-              Administra el sitio
-              </button>
-          </Link>
-          <Link to="/perfil/vendedor">
-              <button>
-              Perfil de Vendedor
-              </button>
-          </Link>
+            <Link to="/perfil/editar">
+                <button>
+                Editar perfil
+                </button>
+            </Link>
+            <Link to="/enano">
+                <button>
+                Administra el sitio
+                </button>
+            </Link>
+            <Link to="/perfil/vendedor">
+                <button>
+                Perfil de Vendedor
+                </button>
+            </Link>
+            <Link to="/perfil/historial">
+            <button>
+               Historial de compras
+            </button>
+            </Link>
           </div>
           <div className={Container_text}>
           <div>
@@ -79,10 +87,7 @@ export default function Perfil() {
                 :null}
           </div>):null}
           <div>
-              reputación: <h2>{perfil.reputation}</h2>
-          </div>
-          <div>
-              Role: <h2>{userState.role}</h2>
+              Tipo de usuario: <h2>Admin</h2>
           </div>
           <div className={Text_intereses}>
             intereses: 
@@ -102,21 +107,20 @@ export default function Perfil() {
           {userState?.credit_card?(<div>
              Número de Cuenta: <h2>{userState.credit_card}</h2>
           </div>):null}
-          <div className={Text_transacciones}>
-              transacciones: 
-              <div>
-              <div>
-                <h3 className={Text_completed}>completadas: {perfil.transactions.completed}</h3>
-              </div>
-              <div>
-                <h3 className={Text_canceled}>canceladas:  {perfil.transactions.canceled}</h3>
-              </div>
-              <div>
-                <h3 className={Text_total}>totales: {perfil.transactions.total}</h3>
-              </div>
-              </div>
-          </div>
       </div>
+        </div>
+          <div className={Historial}>
+            <h1>Historial de compras</h1>
+              <div className={ItemsContainer}>
+                  <div className={SingleProduct}>
+                    <img src="http://http2.mlstatic.com/D_925115-MLA49795029155_042022-I.jpg" alt="producto" />
+                    <h2>Aceite Motul 8100 X-Cess 5w40 X 5 Lts.</h2>
+                    <h2>$8250</h2>
+                    <h3>Entregado</h3>
+                    <h3>Fecha de compra 23/2/22</h3>
+                </div>
+            </div>
+          </div>
       </div>
   </div>)
   :<div>inicie sesion</div>}

@@ -99,6 +99,12 @@ function Dashboard() {
           <div><PolarArea data={data2}/></div>
           <div></div>
         </div>
+        <div>
+          <h1>Sistema de reportes</h1>
+        </div>
+        <div>
+          <h1>Consultas/Servicio al cliente</h1>
+        </div>
       </div>
     </div>
   )
