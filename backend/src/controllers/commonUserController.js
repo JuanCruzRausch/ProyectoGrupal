@@ -31,12 +31,10 @@ exports.post = catchAsync(async (req, res, next) => {
 });
 
 exports.updateToUser = async (req, res, next) => {
-  console.log(req.body)
   try {
     const {
       _id,
       name,
-      last_name,
       nickname,
       country,
       address,
@@ -44,13 +42,14 @@ exports.updateToUser = async (req, res, next) => {
       credit_card,
       photo,
     } = req.body;
-    const userUpdated = await CommonUser.updateOne(
-      
-      { name, last_name, nickname, country, address, phone, credit_card, photo, _id }
+    const lastname = req.body.last_name
+    const userUpdated = await CommonUser.updateOne({_id: _id},{ name, lastname, nickname, country, address, phone, credit_card, photo,}
     );
+console.log(userUpdated)
+    const user = await CommonUser.findOne({_id})
     res.status(200).json({
         status: 'success',
-        data: userUpdated
+        data: user
     })
   } catch (error) {
     return next(new AppError('bad request', 400))
