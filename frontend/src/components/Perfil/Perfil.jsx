@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button} from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
+
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -41,6 +42,16 @@ export default function Perfil() {
           <Link to="/perfil/editar">
               <button>
               Editar perfil
+              </button>
+          </Link>
+          <Link to="/enano">
+              <button>
+              Administra el sitio
+              </button>
+          </Link>
+          <Link to="/perfil/vendedor">
+              <button>
+              Perfil de Vendedor
               </button>
           </Link>
           </div>

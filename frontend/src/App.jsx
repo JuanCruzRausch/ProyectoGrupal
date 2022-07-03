@@ -9,6 +9,7 @@ import PerfilEditar from "./components/PerfilEditar/PerfilEditar";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress";
 import Perfil from "./components/Perfil/Perfil";
+import SellerProfile from "./components/Seller/SellerProfile";
 import { useEffect, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
@@ -66,6 +67,7 @@ function App() {
         </div>
         </> */}
         <Routes>
+          <Route path="/perfil/vendedor" element={<SellerProfile />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />

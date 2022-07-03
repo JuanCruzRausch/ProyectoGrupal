@@ -1,0 +1,235 @@
+.Container{
+    width: 100%;
+}
+.Titles{
+    width: 100%;
+    padding: 35px;
+    font-weight: 400;
+    color: #a9a9a9;
+}
+.Container_card{
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    width: 95%;
+    margin: auto;
+    background-color: #fff;
+}
+
+.Container_card1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.PublicacionesContainer{
+    background-color: #fff;
+    padding: 15px;
+    width: 55%; 
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    display: flex; 
+    flex-direction: column;
+}
+.SingleProduct{
+    width: 60%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px 0;
+    align-items: center;
+}
+.SingleProduct div{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+.SingleProduct img{
+    width: 100px;
+}
+.SingleProduct h2{
+    width: 40% !important;
+    font-size: 2rem;
+    font-weight: 500;
+}
+.SingleProduct h3{
+    width: 200px;
+    color: rgb(84, 84, 84);
+    font-weight: 300;
+    margin: 0 10px;
+    font-size: 1.1rem;
+}
+.SingleProduct h2 span{
+    color: green;
+    font-weight: 700;
+}
+.Container_card2{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-self: center;
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    width: 40%;
+    background-color: #ffda9eca;
+}
+.Container_card2 h2{
+    display: flex !important;
+    text-align: center !important;
+    margin: auto !important;
+    justify-content: center !important;
+    font-size: 2rem !important;
+    color: rgb(0, 0, 0);
+}
+.Container_card2 h2 span{
+    font-weight: 700;
+    color: black;
+}
+.Container3y4{
+    display: flex;
+    justify-content: space-evenly;
+}
+.Container_card3{
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    width: 60%;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.Container_card3 h1{
+    font-size: 1.6rem;
+}
+.Preguntas{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 30px 0;
+}
+
+.PreguntasPreguntas h3{
+    margin: 30px 0 !important;
+    padding: 10px;
+    font-weight: 400;
+    color: #6c6c6cca;
+}
+.Container_card4{
+    width: 450px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    background-color: #fff;
+}
+.Container_card4 h1{
+    font-size: 1.6rem;
+    margin: 3rem 0;
+}
+.Container_card4 h2{
+    color: rgb(147, 147, 147);
+    font-weight: 200;
+    font-size: 1.4rem !important;
+}
+.Container_card5{
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+    border-radius: 15px;
+    width: 60%;
+    margin: 10vh auto;
+    background-color: #fff;
+}
+@media (max-width: 400px){
+    .Container_card{
+        width: 100%;
+    }
+}
+.Container_Perfil{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+@media (max-width: 1008px){
+    .Container_Perfil{
+        flex-direction: column;
+    }
+}
+
+.Container_img_button{
+    display: flex;
+    flex-direction: column;
+}
+.Container_img_button button{
+    border: none;
+    background-color: rgba(231, 231, 231, 0.25);
+    padding: 1.5vh;
+    border-radius: 15px;
+    font-weight: 500;
+
+}
+.Container_img_button a{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Container_Perfil img{
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 15px;
+}
+@media (max-width: 608px){
+    .Container_Perfil img{
+        width: 100%;
+        height: auto;
+    }
+}
+
+.Container_text{
+    text-align: center;
+    height: 80%;
+    display: flex;
+    justify-self: center !important;
+    align-content: center !important;
+    justify-content: center !important;
+    margin: auto 0;
+
+}
+.Container_text div{
+    margin: 1vh 0;
+}
+.Container_text h1{
+    font-size: 2.5rem;
+}
+.Container_text h2{
+    width: 100%;
+}
+
+.SingleProduct{
+    width: 100%;
+}
+
+.Text_transacciones{
+    display: flex;
+    flex-direction: column;
+}
+.Text_transacciones div:last-child{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Text_completed{
+    font-size: 2vh;
+    color: rgb(0, 255, 0);
+}
+
+.Text_canceled{
+    font-size: 2vh;
+    color: rgb(255, 0, 0);
+}
+
+.Text_total{
+    font-size: 2vh;
+    font-weight: 700;
+}
