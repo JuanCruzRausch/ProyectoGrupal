@@ -12,11 +12,7 @@ export function setUser(data) {
   
 export function updateUser(data) {
   return async (dispatch) => {
-<<<<<<< HEAD
-    return axios.patch("http://localhost:5050/commonuser/updateUser", data)
-=======
     return axios.post(`"http://localhost:5050/commonuser/updateUser"`, data)
->>>>>>> Dev
     .then(response=> console.log(response))
   }
 }
