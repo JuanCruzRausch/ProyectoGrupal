@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
+
   const userState = useSelector( state => state.userReducer.user)
   const registered = userState?.registration_date.split("-")
   console.log(userState)
@@ -69,23 +70,28 @@ export default function Perfil() {
           </div>
           <div className={Container_text}>
           <div>
-              nombre: <h1>{user.name}</h1>
+              nombre: <h1>{userState.name}</h1>
           </div>
           <div>
-              Email: <h2>{user.email}</h2>
+              nombre: <h1>{userState.lastname}</h1>
           </div>
-          {userState?.address?(<div>
+          <div>
+              Email: <h2>{userState.email}</h2>
+          </div>
+          {userState?.address?(
+          <div>
               Provincia: <h2>{perfil.address}</h2>
               Ciudad: <h2>{perfil.address}</h2>
               Código Postal: <h2>{perfil.address}</h2>
               Calle: <h2>{perfil.address}</h2>
               Número: <h2>{perfil.address}</h2>
-              {userState.address.dpto?(<span>Departamento: 
-                <h2>{perfil.address.dpto.floor}</h2>
-                <h2>{perfil.address.dpto.number}</h2>
+              {userState.address?.dpto?(<span>Departamento: 
+                <h2>{perfil.address.dpto?.floor}</h2>
+                <h2>{perfil.address.dpto?.number}</h2>
                 </span>)
                 :null}
-          </div>):null}
+          </div>)
+          :null}
           <div>
               Tipo de usuario: <h2>Admin</h2>
           </div>
