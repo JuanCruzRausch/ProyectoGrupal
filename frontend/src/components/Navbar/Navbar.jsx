@@ -119,15 +119,17 @@ function NavbarComponent(props) {
               })}
             </NavDropdown>
 
-            <Link to="/publicar" >
+            
               {
                 isAuthenticated ?
+                <Link to="/publicar" >
                   <div className={Publicar}>
                     <h5>Publica tu producto</h5>
-                  </div> :
+                  </div>
+                </Link> :
                   null
               }
-            </Link>
+            
             <Link to="/cart" >
               {
                 CartState.length > 0 ? <div className={Cart}>
