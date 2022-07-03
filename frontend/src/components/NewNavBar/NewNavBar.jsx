@@ -164,7 +164,7 @@ function NewNavBar(props) {
                   <div>
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => navigate("/shipping")}>Shipping</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("//publicar")}>Publica tu producto</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <LogoutButton />
