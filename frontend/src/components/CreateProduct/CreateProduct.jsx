@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img, linea } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
@@ -112,6 +112,23 @@ function CreateProduct() {
         subCategory: objects?._id,
       })
     );
+    setImages([])
+    setData({
+      title: "",
+      description: "",
+      pictures: [],
+      price: 0,
+      currency: "",
+      seller: "62bf48e53682a40660d2c540",
+      category: "",
+      subCategory: "",
+      shipping: { shippingtype: "" },
+      condition: "",
+      stock: { options: [] },
+      brand: "",
+      location: "",
+      visibility: 0,
+    })
   }
   function submitStock(e) {
     e.preventDefault();
@@ -132,6 +149,7 @@ function CreateProduct() {
     setStockTotal(Number(stockTotal)+Number(stock))
     setStock(0);
     setCombination({});
+    
 
     toast.success('Stock agregado Correctamente', {
       position: 'top-right',
@@ -177,13 +195,13 @@ function CreateProduct() {
             rows={3}
             required
           />
-          <Form.Label>Imagenes</Form.Label>
+          <Form.Label>Imagenes (.jpg .jpeg .png)</Form.Label>
           <Form.Control
             type="file"
             multiple
-            name="image"
             onChange={(e) => handleOnChangeImages(e.target.files)}
             required
+            className={FormImage}
           />
           <div >
             {images.length > 0 &&
@@ -194,15 +212,6 @@ function CreateProduct() {
                 </span>
               ))}
           </div>
-
-          <Form.Label>Precio</Form.Label>
-          <Form.Control
-            type="number"
-            name="price"
-            value={data.price}
-            onChange={(e) => handleOnChange(e)}
-            required
-          />
           <Form.Label>Moneda</Form.Label>
           <Form.Select
             aria-label="Default select example"
@@ -216,6 +225,14 @@ function CreateProduct() {
             <option>ARS</option>
             <option>USD</option>
           </Form.Select>
+          <Form.Label>Precio</Form.Label>
+          <Form.Control
+            type="number"
+            name="price"
+            value={data.price}
+            onChange={(e) => handleOnChange(e)}
+            required
+          />
           <Form.Label>Categoria</Form.Label>
           <Form.Select
             aria-label="Default select example"
@@ -296,18 +313,46 @@ function CreateProduct() {
                 <div>
                   <button onClick={(e) => submitStock(e)}>Agregar Stock</button>
                 </div>
+                  <div>
+                    <h1>
+                      Cantidad Total: {stockTotal}
+                    </h1>
+                  </div>
               </div>
               <div className={linea}></div>
             </Form>
           ) : null}
 
           <Form.Label>Envío</Form.Label>
-          <Form.Control
+
+          {/* <Form.Control
             name="shippingtype"
             value={data.shipping.shippingtype}
             onChange={(e) => handleShipping(e)}
             required
-          />
+          /> */}
+
+          <Form.Select
+            aria-label="Default select example"
+            value={data.shipping.shippingtype}
+            name="shippingtype"
+            onChange={(e) => handleOnChange(e)}>
+            <option value="" disabled default>
+              Seleccione un tipo de envío
+            </option>
+            <option value="free">
+              Envío gratis
+            </option>
+            <option value="normal">
+              Envio por Correo
+            </option>
+            <option value="seller">
+              Acordar con el comprador 
+            </option>
+            <option value="pickup">
+              Retiro por sucursal
+            </option>
+          </Form.Select>
           <Form.Label>Condición</Form.Label>
           <Form.Select
             aria-label="Default select example"
@@ -348,13 +393,34 @@ function CreateProduct() {
               ))}
           </Form.Select>
           <Form.Label>Visibilidad</Form.Label>
-          <Form.Control
+          <Form.Select
+            aria-label="Default select example"
+            value={data.visibility}
+            name="visibility"
+            onChange={(e) => handleOnChange(e)}>
+            <option value="" disabled default>
+              Seleccione un tipo de visualizacion
+            </option>
+            <option value="1">
+              1 -poca visualizacion-
+            </option>
+            <option value="2">
+              2 -visualización intermedia-
+            </option>
+            <option value="3">
+              3 -máxima visualización- 
+            </option>
+          </Form.Select>
+
+          {/* <Form.Control
             name="visibility"
             value={data.visibility}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+          /> */}
+
         </Form.Group>
+        
         <div className={img}>
           <div>
             <h1>

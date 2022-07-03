@@ -109,7 +109,12 @@ console.log(SingleCart.price === undefined && cartItem.length === 0);
                 ))
                 }
               </ListGroup>
+              {
+                SingleCart.title !== undefined ?
+                null
+                :
               <Link to="/cart">Editar</Link>
+              }
             </Card.Body>
           </Card>
         </Col>

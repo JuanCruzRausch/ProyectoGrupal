@@ -72,9 +72,12 @@
 .SingleProduct_buttons button img{
     width: 35px;
 }
-.ProductFav:active{
-    background: rgba(255, 0, 0, 1) !important;
-}
 .ProductFav{
-    background-color: #e9e4e417 !important;
+    transition: all .9s ease-in-out;
+}
+.ProductFav:active{
+    background: rgba(255, 0, 0, 0.672) !important;
+}
+.ProductFav:hover{
+   transform: scale(1.5);
 }

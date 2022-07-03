@@ -74,6 +74,20 @@ export default function SellerProfile() {
              <h2> reputación: {perfil.reputation}</h2>
              <h2> status: {perfil.status}</h2>
              <h2> registrado desde: {perfil.register_date}</h2>
+             <div>
+              transacciones: 
+              <div>
+              <div>
+                <h3 >completadas: {perfil.transactions.completed}</h3>
+              </div>
+              <div>
+                <h3 >canceladas:  {perfil.transactions.canceled}</h3>
+              </div>
+              <div>
+                <h3>totales: {perfil.transactions.total}</h3>
+              </div>
+              </div>
+          </div>
           </div>
       </div>
   </div>)
