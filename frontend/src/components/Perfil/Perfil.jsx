@@ -48,6 +48,16 @@ export default function Perfil() {
               Editar perfil
               </button>
           </Link>
+          <Link to="/enano">
+              <button>
+              Administra el sitio
+              </button>
+          </Link>
+          <Link to="/perfil/vendedor">
+              <button>
+              Perfil de Vendedor
+              </button>
+          </Link>
           </div>
           <div className={Container_text}>
           <div>
