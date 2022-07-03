@@ -183,13 +183,7 @@ function NewNavBar(props) {
         ) : (
           <LoginButton />
         )}
-        {
-            isAuthenticated ?
-            null : 
-            <a  href="https://dev-dzo-bi6q.us.auth0.com/u/signup?state=hKFo2SBiLW5FUDAzMnJMUGlTM2hsbTREOWxWeGhvNHFEdVpmZ6Fur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGJrYl9ZYWx4YV9za3duY0N0a1pYWE5Rb0daZUlxa1hTo2NpZNkgV2RWYWQ1QjRkNDgzS051REtuZ1R0Q2ZCbkgyRXJrSVI">
-            <div className={NavLinkBtn}>Registrate</div>
-            </a>
-        }
+
         </div>)}
     
     </nav>
