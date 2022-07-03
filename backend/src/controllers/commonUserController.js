@@ -31,6 +31,7 @@ exports.post = catchAsync(async (req, res, next) => {
 });
 
 exports.updateToUser = async (req, res, next) => {
+  console.log(req.body)
   try {
     const {
       _id,
