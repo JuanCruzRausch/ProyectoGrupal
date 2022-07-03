@@ -18,11 +18,11 @@ export default function PerfilEditar() {
       [e]:i
     }));
   }
-  const addressOnChange = (e, i) => {
-    handleOnChange("address", {...user.address,[e]:i})
+  const addressOnChange = (name, value) => {
+    handleOnChange("address", {...user.address,[name]:value})
   }
-  const dptoOnChange = (e, i) => {
-    addressOnChange("dpto", {...user.address.dpto,[e]:i})
+  const dptoOnChange = (name, value) => {
+    addressOnChange("dpto", {...user.address.dpto,[name]:value})
   }
   const onHandleSubmit = (e) => {
     e.preventDefault()
