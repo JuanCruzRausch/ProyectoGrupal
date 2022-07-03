@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ClearFromCart, DeleteFromCart, IncreaseCart, DecreaseCart } from '../../redux/actions/CartActions';
 import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem} from './Cart.module.css';
 import { useNavigate } from 'react-router-dom';
-import EmptyCart from '../../assets/img/emptycart.svg';
+import EmptyCart from '../../assets/img/emptycart.png';
 import {ToastContainer, toast} from 'react-toastify'
 
 function Cart() {
@@ -17,16 +17,16 @@ function Cart() {
     dispatch(ClearFromCart());
     toast.info('Carrito vacío', {
       position: "top-right",
-      autoClose: 900,
-      hideProgressBar: false,
+      autoClose: 1000,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
       })
       setTimeout(()=>{
-           navigate('/');
-      },1200)
+           navigate(-1);
+      },1300)
   }
   function handleDelete(e){
     dispatch(DeleteFromCart(e))
@@ -55,12 +55,8 @@ function Cart() {
                 <div className={ItemsContainer_SingleItem} key={i}>
                   <img src={e.thumbnail}/>
                   <h1>{e.title}</h1>
-                  <h2>Valor ${Math.round(e.price)}</h2>
                   <h2>Total: ${Math.round(e.price*e.quantity)}</h2>
                   <div className={Buttons}>
-                    <button onClick={() => 
-                      dispatch(IncreaseCart(e.product))}>+</button>
-                    <h1>{e.quantity}</h1>
                     <button onClick={() =>{
                       if(e.quantity>1){
                         dispatch(DecreaseCart(e.product))
@@ -68,10 +64,19 @@ function Cart() {
                       else 
                        handleDelete(e.product)}
                        }>-</button>
+                    <h1>{e.quantity}</h1>
+                    <button onClick={() => {
+                      if(e.stock > e.quantity){
+                        dispatch(IncreaseCart(e.product))
+                      }
+                      else {
+                       return
+                      }}
+                      }>+</button>
                   </div>
                   <button className={EliminarItem} onClick={() => 
-                    dispatch(DeleteFromCart(e.product))}>
-                    Eliminar del carrito
+                    handleDelete(e.product)}>
+                    Eliminar
                   </button>
                 </div>
               ))}

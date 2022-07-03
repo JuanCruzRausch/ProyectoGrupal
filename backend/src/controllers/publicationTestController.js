@@ -1,8 +1,9 @@
 const PublicationTest = require('../models/PublicationTest');
-const CategoryTest = require('../models/CategoryTest');
-const SubCategory = require('../models/SubCategory');
+const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const cloudinary = require('../../cloudinary');
+const fs = require('fs');
 
 exports.postPublicationTest = catchAsync(async (req, res, next) => {
   let finalPrice = 0,
@@ -118,24 +119,19 @@ exports.deletePublicationTest = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
-  let limit = req.query.limit * 1 || 20;
-  let page = req.query.page * 1 || 1;
- const publications = await PublicationTest.find({}).select('-__v')
-    .populate({path: 'seller', select:'-user -non_answered -answered -inactive_pub -__v'})
-    .populate({ path: 'category', select: '-subcategories -__v' })
-    .populate({ path: 'subCategory', select: '-properties -__v' })
-    .populate({ path: 'questions'})
-    .populate({ path: 'transactions'})
+  const features = new apiFeatures(PublicationTest.find(), req.query)
+    .filter()
+    .sort()
+    .limit()
+    .paginate();
+  // Ejecutamos el query
+  const publications = await features.query;
 
-  let pubs = publications.slice((page - 1) * limit, page * limit);
   res.status(200).json({
     status: 'success',
+    results: publications.length,
     data: {
-      publications_total: publications.length,
-      publications_per_page: pubs.length,
-      nextPage: publications.length / limit < page + 1 ? null : page + 1,
-      prevPage: page - 1 < 1 ? null : page - 1,
-      publications: pubs,
+      publications,
     },
   });
 });
@@ -144,16 +140,19 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   if (!id) return next(new AppError('ID is required, 400'));
 
-  const publi = await PublicationTest.findOne({_id:id})
-      .populate({path: 'seller'})
-      .populate({ path: 'category' })
-      .populate({ path: 'subCategory' })
-      .populate({ path: 'questions'})
-      .populate({ path: 'transactions'})
+  const publi = await PublicationTest.findOne({ _id: id })
+    .select('-__v')
+    .populate({
+      path: 'seller',
+      select: '-user -non_answered -answered -inactive_pub -__v',
+    })
+    .populate({ path: 'category', select: '-subcategories -__v' })
+    .populate({ path: 'subCategory', select: '-properties -__v' })
+    .populate({ path: 'questions' })
+    .populate({ path: 'transactions' });
 
-  if(!publi){
-    return next(new AppError('The id does not match with any product',404));
-
+  if (!publi) {
+    return next(new AppError('The id does not match with any product', 404));
   }
   res.status(200).json({
     status: 'success',
@@ -161,4 +160,29 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
       publi,
     },
   });
+});
+exports.postImages = catchAsync(async (req, res, next) => {
+  try{
+    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+    const urls = []
+    const files = req.files
+    console.log(files)
+    for(const file of files){
+      const {path} = file;
+      const newPath = await uploader(path)
+      urls.push(newPath)
+      fs.unlinkSync(path)
+    }
+    
+    res.status(200).json({
+      message: 'Images uploaded successfully',
+      data: urls
+    })
+    console.log('urls', urls);
+    // await Image.insertMany(urls);
+  }catch(e){
+    res.status(405).json({
+      err: 'Images not uploaded successfully'
+    })
+  }  
 });

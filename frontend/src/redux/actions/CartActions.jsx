@@ -1,12 +1,14 @@
 import axios from 'axios'
 export const ADD_TO_CART = "ADD_TO_CART"
+export const ORDER_PRODUCT = "ORDER_PRODUCT"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
 export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART"
 export const CLEAR_CART = "CLEAR_CART"
 export const INCREASE = "INCREASE"
 export const DECREASE = "DECREASE"
 export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
-export function AddToCart(id){
+
+export function AddToCart(id,count){
     return async(dispatch) => {
             axios("http://localhost:5050/publication/" + id)
             .then(res=> 
@@ -17,12 +19,33 @@ export function AddToCart(id){
                   title:     res.data.data.title,
                   thumbnail:    res.data.data.thumbnail,
                   price:    res.data.data.price,
-                  quantity: 1,
+                  stock: res.data.data.stock,
+                  quantity: count,
                  }
              })
         )
     }         
 }
+
+export function OrderSingleProduct(id,count){
+    return async(dispatch) => {
+            axios("http://localhost:5050/publication/" + id)
+            .then(res=> 
+                 dispatch({
+                 type: ORDER_PRODUCT, 
+                 payload: {
+                  product:  res.data.data._id,
+                  title:     res.data.data.title,
+                  thumbnail:    res.data.data.thumbnail,
+                  price:    res.data.data.price,
+                  stock: res.data.data.stock,
+                  quantity: count,
+                 }
+             })
+        )
+    }         
+}
+
 export function sendOrder (){
    
   return {type:CLEAR_CART}

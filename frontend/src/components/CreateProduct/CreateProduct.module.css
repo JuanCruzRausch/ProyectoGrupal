@@ -1,0 +1,52 @@
+
+.CreateDiv{
+    padding: 15px;
+    width: 70%;
+    margin: 5rem auto;
+}
+.CreateDiv form div label{
+    margin: 2vh;
+}
+.logo{
+    width: 200px;
+    height: auto;
+}
+.img{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.img div{
+    display: inline;
+    margin-right: 3vh;
+}
+.img span button{
+    height: 45px;
+    font-size: 1.3rem;
+    margin: 3vh auto;
+    border: none;
+    border-radius: 10px;
+    background-color: #3483FA;
+    color: white;
+    width: 40vh;
+}
+.img div button{
+    height: 45px;
+    font-size: 1.3rem;
+    margin: 3vh auto;
+    border: none;
+    border-radius: 10px;
+    background-color:  #00A650;
+    color: white;
+    width: 40vh;
+   
+}
+.linea {
+    border-top: 1px solid black;
+    height: 2px;
+    padding: 0;
+    margin: 20px auto 0 auto;
+  }
+
+  .FormImage{
+    width: 120px !important;
+  }

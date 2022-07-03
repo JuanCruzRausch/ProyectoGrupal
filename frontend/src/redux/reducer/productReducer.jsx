@@ -8,15 +8,20 @@ import {
   MAX_AND_MIN_PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
+  CREATE_PRODUCT,
+  GET_ALL_CATEGORIES,
+  PUBLICATION_ALERT
 } from '../actions/index';
 
 const initialState = {
+  publicationAlert: "none",
   allProductCache: [],
   Allproduct: [],
   FilterProducts: [],
   Detail: [],
   pagina: 1,
   categories,
+  Categories: [],
   signUpAlert: '',
   maxMinPrice:{
     max: Infinity,
@@ -26,6 +31,8 @@ const initialState = {
 
 function productReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case PUBLICATION_ALERT:
+      return {...state, publicationAlert: payload}
     case MAX_AND_MIN_PRICE:
       if((payload.max-payload.min)>=0){
         if(payload.max<=0) payload.max = Infinity
@@ -35,6 +42,11 @@ function productReducer(state = initialState, { type, payload }) {
       return { ...state, signUpAlert: payload };
     case SET_PAGE:
       return { ...state, pagina: payload };
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        Categories:payload
+      }
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache;
       const filter =

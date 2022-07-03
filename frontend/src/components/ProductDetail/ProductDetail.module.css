@@ -130,13 +130,14 @@ letter-spacing: 0.04em;
     border-radius: 15px;
 }
 .CountPrice_AddCart{
-    background-color: #FFFFFF !important;
     border: none;
-}
-.CountPrice_AddCart img{
     width: 30px;
+    transition: all .4s ease-in-out;
 }
-
+.CountPrice_AddCart:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
 /* Detail Description */
 
 .Detail_Description{

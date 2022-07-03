@@ -1,0 +1,182 @@
+.NavContainer{
+    background-color: #ffbc41;
+    padding: 10px;
+}
+.Nav{
+    display: flex;
+    z-index: 10;
+    justify-content: center;
+}
+.NavLinked{
+    color: rgb(255, 255, 255);
+    display: flex;
+    padding: 0 1rem;
+    height: 100%;
+    cursor: pointer;
+}
+.NavLinked img{
+    width: 80px;
+}
+.NavLinked h1{
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    text-decoration: none;
+}
+.NavLinkActive{
+    color: #15cdfc;
+}
+
+.Bars{
+    display: none;
+    color: rgb(255, 253, 253); 
+}
+
+.NavMenu{
+    
+    display: flex;
+    align-items: center;
+   justify-content: space-around;
+    color: rgb(0, 0, 0);
+    margin: auto;
+    width: 55vw;
+    white-space: nowrap;
+}
+.NavMenu a {
+    color: #000000;
+    font-size: 1rem;
+}
+.Publicar{
+    font-weight: 600;
+}
+.NavBtn{
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    justify-content: flex-end;
+    width: 100vw;
+}
+
+.NavLinkBtn{
+    border-radius: 15px;
+    background: #004ecb;
+    padding: 10px 22px;
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+    text-decoration: none;
+}
+.NavLinkBtn:hover{
+    background: #fff;
+    color: #000000;
+}
+
+.EmptyCart{
+    width: 40px;
+}
+.logo {
+    display: inline;
+    width: 25px;
+    height: auto;
+    border-radius: 50%;
+}
+.LoginContainer{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.LoginContainer img {
+    width: 40px
+}
+.LoginContainer a {
+    margin: auto !important;
+}
+.datalist{
+    margin-right: 1vh;
+    border-radius: 5px;
+}
+.Autocomplete{
+    display: absolute;
+}
+
+.DropdownA{
+    background: rgba(0, 0, 0, 0);
+    margin: auto !important;
+}
+.Nav input{
+    height: 40px;
+    width: 350px;
+}
+.Nav input, button{
+    border: none !important;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+}
+
+.Nav ::placeholder{
+    padding: 5px;
+    border-inline: none;
+}
+
+.Nav a dropdown-item{
+    color: rgb(246, 239, 239) !important;
+}
+.searchdata{
+    background-color: #fff !important;
+    border-radius: 15px;
+}
+.Nav Button{
+    font-weight: 700;
+    border-radius: 15px;
+    border: none;
+}
+.Nav button img{
+    width: 25px;
+}
+.Nav Button:hover{
+    color: white;
+    background-color: rgb(0, 138, 230) !important;
+}
+.cartIMG{
+    margin: auto;
+    width: 35px;
+}
+.Cart{
+    display: flex;
+    flex-direction: row;
+}
+.Cart h6{
+    font-weight: 700;
+    margin-left: 4px;
+}
+.Publicar h5{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: auto;
+}
+@media screen and (max-width: 768px) {
+    .Nav{
+        height: auto;
+        flex-direction: column;
+    }
+    .NavMenu{
+        flex-direction: column;
+        height: auto;  
+    }
+    .NavMenu div{
+        margin: .5rem 0;
+    }
+    .NavBtn{
+        display:none;
+    }
+    .Bars{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
+}

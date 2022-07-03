@@ -1,8 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {FavContainer, FavDiv} from './Favoritos.module.css'
 import {ItemsContainer_SingleItem, EliminarItem} from '../Cart/Cart.module.css'
+import { DeleteFromFav } from '../../redux/actions/FavActions'
 function Favoritos() {
+    const dispatch= useDispatch()
     JSON.parse(localStorage.getItem('favs'));
     const FavState = useSelector(state=> state.FavReducer.Favs)
   return (
@@ -10,6 +12,9 @@ function Favoritos() {
         <div className={FavDiv}>
            <h1> Favoritos</h1>
            <hr />
+           {
+            FavState.length >0  ?
+            
            <div>
                 {
                 FavState.map((e,i) => 
@@ -24,12 +29,13 @@ function Favoritos() {
                     {
                     e.condition == "new" ? <h2>Nuevo</h2> : <h2>Usado</h2>
                     }
-                    <button className={EliminarItem}>
+                    <button className={EliminarItem} onClick={() => dispatch(DeleteFromFav(e.product))}>
                     Eliminar
                   </button>
                 </div>) 
                 }
-           </div>
+           </div> : <img src="https://i.imgflip.com/6lodcg.jpg" alt="meme" /> 
+           }
         </div>
     </div>
   )

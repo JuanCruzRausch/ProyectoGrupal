@@ -1,0 +1,14 @@
+.login1{
+    border-radius: 15px;
+    padding: 10px 22px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    text-decoration: none;
+}
+
+.login1:hover{
+    color: #ffffff !important; 
+    background: #000000;
+}

@@ -6,16 +6,21 @@ import Favoritos from './components/Favoritos/Favoritos'
 import SignupScreen from "./components/SignupScreen/SignupScreen";
 import SigninScreen from "./components/SigninScreen/SigninScreen";
 import PerfilEditar from "./components/PerfilEditar/PerfilEditar";
+import Dashboard from "./components/Dashboard/Dashboard";
 import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress";
 import Perfil from "./components/Perfil/Perfil";
+import SellerProfile from "./components/Seller/SellerProfile";
 import { useEffect, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 import 'react-toastify/dist/ReactToastify.css';
-import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
+// import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { app, checkbox, label, ball,darkmode } from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
+import NewNavBar from "./components/NewNavBar/NewNavBar";
+import Footer from "./components/Footer/Footer";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -29,11 +34,11 @@ function App() {
   let divs= document.querySelectorAll("div");
   let a = document.querySelectorAll("a");
 
-  useEffect(() => {
-    document.body.style.backgroundColor = isdarkMode ? "#000000" : "#eceded"
-    doc[0].style.backgroundColor = isdarkMode ? "#000c6b" : "#fbcb0b"
-    divs[0].style.color = isdarkMode ? "#ffffff" : "#000000"
-  }, [isdarkMode]);
+  // useEffect(() => {
+  //   document.body.style.backgroundColor = isdarkMode ? "#000000" : "#eceded"
+  //   doc[0].style.backgroundColor = isdarkMode ? "#000c6b" : "#fbcb0b"
+  //   divs[0].style.color = isdarkMode ? "#ffffff" : "#000000"
+  // }, [isdarkMode]);
   
   const scrollTo = useRef();
   const scrollToSort = () => {
@@ -42,7 +47,8 @@ function App() {
   return (
     <div className={app}>
       <BrowserRouter>
-        <NavbarComponent scrollTo={scrollToSort} />
+        {/* <NavbarComponent scrollTo={scrollToSort} /> */}
+         <NewNavBar scrollTo={scrollToSort}/> 
        {/* <> 
        <div className={darkmode}>
         <input
@@ -62,6 +68,9 @@ function App() {
         </div>
         </> */}
         <Routes>
+          <Route path="/perfil/vendedor" element={<SellerProfile />} />
+          <Route path="/enano" element={ <Dashboard />} />
+          <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder/>}/>
@@ -79,6 +88,7 @@ function App() {
             element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

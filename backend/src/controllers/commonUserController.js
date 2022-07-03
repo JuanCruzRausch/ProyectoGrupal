@@ -5,7 +5,7 @@ const AppError = require('../utils/appError');
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
     name: req.body.name,
-    lastname: req.body.lastname,
+    last_name: req.body.last_name,
     password: req.body.password,
     country: req.body.country,
     email: req.body.email,
@@ -33,9 +33,8 @@ exports.post = catchAsync(async (req, res, next) => {
 exports.updateToUser = async (req, res, next) => {
   try {
     const {
-      id,
+      _id,
       name,
-      lastname,
       nickname,
       country,
       address,
@@ -43,13 +42,14 @@ exports.updateToUser = async (req, res, next) => {
       credit_card,
       photo,
     } = req.body;
-    const userUpdated = await CommonUser.updateOne(
-      { _id: id },
-      { name, lastname, nickname, country, address, phone, credit_card, photo }
+    const lastname = req.body.last_name
+    const userUpdated = await CommonUser.updateOne({_id: _id},{ name, lastname, nickname, country, address, phone, credit_card, photo,}
     );
+console.log(userUpdated)
+    const user = await CommonUser.findOne({_id})
     res.status(200).json({
         status: 'success',
-        data: userUpdated
+        data: user
     })
   } catch (error) {
     return next(new AppError('bad request', 400))
