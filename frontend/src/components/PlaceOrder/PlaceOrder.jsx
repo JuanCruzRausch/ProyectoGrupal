@@ -97,7 +97,7 @@ console.log(SingleCart.price === undefined && cartItem.length === 0);
                           alt={item.title}
                         //   className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
-                        <Link to={`/${item.product}`}>{item.title}</Link>
+                        <Link to={`/products/${item.product}`}>{item.title}</Link>
                       </Col>
                       <Col md={3}>
                         <span>{item.quantity}</span>
@@ -108,12 +108,6 @@ console.log(SingleCart.price === undefined && cartItem.length === 0);
                 ))
                 }
               </ListGroup>
-              {
-                SingleCart.title !== undefined ?
-                null
-                :
-              <Link to="/cart">Editar</Link>
-              }
             </Card.Body>
           </Card>
         </Col>
