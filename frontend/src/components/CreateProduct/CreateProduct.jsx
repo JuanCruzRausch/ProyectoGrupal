@@ -328,9 +328,9 @@ function CreateProduct() {
           <Form.Label>Envío</Form.Label>
           <Form.Select
             aria-label="Default select example"
-            value={data.shipping.shippingtype}
             name="shippingtype"
-            onChange={(e) => handleOnChange(e)}
+            value={data.shipping.shippingtype}
+            onChange={(e) => handleShipping(e)}
             required>
             <option value="" disabled>Seleccione un tipo de envío</option>
             <option value="free">Envío gratis</option>
