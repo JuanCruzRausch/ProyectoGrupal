@@ -1,13 +1,16 @@
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { Container_Small, Form_Div } from './PerfilEditar.module.css';
+import {container, Form_Div,Detail_Links } from './PerfilEditar.module.css';
 import { useSelector, useDispatch } from 'react-redux'
 import countries from '../Json/countries.jsx'
 import states from '../Json/states.jsx'
+import arrow from '../../assets/img/leftarrow.png';
 import { updateUser } from '../../redux/actions/userAction';
+import { Link, useNavigate } from 'react-router-dom';
 export default function PerfilEditar() {
   const user = useSelector(state => state.userReducer.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   // const [address, setAdress] = React.useState({...user?.address})
   const editUser  = (payload) =>{
     return {type: "SET_USER", payload}
@@ -29,9 +32,15 @@ export default function PerfilEditar() {
     dispatch(updateUser(user))
   }
   return (
-    <div className='container'>
+    <div className={container}>
+      <div className={Detail_Links}>
+        <img src={arrow} alt="back" />
+        <Link to="/perfil">
+          <h2>Atras</h2>
+        </Link>
+      </div>
       <div className={Form_Div}>
-        <h1 className="my-3">Perfil</h1>
+        <h1 className="my-3">Actualiza tu perfil</h1>
         <form onSubmit={(e)=>onHandleSubmit(e)}>
           <Form.Group  className="mb-3" controlId="name">
             <Form.Label>Nombre</Form.Label>

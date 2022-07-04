@@ -5,7 +5,7 @@ import CheckoutSteps from '../CheckoutComponent/CheckoutSteps';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch, useSelector } from 'react-redux';
 import validateFunction from '../validate';
-import { Container_Small, Form_Div } from './Shipping.module.css';
+import { Container_Small, Form_Div, Container } from './Shipping.module.css';
 import countries from '../Json/countries.jsx'
 import states from '../Json/states.jsx'
 import { saveShippingAddress } from '../../redux/actions/CartActions'
@@ -76,7 +76,7 @@ function ShippingAddress() {
   };
 
   return (
-    <div>
+    <div className={Container}>
       <CheckoutSteps step1 step2></CheckoutSteps>
       <div className={Container_Small}>
         <div className={Form_Div}>

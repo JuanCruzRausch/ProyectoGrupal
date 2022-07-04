@@ -3,7 +3,8 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: rgba(255, 255, 255, 0.436);
     width: 60%;
-    margin: 10vh auto;
+    margin: 15vh auto;
+    height: max-content !important;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
@@ -136,8 +137,8 @@
 .EmptyCartContainer a h2{
     font-size: 2rem !important;
     text-align: center;
-    color: #fff;
+    color: rgb(0, 0, 0);
     border-radius: 15px;
-    background-color: #3483FA;
+    background-color: rgba(224, 224, 224, 0.813);
     padding: 10px;
 }

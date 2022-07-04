@@ -21,6 +21,7 @@ import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import NewNavBar from "./components/NewNavBar/NewNavBar";
 import Footer from "./components/Footer/Footer";
+import Error from "./components/Error/Error";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -79,12 +80,13 @@ function App() {
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
+          <Route path="*" element={ <Error /> } />
           <Route
-            path="/:_id"
+           exact path="/products/:_id"
             element={<ProductDetail scrollTo={scrollToSort} />}
           />
           <Route
-            path="/"
+           exact path="/"
             element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}
           />
         </Routes>

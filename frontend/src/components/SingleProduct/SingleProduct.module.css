@@ -63,21 +63,25 @@
 .SingleProduct_buttons button{
     align-self: flex-end;
     margin: auto;
-    font-weight: 500;
-    color: rgb(101, 101, 101);
+    font-weight: 400;
+    color: rgb(70, 70, 70);
+    transition: all .5s ease-in-out;
     border: none;
     border-radius: 10px;
     padding: 12px;
 }
+.AddToCart:hover{
+     background-color: rgba(224, 224, 224, 0.813);
+     color: rgb(120, 120, 120);
+}
 .SingleProduct_buttons button img{
     width: 35px;
 }
+
 .ProductFav{
-    transition: all .9s ease-in-out;
-}
-.ProductFav:active{
-    background: rgba(255, 0, 0, 0.672) !important;
+    background-color: #fff !important;
+    transition: all .5s ease-in-out;
 }
 .ProductFav:hover{
-   transform: scale(1.5);
+   transform: scale(1.3);
 }

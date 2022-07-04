@@ -1,5 +1,6 @@
 .Detail_container{
-    width: 100%;
+    width: 90%;
+    margin: auto;
     background-color: #eceded;
 }
 /* buttons top  */
@@ -12,7 +13,7 @@
     align-self: center;
 }
 .Detail_Links img{
-    width: 35px;
+    width: 40px;
     margin-left: 50px;
 }
 .Detail_Links button{
@@ -21,7 +22,10 @@
     background-color: rgba(0, 0, 0, 0);
     border-radius: 15px;
     font-weight: 600;
-    font-size: 2.5vh;
+    font-size: 2.1vh;
+    align-items: center;
+    align-content: center;
+    align-self: center;
 }
 .Detail_Links h2{
     margin: auto;
@@ -124,11 +128,13 @@ letter-spacing: 0.04em;
 .Detail_CountPrice .ButtonCompra{
     margin: auto 0;
     padding: 1vh;
-    color: rgb(255, 254, 254);
-    border: none;
-    background-color: #FFA41C;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    border: 1px solid black !important;
+    background-color: #ffffff;
     border-radius: 15px;
 }
+
 .CountPrice_AddCart{
     border: none;
     width: 30px;
