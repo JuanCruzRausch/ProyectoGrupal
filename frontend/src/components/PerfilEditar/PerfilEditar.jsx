@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import countries from '../Json/countries.jsx'
 import states from '../Json/states.jsx'
 import { updateUser } from '../../redux/actions/userAction';
+import { setUser } from '../../redux/actions/userAction';
 export default function PerfilEditar() {
   const user = useSelector(state => state.userReducer.user)
   const dispatch = useDispatch()
@@ -27,6 +28,7 @@ export default function PerfilEditar() {
   const onHandleSubmit = (e) => {
     e.preventDefault()
     dispatch(updateUser(user))
+    dispatch(setUser(user))
   }
   return (
     <div className='container'>
