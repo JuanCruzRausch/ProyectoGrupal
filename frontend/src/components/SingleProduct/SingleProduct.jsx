@@ -8,6 +8,7 @@ import {
   AddToCart
 } from './SingleProduct.module.css';
 import imagen from '../../assets/img/heart.png';
+import carrito from '../../assets/img/addcart.png'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -104,7 +105,9 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
         }
       </div>
       <div className={SingleProduct_buttons}>
-        <button onClick={() => handleAddtoCart(id,count)} className={AddToCart}>Agregar al carrito</button>
+        <button onClick={() => handleAddtoCart(id,count)} className={AddToCart}>
+          <img src={carrito} alt="addToCart"/>
+        </button>
         <button onClick={() => 
             isAuthenticated ?
           handleAddtoFav(id)

@@ -93,7 +93,7 @@ function Cart() {
             <div className={EmptyCartContainer}>
               <img src={EmptyCart} alt="emptyCart" />
               <h1>Tu carrito está vacío!</h1>
-              <a href="/">
+              <a onClick={()=> navigate(-1)}>
                 <h2>Regresar a la tienda</h2>
               </a>
             </div>

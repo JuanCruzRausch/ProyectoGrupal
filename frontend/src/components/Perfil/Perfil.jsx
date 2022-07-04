@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion}  from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
@@ -48,6 +48,7 @@ export default function Perfil() {
           <div className={Container_img_button}>
           {userState?.photo?(<img src={userState?.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
+          <div className={Buttons}>
             <Link to="/perfil/editar">
                 <button>
                 Editar perfil
@@ -58,7 +59,7 @@ export default function Perfil() {
                 Administra el sitio
                 </button>
             </Link>
-            <Link to="/enano">
+            <Link to="/perfil/altavendedor">
                 <button>
                 Alta de vendedor
                 </button>
@@ -73,6 +74,7 @@ export default function Perfil() {
                Historial de compras
             </button>
             </Link>
+          </div> 
           </div>
           <div className={Container_text}>
           <div>
