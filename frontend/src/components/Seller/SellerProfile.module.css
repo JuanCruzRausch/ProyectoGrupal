@@ -239,3 +239,14 @@
     font-size: 2vh;
     font-weight: 700;
 }
+
+.Login{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Login a {
+    font-size: 3rem;
+}

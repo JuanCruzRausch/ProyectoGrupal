@@ -1,15 +1,19 @@
 
 .CreateDiv{
     padding: 15px;
-    width: 70%;
-    margin: 5rem auto;
+    width: 60%;
+    margin: 3rem auto;
 }
 .CreateDiv form div label{
-    margin: 2vh;
+    margin: 1rem;
+    font-weight: 600;
 }
 .logo{
     width: 200px;
     height: auto;
+}
+.CreateDiv form input, select,textarea{
+    width: 70% !important;
 }
 .img{
     margin-top: 3vh;

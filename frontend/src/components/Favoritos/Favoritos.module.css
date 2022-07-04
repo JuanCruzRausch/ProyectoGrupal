@@ -12,4 +12,27 @@
     flex-direction: column;
     justify-content: center;
     padding: 2vh;
+    text-align: center;    
+}
+.meme{
+    width: 600px;
+    margin: 0 auto ;
+}
+.ItemsContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+.ItemsContainer div div{
+    justify-content: space-around !important;
+}
+
+.Gratis{
+    font-weight: 400;
+    color: green;
+}
+.NotLoggin{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }

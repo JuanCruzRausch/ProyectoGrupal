@@ -26,11 +26,13 @@
 }
 
 .Container_img_button{
-    margin: 0 auto;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 .Container_img_button button{
     border: none;
-    background-color: rgba(231, 231, 231, 0.25);
+    background-color: rgba(224, 224, 224, 0.813);
     padding: 1.5vh;
     border-radius: 15px;
     font-weight: 500;
@@ -41,12 +43,34 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin: 1rem 0;
+    margin: .5rem 0;
+}
+.Container_img_button img{
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
 }
 .Container_Perfil img{
     width: 450px;
     height: 450px;
-    object-fit: contain;
+    object-fit: cover ;
+    align-items: center !important;
+    align-content: center !important;
+    justify-content: center !important;
+
+}
+.Buttons{
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-around;
+
+}
+.Buttons a{
+    width: 45%;
 }
 @media (max-width: 608px){
     .Container_Perfil img{
@@ -127,4 +151,16 @@
 }
 .SingleProduct img{
     width: 100px;
+}
+
+.IniciarSesion{
+    height: 60vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.IniciarSesion a {
+    font-size: 3rem;
 }

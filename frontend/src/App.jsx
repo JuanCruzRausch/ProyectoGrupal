@@ -20,7 +20,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import NewNavBar from "./components/NewNavBar/NewNavBar";
+import AltaVendedor from "./components/AltaVendedor/AltaVendedor"
 import Footer from "./components/Footer/Footer";
+import Error from "./components/Error/Error";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -69,6 +71,7 @@ function App() {
         </> */}
         <Routes>
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
+          <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />
@@ -79,12 +82,13 @@ function App() {
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
+          <Route path="*" element={ <Error /> } />
           <Route
-            path="/:_id"
+           exact path="/products/:_id"
             element={<ProductDetail scrollTo={scrollToSort} />}
           />
           <Route
-            path="/"
+           exact path="/"
             element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}
           />
         </Routes>

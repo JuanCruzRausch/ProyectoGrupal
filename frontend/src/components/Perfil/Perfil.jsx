@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial}  from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
+import LoginButton from '../Auth0/login';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -45,8 +46,9 @@ export default function Perfil() {
 
           <div className={Container_Perfil}>
           <div className={Container_img_button}>
-          {useState?.photo?(<img src={userState.photo} alt="perfil-img"/>):
+          {userState?.photo?(<img src={userState?.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
+          <div className={Buttons}>
             <Link to="/perfil/editar">
                 <button>
                 Editar perfil
@@ -55,6 +57,11 @@ export default function Perfil() {
             <Link to="/enano">
                 <button>
                 Administra el sitio
+                </button>
+            </Link>
+            <Link to="/perfil/altavendedor">
+                <button>
+                Alta de vendedor
                 </button>
             </Link>
             <Link to="/perfil/vendedor">
@@ -67,33 +74,34 @@ export default function Perfil() {
                Historial de compras
             </button>
             </Link>
+          </div> 
           </div>
           <div className={Container_text}>
           <div>
-              nombre: <h1>{userState.name}</h1>
+              Nombre: <h1>{userState.name}</h1>
           </div>
           <div>
-              nombre: <h1>{userState.lastname}</h1>
+              Apellido: <h1>{userState.lastname}</h1>
           </div>
           <div>
-              Email: <h2>{userState.email}</h2>
+              Email: <h2>{userState?.email}</h2>
           </div>
           {userState?.address?(
           <div>
-              Provincia: <h2>{perfil.address}</h2>
-              Ciudad: <h2>{perfil.address}</h2>
-              Código Postal: <h2>{perfil.address}</h2>
-              Calle: <h2>{perfil.address}</h2>
-              Número: <h2>{perfil.address}</h2>
+              Provincia: <h2>{userState?.address?.province}</h2>
+              Ciudad: <h2>{userState?.address?.city}</h2>
+              Código Postal: <h2>{userState.address?.postalcode}</h2>
+              Calle: <h2>{userState?.address?.street}</h2>
+              Número: <h2>{userState?.address?.number}</h2>
               {userState.address?.dpto?(<span>Departamento: 
-                <h2>{perfil.address.dpto?.floor}</h2>
-                <h2>{perfil.address.dpto?.number}</h2>
+                <h2>{userState?.address?.dpto?.floor}</h2>
+                <h2>{userState?.address?.dpto?.number}</h2>
                 </span>)
                 :null}
           </div>)
           :null}
           <div>
-              Tipo de usuario: <h2>Admin</h2>
+              Tipo de usuario: <h2>{userState?.role}</h2>
           </div>
           <div className={Text_intereses}>
             intereses: 
@@ -102,16 +110,16 @@ export default function Perfil() {
             <h2>{e.name}</h2> 
               </div>)}
           </div>
-          <div >
+          {userState?.registration_date&&(<div >
               registrado desde: 
               <h2>Año: {registered[0]}</h2>
               <h2>Mes: {registered[1]}</h2>
-          </div>
+          </div>)}
           <div>
-             télefono: <h2>{userState.phone}</h2>
+             télefono: <h2>{userState?.phone}</h2>
           </div>
           {userState?.credit_card?(<div>
-             Número de Cuenta: <h2>{userState.credit_card}</h2>
+             Número de Cuenta: <h2>{userState?.credit_card}</h2>
           </div>):null}
       </div>
         </div>
@@ -129,7 +137,12 @@ export default function Perfil() {
           </div>
       </div>
   </div>)
-  :<div>inicie sesion</div>}
+  :<div className={IniciarSesion}>
+
+    <h1>Iniciar sesion</h1>
+      <LoginButton />
+    </div>}
+
 </div>
   )
 }

@@ -54,30 +54,33 @@
 }
 .SingleProduct_buttons{
     width: 200px;
-    margin-right: 3vh;
+    margin-right: 10vh;
     display: flex;
     justify-self: flex-end;
-    flex-direction: column; 
+    flex-direction: row; 
     justify-content: space-between;
 }
 .SingleProduct_buttons button{
     align-self: flex-end;
     margin: auto;
-    font-weight: 500;
-    color: rgb(101, 101, 101);
+    font-weight: 400;
+    color: rgb(70, 70, 70);
+    transition: all .5s ease-in-out;
     border: none;
     border-radius: 10px;
     padding: 12px;
 }
+.AddToCart:hover{
+    transform: scale(1.3);
+}
 .SingleProduct_buttons button img{
     width: 35px;
 }
+
 .ProductFav{
-    transition: all .9s ease-in-out;
-}
-.ProductFav:active{
-    background: rgba(255, 0, 0, 0.672) !important;
+    background-color: #fff !important;
+    transition: all .5s ease-in-out;
 }
 .ProductFav:hover{
-   transform: scale(1.5);
+   transform: scale(1.3);
 }

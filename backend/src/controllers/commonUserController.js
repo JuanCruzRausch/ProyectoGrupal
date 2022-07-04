@@ -4,6 +4,7 @@ const AppError = require('../utils/appError');
 
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
+    _id: req.body._id,
     name: req.body.name,
     last_name: req.body.last_name,
     password: req.body.password,

@@ -1,5 +1,5 @@
 .NavContainer{
-    background-color: #ffbc41;
+    background-color: #FEE600;
     padding: 10px;
 }
 .Nav{
@@ -15,7 +15,8 @@
     cursor: pointer;
 }
 .NavLinked img{
-    width: 80px;
+    width: 150px;
+    margin-left: 50px;
 }
 .NavLinked h1{
     justify-content: center;
@@ -78,7 +79,9 @@
 }
 .logo {
     display: inline;
-    width: 25px;
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: cover !important;
     height: auto;
     border-radius: 50%;
 }

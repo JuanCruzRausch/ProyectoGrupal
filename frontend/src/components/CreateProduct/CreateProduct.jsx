@@ -182,6 +182,7 @@ function CreateProduct() {
           <Form.Control
             accept="image/jpg, image/png, image/jpeg"
             name="title"
+            placeholder="Ej: Samsung galaxy S10+ 3GB/64GB"
             value={data.title}
             onChange={(e) => handleOnChange(e)}
             required
@@ -192,7 +193,8 @@ function CreateProduct() {
             value={data.description}
             onChange={(e) => handleOnChange(e)}
             as="textarea"
-            rows={3}
+            placeholder="Describa su producto.."
+            rows={4}
             required
           />
           <Form.Label>Imagenes (.jpg .jpeg .png)</Form.Label>
@@ -369,6 +371,7 @@ function CreateProduct() {
           </Form.Select>
           <Form.Label>Marca</Form.Label>
           <Form.Control
+            placeholder="Ej: Puma, Nike, Samsung"
             name="brand"
             value={data.brand}
             onChange={(e) => handleOnChange(e)}
