@@ -133,6 +133,7 @@
 .EmptyCartContainer a{
     color: black;
     text-align: center;
+    cursor: pointer;
 }
 .EmptyCartContainer a h2{
     font-size: 2rem !important;

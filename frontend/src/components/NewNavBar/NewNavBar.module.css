@@ -79,9 +79,9 @@
 }
 .logo {
     display: inline;
-    width: 25px;
-    height: 25px;
-    object-fit: cover;
+    width: 50px !important;
+    height: 50px !important;
+    object-fit: cover !important;
     height: auto;
     border-radius: 50%;
 }

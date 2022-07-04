@@ -7,6 +7,7 @@ import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
 import arrow from "../../assets/img/leftarrow.png";
 import { updateUser, setUser } from "../../redux/actions/userAction";
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
@@ -53,6 +54,16 @@ export default function AltaVededor() {
           : user.photo,
       })
     ).then(() => dispatch(setUser(user)));
+    toast.success('Perfil editado correctamente', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    
   };
   return (
     <div className={container}>
@@ -200,6 +211,17 @@ export default function AltaVededor() {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

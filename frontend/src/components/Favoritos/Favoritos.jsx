@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {FavContainer, FavDiv, ItemsContainer, Gratis, NotLoggin} from './Favoritos.module.css'
+import {FavContainer, FavDiv, ItemsContainer, Gratis, NotLoggin, meme} from './Favoritos.module.css'
 import {ItemsContainer_SingleItem, EliminarItem} from '../Cart/Cart.module.css'
 import { DeleteFromFav } from '../../redux/actions/FavActions'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -39,7 +39,7 @@ function Favoritos() {
                 </div>) 
                 }
            </div> : 
-            <img src="https://i.imgflip.com/6lodcg.jpg" alt="meme" /> 
+            <img className={meme} src="https://i.imgflip.com/6lodcg.jpg" alt="meme" /> 
            }
         </div>
         : 
