@@ -5,6 +5,7 @@
 .Detail_Links{
   display: flex;
   margin: 2vh 0;
+  background: none !important;
 }
 .Detail_Links  img{
   width: 35px;

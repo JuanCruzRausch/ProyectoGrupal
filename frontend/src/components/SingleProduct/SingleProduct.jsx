@@ -50,7 +50,6 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
           draggable: true,
           progress: undefined,
         });
-      console.log(hasProduct.quantity>hasProduct.stock);
     }
     else if(hasProduct.quantity>=hasProduct.stock === false){
        toast.warning('El item ya se encuentra en su carrito', {

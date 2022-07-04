@@ -68,7 +68,7 @@ function ProductDetail(props) {
   function ADDtoCart(){
     const hasProduct = selector.find(x => x.product === RES[0]?._id)
     if(hasProduct){
-      if(hasProduct.quantity>=hasProduct.stock){
+      if(hasProduct.quantity>=hasProduct.stock || hasProduct.stock - hasProduct.quantity - count < 0){
         toast.error('Se ha superado el limite de Stock disponible', {
           position: 'top-right',
           autoClose: 1000,
@@ -81,7 +81,7 @@ function ProductDetail(props) {
       return
     }
     else if(hasProduct.quantity>=hasProduct.stock === false){
-       toast.warning('El item ya se encuentra en su carrito', {
+       toast.warning(`Ya se encuentra en su carrito, se agrego la cantidad seleccionada: ${count}`, {
          position: 'top-right',
          autoClose: 1000,
          hideProgressBar: false,
