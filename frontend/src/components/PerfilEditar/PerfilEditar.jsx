@@ -4,7 +4,7 @@ import { Container_Small, Form_Div } from "./PerfilEditar.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
-import { updateUser } from "../../redux/actions/userAction";
+import { updateUser, setUser } from "../../redux/actions/userAction";
 import axios from 'axios';
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
@@ -45,6 +45,7 @@ export default function AltaVededor() {
     dispatch(updateUser({...user, 
       photo: result.data.data[0].imageURL?result.data.data[0].imageURL:user.photo
     }));
+    dispatch(setUser(user))
   };
   return (
     <div className="container">
