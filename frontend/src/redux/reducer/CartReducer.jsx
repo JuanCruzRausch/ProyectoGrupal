@@ -30,12 +30,10 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       localStorage.setItem('shippingAddress', JSON.stringify(payload));
       return {...state, cart: {...state.cart, shippingAddress: {...payload}} }
     case ADD_TO_CART:
+
       const item = payload;
-      
       var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
-
       localStorage.setItem('prices', JSON.stringify(TotalPrice))
-
       const product = state.cart.cartItem.find(x => x.product === item.product);
 
       if (product) {
@@ -43,7 +41,15 @@ function CartReducer(state = CartInitialState, { type, payload }) {
           ...state,
           cart: {
             ...state.cart,
-            cartItem: state.cart.cartItem.map(x => x.product === product.product ? item : x)
+            cartItem: state.cart.cartItem.map((x) => { 
+              if(x.product === item.product && x.stock-x.quantity-item.quantity >= 0){
+               return {...x, quantity:x.quantity+item.quantity} 
+              
+              }
+              
+              return x 
+            })
+            // (x => x.product === product.product ? item : x)
           }
         }
       }

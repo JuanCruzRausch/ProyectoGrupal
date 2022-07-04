@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import lupa from '../../assets/img/lupa.png'
 import Favoritos from '../../assets/img/heart.png'
-import mercado from '../../assets/img/logoOficial.png'
+import mercado from '../../assets/img/mercadoenanos4.png'
 import {
   Navbar,
   Container,
@@ -165,7 +165,7 @@ function NewNavBar(props) {
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => navigate("/shipping")}>Shipping</NavDropdown.Item>
                     <NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/perfil")}>perfil</NavDropdown.Item>
+                    <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <LogoutButton />
                   </div>

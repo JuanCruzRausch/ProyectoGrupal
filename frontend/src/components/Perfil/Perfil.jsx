@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial}  from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
+import LoginButton from '../Auth0/login';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -75,10 +76,10 @@ export default function Perfil() {
           </div>
           <div className={Container_text}>
           <div>
-              nombre: <h1>{userState?.name}</h1>
+              Nombre: <h1>{userState.name}</h1>
           </div>
           <div>
-              nombre: <h1>{userState?.lastname}</h1>
+              Apellido: <h1>{userState.lastname}</h1>
           </div>
           <div>
               Email: <h2>{userState?.email}</h2>
@@ -134,7 +135,12 @@ export default function Perfil() {
           </div>
       </div>
   </div>)
-  :<div>inicie sesion</div>}
+  :<div className={IniciarSesion}>
+
+    <h1>Iniciar sesion</h1>
+      <LoginButton />
+    </div>}
+
 </div>
   )
 }

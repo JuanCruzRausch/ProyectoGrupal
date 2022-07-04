@@ -1,22 +1,25 @@
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { Container_Small, Form_Div } from "./PerfilEditar.module.css";
+import { container, Form_Div, Detail_Links } from "./PerfilEditar.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
+import arrow from "../../assets/img/leftarrow.png";
 import { updateUser, setUser } from "../../redux/actions/userAction";
-import axios from 'axios';
+import axios from "axios";
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
-  const [image, setImage] = React.useState()
+  const [image, setImage] = React.useState();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [address, setAdress] = React.useState({...user?.address})
   const editUser = (payload) => {
     return { type: "SET_USER", payload };
   };
-  const imageOnChange = (file) =>{
-    setImage(file)
-  }
+  const imageOnChange = (file) => {
+    setImage(file);
+  };
   const handleOnChange = (e, i) => {
     dispatch(
       editUser({
@@ -31,7 +34,7 @@ export default function AltaVededor() {
   const dptoOnChange = (name, value) => {
     addressOnChange("dpto", { ...user.address.dpto, [name]: value });
   };
-  const onHandleSubmit = async(e) => {
+  const onHandleSubmit = async (e) => {
     e.preventDefault();
     let f = new FormData();
     f.append("image", image[0]);
@@ -40,17 +43,27 @@ export default function AltaVededor() {
         headers: { "content-type": "multipart/form-data" },
       })
       .catch((res) => console.log(res));
-      console.log(result);
+    console.log(result);
 
-    dispatch(updateUser({...user, 
-      photo: result.data.data[0].imageURL?result.data.data[0].imageURL:user.photo
-    }))
-    .then(()=>dispatch(setUser(user)))
+    dispatch(
+      updateUser({
+        ...user,
+        photo: result.data.data[0].imageURL
+          ? result.data.data[0].imageURL
+          : user.photo,
+      })
+    ).then(() => dispatch(setUser(user)));
   };
   return (
-    <div className="container">
+    <div className={container}>
+      <div className={Detail_Links}>
+        <img src={arrow} alt="back" />
+        <Link to="/perfil">
+          <h2>Atras</h2>
+        </Link>
+      </div>
       <div className={Form_Div}>
-        <h1 className="my-3">Perfil</h1>
+        <h1 className="my-3">Actualizar Perfil</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Foto de Perfil (.jpg .jpeg .png)</Form.Label>

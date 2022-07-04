@@ -1,8 +1,7 @@
 import React from 'react'
 import {Count,Counterstock,Counter,counterbutton} from './Count.module.css'
 
-   function ItemCount({stock,count, onAdd,price}) {
-     console.log(price);
+   function ItemCount({stock,count, onAdd}) {
      return (
        <div className={Count}>
         <div className={Counter}>

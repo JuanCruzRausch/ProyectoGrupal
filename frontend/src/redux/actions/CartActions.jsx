@@ -52,7 +52,7 @@ export function sendOrder (){
       
 }
 export function IncreaseCart(id){
-    console.log(id);
+    
     return{
         type: INCREASE,
         payload: id
@@ -65,14 +65,14 @@ export function saveShippingAddress(data){
     }
 }
 export function DecreaseCart(id){
-    console.log(id);
+    
     return{
         type: DECREASE,
         payload: id
     }
 }
 export function DeleteFromCart(id){
-    console.log(id);
+    
     return  {
             type:REMOVE_FROM_CART,
             payload:id
