@@ -16,6 +16,7 @@
 }
 .NavLinked img{
     width: 150px;
+    margin-left: 50px;
 }
 .NavLinked h1{
     justify-content: center;
@@ -79,6 +80,8 @@
 .logo {
     display: inline;
     width: 25px;
+    height: 25px;
+    object-fit: cover;
     height: auto;
     border-radius: 50%;
 }

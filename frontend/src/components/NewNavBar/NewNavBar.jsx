@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import lupa from '../../assets/img/lupa.png'
 import Favoritos from '../../assets/img/heart.png'
-import mercado from '../../assets/img/mercadoenanos2.png'
+import mercado from '../../assets/img/mercadoenanos4.png'
 import {
   Navbar,
   Container,
