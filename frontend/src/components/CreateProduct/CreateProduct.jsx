@@ -338,7 +338,7 @@ function CreateProduct() {
             aria-label="Default select example"
             value={data.shipping.shippingtype}
             name="shippingtype"
-            onChange={(e) => handleOnChange(e)}>
+            onChange={(e) => handleShipping(e)}>
             <option value="" disabled default>
               Seleccione un tipo de envío
             </option>
