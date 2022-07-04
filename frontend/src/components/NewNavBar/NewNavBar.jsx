@@ -33,7 +33,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 function NewNavBar(props) {
     let navigate = useNavigate();
     const dispatch = useDispatch();
-  
+
     let productsCache = [
       ...useSelector((state) => state.productReducer.allProductCache).map(
         (e) => e.title
@@ -176,7 +176,8 @@ function NewNavBar(props) {
             </div>
             <Container>
               <Link to="/">
-                <img className={logo} src={user.picture} />
+                {userLogged?.photo?<img className={logo} src={userLogged?.photo} />
+                :<img className={logo} src={user.picture} />}
               </Link>
             </Container>
           </div>

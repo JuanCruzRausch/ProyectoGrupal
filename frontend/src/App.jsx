@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import NewNavBar from "./components/NewNavBar/NewNavBar";
+import AltaVendedor from "./components/AltaVendedor/AltaVendedor"
 import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 function App() {
@@ -70,6 +71,7 @@ function App() {
         </> */}
         <Routes>
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
+          <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />

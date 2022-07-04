@@ -1,40 +1,35 @@
-import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { container, Form_Div, Detail_Links } from "./PerfilEditar.module.css";
+import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
-import arrow from "../../assets/img/leftarrow.png";
-import { updateUser, setUser } from "../../redux/actions/userAction";
-import axios from "axios";
-export default function AltaVededor() {
+import { updateUser } from "../../redux/actions/userAction";
+export default function PerfilEditar() {
   const user = useSelector((state) => state.userReducer.user);
-  const [image, setImage] = React.useState();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   // const [address, setAdress] = React.useState({...user?.address})
   const editUser = (payload) => {
     return { type: "SET_USER", payload };
   };
-  const imageOnChange = (file) => {
-    setImage(file);
-  };
-  const handleOnChange = (e, i) => {
+  const imageOnChange = (file) =>{
+    setImage(file)
+  }
+  const userOnChange = (e, i) => {
     dispatch(
       editUser({
         ...user,
         [e]: i,
-      })
-    );
+      }
+    ));
   };
   const addressOnChange = (name, value) => {
-    handleOnChange("address", { ...user.address, [name]: value });
+    userOnChange("address", { ...user.address, [name]: value });
   };
   const dptoOnChange = (name, value) => {
-    addressOnChange("dpto", { ...user.address.dpto, [name]: value });
+    userOnChange("dpto", { ...user.address.dpto, [name]: value });
   };
-  const onHandleSubmit = async (e) => {
+  const onHandleSubmit = async(e) => {
     e.preventDefault();
     let f = new FormData();
     f.append("image", image[0]);
@@ -43,27 +38,14 @@ export default function AltaVededor() {
         headers: { "content-type": "multipart/form-data" },
       })
       .catch((res) => console.log(res));
-    console.log(result);
+      console.log(result);
 
-    dispatch(
-      updateUser({
-        ...user,
-        photo: result.data.data[0].imageURL
-          ? result.data.data[0].imageURL
-          : user.photo,
-      })
-    ).then(() => dispatch(setUser(user)));
+    dispatch(updateUser({...user, photo: result.data.data[0].imageURL}));
   };
   return (
-    <div className={container}>
-      <div className={Detail_Links}>
-        <img src={arrow} alt="back" />
-        <Link to="/perfil">
-          <h2>Atras</h2>
-        </Link>
-      </div>
+    <div className="container">
       <div className={Form_Div}>
-        <h1 className="my-3">Actualizar Perfil</h1>
+        <h1 className="my-3">Alta de Vendedor</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">
             <Form.Label>Foto de Perfil (.jpg .jpeg .png)</Form.Label>
@@ -77,14 +59,14 @@ export default function AltaVededor() {
             <Form.Control
               required
               name="name"
-              onChange={(e) => handleOnChange(e.target.name, e.target?.value)}
+              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
               value={user?.name}
             />
             <Form.Label>Apellido</Form.Label>
             <Form.Control
               required
               name="last_name"
-              onChange={(e) => handleOnChange(e.target.name, e.target?.value)}
+              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
               value={user?.last_name}
             />
           </Form.Group>
@@ -92,7 +74,7 @@ export default function AltaVededor() {
             <Form.Label>Teléfono</Form.Label>
             <Form.Control
               name="phone"
-              onChange={(e) => handleOnChange(e.target.name, e.target?.value)}
+              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
               value={user?.phone}
               type="text"
             />
@@ -190,7 +172,7 @@ export default function AltaVededor() {
             <Form.Label>Tarjeta de Crédito</Form.Label>
             <Form.Control
               name="credit_card"
-              onChange={(e) => handleOnChange(e.target.name, e.target.value)}
+              onChange={(e) => userOnChange(e.target.name, e.target.value)}
               value={user?.credit_card}
               type="text"
             />
