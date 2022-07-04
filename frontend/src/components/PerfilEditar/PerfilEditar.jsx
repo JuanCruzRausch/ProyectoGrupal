@@ -44,8 +44,8 @@ export default function AltaVededor() {
 
     dispatch(updateUser({...user, 
       photo: result.data.data[0].imageURL?result.data.data[0].imageURL:user.photo
-    }));
-    dispatch(setUser(user))
+    }))
+    .then(()=>dispatch(setUser(user)))
   };
   return (
     <div className="container">
