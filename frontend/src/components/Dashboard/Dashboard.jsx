@@ -1,8 +1,11 @@
 import React from 'react'
 import { Chart as ChartJS, ArcElement,RadialLinearScale, Tooltip, Legend,CategoryScale,LinearScale,PointElement,LineElement,Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import {Detail_Links } from '../PerfilEditar/PerfilEditar.module.css';
 import { PolarArea } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
+import arrow from '../../assets/img/leftarrow.png';
 import {Container, DashboardDiv,CurrentData,CurrentData1, CurrentData2,CurrentData3,CurrentData4, CurrentBars} from './Dashboard.module.css'
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -69,6 +72,12 @@ function Dashboard() {
   
   return (
     <div className={Container}>
+      <div className={Detail_Links}>
+        <img src={arrow} alt="back" />
+        <Link to="/perfil">
+          <h2>Atras</h2>
+        </Link>
+      </div>
       <div className={DashboardDiv}>
         <h1>Dashboard para controlar el rendimiento de los enanitos</h1>
         <hr/>

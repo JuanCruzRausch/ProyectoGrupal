@@ -42,9 +42,12 @@ function CartReducer(state = CartInitialState, { type, payload }) {
           cart: {
             ...state.cart,
             cartItem: state.cart.cartItem.map((x) => { 
-              if(x.product === item.product){
+              if(x.product === item.product && x.stock-x.quantity-item.quantity >= 0){
                return {...x, quantity:x.quantity+item.quantity} 
-              }return x 
+              
+              }
+              
+              return x 
             })
             // (x => x.product === product.product ? item : x)
           }
