@@ -44,9 +44,9 @@
     margin: 1rem 0;
 }
 .Container_Perfil img{
-    width: 450px;
-    height: 450px;
-    object-fit: contain;
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
 }
 @media (max-width: 608px){
     .Container_Perfil img{
