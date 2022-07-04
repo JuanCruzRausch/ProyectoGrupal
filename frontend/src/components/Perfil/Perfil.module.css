@@ -30,7 +30,7 @@
 }
 .Container_img_button button{
     border: none;
-    background-color: rgba(231, 231, 231, 0.25);
+    background-color: rgba(224, 224, 224, 0.813);
     padding: 1.5vh;
     border-radius: 15px;
     font-weight: 500;
@@ -127,4 +127,13 @@
 }
 .SingleProduct img{
     width: 100px;
+}
+
+.IniciarSesion{
+    height: 60vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

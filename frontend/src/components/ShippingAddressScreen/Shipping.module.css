@@ -1,13 +1,17 @@
+.Container{
+  width: 90%;
+  margin: auto;
+  margin-top: 2rem;
+}
 .Container_Small {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   padding: 0 10px;
 }
 
 .Form_Div {
-  width: 100%;
+  width: 90%;
   max-width: 600px;
   padding: 10px;
   /* background-color: #fff;

@@ -46,8 +46,8 @@ console.log(SingleCart.price === undefined && cartItem.length === 0);
   return (
     <div className={GeneralContainer}>
     <CheckoutSteps step1 step2  step3></CheckoutSteps>
-    <div className={container}>
       <button onClick={() => navigate(-1)}>Atras</button>
+    <div className={container}>
       <h1 className="my-3">Orden de Compra</h1>
       <Row>
         <Col md={8}>

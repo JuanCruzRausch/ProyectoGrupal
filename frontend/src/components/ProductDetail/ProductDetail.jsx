@@ -66,17 +66,45 @@ function ProductDetail(props) {
   }, [selector]);
 
   function ADDtoCart(){
-      dispatch(AddToCart(RES[0]?._id, count))
-      toast.success('Item Agregado Correctamente', {
-        position: 'top-right',
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      })
+    const hasProduct = selector.find(x => x.product === RES[0]?._id)
+    if(hasProduct){
+      if(hasProduct.quantity>=hasProduct.stock){
+        toast.error('Se ha superado el limite de Stock disponible', {
+          position: 'top-right',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      return
     }
+    else if(hasProduct.quantity>=hasProduct.stock === false){
+       toast.warning('El item ya se encuentra en su carrito', {
+         position: 'top-right',
+         autoClose: 1000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+       })
+       dispatch(AddToCart(RES[0]?._id, count))
+     }
+  }
+  else {
+    toast.success('Item Agregado Correctamente', {
+      position: 'top-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    dispatch(AddToCart(RES[0]?._id, count))}
+  }
   function handleSetOrder(){
     dispatch(OrderSingleProduct(RES[0]?._id, count))
     navigate('/shipping')
@@ -120,12 +148,12 @@ function ProductDetail(props) {
           </h2>
 
           {RES[0]?.freeShipping === true ? (
-            <h2 className={EnvioGratis}>envio gratis</h2>
+            <h2 className={EnvioGratis}>Envio gratis</h2>
           ) : null}
 
           <h2>
-            <span>condición:</span> <br />
-            {RES[0]?.condition === 'new' ? 'nuevo' : 'usado'}
+            <span>Condición:</span> <br />
+            {RES[0]?.condition === 'new' ? 'Nuevo' : 'Usado'}
           </h2>
         </div>
       </div>
