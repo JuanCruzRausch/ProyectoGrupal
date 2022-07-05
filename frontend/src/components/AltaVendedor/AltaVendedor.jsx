@@ -14,7 +14,10 @@ export default function AltaVededor() {
   React.useEffect(()=>{
     dispatch(editSeller({
       ...seller,
-      subsidiary: seller?.subsidiary?.state&& seller?.subsidiary?.postalcode&&seller?.subsidiary?.city?{...seller?.subsidiary}:{...user?.address}
+      country: user?.country,
+      subsidiary: seller?.subsidiary?.province&& seller?.subsidiary?.postalcode&&seller?.subsidiary?.city?
+      {...seller?.subsidiary}
+      :{...user?.address,  province: user?.address?.province}
     }))
   },[user ])
   const sellerOnChange = (e, i) => {
@@ -70,10 +73,10 @@ export default function AltaVededor() {
             <h2>Dirección</h2>
             <Form.Label>Pais</Form.Label>
           <Form.Select
-            value={seller?.subsidiary?.country}
+            value={seller?.country}
             aria-label="Default select example"
             name="country"
-            onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
+            onChange={(e) => handleOnChange(e.target.name, e.target.value)}
           >
             <option value="" default>
               Seleccione un pais
@@ -81,7 +84,7 @@ export default function AltaVededor() {
             {countries
               .filter((e) => e.name_es !== "")
               .map((country) => (
-                <option key={country.id}>{country.name}</option>
+                <option value={country.name} key={country.id}>{country.name}</option>
               ))}
           </Form.Select>
           <Form.Label>Provincia</Form.Label>
@@ -95,7 +98,7 @@ export default function AltaVededor() {
               Seleccione una provincia
             </option>
             {states
-              .filter((state) => state.country_name === seller?.subsidiary?.country)
+              .filter((state) => state.country_name === seller?.country)
               .map((state) => (
                 <option key={state.id} value={state.name}>
                   {state.name}

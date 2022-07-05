@@ -37,19 +37,23 @@ export default function AltaVededor() {
   };
   const onHandleSubmit = async (e) => {
     e.preventDefault();
-    let f = new FormData();
-    f.append("image", image[0]);
-    let result = await axios
-      .post("http://localhost:5050/publicationtest/upload-image", f, {
-        headers: { "content-type": "multipart/form-data" },
-      })
-      .catch((res) => console.log(res));
+
+    let result
+    if(image){
+      let f = new FormData();
+      f.append("image", image[0]);
+      result = await axios
+        .post("http://localhost:5050/publicationtest/upload-image", f, {
+          headers: { "content-type": "multipart/form-data" },
+        })
+        .catch((res) => console.log(res));
+    };
     console.log(result);
 
     dispatch(
       updateUser({
         ...user,
-        photo: result.data.data[0].imageURL
+        photo: result?.data.data[0].imageURL
           ? result.data.data[0].imageURL
           : user.photo,
       })
@@ -82,7 +86,6 @@ export default function AltaVededor() {
               type="file"
               multiple
               onChange={(e) => imageOnChange(e.target.files)}
-              required
             />
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -113,7 +116,7 @@ export default function AltaVededor() {
             aria-label="Default select example"
             value={user?.address?.country}
             name="country"
-            onChange={(e) => addressOnChange(e.target.name, e.target.value)}
+            onChange={(e) => handleOnChange(e.target.name, e.target.value)}
           >
             <option value="" default>
               Seleccione un pais
@@ -128,14 +131,14 @@ export default function AltaVededor() {
           <Form.Select
             aria-label="Default select example"
             value={user?.address?.province}
-            name="state"
+            name="province"
             onChange={(e) => addressOnChange(e.target.name, e.target.value)}
           >
             <option value="" disabled default>
               Seleccione una provincia
             </option>
             {states
-              .filter((state) => state.country_name === user?.address?.country)
+              .filter((state) => state.country_name === user?.country)
               .map((state) => (
                 <option key={state.id} value={state.name}>
                   {state.name}
