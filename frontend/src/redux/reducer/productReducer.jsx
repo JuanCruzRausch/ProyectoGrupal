@@ -45,30 +45,12 @@ function productReducer(state = initialState, { type, payload }) {
       return { ...state, pagina: payload };
 
     case GET_ALL_CATEGORIES:
-      const categoriesCount = payload.map(category => {return {...category, count:0 }}); 
-      categoriesCount.forEach((category) => {
-        state.Allproduct.forEach((product, i) => {
-          if (product.category === category._id) {
-            category.count += 1;
-          }
-        });
-      });
-      
-      console.log(categoriesCount);
+    
       return {
         ...state,
-        Categories:[...categoriesCount]
+        Categories:[...payload]
       }
-      // case COUNT:
-      //   // state.Categories.forEach(cat => {
-      //   //   if(cat.name._id === payload.id){
-      //   //     cat.count = payload.count
-      //   //   }
-      //   // })
-      //   return{
-      //     ...state,
-      //     Categories: [...state.Categories]
-      //   }
+
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache;
       const filter =
@@ -83,7 +65,6 @@ function productReducer(state = initialState, { type, payload }) {
 
       return {
         ...state,
-        // Categories: categoriesCount,
         allProductCache: payload,
         Allproduct: payload,
         Detail: payload,

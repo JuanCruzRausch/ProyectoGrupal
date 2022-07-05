@@ -1,14 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
-import { getProductByCategory, ProductPerCategory, setActive } from '../../redux/actions';
+import { getProductByCategory, setActive } from '../../redux/actions';
 import PriceFilter from '../PriceFilter/PriceFilter';
-import { useEffect } from 'react';
-// import { useEffect } from 'react'
-
 const Filter = (props) => {
 
   const categories = useSelector((state) => state.productReducer.Categories);
-  const productos = useSelector((state) => state.productReducer.Allproduct)
   const dispatch = useDispatch();
   const handleOnSelectCategory = (e, categoryName) => {
     dispatch(setActive(1));
@@ -17,19 +13,12 @@ const Filter = (props) => {
     dispatch(getProductByCategory(categoryName));
   };
 
-    // useEffect(()=> {
-    //   categories.forEach((category) => {
-    //     dispatch(ProductPerCategory(category.name._id))
-    //   });
-    // }, [categories])
 
   return (
     <div className={container}>
       <span>
         <div className={subtitle}>Precio</div>
         <PriceFilter/>
-
-        {/* categorias */}
         <div className={subtitle}>Categorías</div>
         {categories?.map((category) => {
           return (

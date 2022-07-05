@@ -45,21 +45,20 @@ export function getAllProducts() {
 }
 
 export function getAllCategories(){
+  const arr=[]
   return async (dispatch) => {
     return axios("http://localhost:5050/categories")
-    .then(res => 
-      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})
-      )
-  }
+    .then(res =>{ 
+      res.data.data.categories.forEach(element => {
+        axios("http://localhost:5050/publicationtest?category="+ element._id)
+        .then(res2=> {
+          arr.push({...element, count: res2.data.results})}) 
+        .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
+    })
+  })}
 }
 
-export function ProductPerCategory(id){
-  return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest?category="+ id).then(res => 
-    dispatch({type:COUNT, payload:{count: res.data.results, id:id}})
-    )
-  }
- }
+
 export function getPaginate(page) {
   return async (dispatch) => {
     return axios("http://localhost:5050/publicationtest?page" + page )
