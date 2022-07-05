@@ -88,10 +88,13 @@ export function BuscarProducto(title){
   }
 }
 
-export function getProductByCategory(payload) {
-  return {
-      type: GET_PRODUCTS_BY_CATEGORY,
-      payload
+export function getProductByCategory(id) {
+  return async (dispatch) => {
+    return axios("http://localhost:5050/publicationtest?category="+ id)
+    .then(res=> {
+      console.log(res)
+      dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
+    })
   };
 }
 export function GetProductById(_id){

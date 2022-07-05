@@ -52,14 +52,10 @@ function productReducer(state = initialState, { type, payload }) {
       }
 
     case GET_PRODUCTS_BY_CATEGORY:
-      const AllProd = state.allProductCache;
-      const filter =
-        payload === 'Todos'
-          ? AllProd
-          : AllProd.filter((e) => e.Category._id === payload);
+     
       return {
         ...state,
-        Allproduct: filter.filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
+        Allproduct: [...payload],
       };
     case GET_ALL_PRODUCTS:
 

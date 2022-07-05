@@ -10,9 +10,9 @@ const Filter = (props) => {
     dispatch(setActive(1));
     e.preventDefault();
     props.scrollTo();
-    dispatch(getProductByCategory(categoryName));
+    const cat = categories.find(cat => cat.name===categoryName)
+    dispatch(getProductByCategory(cat._id));
   };
-
 
   return (
     <div className={container}>
