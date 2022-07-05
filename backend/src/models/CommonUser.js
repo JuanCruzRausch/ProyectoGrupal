@@ -36,10 +36,12 @@ const commonUser = new Schema({
     lowercase: true,
     validate: [validator.isEmail, 'Please provide a valid email'],
   },
-  role: {
-    type: String,
-    enum: ['common', 'buyer', 'seller', 'admin'],
-    default: 'common',
+  authorization: {
+    roles: {
+      type: [String],
+      enum: ['common', 'buyer', 'seller', 'admin'],
+      default: ['common'],
+    },
   },
   address: {
     province: String,
@@ -69,6 +71,18 @@ const commonUser = new Schema({
     default: () => Date.now(),
     immutable: true,
   },
+  strike: {
+    strikes: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Strike',
+    },
+    strikes_total: Number,
+  },
+});
+
+commonUser.pre('save', function (next) {
+  this.strike.strikes_total = this.strike.strikes.length;
+  next();
 });
 
 const CommonUser = model('CommonUser', commonUser);
