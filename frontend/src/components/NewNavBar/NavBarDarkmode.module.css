@@ -1,0 +1,10 @@
+.NavDark{
+    transition: all .6s ease-in-out;
+    background-color: #330053;
+    padding: 10px;
+}
+.DarkcartIMG{
+    filter: invert(100%);
+    width: 35px;
+    transition: all .6s ease-in-out;
+}
