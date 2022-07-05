@@ -1,8 +1,15 @@
 const Seller = require ('../models/Seller');
+const CommonUser = require('../models/CommonUser');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.post = catchAsync(async(req,res,next)=>{
+    
+    let userFind = await CommonUser.findOne({_id: req.body.user});
+    if(userFind.role === 'seller'){
+        return next(new AppError('The user is already logged as a Seller', 400))
+    }
+   
     const newSeller = await Seller.create ({
         user: req.body.user,
         brand: req.body.brand,
@@ -24,3 +31,24 @@ exports.post = catchAsync(async(req,res,next)=>{
     res.status(201).json({status:"success", data: newSeller})
     next();
 })
+
+exports.patch = catchAsync (async (req,res,next) =>{
+    const {_id, brand, social_net, subsidiary} = req.body
+    const {ig,fb,tw} = social_net
+    const {google_map, province, city, postalCode, street, number, reference} = subsidiary
+     
+    const updatedSeller = await Seller.findByIdAndUpdate({_id:_id}, {brand, social_net, subsidiary},{
+        new: true,
+        runValidators: true,
+    });
+
+    if(!updatedSeller){
+        return next(new AppError('No seller was found', 404));
+    }
+    // const sellerUpdated = await Seller.findOne({user})
+
+    res.status(200).json({status:"success", data: updatedSeller})
+   
+
+});
+
