@@ -11,6 +11,7 @@ export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
+export const COUNT = "COUNT"
 // import categorias from '../../components/Json/Categorias'
 export function signUp(data) {
   return async (dispatch) => {
@@ -36,8 +37,9 @@ export function addPublication( data ) {
 
 export function getAllProducts() {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + 1 + "&&limit=640")
-     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
+    return axios("http://localhost:5050/publicationtest?page=" + 1)
+     .then(res => 
+      dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
@@ -45,14 +47,24 @@ export function getAllProducts() {
 export function getAllCategories(){
   return async (dispatch) => {
     return axios("http://localhost:5050/categories")
-    .then(res => dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories}))
+    .then(res => 
+      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})
+      )
   }
 }
 
+export function ProductPerCategory(id){
+  return async (dispatch) => {
+    return axios("http://localhost:5050/publicationtest?category="+ id).then(res => 
+    dispatch({type:COUNT, payload:{count: res.data.results, id:id}})
+    )
+  }
+ }
 export function getPaginate(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
-     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
+    return axios("http://localhost:5050/publicationtest?page" + page )
+     .then(res => 
+      dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
@@ -84,7 +96,6 @@ export function getProductByCategory(payload) {
   };
 }
 export function GetProductById(_id){
-  console.log(_id);
   return{
     type: GET_PRODUCT_BY_ID,
     payload: _id,
