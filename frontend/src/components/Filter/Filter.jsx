@@ -1,11 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
-import { getProductByCategory, setActive } from '../../redux/actions';
+import { getProductByCategory, ProductPerCategory, setActive } from '../../redux/actions';
 import PriceFilter from '../PriceFilter/PriceFilter';
+import { useEffect } from 'react';
 // import { useEffect } from 'react'
 
 const Filter = (props) => {
-  const categories = useSelector((state) => state.productReducer.categories);
+
+  const categories = useSelector((state) => state.productReducer.Categories);
+  const productos = useSelector((state) => state.productReducer.Allproduct)
   const dispatch = useDispatch();
   const handleOnSelectCategory = (e, categoryName) => {
     dispatch(setActive(1));
@@ -13,6 +16,12 @@ const Filter = (props) => {
     props.scrollTo();
     dispatch(getProductByCategory(categoryName));
   };
+
+    useEffect(()=> {
+      categories.forEach((category) => {
+        dispatch(ProductPerCategory(category.name._id))
+      });
+    }, [])
 
   return (
     <div className={container}>
@@ -22,14 +31,14 @@ const Filter = (props) => {
 
         {/* categorias */}
         <div className={subtitle}>Categorías</div>
-        {categories.map((category) => {
+        {categories?.map((category) => {
           return (
-            <div className={categoryItem} key={category.id}>
+            <div className={categoryItem} key={category.name.id}>
               <a
-                onClick={(e) => handleOnSelectCategory(e, category.name)}
+                onClick={(e) => handleOnSelectCategory(e, category.name.name)}
                 href="#"
               >
-                {category.name} ({category.count || 0})
+                {category.name.name} ({category.count || 0})
               </a>
             </div>
           );

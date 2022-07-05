@@ -34,16 +34,6 @@ function App() {
       ? dispatch(handledarkMode(false))
       : dispatch(handledarkMode(true));
   };
-  let doc = document.getElementsByClassName("navbar")
-  let divs= document.querySelectorAll("div");
-  let a = document.querySelectorAll("a");
-
-  // useEffect(() => {
-  //   document.body.style.backgroundColor = isdarkMode ? "#000000" : "#eceded"
-  //   doc[0].style.backgroundColor = isdarkMode ? "#000c6b" : "#fbcb0b"
-  //   divs[0].style.color = isdarkMode ? "#ffffff" : "#000000"
-  // }, [isdarkMode]);
-  console.log(1);
   const scrollTo = useRef();
   const scrollToSort = () => {
     scrollTo.current.scrollIntoView();

@@ -1,4 +1,3 @@
-import categories from '../../components/Json/categories';
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_ID,
@@ -10,7 +9,8 @@ import {
   SIGN_UP_ALERT,
   CREATE_PRODUCT,
   GET_ALL_CATEGORIES,
-  PUBLICATION_ALERT
+  PUBLICATION_ALERT,
+  COUNT
 } from '../actions/index';
 
 const initialState = {
@@ -20,7 +20,6 @@ const initialState = {
   FilterProducts: [],
   Detail: [],
   pagina: 1,
-  categories,
   Categories: [],
   signUpAlert: '',
   maxMinPrice:{
@@ -31,8 +30,10 @@ const initialState = {
 
 function productReducer(state = initialState, { type, payload }) {
   switch (type) {
+
     case PUBLICATION_ALERT:
       return {...state, publicationAlert: payload}
+
     case MAX_AND_MIN_PRICE:
       if((payload.max-payload.min)>=0){
         if(payload.max<=0) payload.max = Infinity
@@ -42,35 +43,45 @@ function productReducer(state = initialState, { type, payload }) {
       return { ...state, signUpAlert: payload };
     case SET_PAGE:
       return { ...state, pagina: payload };
+
     case GET_ALL_CATEGORIES:
       return {
         ...state,
-        Categories:payload
+        Categories:[...payload.map(category => {return {name:category, count:0 }})]
       }
+      case COUNT:
+        state.Categories.forEach(cat => {
+          if(cat.name._id === payload.id){
+            cat.count = payload.count
+          }
+        })
+        return{
+          ...state,
+          Categories: [...state.Categories]
+        }
     case GET_PRODUCTS_BY_CATEGORY:
       const AllProd = state.allProductCache;
       const filter =
         payload === 'Todos'
           ? AllProd
-          : AllProd.filter((e) => e.category.name === payload);
+          : AllProd.filter((e) => e.Category._id === payload);
       return {
         ...state,
         Allproduct: filter.filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
       };
     case GET_ALL_PRODUCTS:
-      let categoriesCount = state.categories.map((category) => {
-        return { ...category, count: 0 };
-      });
+      const categoriesCount = state.Categories;
       categoriesCount.forEach((category) => {
         payload.forEach((product, i) => {
-          if (product.category.name === category.name) {
+          if (product.category=== category._id) {
             category.count += 1;
           }
         });
       });
+
       return {
         ...state,
-        categories: categoriesCount,
+        Categories: categoriesCount,
         allProductCache: payload,
         Allproduct: payload,
         Detail: payload,
