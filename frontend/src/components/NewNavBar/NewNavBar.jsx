@@ -179,7 +179,8 @@ function NewNavBar(props) {
                     <LogoutButton />
                   </div>
                 ) : (                  
-                  <p>please verify you email </p>
+                  <p><LogoutButton />please verify you email </p>
+                  
                 )}
               </NavDropdown>
             </div>
