@@ -50,13 +50,13 @@ function NewNavBar(props) {
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
     const [search, setSearch] = useState('');
   
-    const categories = useSelector((state) => state.productReducer.categories);
+    const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
     const { user, isAuthenticated, isLoading } = useAuth0();
     const toggleNav = () =>{
         settogglemenu(!togglemenu)
     }
-
+ 
   useEffect(()=> {
     const changeWidth = () =>{
       setscreen(window.innerWidth)
@@ -88,13 +88,14 @@ function NewNavBar(props) {
       !e.target.value && setDisplayFlag(false);
     }
   
-    const handleOnSelectCategory = (e, name) => {
+    const handleOnSelectCategory = (e, categoryName) => {
       e.preventDefault();
-      window.scrollTo(0, 650);
-      navigate('/');
       dispatch(setActive(1));
-      dispatch(getProductByCategory(name));
+      window.scrollTo(0, 650);
+      const cat = categories.find(cat => cat.name===categoryName)
+      dispatch(getProductByCategory(cat._id));
     };
+
     function refreshPage(e) {
       e.preventDefault();
       navigate('/');
@@ -122,7 +123,7 @@ function NewNavBar(props) {
                 {categories?.map((category) => {
                     return (
                     <NavDropdown.Item
-                        key={category.id}
+                        key={category._id}
                         className={DropdownA}
                         onClick={(e) => handleOnSelectCategory(e, category.name)}
                         href="#"
