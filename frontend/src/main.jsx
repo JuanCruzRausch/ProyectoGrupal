@@ -10,8 +10,8 @@ import { HelmetProvider } from 'react-helmet-async';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <Auth0Provider
-      domain="dev-dzo-bi6q.us.auth0.com"
-      clientId="WdVad5B4d483KNuDKngTtCfBnH2ErkIR"
+      domain="mercadodeenanos.us.auth0.com"
+      clientId="qg9uZSprKYm0CjuhThkfdyRHkXSAde6j"
       redirectUri={window.location.origin}
     >
       <HelmetProvider>

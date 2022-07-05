@@ -10,6 +10,12 @@ export function updateSeller (data) {
     .catch(err => console.log(err))
   }
 }
+export function patchToSeller (id) {
+  return async (dispatch) => {
+    return axios.patch("http://localhost:5050/commonuser/toSeller/"+id)
+  }
+}
+
 export function setUser(data) {
     return async (dispatch) => {
       return axios.get(`http://localhost:5050/commonuser/${data.email}`)
