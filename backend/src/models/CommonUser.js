@@ -38,7 +38,7 @@ const commonUser = new Schema({
   },
   role: {
     type: String,
-    enum: ['common', 'buyer', 'admin'],
+    enum: ['common', 'buyer', 'seller', 'admin'],
     default: 'common',
   },
   address: {
