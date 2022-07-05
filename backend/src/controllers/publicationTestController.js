@@ -12,7 +12,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     f = 0,
     p = 0;
 
-  if (req.body.promPrice > req.body.price) {
+  if (req.body.promPrice > Number(req.body.price)) {
     return next(
       new AppError('A promotion price must be lower than the base price')
     );
@@ -51,14 +51,14 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     freeS = 0;
   } else {
     if (req.body.shipping.shippingType === 'free') {
-      if (req.body.price >= p) {
-        freeS = f + req.body.price * 0.02;
+      if (Number(req.body.price) >= p) {
+        freeS = f + Number(req.body.price) * 0.02;
       } else {
         freeS = f;
       }
     } else {
-      if (req.body.price >= p) {
-        freeS = f + req.body.price * 0.01;
+      if (Number(req.body.price) >= p) {
+        freeS = f + Number(req.body.price) * 0.01;
       } else {
         freeS = f;
       }
@@ -68,7 +68,8 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   if (req.body.promPrice) {
     finalPrice = (req.body.promPrice * vis) / 100 + req.body.promPrice + freeS;
   } else {
-    finalPrice = (req.body.price * vis) / 100 + req.body.price + freeS;
+    finalPrice =
+      (Number(req.body.price) * vis) / 100 + Number(req.body.price) + freeS;
   }
 
   if (req.body.shipping.shippingType === 'free') {
@@ -79,7 +80,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     title: req.body.title,
     description: req.body.description,
     pictures: req.body.pictures,
-    price: req.body.price,
+    price: Number(req.body.price),
     finalPrice,
     promPrice: req.body.promPrice,
     currency: req.body.currency,
@@ -162,27 +163,27 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
   });
 });
 exports.postImages = catchAsync(async (req, res, next) => {
-  try{
+  try {
     const uploader = async (path) => await cloudinary.uploads(path, 'Images');
-    const urls = []
-    const files = req.files
-    console.log(files)
-    for(const file of files){
-      const {path} = file;
-      const newPath = await uploader(path)
-      urls.push(newPath)
-      fs.unlinkSync(path)
+    const urls = [];
+    const files = req.files;
+    console.log(files);
+    for (const file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      fs.unlinkSync(path);
     }
-    
+
     res.status(200).json({
       message: 'Images uploaded successfully',
-      data: urls
-    })
+      data: urls,
+    });
     console.log('urls', urls);
     // await Image.insertMany(urls);
-  }catch(e){
+  } catch (e) {
     res.status(405).json({
-      err: 'Images not uploaded successfully'
-    })
-  }  
+      err: 'Images not uploaded successfully',
+    });
+  }
 });

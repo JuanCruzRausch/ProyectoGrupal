@@ -1,6 +1,11 @@
 .NavContainer{
     background-color: #FEE600;
     padding: 10px;
+    transition: all .6s ease-in-out;
+}
+
+.NavDark a {
+    color: white !important;
 }
 .Nav{
     display: flex;
