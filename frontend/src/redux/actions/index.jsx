@@ -7,7 +7,7 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE';
 export const SIGN_UP_ALERT = 'SIGN_UP_ALERT';
-export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE";
+export const PRICE = "PRICE";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
@@ -37,7 +37,7 @@ export function addPublication( data ) {
 
 export function getAllProducts() {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest?page=" + 1)
+    return axios(`http://localhost:5050/publicationtest?page=1` )
      .then(res => 
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
@@ -69,7 +69,8 @@ export function getPaginate(page) {
 }
 
 export function setMaxMinPrice(filterPrice){
-  return { type: MAX_AND_MIN_PRICE, payload: filterPrice }
+  
+  return { type: PRICE, payload: filterPrice }
 }
 
 export function setActive(page) {
@@ -88,9 +89,9 @@ export function BuscarProducto(title){
   }
 }
 
-export function getProductByCategory(id) {
+export function getProductByCategory(id, min, max) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest?category="+ id)
+    return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
     .then(res=> {
       console.log(res)
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})

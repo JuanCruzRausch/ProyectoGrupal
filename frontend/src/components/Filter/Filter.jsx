@@ -5,13 +5,14 @@ import PriceFilter from '../PriceFilter/PriceFilter';
 const Filter = (props) => {
 
   const categories = useSelector((state) => state.productReducer.Categories);
+  const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
   const dispatch = useDispatch();
   const handleOnSelectCategory = (e, categoryName) => {
     dispatch(setActive(1));
     e.preventDefault();
     props.scrollTo();
     const cat = categories.find(cat => cat.name===categoryName)
-    dispatch(getProductByCategory(cat._id));
+    dispatch(getProductByCategory(cat._id, min, max));
   };
 
   return (

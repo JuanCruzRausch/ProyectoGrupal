@@ -4,7 +4,7 @@ import {
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
   SET_PAGE,
-  MAX_AND_MIN_PRICE,
+  PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
   CREATE_PRODUCT,
@@ -34,7 +34,7 @@ function productReducer(state = initialState, { type, payload }) {
     case PUBLICATION_ALERT:
       return {...state, publicationAlert: payload}
 
-    case MAX_AND_MIN_PRICE:
+    case PRICE:
       if((payload.max-payload.min)>=0){
         if(payload.max<=0) payload.max = Infinity
         if(payload.min<=0) payload.min = -Infinity
@@ -71,7 +71,7 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: state.allProductCache.filter((e) =>
           e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase())
-        ).filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
+        )
       };
     case GET_PRODUCT_BY_ID:
       return {

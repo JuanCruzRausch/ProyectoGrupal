@@ -37,6 +37,7 @@ function NewNavBar(props) {
     const dispatch = useDispatch();
     const mode = useSelector((state)=> state.darkMode)
     const { isdarkMode } = mode;
+    const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
     let productsCache = [
       ...useSelector((state) => state.productReducer.allProductCache).map(
         (e) => e.title
@@ -90,10 +91,11 @@ function NewNavBar(props) {
   
     const handleOnSelectCategory = (e, categoryName) => {
       e.preventDefault();
+      navigate("/")
       dispatch(setActive(1));
       window.scrollTo(0, 650);
       const cat = categories.find(cat => cat.name===categoryName)
-      dispatch(getProductByCategory(cat._id));
+      dispatch(getProductByCategory(cat._id, min, max));
     };
 
     function refreshPage(e) {
