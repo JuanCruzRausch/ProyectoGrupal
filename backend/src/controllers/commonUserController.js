@@ -33,27 +33,21 @@ exports.post = catchAsync(async (req, res, next) => {
 
 exports.updateToUser = async (req, res, next) => {
   try {
-    const {
-      _id,
-      name,
-      nickname,
-      country,
-      address,
-      phone,
-      credit_card,
-      photo,
-    } = req.body;
-    const lastname = req.body.last_name
-    const userUpdated = await CommonUser.updateOne({_id: _id},{ name, lastname, nickname, country, address, phone, credit_card, photo,}
+    const { _id, name, nickname, country, address, phone, credit_card, photo } =
+      req.body;
+    const lastname = req.body.last_name;
+    const userUpdated = await CommonUser.updateOne(
+      { _id: _id },
+      { name, lastname, nickname, country, address, phone, credit_card, photo }
     );
-console.log(userUpdated)
-    const user = await CommonUser.findOne({_id})
+    console.log(userUpdated);
+    const user = await CommonUser.findOne({ _id });
     res.status(200).json({
-        status: 'success',
-        data: user
-    })
+      status: 'success',
+      data: user,
+    });
   } catch (error) {
-    return next(new AppError('bad request', 400))
+    return next(new AppError('bad request', 400));
   }
 };
 
@@ -69,3 +63,25 @@ exports.getUserEmail = async (req, res, next) => {
     return next(new AppError('bad request', 400));
   }
 };
+
+exports.toSeller = catchAsync(async (req, res, next) => {
+  const userToSeller = await CommonUser.findByIdAndUpdate(
+    req.params.id,
+    { role: 'seller' },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!userToSeller) {
+    return next(new AppError('No user found to update with that ID', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: userToSeller,
+    },
+  });
+});
