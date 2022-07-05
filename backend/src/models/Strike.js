@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose');
 const newStrike = new Schema({
     seller: {
         type: Schema.Types.ObjectId,
-        ref:'Seller',
+        ref:'CommonUser',
     },
     reason: String,
 })
