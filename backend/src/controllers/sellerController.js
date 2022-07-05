@@ -24,3 +24,18 @@ exports.post = catchAsync(async(req,res,next)=>{
     res.status(201).json({status:"success", data: newSeller})
     next();
 })
+
+
+exports.patch = catchAsync (async (req,res,next) =>{
+    const {user, brand, social_net, subsidiary} = req.body
+    const {ig,fb,tw} = social_net
+    const {google_map, province, city, postalCode, street, number, reference} = subsidiary
+
+    const updatedSeller = await Seller.updateOne({user : user}, {brand, social_net, subsidiary});
+    const sellerUpdated = await Seller.findOne({user})
+
+    res.status(201).json({status:"success", data: sellerUpdated})
+    next();
+
+})
+    
