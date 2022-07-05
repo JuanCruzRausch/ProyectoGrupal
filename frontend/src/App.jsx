@@ -43,7 +43,7 @@ function App() {
   //   doc[0].style.backgroundColor = isdarkMode ? "#000c6b" : "#fbcb0b"
   //   divs[0].style.color = isdarkMode ? "#ffffff" : "#000000"
   // }, [isdarkMode]);
-  
+  console.log(1);
   const scrollTo = useRef();
   const scrollToSort = () => {
     scrollTo.current.scrollIntoView();
