@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata, Publicar } from './NewNavBar.module.css'
+import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata,  } from './NewNavBar.module.css'
+import {DarkcartIMG, NavDark} from './NavBarDarkmode.module.css'
 import {FaBars} from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import lupa from '../../assets/img/lupa.png'
 import Favoritos from '../../assets/img/heart.png'
-import mercado from '../../assets/img/mercadoenanos4.png'
+import mercado from '../../assets/img/mercadoenanos5.png'
+import mercadolight from '../../assets/img/mercadoenanos5Light.png'
 import {
   Navbar,
   Container,
@@ -33,7 +35,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 function NewNavBar(props) {
     let navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const mode = useSelector((state)=> state.darkMode)
+    const { isdarkMode } = mode;
     let productsCache = [
       ...useSelector((state) => state.productReducer.allProductCache).map(
         (e) => e.title
@@ -98,12 +101,16 @@ function NewNavBar(props) {
     }
   
   return (
-    <div className={NavContainer}>
+    <div className={
+      isdarkMode ? 
+      NavDark 
+      : NavContainer
+      }>
         <nav className={Nav}>
             <NavLink className={NavLinked} onClick={(e) => 
                 {refreshPage(e);
                 }} to="/" ActiveClassname={NavLinkActive}>
-            <img src={mercado} />
+            <img src={isdarkMode ? mercadolight : mercado} />
           </NavLink>
           <div onClick={toggleNav} className={Bars}>
             <FaBars/> 
@@ -147,14 +154,16 @@ function NewNavBar(props) {
                 <NavLink to="/cart" ActiveClassname={NavLinkActive}>
                 {
                 CartState.length > 0 ? <div className={Cart}>
-                  <img className={cartIMG} src={cart} alt="cart" />
+                  <img className={ isdarkMode ? DarkcartIMG : cartIMG } src={cart} alt="cart" />
                   <h6>{CartState.length}</h6>
                 </div> :
-                  <img className={cartIMG} src={EmptyCart} alt="cart" />
+                  <img className={ isdarkMode ? DarkcartIMG : cartIMG } src={EmptyCart} alt="cart" />
                 }   
                 </NavLink>
                 {
-                    isAuthenticated ? (<Link to="/favoritos"><img className={cartIMG} src={Favoritos} alt="favoritos" /></Link>) : null
+                  isAuthenticated ? 
+                  (<Link to="/favoritos"><img className={ isdarkMode ? DarkcartIMG : cartIMG } src={Favoritos} alt="favoritos" /></Link>) 
+                  : null
                 }
           {isAuthenticated ? (
           <div className={LoginContainer}>

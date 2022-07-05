@@ -14,7 +14,8 @@ import { useEffect, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 import 'react-toastify/dist/ReactToastify.css';
-import { app, checkbox, label, ball,darkmode } from "./App.module.css";
+import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
+import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
@@ -48,11 +49,15 @@ function App() {
     scrollTo.current.scrollIntoView();
   };
   return (
-    <div className={app}>
+    <div className={
+      isdarkMode ?
+      appDark
+      : app 
+      }>
       <BrowserRouter>
         {/* <NavbarComponent scrollTo={scrollToSort} /> */}
          <NewNavBar scrollTo={scrollToSort}/> 
-       {/* <> 
+       <> 
        <div className={darkmode}>
         <input
             type="checkbox"
@@ -69,7 +74,7 @@ function App() {
             <div className={ball}></div>
           </label>
         </div>
-        </> */}
+        </> 
         <Routes>
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
           <Route path="/perfil/altavendedor" element={<AltaVendedor />} />

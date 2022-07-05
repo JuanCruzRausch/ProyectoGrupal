@@ -40,7 +40,6 @@ import {
   Detail_Item_pictures,
   SelectedImg,
 } from './ProductDetail.module.css';
-import { scrollToProducts } from '../variablesGlobales';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 
 function ProductDetail(props) {
