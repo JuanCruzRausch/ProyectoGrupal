@@ -78,19 +78,20 @@ export default function Perfil() {
           </div>
           <div className={Container_text}>
           <div>
-              Nombre: <h1>{userState.name}</h1>
+              Nombre: <h1>{userState?.name}</h1>
           </div>
           <div>
-              Apellido: <h1>{userState.lastname}</h1>
+              Apellido: <h1>{userState?.lastname}</h1>
           </div>
           <div>
               Email: <h2>{userState?.email}</h2>
           </div>
           {userState?.address?(
           <div>
+              País: <h2>{userState?.country}</h2>
               Provincia: <h2>{userState?.address?.province}</h2>
               Ciudad: <h2>{userState?.address?.city}</h2>
-              Código Postal: <h2>{userState.address?.postalcode}</h2>
+              Código Postal: <h2>{userState?.address?.postalcode}</h2>
               Calle: <h2>{userState?.address?.street}</h2>
               Número: <h2>{userState?.address?.number}</h2>
               {userState.address?.dpto?(<span>Departamento: 

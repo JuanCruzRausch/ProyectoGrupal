@@ -326,17 +326,28 @@ function CreateProduct() {
           ) : null}
 
           <Form.Label>Envío</Form.Label>
+
           <Form.Select
+            required
             aria-label="Default select example"
-            name="shippingtype"
             value={data.shipping.shippingtype}
-            onChange={(e) => handleShipping(e)}
-            required>
-            <option value="" disabled>Seleccione un tipo de envío</option>
-            <option value="free">Envío gratis</option>
-            <option value="normal">Envio por Correo</option>
-            <option value="seller">Acordar con el comprador </option>
-            <option value="pickup">Retiro por sucursal</option>
+            name="shippingtype"
+            onChange={(e) => handleShipping(e)}>
+            <option value="" disabled default>
+              Seleccione un tipo de envío
+            </option>
+            <option value="free">
+              Envío gratis
+            </option>
+            <option value="normal">
+              Envio por Correo
+            </option>
+            <option value="seller">
+              Acordar con el comprador 
+            </option>
+            <option value="pickup">
+              Retiro por sucursal
+            </option>
           </Form.Select>
           <Form.Label>Condición</Form.Label>
           <Form.Select
