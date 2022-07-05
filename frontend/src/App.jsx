@@ -14,7 +14,6 @@ import { useEffect, useRef } from "react";
 import Cart from "./components/Cart/Cart";
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
 import 'react-toastify/dist/ReactToastify.css';
-// import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { app, checkbox, label, ball,darkmode } from "./App.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { handledarkMode } from "./redux/actions/DarkActions";
@@ -23,6 +22,8 @@ import NewNavBar from "./components/NewNavBar/NewNavBar";
 import AltaVendedor from "./components/AltaVendedor/AltaVendedor"
 import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
+import SocialNet from "./components/SocialNet/SocialNet";
+import Brand from "./components/Brand/Brand";
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -74,7 +75,9 @@ function App() {
           <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
+          <Route path="/perfil/brand" element={<Brand />} />
           <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/perfil/redessociales" element={<SocialNet />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder/>}/>
           <Route path="/shipping" element={<ShippingAddress />} />

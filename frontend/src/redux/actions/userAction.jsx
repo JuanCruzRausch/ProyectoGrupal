@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export const SET_USER = "SET_USER"
+export const SET_SELLER = "SET_SELLER"
 
 export function setUser(data) {
     return async (dispatch) => {

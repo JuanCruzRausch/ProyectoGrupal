@@ -326,14 +326,6 @@ function CreateProduct() {
           ) : null}
 
           <Form.Label>Envío</Form.Label>
-
-          {/* <Form.Control
-            name="shippingtype"
-            value={data.shipping.shippingtype}
-            onChange={(e) => handleShipping(e)}
-            required
-          /> */}
-
           <Form.Select
             aria-label="Default select example"
             value={data.shipping.shippingtype}
