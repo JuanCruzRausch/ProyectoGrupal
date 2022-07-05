@@ -146,7 +146,7 @@ export default function AltaVededor() {
             />
           </Form.Group>
           
-          <input type="checkbox" name="condiciones" /><Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
+          <input require type="checkbox" name="condiciones" /><Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
  
 
           </Form.Group>
