@@ -88,6 +88,7 @@ export default function Perfil() {
           </div>
           {userState?.address?(
           <div>
+              País: <h2>{userState?.country}</h2>
               Provincia: <h2>{userState?.address?.province}</h2>
               Ciudad: <h2>{userState?.address?.city}</h2>
               Código Postal: <h2>{userState.address?.postalcode}</h2>

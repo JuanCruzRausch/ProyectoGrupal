@@ -4,43 +4,44 @@ import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
-import { updateUser } from "../../redux/actions/userAction";
-export default function PerfilEditar() {
+import { updateSeller } from "../../redux/actions/userAction"
+export default function AltaVededor() {
+  const seller = useSelector((state) => state.userReducer.seller)
   const user = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
-  // const [address, setAdress] = React.useState({...user?.address})
-  const editUser = (payload) => {
-    return { type: "SET_USER", payload };
+  const editSeller = (payload) => {
+    return { type: "SET_SELLER", payload };
   };
-  const imageOnChange = (file) =>{
-    setImage(file)
-  }
-  const userOnChange = (e, i) => {
+  React.useEffect(()=>{
+    dispatch(editSeller({
+      ...seller,
+      country: user?.country,
+      subsidiary: seller?.subsidiary?.province&& seller?.subsidiary?.postalcode&&seller?.subsidiary?.city?
+      {...seller?.subsidiary}
+      :{...user?.address,  province: user?.address?.province}
+    }))
+  },[user])
+  const sellerOnChange = (e, i) => {
     dispatch(
-      editUser({
-        ...user,
+      editSeller({
+        ...seller,
         [e]: i,
       }
     ));
   };
-  const addressOnChange = (name, value) => {
-    userOnChange("address", { ...user.address, [name]: value });
+  const social_netOnChange = (name, value) => {
+    sellerOnChange("social_net", { ...seller.social_net, [name]: value });
   };
-  const dptoOnChange = (name, value) => {
-    userOnChange("dpto", { ...user.address.dpto, [name]: value });
-  };
-  const onHandleSubmit = async(e) => {
-    e.preventDefault();
-    let f = new FormData();
-    f.append("image", image[0]);
-    let result = await axios
-      .post("http://localhost:5050/publicationtest/upload-image", f, {
-        headers: { "content-type": "multipart/form-data" },
-      })
-      .catch((res) => console.log(res));
-      console.log(result);
 
-    dispatch(updateUser({...user, photo: result.data.data[0].imageURL}));
+  const subsidiaryOnChange = (name, value) => {
+    sellerOnChange("subsidiary", { ...seller.subsidiary, [name]: value });
+  };
+
+  const onHandleSubmit = async(e) => {
+    e.preventDefault()
+    dispatch(updateSeller({...seller,user: user._id}))
+    .then(()=> alert('success'))
+    
   };
   return (
     <div className="container">
@@ -48,43 +49,38 @@ export default function PerfilEditar() {
         <h1 className="my-3">Alta de Vendedor</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Foto de Perfil (.jpg .jpeg .png)</Form.Label>
+          <Form.Label>Marca</Form.Label>
             <Form.Control
-              type="file"
-              multiple
-              onChange={(e) => imageOnChange(e.target.files)}
-              required
+              name="brand"
+              onChange={(e) => sellerOnChange(e.target.name, e.target?.value)}
+              value={seller?.brand}
             />
-            <Form.Label>Nombre</Form.Label>
+            <h2>Redes Sociales</h2>
+            <Form.Label>Facebook</Form.Label>
             <Form.Control
-              required
-              name="name"
-              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
-              value={user?.name}
+              name="fb"
+              onChange={(e) => social_netOnChange(e.target.name, e.target?.value)}
+              value={seller?.social_net?.fb}
             />
-            <Form.Label>Apellido</Form.Label>
+            <Form.Label>Twitter</Form.Label>
             <Form.Control
-              required
-              name="last_name"
-              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
-              value={user?.last_name}
+              name="tw"
+              onChange={(e) => social_netOnChange(e.target.name, e.target?.value)}
+              value={seller?.social_net?.tw}
             />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="phone">
-            <Form.Label>Teléfono</Form.Label>
+            <Form.Label>Instagram</Form.Label>
             <Form.Control
-              name="phone"
-              onChange={(e) => userOnChange(e.target.name, e.target?.value)}
-              value={user?.phone}
-              type="text"
+              name="ig"
+              onChange={(e) => social_netOnChange(e.target.name, e.target?.value)}
+              value={seller?.social_net?.ig}
             />
-          </Form.Group>
-          <Form.Label>Pais</Form.Label>
+            <h2>Dirección</h2>
+            <Form.Label>Pais</Form.Label>
           <Form.Select
+            value={seller?.country}
             aria-label="Default select example"
-            value={user?.address?.country}
             name="country"
-            onChange={(e) => addressOnChange(e.target.name, e.target.value)}
+            onChange={(e) => handleOnChange(e.target.name, e.target.value)}
           >
             <option value="" default>
               Seleccione un pais
@@ -92,21 +88,21 @@ export default function PerfilEditar() {
             {countries
               .filter((e) => e.name_es !== "")
               .map((country) => (
-                <option key={country.id}>{country.name}</option>
+                <option value={country.name} key={country.id}>{country.name}</option>
               ))}
           </Form.Select>
           <Form.Label>Provincia</Form.Label>
           <Form.Select
             aria-label="Default select example"
-            value={user?.address?.province}
+            value={seller?.subsidiary?.province}
             name="state"
-            onChange={(e) => addressOnChange(e.target.name, e.target.value)}
+            onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
           >
             <option value="" disabled default>
               Seleccione una provincia
             </option>
             {states
-              .filter((state) => state.country_name === user?.address?.country)
+              .filter((state) => state.country_name === seller?.country)
               .map((state) => (
                 <option key={state.id} value={state.name}>
                   {state.name}
@@ -117,8 +113,9 @@ export default function PerfilEditar() {
             <Form.Label>Ciudad</Form.Label>
             <Form.Control
               name="city"
-              onChange={(e) => addressOnChange(e.target.name, e.target.value)}
-              value={user?.address?.city}
+              value={seller?.subsidiary?.city}
+              onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
+              defaultValue={user?.address?.city}
               type="text"
             />
           </Form.Group>
@@ -126,8 +123,9 @@ export default function PerfilEditar() {
             <Form.Label>Calle</Form.Label>
             <Form.Control
               name="street"
-              onChange={(e) => addressOnChange(e.target.name, e.target.value)}
-              value={user?.address?.street}
+              value={seller?.subsidiary?.street}
+              onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
+              default={user?.address?.street}
               type="text"
             />
           </Form.Group>
@@ -135,8 +133,9 @@ export default function PerfilEditar() {
             <Form.Label>Número</Form.Label>
             <Form.Control
               name="number"
-              onChange={(e) => addressOnChange(e.target.name, e.target.value)}
-              value={user?.address?.number}
+              value={seller?.subsidiary?.number}
+              onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
+              default={user?.address?.number}
               type="text"
             />
           </Form.Group>
@@ -144,41 +143,19 @@ export default function PerfilEditar() {
             <Form.Label>Código Postal</Form.Label>
             <Form.Control
               name="postalcode"
-              onChange={(e) => addressOnChange(e.target.name, e.target.value)}
-              value={user?.address?.postalcode}
+              value={seller?.subsidiary?.postalcode}
+              onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
+              default={user?.address?.postalcode}
               type="number"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="floor">
-            <h2>Departamento:</h2>
-            <Form.Label>Piso</Form.Label>
-            <Form.Control
-              name="floor"
-              onChange={(e) => dptoOnChange(e.target.name, e.target.value)}
-              value={user?.address?.dpto?.floor}
-              type="text"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="number">
-            <Form.Label>Número</Form.Label>
-            <Form.Control
-              name="number"
-              onChange={(e) => dptoOnChange(e.target.name, e.target.value)}
-              value={user?.address?.dpto?.number}
-              type="text"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="number">
-            <Form.Label>Tarjeta de Crédito</Form.Label>
-            <Form.Control
-              name="credit_card"
-              onChange={(e) => userOnChange(e.target.name, e.target.value)}
-              value={user?.credit_card}
-              type="text"
-            />
+          
+          <input require type="checkbox" name="condiciones" /><Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
+ 
+
           </Form.Group>
           <div className="mb-3">
-            <Button type="submit">Editar</Button>
+            <Button type="submit">Aceptar</Button>
           </div>
         </form>
       </div>
