@@ -17,11 +17,11 @@ const Filter = (props) => {
     dispatch(getProductByCategory(categoryName));
   };
 
-    useEffect(()=> {
-      categories.forEach((category) => {
-        dispatch(ProductPerCategory(category.name._id))
-      });
-    }, [])
+    // useEffect(()=> {
+    //   categories.forEach((category) => {
+    //     dispatch(ProductPerCategory(category.name._id))
+    //   });
+    // }, [categories])
 
   return (
     <div className={container}>
@@ -33,12 +33,12 @@ const Filter = (props) => {
         <div className={subtitle}>Categorías</div>
         {categories?.map((category) => {
           return (
-            <div className={categoryItem} key={category.name.id}>
+            <div className={categoryItem} key={category.id}>
               <a
-                onClick={(e) => handleOnSelectCategory(e, category.name.name)}
+                onClick={(e) => handleOnSelectCategory(e, category.name)}
                 href="#"
               >
-                {category.name.name} ({category.count || 0})
+                {category.name||"subcategorías"} ({category.count || 0})
               </a>
             </div>
           );
