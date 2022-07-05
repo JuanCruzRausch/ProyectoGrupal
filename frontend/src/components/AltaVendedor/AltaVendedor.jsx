@@ -4,7 +4,7 @@ import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
-import { updateSeller } from "../../redux/actions/userAction"
+import { updateSeller, patchToSeller } from "../../redux/actions/userAction"
 export default function AltaVededor() {
   const seller = useSelector((state) => state.userReducer.seller)
   const user = useSelector((state) => state.userReducer.user);
@@ -40,7 +40,9 @@ export default function AltaVededor() {
   const onHandleSubmit = async(e) => {
     e.preventDefault()
     dispatch(updateSeller({...seller,user: user._id}))
-    .then(()=> alert('success'))
+    .then(()=> dispatch( patchToSeller( user._id)))
+    .then(()=> alert("success"))
+    .catch(error => console.log(error))
     
   };
   return (
