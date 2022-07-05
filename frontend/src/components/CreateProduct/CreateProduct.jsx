@@ -326,7 +326,9 @@ function CreateProduct() {
           ) : null}
 
           <Form.Label>Envío</Form.Label>
+
           <Form.Select
+            required
             aria-label="Default select example"
             value={data.shipping.shippingtype}
             name="shippingtype"
@@ -353,11 +355,8 @@ function CreateProduct() {
             name="condition"
             value={data.condition}
             onChange={(e) => handleOnChange(e)}
-            required
-          >
-            <option value="" disabled>
-              Condición
-            </option>
+            required>
+            <option value="" disabled>Condición</option>
             <option value="new">Nuevo</option>
             <option value="used">Usado</option>
           </Form.Select>

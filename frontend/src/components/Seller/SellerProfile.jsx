@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { Chart as ChartJS, ArcElement,RadialLinearScale, Tooltip, Legend,CategoryScale,LinearScale,PointElement,LineElement,Title } from 'chart.js';
+import {Detail_Links} from '../PerfilEditar/PerfilEditar.module.css'
+import arrow from "../../assets/img/leftarrow.png";
 import { Line } from 'react-chartjs-2';
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -55,10 +57,12 @@ export default function SellerProfile() {
      
   return (
 <div className={Container}>
- 
-  <button onClick={() => navigate(-1)}>
-    Atras
-  </button>
+<div className={Detail_Links}>
+        <img src={arrow} alt="back" />
+        <Link to="/perfil">
+          <h2>Atras</h2>
+        </Link>
+      </div>
   {
     isAuthenticated ? 
     <div>

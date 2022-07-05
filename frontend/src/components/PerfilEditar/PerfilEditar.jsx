@@ -1,14 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import React from "react";
-import { Form, Button } from "react-bootstrap";
-import { container, Form_Div, Detail_Links } from "./PerfilEditar.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import countries from "../Json/countries.jsx";
-import states from "../Json/states.jsx";
-import arrow from "../../assets/img/leftarrow.png";
-import { updateUser, setUser } from "../../redux/actions/userAction";
+import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Form, Button } from 'react-bootstrap';
+import { container, Form_Div, Detail_Links } from './PerfilEditar.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import countries from '../Json/countries.jsx';
+import states from '../Json/states.jsx';
+import arrow from '../../assets/img/leftarrow.png';
+import { updateUser, setUser } from '../../redux/actions/userAction';
 import { ToastContainer, toast } from 'react-toastify';
-import axios from "axios";
+import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
   const [image, setImage] = React.useState();
@@ -16,7 +17,7 @@ export default function AltaVededor() {
   const dispatch = useDispatch();
   // const [address, setAdress] = React.useState({...user?.address})
   const editUser = (payload) => {
-    return { type: "SET_USER", payload };
+    return { type: 'SET_USER', payload };
   };
   const imageOnChange = (file) => {
     setImage(file);
@@ -30,10 +31,10 @@ export default function AltaVededor() {
     );
   };
   const addressOnChange = (name, value) => {
-    handleOnChange("address", { ...user.address, [name]: value });
+    handleOnChange('address', { ...user.address, [name]: value });
   };
   const dptoOnChange = (name, value) => {
-    addressOnChange("dpto", { ...user.address.dpto, [name]: value });
+    addressOnChange('dpto', { ...user.address.dpto, [name]: value });
   };
   const onHandleSubmit = async (e) => {
     e.preventDefault();
@@ -67,16 +68,12 @@ export default function AltaVededor() {
       draggable: true,
       progress: undefined,
     });
-    
   };
   return (
-    <div className={container}>
-      <div className={Detail_Links}>
-        <img src={arrow} alt="back" />
-        <Link to="/perfil">
-          <h2>Atras</h2>
-        </Link>
-      </div>
+    <div>
+      <Helmet>
+        <title>Actualizar-Perfil</title>
+      </Helmet>
       <div className={Form_Div}>
         <h1 className="my-3">Actualizar Perfil</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
