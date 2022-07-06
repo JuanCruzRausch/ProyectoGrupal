@@ -162,25 +162,34 @@ function ProductDetail(props) {
         </div>
       </div>
       {/* este codigo es nuevo, arreglale el CSS     */}
-      <div className={Detail_CountPrice}>
-        
+      <div >
+        <form className={Detail_Description}>
             {RES?.stock?.options?.map(option=>{
               console.log(option)
           return(
-            <div className={Detail_Description}>
+            <div>
+               <input type="radio" name="combination" value={option._id}/>
               {option?.combination?.map(combi=>{
                 return(
                   <div >
                     <span key={combi._id}>
+                     
                       <label htmlFor="">{combi.name}</label>
                       <label htmlFor="">{combi.value}</label>
+                     
                     </span>
+
                   </div>
                 )
               })}
+                                  <div>
+                                  <label htmlFor="">stock:</label>
+                    <label htmlFor="">{option.stock}</label>
+                    </div>
             </div>
           )
         })}
+        </form>
             </div>
       <div className={Detail_CountPrice}>
         <h1>${RES?.price}</h1>
