@@ -438,9 +438,7 @@ function CreateProduct() {
             onChange={(e) => handleOnChange(e)}
             required
           /> */}
-          </Form.Select>
         </Form.Group>
-        
         <div className={img}>
           <div>
             <h1>
