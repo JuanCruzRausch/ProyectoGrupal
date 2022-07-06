@@ -5,9 +5,9 @@ const DeletedPublication = require('../models/DeletedPublication');
 const DeletedSeller = require('../models/DeletedSeller');
 const PublicationTest = require('../models/PublicationTest');
 
-// const PublicationTest = require('../models/PublicationTest');
+exports.getPostAndDelete =async(req,res)=>{
 
-exports.getPostAndDelete =(req,res)=>{
+   //Busca usuario y lo postea en la nueva collection
     CommonUser.findOne({
         _id: req.params.id
     })  
@@ -16,7 +16,7 @@ exports.getPostAndDelete =(req,res)=>{
         newdoc.isNew = true;      
         newdoc.save();
     })
-
+    //Busca el vendedor ligado a ese usuario y lo postea en la nueva collection
     Seller.findOne({
         user: req.params.id
     })
@@ -26,18 +26,27 @@ exports.getPostAndDelete =(req,res)=>{
         newsell.save();
     })
     
-    Seller.findOne({
-        user:req.params.id
-    })
-    .then(data => {
-    console.log(data)
-        PublicationTest.find({seller: data.seller})
+    //Busca todas las publicaciones ligadas al usuario y la/s postea en la nueva collection
+    PublicationTest.find({seller: req.params.id})
         .then(publication=>{
-            var newPubli = new DeletedPublication(publication) //esto hace una publi o crea todos los documentos en la collection?
-            newPubli.isNew = true;
-            newPubli.save();
+            
+            publication.map((el) => {
+                var newPubli = new DeletedPublication(el)
+                newPubli.isNew = true;
+                newPubli.save();
+            })
+            
+            // for (let i=0; i < publication.length; i++){
+            //     var newPubli = new DeletedPublication(publication[i])
+            //     newPubli.isNew = true;
+            //     newPubli.save();
+
+            // }
         })
-    })
+    //ACÁ ABAJO BORRA LAS PUBLICACIONES, EL SELLER Y EL USUARIO
+    await PublicationTest.deleteMany({seller: req.params.id})
+    await Seller.deleteOne({user: req.params.id})
+    await CommonUser.deleteOne({_id: req.params.id})
 
     res.status(200).json({status:'success',data:'done'});
 };

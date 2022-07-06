@@ -3,57 +3,43 @@ const { Schema, model } = require('mongoose');
 const deletedPublication = new Schema({
   title: {
     type: String,
-    required: [
-      true,
-      'Please add a title that contains key words of the product',
-    ],
-    maxlength: [100, 'A title must have less or equal then 100 characters'],
-    minlength: [4, 'A title must have more or equal then 4 characters'],
   },
   description: {
-    type: String,
-    required: [true, 'Please provide some description'],
+    type: String
   },
   pictures: {
-    type: Array,
-    required: [true, 'Please provide at least one picture'],
+    type: Array
   },
   price: {
-    type: Number,
-    required: [true, 'Please provide any price'],
+    type: Number
+    
   },
   promPrice: {
-    type: Number,
-    validate: {
-      validator: function (el) {
-        return el < this.price;
-      },
-      message: 'A promotion price must be lower than the base price',
-    },
+    type: Number
   },
   earnings: {
-    type: Number,
+    type: Number
   },
   currency: {
     type: String,
     enum: ['USD', 'ARS'],
-    default: 'ARS',
+    default: 'ARS'
   },
   status: {
     type: Boolean,
-    default: true,
+    default: true
   },
   seller: {
     type: Schema.Types.ObjectId,
-    ref: 'Seller',
+    ref: 'Seller'
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'CategoryTest',
+    ref: 'CategoryTest'
   },
   subCategory: {
     type: Schema.Types.ObjectId,
-    ref: 'SubCategory',
+    ref: 'SubCategory'
   },
   shipping: {
     shippingType: {
@@ -81,12 +67,6 @@ const deletedPublication = new Schema({
   stock: {
     stockTotal: {
       type: Number,
-      validate: {
-        validator: function (el) {
-          return el >= 0;
-        },
-        message: 'Stock can not be a negative value',
-      },
     },
     options: [
       {
@@ -97,8 +77,6 @@ const deletedPublication = new Schema({
           },
         ],
         stock: Number,
-        stock_price: Number,
-        stock_earnings: Number,
       },
     ],
   },
@@ -108,25 +86,9 @@ const deletedPublication = new Schema({
   },
   brand: {
     type: String,
-    validate: {
-      validator: function (e) {
-        return /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(
-          e
-        );
-      },
-      message: 'Brand should only contain numbers and letters',
     },
-  },
-  location: {
-    type: String,
-    validate: {
-      validator: function (e) {
-        return /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/.test(
-          e
-        );
-      },
-      message: 'Location should only contain numbers and letters',
-    },
+  location:{
+    type: String
   },
   visibility: {
     type: Number,
@@ -139,7 +101,7 @@ const deletedPublication = new Schema({
   transactions: {
     type: [Schema.Types.ObjectId],
     ref: 'Transaction',
-  },
+  }
 });
 
 const DeletedPublication = model('DeletedPublication', deletedPublication);
