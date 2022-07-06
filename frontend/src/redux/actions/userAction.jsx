@@ -16,6 +16,15 @@ export function patchToSeller (id) {
   }
 }
 
+export function setSeller (id) {
+  console.log(id)
+  return async (dispatch) => {
+    return axios.get("http://localhost:5050/seller/"+id)
+    .then(res=> console.log(res))
+    .catch(err=> console.log(err))
+  }
+}
+
 export function setUser(data) {
     return async (dispatch) => {
       return axios.get(`http://localhost:5050/commonuser/${data.email}`)
