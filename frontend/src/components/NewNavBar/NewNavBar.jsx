@@ -24,7 +24,7 @@ import {
   BuscarProducto,
   setActive,
 } from '../../redux/actions';
-import { setUser } from '../../redux/actions/userAction'
+import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';
 import { useState } from 'react';
@@ -66,8 +66,19 @@ function NewNavBar(props) {
   }, [])
 
     useEffect(() => {
-      user?dispatch(setUser(user)):null
+      user?
+      dispatch(setUser(user))
+      .then(()=>dispatch(setSeller(userLogged?._id)))
+      .catch((e)=> console.log(e))
+      :null
     },[user])
+
+    useEffect(() => {
+      userLogged?
+      dispatch(setSeller(userLogged?._id))
+      .catch((e)=> console.log(e))
+      :null
+    },[userLogged])
   
     const searchOnSubmit = (e) => {
       e.preventDefault();

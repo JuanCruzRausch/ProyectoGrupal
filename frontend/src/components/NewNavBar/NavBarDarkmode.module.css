@@ -8,3 +8,7 @@
     width: 35px;
     transition: all .6s ease-in-out;
 }
+.NavDark a{
+    color: white;
+    transition: all .6s ease-in-out;
+}

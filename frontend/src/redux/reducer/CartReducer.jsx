@@ -34,19 +34,18 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       const item = payload;
       var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
       localStorage.setItem('prices', JSON.stringify(TotalPrice))
+      
       const product = state.cart.cartItem.find(x => x.product === item.product);
-
+      console.log(item)
       if (product) {
         return {
           ...state,
           cart: {
             ...state.cart,
             cartItem: state.cart.cartItem.map((x) => { 
-              if(x.product === item.product && x.stock-x.quantity-item.quantity >= 0){
+              if(x.product === item.product && x.stock.stockTotal-x.quantity-item.quantity >= 0){
                return {...x, quantity:x.quantity+item.quantity} 
-              
               }
-              
               return x 
             })
             // (x => x.product === product.product ? item : x)

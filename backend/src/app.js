@@ -10,6 +10,7 @@ const publicationTestRouter = require('./routes/publicationTestRouter');
 const qandaRouter = require('./routes/qandaRouter');
 const transactionsRouter = require('./routes/transactionsRouter');
 const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
+const deleteUserRouter = require('./routes/deleteUserRouter');
 
 const app = express();
 
@@ -37,7 +38,9 @@ app.use('/commonuser', commonUserRouter);
 app.use('/publicationtest', publicationTestRouter);
 app.use('/qanda', qandaRouter);
 app.use('/transactions', transactionsRouter);
+app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });

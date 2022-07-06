@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil, container_seller, Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
+import SellerProfile from '../Seller/SellerProfile';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const userState = useSelector( state => state.userReducer.user)
+  const sellerState = useSelector ( state => state.userReducer.seller)
   const registered = userState?.registration_date.split("-")
   console.log(userState)
     const perfil = {
@@ -46,35 +48,86 @@ export default function Perfil() {
 
           <div className={Container_Perfil}>
           <div className={Container_img_button}>
+            
           {userState?.photo?(<img src={userState?.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
+          {!userState?.authorization.roles.includes("seller")?(<Link to="/perfil/altavendedor">
+                <button>
+                Alta de vendedor
+                </button>
+            </Link>):
+            (
+            <div className={container_seller}> 
+            
+              <span>
+              <br /> 
+              <label>Redes Sociales:</label>
+              {sellerState?.social_net?.fb?(
+              <div>
+                <br /> 
+                  <div>
+                    <label htmlFor="">facebook: {sellerState.social_net.fb}</label>
+                  </div>
+                  </div>)
+              :null}
+                  <div>
+                  {sellerState?.social_net?.tw?<label htmlFor="">twitter: {sellerState.social_net.tw}</label>:null}
+                  </div>
+                  <div>
+                  {sellerState?.social_net?.ig?<label htmlFor="">instagram: {sellerState.social_net.ig}</label>:null}
+                  </div>
+
+            
+              <label>
+              <Link to="/perfil/redessociales">editar</Link>
+                  </label>
+                  <br /> 
+              </span>
+              <span>
+                <div>
+
+                </div>
+                <div>
+              <label>Marca:</label> 
+              <br /> <br /> 
+                {sellerState?.brand?<label htmlFor="">{sellerState.brand}</label>:null}
+                </div>
+                <label htmlFor="">
+                  <Link to="/perfil/marca">
+                      editar
+                  </Link>
+                </label>
+               
+                    
+              </span>
+            </div>
+          )}
           <div className={Buttons}>
             <Link to="/perfil/editar">
                 <button>
                 Editar perfil
                 </button>
             </Link>
-            <Link to="/enano">
-                <button>
-                Administra el sitio
-                </button>
-            </Link>
-            <Link to="/perfil/altavendedor">
-                <button>
-                Alta de vendedor
-                </button>
-            </Link>
-            <Link to="/perfil/vendedor">
+            {userState?.authorization?.roles.includes("admin") ? (
+              <Link to="/enano">
+                <button>Administra el sitio</button>
+              </Link>
+            ) : null}
+
+            
+            
+            {userState?.authorization?.roles.includes("seller")?(<Link to="/perfil/vendedor">
                 <button>
                 Perfil de Vendedor
                 </button>
-            </Link>
+            </Link>):null}
             <Link to="/perfil/historial">
             <button>
                Historial de compras
             </button>
             </Link>
           </div> 
+          
           </div>
           <div className={Container_text}>
           <div>
@@ -102,7 +155,7 @@ export default function Perfil() {
           </div>)
           :null}
           <div>
-              Tipo de usuario: <h2>{userState?.role}</h2>
+              Tipo de usuario: {userState?.authorization?.roles.map(rol=><h2>{rol}</h2>)}
           </div>
           <div className={Text_intereses}>
             intereses: 
