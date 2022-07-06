@@ -82,32 +82,12 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     freeS = 0;
   }
 
-  if (req.body.stock.options) {
-    req.body.stock.options.map((el) => {
-      stockArr.push({
-        combination: el.combination,
-        stock: el.stock,
-        stock_price: el.stock_price,
-        stock_earnings:
-          (el.stock_price) -
-          (el.stock_price) * 0.27 -
-          (((el.stock_price) * vis) / 100 + freeS),
-      });
-    });
-  }
-
   const newPub = await PublicationTest.create({
     title: req.body.title,
     description: req.body.description,
     pictures: req.body.pictures,
-    price:
-      req.body.stock.options.length > 0
-        ? req.body.stock.options[0].stock_price
-        : Number(req.body.price),
-    earnings:
-      req.body.stock.options.length > 0
-        ? req.body.stock.options[0].stock_earnings
-        : earnings,
+    price: Number(req.body.price),
+    earnings,
     promPrice: req.body.promPrice,
     currency: req.body.currency,
     seller: req.body.seller,
@@ -123,7 +103,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
         req.body.stock.options.length > 0
           ? req.body.stock.options.reduce((acc, obj) => acc + obj.stock, 0)
           : req.body.stockTotal,
-      options: stockArr,
+      options: req.body.stock.options,
     },
     brand: req.body.brand,
     location: req.body.location,
@@ -190,23 +170,24 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
 });
 
 exports.getPublicationByName = catchAsync(async (req, res, next) => {
-
-  const {title} = req.params
+  const { title } = req.params;
 
   const features = new apiFeatures(PublicationTest.find(), req.query)
-  .filter()
-  .sort()
-  .limit()
-  .paginate();
+    .filter()
+    .sort()
+    .limit()
+    .paginate();
   if (!title) return next(new AppError('Title is required, 400'));
 
   const publications = await features.query;
 
-  const search = publications.filter(e => e.title.toLowerCase().startsWith(title.toLowerCase()))
+  const search = publications.filter((e) =>
+    e.title.toLowerCase().startsWith(title.toLowerCase())
+  );
 
-    if (!publications) {
-      return next(new AppError('The id does not match with any product', 404));
-    }
+  if (!publications) {
+    return next(new AppError('The id does not match with any product', 404));
+  }
 
   res.status(200).json({
     status: 'success',
