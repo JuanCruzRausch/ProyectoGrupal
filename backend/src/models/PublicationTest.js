@@ -97,8 +97,6 @@ const publicationTestSchema = new Schema({
           },
         ],
         stock: Number,
-        stock_price: Number,
-        stock_earnings: Number,
       },
     ],
   },
