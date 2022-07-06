@@ -10,6 +10,7 @@ export default function Perfil() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const userState = useSelector( state => state.userReducer.user)
+  const sellerState = useSelector ( state => state.userReducer.seller)
   const registered = userState?.registration_date.split("-")
   console.log(userState)
     const perfil = {
@@ -61,16 +62,21 @@ export default function Perfil() {
               <span>
               <br /> 
               <label>Redes Sociales:</label>
-              <br /> <br /> 
+              {sellerState?.social_net?.fb?(
+              <div>
+                <br /> 
                   <div>
-                    <label htmlFor="">facebook: {userState?.email}</label>
+                    <label htmlFor="">facebook: {sellerState.social_net.fb}</label>
+                  </div>
+                  </div>)
+              :null}
+                  <div>
+                  {sellerState?.social_net?.tw?<label htmlFor="">twitter: {sellerState.social_net.tw}</label>:null}
                   </div>
                   <div>
-                    <label htmlFor="">twitter: </label> 
+                  {sellerState?.social_net?.ig?<label htmlFor="">instagram: {sellerState.social_net.ig}</label>:null}
                   </div>
-                  <div>
-                    <label htmlFor="">instagram: {userState?.email}</label> 
-                  </div>
+
             
               <label>
               <Link to="/perfil/redessociales">editar</Link>
@@ -84,7 +90,7 @@ export default function Perfil() {
                 <div>
               <label>Marca:</label> 
               <br /> <br /> 
-                  <label> ropita de enanos</label>
+                {sellerState?.brand?<label htmlFor="">{sellerState.brand}</label>:null}
                 </div>
                 <label htmlFor="">
                   <Link to="/perfil/marca">
@@ -102,7 +108,7 @@ export default function Perfil() {
                 Editar perfil
                 </button>
             </Link>
-            {userState.authorization?.roles.includes("admin") ? (
+            {userState?.authorization?.roles.includes("admin") ? (
               <Link to="/enano">
                 <button>Administra el sitio</button>
               </Link>
