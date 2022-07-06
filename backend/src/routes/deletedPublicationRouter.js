@@ -3,6 +3,10 @@ const deletedPublicationController = require('../controllers/deletedPublicationC
 
 const deletedPublicationRouter = Router();
 
+deletedPublicationRouter.get(
+  '/',
+  deletedPublicationController.getAllDeletedPublication
+);
 deletedPublicationRouter.post(
   '/:id',
   deletedPublicationController.postDeletedPublication

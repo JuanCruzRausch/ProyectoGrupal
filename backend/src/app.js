@@ -37,7 +37,7 @@ app.use('/commonuser', commonUserRouter);
 app.use('/publicationtest', publicationTestRouter);
 app.use('/qanda', qandaRouter);
 app.use('/transactions', transactionsRouter);
-//app.use('/deletedpublication', deletedPublicationRouter);
+app.use('/deletedpublication', deletedPublicationRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
