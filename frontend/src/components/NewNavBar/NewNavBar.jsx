@@ -186,8 +186,7 @@ function NewNavBar(props) {
                 {userLogged?.email_verified ? (
                   <div>
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/shipping")}>Shipping</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>
+                    {userLogged?.authorization?.roles?.includes("seller")?<NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>:null}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <LogoutButton />
