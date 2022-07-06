@@ -6,13 +6,14 @@ const cloudinary = require('../../cloudinary');
 const fs = require('fs');
 
 exports.postPublicationTest = catchAsync(async (req, res, next) => {
-  let finalPrice = 0,
+  let stockArr = [];
+  let earnings = 0,
     freeS = 0,
     vis = 0,
     f = 0,
     p = 0;
 
-  if (req.body.promPrice > Number(req.body.price)) {
+  if (Number(req.body.promPrice) > Number(req.body.price)) {
     return next(
       new AppError('A promotion price must be lower than the base price')
     );
@@ -66,22 +67,47 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   }
 
   if (req.body.promPrice) {
-    finalPrice = (req.body.promPrice * vis) / 100 + req.body.promPrice + freeS;
+    earnings =
+      Number(req.body.promPrice) -
+      Number(req.body.promPrice) * 0.27 -
+      ((Number(req.body.promPrice) * vis) / 100 + freeS);
   } else {
-    finalPrice =
-      (Number(req.body.price) * vis) / 100 + Number(req.body.price) + freeS;
+    earnings =
+      Number(req.body.price) -
+      Number(req.body.price) * 0.27 -
+      ((Number(req.body.price) * vis) / 100 + freeS);
   }
 
   if (req.body.shipping.shippingType === 'free') {
     freeS = 0;
   }
 
+  if (req.body.stock.options) {
+    req.body.stock.options.map((el) => {
+      stockArr.push({
+        combination: el.combination,
+        stock: el.stock,
+        stock_price: el.stock_price,
+        stock_earnings:
+          (el.stock_price) -
+          (el.stock_price) * 0.27 -
+          (((el.stock_price) * vis) / 100 + freeS),
+      });
+    });
+  }
+
   const newPub = await PublicationTest.create({
     title: req.body.title,
     description: req.body.description,
     pictures: req.body.pictures,
-    price: Number(req.body.price),
-    finalPrice,
+    price:
+      req.body.stock.options.length > 0
+        ? req.body.stock.options[0].stock_price
+        : Number(req.body.price),
+    earnings:
+      req.body.stock.options.length > 0
+        ? req.body.stock.options[0].stock_earnings
+        : earnings,
     promPrice: req.body.promPrice,
     currency: req.body.currency,
     seller: req.body.seller,
@@ -97,7 +123,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
         req.body.stock.options.length > 0
           ? req.body.stock.options.reduce((acc, obj) => acc + obj.stock, 0)
           : req.body.stockTotal,
-      options: req.body.stock.options,
+      options: stockArr,
     },
     brand: req.body.brand,
     location: req.body.location,
