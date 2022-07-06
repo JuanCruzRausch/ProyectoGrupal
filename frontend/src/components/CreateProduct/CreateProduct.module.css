@@ -1,11 +1,11 @@
 
 .CreateDiv{
     padding: 15px;
-    width: 60%;
+    width: 80%;
     margin: 3rem auto;
 }
 .CreateDiv form div label{
-    margin: 1rem;
+    margin: 1rem auto;
     font-weight: 600;
 }
 .logo{
@@ -14,6 +14,7 @@
 }
 .CreateDiv form input, select,textarea{
     width: 70% !important;
+    margin: auto !important;
 }
 .img{
     margin-top: 3vh;
@@ -54,3 +55,34 @@
   .FormImage{
     width: 120px !important;
   }
+  .Visibility{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Visibility div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 210px;
+    height: 210px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.515);
+    border: 3px solid transparent;
+    outline: none;
+    box-shadow: 15px 15px 25px rgba(2, 28, 53, 0.05);
+    transition: all .5s ease-in-out;
+}
+.Visibility input{
+    width: 200px;
+    height: 200px;
+}
+  .Visibility input:hover{
+    transform: scale(1.05);
+  }
+
+  .Visibility div img{
+    width: 100px;
+  }
+

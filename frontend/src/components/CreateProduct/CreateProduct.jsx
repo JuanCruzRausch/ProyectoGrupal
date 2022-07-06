@@ -1,8 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import low from '../../assets/img/icons_Products/podium_last.png'
+import medium from '../../assets/img/icons_Products/podium_second.png'
+import high from '../../assets/img/icons_Products/podium_first.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img, linea ,FormImage } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage,Visibility } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
@@ -26,7 +29,7 @@ function CreateProduct() {
     pictures: [],
     price: 0,
     currency: "",
-    seller: "62bf48e53682a40660d2c540",
+    seller: "_id",
     category: "",
     subCategory: "",
     shipping: { shippingtype: "" },
@@ -73,6 +76,7 @@ function CreateProduct() {
     setCombination({ ...combination, [e.target.name]: e.target.value });
   }
   function handleOnChange(e) {
+    console.log(e.target.value)
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -387,7 +391,7 @@ function CreateProduct() {
                 </option>
               ))}
           </Form.Select>
-          <Form.Label>Visibilidad</Form.Label>
+          {/* <Form.Label>Visibilidad</Form.Label>
           <Form.Select
             aria-label="Default select example"
             value={data.visibility}
@@ -405,6 +409,35 @@ function CreateProduct() {
             <option value="3">
               3 -máxima visualización- 
             </option>
+          </Form.Select> */}
+          <Form.Label>Visibilidad</Form.Label>
+          <form 
+            className={Visibility}
+            value={data.visibility}
+            name="visibility"
+            onChange={(e) => handleOnChange(e)}>
+            <div>
+              <input type="radio" value="3" name="combination" />
+              <img src={high}/>
+              <label htmlFor="">máxima visualización</label>
+            </div>
+            <div>
+               <input type="radio" value="2" name="combination" />
+                <img src={medium}/>
+                <label htmlFor="">visualización intermedia</label>
+            </div>
+            <div>
+              <input type="radio" value="1" name="combination" />
+              <img src={low}/>
+              <label htmlFor="">poca visualizacion</label>
+            </div>
+        </form>
+          {/* <Form.Control
+            name="visibility"
+            value={data.visibility}
+            onChange={(e) => handleOnChange(e)}
+            required
+          /> */}
           </Form.Select>
         </Form.Group>
         
@@ -422,5 +455,4 @@ function CreateProduct() {
     </div>
   );
 }
-
 export default CreateProduct;
