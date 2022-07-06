@@ -55,7 +55,7 @@ function ProductDetail(props) {
     dispatch(GetSingleProduct(!State.length ? params._id : State.length))
   },[])
   const [imgs, setimgs] = useState(State?.image);
-
+  console.log(1);
   const atras = () => {
     navigate(-1);
     props.scrollTo();
