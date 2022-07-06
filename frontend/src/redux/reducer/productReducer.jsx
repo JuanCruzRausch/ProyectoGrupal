@@ -69,9 +69,7 @@ function productReducer(state = initialState, { type, payload }) {
     case GET_PRODUCT:
       return {
         ...state,
-        Allproduct: state.allProductCache.filter((e) =>
-          e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase())
-        )
+        Allproduct:[...payload]
       };
     case GET_PRODUCT_BY_ID:
       return {
