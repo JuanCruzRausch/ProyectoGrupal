@@ -12,6 +12,7 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
+  console.log(user)
   const [image, setImage] = React.useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();

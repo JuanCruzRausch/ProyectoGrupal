@@ -14,7 +14,5 @@ exports.getUser= catchAsync(async (req, res, next) => {
             data: {
                 sellerInfo
             },
-          });
-    
-        
+          });   
     });

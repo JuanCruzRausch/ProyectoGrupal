@@ -19,7 +19,11 @@ export function patchToSeller (id) {
 export function setUser(data) {
     return async (dispatch) => {
       return axios.get(`http://localhost:5050/commonuser/${data.email}`)
-      .then(res => dispatch({type:SET_USER, payload: res.data.data}))
+      .then(res => {
+        // res.data.data.role==="seller"?
+        // axios(`http:localhost:5050/user/`)
+        dispatch({type:SET_USER, payload: res.data.data})
+      })
       .catch(error=> console.log(error))
     }
   }

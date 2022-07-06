@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Container_card, Container_Perfil,Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
+import { Container, Container_card, Container_Perfil, container_seller, Container_text,Text_transacciones, Text_completed, Text_canceled, Text_total, Text_intereses, Intereses_container,Container_img_button, SingleProduct, ItemsContainer, Historial, IniciarSesion, Buttons}  from './Perfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
+import SellerProfile from '../Seller/SellerProfile';
 export default function Perfil() {
 
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -46,8 +47,54 @@ export default function Perfil() {
 
           <div className={Container_Perfil}>
           <div className={Container_img_button}>
+            
           {userState?.photo?(<img src={userState?.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
+          {userState?.role!=="seller"?(<Link to="/perfil/altavendedor">
+                <button>
+                Alta de vendedor
+                </button>
+            </Link>):
+            (
+            <div className={container_seller}> 
+            
+              <span>
+              <label>Redes Sociales:</label>
+              <br /> 
+                  <div>
+                    <label htmlFor="">facebook: {userState?.email}</label>
+                  </div>
+                  <div>
+                    <label htmlFor="">twitter: </label> 
+                  </div>
+                  <div>
+                    <label htmlFor="">instagram: {userState?.email}</label> 
+                  </div>
+                 
+            
+              <label>
+              <Link to="/perfil/redessociales">editar</Link>
+                  </label>
+              </span>
+              <span>
+                <div>
+
+                </div>
+                <div>
+              <label>Marca:</label> 
+              <br />
+                  <label> ropita de enanos</label>
+                </div>
+                <label htmlFor="">
+                  <Link to="/perfil/marca">
+                      editar
+                  </Link>
+                </label>
+               
+                    
+              </span>
+            </div>
+          )}
           <div className={Buttons}>
             <Link to="/perfil/editar">
                 <button>
@@ -59,11 +106,9 @@ export default function Perfil() {
                 Administra el sitio
                 </button>
             </Link>
-            <Link to="/perfil/altavendedor">
-                <button>
-                Alta de vendedor
-                </button>
-            </Link>
+
+            
+            
             <Link to="/perfil/vendedor">
                 <button>
                 Perfil de Vendedor
@@ -75,6 +120,7 @@ export default function Perfil() {
             </button>
             </Link>
           </div> 
+          
           </div>
           <div className={Container_text}>
           <div>

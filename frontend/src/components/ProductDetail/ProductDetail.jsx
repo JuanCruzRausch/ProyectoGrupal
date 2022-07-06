@@ -41,6 +41,7 @@ import {
   SelectedImg,
 } from './ProductDetail.module.css';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
+import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
 
 function ProductDetail(props) {
   const dispatch = useDispatch()
