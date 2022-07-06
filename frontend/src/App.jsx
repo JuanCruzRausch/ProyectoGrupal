@@ -70,7 +70,7 @@ function App() {
           <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
-          <Route path="/perfil/brand" element={<Brand />} />
+          <Route path="/perfil/marca" element={<Brand />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/perfil/redessociales" element={<SocialNet />} />
           <Route path="/Cart" element={<Cart />} />
