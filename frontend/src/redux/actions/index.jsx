@@ -11,8 +11,10 @@ export const PRICE = "PRICE";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
-export const COUNT = "COUNT"
+export const COUNT = "COUNT";
+export const SINGLE_ITEM = "SINGLE_ITEM";
 // import categorias from '../../components/Json/Categorias'
+
 export function signUp(data) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/users/signup",{
@@ -42,6 +44,16 @@ export function getAllProducts() {
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
+}
+
+export function GetSingleProduct(id){
+  console.log(id)
+  return async(dispatch) => {
+          axios("http://localhost:5050/publicationtest/" + id)
+          .then(res=> 
+              dispatch({ type: SINGLE_ITEM, payload:res.data.data.publi})
+      )
+  }         
 }
 
 export function getAllCategories(){

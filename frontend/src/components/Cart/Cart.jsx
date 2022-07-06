@@ -66,7 +66,7 @@ function Cart() {
                        }>-</button>
                     <h1>{e.quantity}</h1>
                     <button onClick={() => {
-                      if(e.stock > e.quantity){
+                      if(e.stock.stockTotal > e.quantity){
                         dispatch(IncreaseCart(e.product))
                       }
                       else {

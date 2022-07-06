@@ -9,36 +9,37 @@ export const DECREASE = "DECREASE"
 export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
 
 export function AddToCart(id,count){
+    console.log(id);
     return async(dispatch) => {
-            axios("http://localhost:5050/publication/" + id)
-            .then(res=> 
-                 dispatch({
-                 type: ADD_TO_CART, 
-                 payload: {
-                  product:  res.data.data._id,
-                  title:     res.data.data.title,
-                  thumbnail:    res.data.data.thumbnail,
-                  price:    res.data.data.price,
-                  stock: res.data.data.stock,
-                  quantity: count,
-                 }
-             })
+            axios("http://localhost:5050/publicationtest/"+id)
+            .then(res=>
+                  dispatch({
+                  type: ADD_TO_CART, 
+                  payload: {
+                   product:  res.data.data.publi._id,
+                   title:     res.data.data.publi.title,
+                   thumbnail:    res.data.data.publi.pictures[0],
+                   price:    res.data.data.publi.price,
+                   stock: res.data.data.publi.stock,
+                   quantity: count,
+                  }
+              })
         )
     }         
 }
 
 export function OrderSingleProduct(id,count){
     return async(dispatch) => {
-            axios("http://localhost:5050/publication/" + id)
+            axios("http://localhost:5050/publicationtest/" + id)
             .then(res=> 
                  dispatch({
                  type: ORDER_PRODUCT, 
                  payload: {
-                  product:  res.data.data._id,
-                  title:     res.data.data.title,
-                  thumbnail:    res.data.data.thumbnail,
-                  price:    res.data.data.price,
-                  stock: res.data.data.stock,
+                  product:  res.data.data.publi._id,
+                  title:     res.data.data.publi.title,
+                  thumbnail:    res.data.data.publi.thumbnail,
+                  price:    res.data.data.publi.price,
+                  stock: res.data.data.publi.stock,
                   quantity: count,
                  }
              })
@@ -52,7 +53,6 @@ export function sendOrder (){
       
 }
 export function IncreaseCart(id){
-    
     return{
         type: INCREASE,
         payload: id

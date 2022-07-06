@@ -11,19 +11,20 @@ import imagen from '../../assets/img/heart.png';
 import carrito from '../../assets/img/addcart.png'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
+import { GetSingleProduct } from '../../redux/actions';
 
 
 function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav }) {
   const [count, setcount] = useState(1);
+  const dispatch = useDispatch()
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   const FavState = useSelector(state=> state.FavReducer.Favs)
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
-  
   function handleAddtoFav(){
     ADDtoFav(id)
     
@@ -40,8 +41,9 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
   }
   function handleAddtoCart() {
     const hasProduct = selector.find(x => x.product === id)
+
     if(hasProduct){
-      if(hasProduct.quantity>=hasProduct.stock){
+      if(hasProduct.quantity>=hasProduct.stock.stockTotal){
         toast.error('Se ha superado el limite de Stock disponible', {
           position: 'top-right',
           autoClose: 1000,
@@ -52,7 +54,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
           progress: undefined,
         });
     }
-    else if(hasProduct.quantity>=hasProduct.stock === false){
+    else if(hasProduct.quantity>=hasProduct.stock.stockTotal === false){
        toast.warning('El item ya se encuentra en su carrito', {
          position: 'top-right',
          autoClose: 1000,
@@ -97,7 +99,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
 
       <div className={SingleProduct_text}>
         <Link to={`/products/${id}`}>
-          <h1>{name}</h1>
+          <h1 onClick={() => dispatch(GetSingleProduct(id))}>{name}</h1>
         </Link>
         <h2>$ {price}</h2>
         {

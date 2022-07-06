@@ -46,7 +46,8 @@ function ShippingAddress() {
 
   useEffect(() => {
     if (!user?.email_verified) {
-      loginWithRedirect();
+      loginWithRedirect()
+      navigate(-1)
     }
   }, [user, navigate]);
   const handleOnChange = (e, id) => {
