@@ -29,6 +29,9 @@ export function signUp(data) {
   }
 }
 
+export function setAlert() {
+  return {type: PUBLICATION_ALERT, payload: "none"}
+}
 export function addPublication( data ) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/publicationtest", data)

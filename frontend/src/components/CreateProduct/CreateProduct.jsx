@@ -7,7 +7,7 @@ import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from "../../redux/actions/index";
+import { addPublication, setAlert } from "../../redux/actions/index";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -48,6 +48,7 @@ function CreateProduct() {
         icon: "success",
       });
     }
+    dispatch(setAlert("none"))
     if (alert === "error") {
       swal({
         title: `Error en la publicación`,
@@ -101,7 +102,6 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-      console.log(result);
       arrayImg.push(result.data.data[0].imageURL);
     }
 
@@ -166,17 +166,7 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
       <Form onSubmit={(e) => handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -419,6 +409,17 @@ function CreateProduct() {
           </span>
         </div>
       </Form>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
