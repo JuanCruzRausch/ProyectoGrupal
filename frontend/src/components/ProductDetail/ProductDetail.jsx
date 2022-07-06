@@ -55,6 +55,7 @@ function ProductDetail(props) {
     dispatch(GetSingleProduct(!State.length ? params._id : State.length))
   },[])
   const [imgs, setimgs] = useState(State?.image);
+  
   console.log(1);
   const atras = () => {
     navigate(-1);
@@ -110,6 +111,7 @@ function ProductDetail(props) {
     });
     dispatch(AddToCart(State?._id, count))}
   }
+
   function handleSetOrder(){
     dispatch(OrderSingleProduct(State?._id, count))
     navigate('/shipping')
