@@ -50,7 +50,7 @@ export default function Perfil() {
             
           {userState?.photo?(<img src={userState?.photo} alt="perfil-img"/>):
           (<img src={user.picture} alt="perfil-img"/>)}
-          {userState?.role!=="seller"?(<Link to="/perfil/altavendedor">
+          {!userState?.authorization.roles.includes("seller")?(<Link to="/perfil/altavendedor">
                 <button>
                 Alta de vendedor
                 </button>
@@ -59,8 +59,9 @@ export default function Perfil() {
             <div className={container_seller}> 
             
               <span>
-              <label>Redes Sociales:</label>
               <br /> 
+              <label>Redes Sociales:</label>
+              <br /> <br /> 
                   <div>
                     <label htmlFor="">facebook: {userState?.email}</label>
                   </div>
@@ -70,11 +71,11 @@ export default function Perfil() {
                   <div>
                     <label htmlFor="">instagram: {userState?.email}</label> 
                   </div>
-                 
             
               <label>
               <Link to="/perfil/redessociales">editar</Link>
                   </label>
+                  <br /> 
               </span>
               <span>
                 <div>
@@ -82,7 +83,7 @@ export default function Perfil() {
                 </div>
                 <div>
               <label>Marca:</label> 
-              <br />
+              <br /> <br /> 
                   <label> ropita de enanos</label>
                 </div>
                 <label htmlFor="">
@@ -101,19 +102,19 @@ export default function Perfil() {
                 Editar perfil
                 </button>
             </Link>
-            <Link to="/enano">
-                <button>
-                Administra el sitio
-                </button>
-            </Link>
+            {userState.authorization?.roles.includes("admin") ? (
+              <Link to="/enano">
+                <button>Administra el sitio</button>
+              </Link>
+            ) : null}
 
             
             
-            <Link to="/perfil/vendedor">
+            {userState?.authorization?.roles.includes("seller")?(<Link to="/perfil/vendedor">
                 <button>
                 Perfil de Vendedor
                 </button>
-            </Link>
+            </Link>):null}
             <Link to="/perfil/historial">
             <button>
                Historial de compras
@@ -148,7 +149,7 @@ export default function Perfil() {
           </div>)
           :null}
           <div>
-              Tipo de usuario: <h2>{userState?.role}</h2>
+              Tipo de usuario: {userState?.authorization?.roles.map(rol=><h2>{rol}</h2>)}
           </div>
           <div className={Text_intereses}>
             intereses: 

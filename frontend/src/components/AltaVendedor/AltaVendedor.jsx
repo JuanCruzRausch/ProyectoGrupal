@@ -4,15 +4,28 @@ import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
-import { updateSeller, patchToSeller } from "../../redux/actions/userAction"
-export default function AltaVededor() {
+import { updateSeller, patchToSeller, setUser } from "../../redux/actions/userAction"
+import { useNavigate } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
+export default function AltaVendedor() {
+  const [checkout, setCheckout] =  React.useState(false)
+  const { loginWithRedirect } = useAuth0();
+  const navigate = useNavigate()
   const seller = useSelector((state) => state.userReducer.seller)
   const user = useSelector((state) => state.userReducer.user);
+  const {isAuthenticated, user: auth0user} = useAuth0()
   const dispatch = useDispatch();
   const editSeller = (payload) => {
     return { type: "SET_SELLER", payload };
   };
   React.useEffect(()=>{
+    if (user?.authorization?.roles[0]==="seller"){
+      navigate("/perfil")
+    }
+    if (!isAuthenticated){
+      loginWithRedirect()
+    }
+
     dispatch(editSeller({
       ...seller,
       country: user?.country,
@@ -21,6 +34,7 @@ export default function AltaVededor() {
       :{...user?.address,  province: user?.address?.province}
     }))
   },[user])
+
   const sellerOnChange = (e, i) => {
     dispatch(
       editSeller({
@@ -39,10 +53,14 @@ export default function AltaVededor() {
 
   const onHandleSubmit = async(e) => {
     e.preventDefault()
-    dispatch(updateSeller({...seller,user: user._id}))
-    .then(()=> dispatch( patchToSeller( user._id)))
-    .then(()=> alert("success"))
-    .catch(error => console.log(error))
+    if(checkout){
+      dispatch(updateSeller({...seller,user: user._id}))
+      .then(()=> dispatch( patchToSeller( user._id)))
+      .then(()=> dispatch(setUser(auth0user)))
+      .then(()=> alert("success"))
+      .catch(error => console.log(error))
+      
+    }
     
   };
   return (
@@ -82,7 +100,7 @@ export default function AltaVededor() {
             value={seller?.country}
             aria-label="Default select example"
             name="country"
-            onChange={(e) => handleOnChange(e.target.name, e.target.value)}
+            onChange={(e) => sellerOnChange(e.target.name, e.target.value)}
           >
             <option value="" default>
               Seleccione un pais
@@ -97,7 +115,7 @@ export default function AltaVededor() {
           <Form.Select
             aria-label="Default select example"
             value={seller?.subsidiary?.province}
-            name="state"
+            name="province"
             onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
           >
             <option value="" disabled default>
@@ -152,7 +170,9 @@ export default function AltaVededor() {
             />
           </Form.Group>
           
-          <input require type="checkbox" name="condiciones" /><Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
+          <input require onChange={()=>  setCheckout(!checkout)} 
+          type="checkbox" name="condiciones" />
+          <Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
  
 
           </Form.Group>
