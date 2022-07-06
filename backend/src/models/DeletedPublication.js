@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const publicationTestSchema = new Schema({
+const DeletedPublicationSchema = new Schema({
   title: {
     type: String,
     required: [
@@ -31,7 +31,7 @@ const publicationTestSchema = new Schema({
       message: 'A promotion price must be lower than the base price',
     },
   },
-  earnings: {
+  finalPrice: {
     type: Number,
   },
   currency: {
@@ -45,7 +45,7 @@ const publicationTestSchema = new Schema({
   },
   seller: {
     type: Schema.Types.ObjectId,
-    ref: 'Seller',
+    ref: 'SellerDeleted',
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -140,6 +140,9 @@ const publicationTestSchema = new Schema({
   },
 });
 
-const PublicationTest = model('PublicationTest', publicationTestSchema);
+const DeletedPublication = model(
+  'DeletedPublication',
+  DeletedPublicationSchema
+);
 
-module.exports = PublicationTest;
+module.exports = DeletedPublication;

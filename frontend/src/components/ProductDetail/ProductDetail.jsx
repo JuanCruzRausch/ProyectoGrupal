@@ -43,6 +43,7 @@ import {
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
 import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
+
 function ProductDetail(props) {
   const dispatch = useDispatch()
   const [count, setcount] = useState(1);
