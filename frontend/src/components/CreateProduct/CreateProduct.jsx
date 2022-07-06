@@ -19,6 +19,7 @@ function CreateProduct() {
   const [combination, setCombination] = useState({});
   const [images, setImages] = useState([]);
   const [stockTotal, setStockTotal] = useState(0)
+  const {_id} = useSelector(state => state.userReducer.seller)
   const [data, setData] = useState({
     title: "",
     description: "",
@@ -119,7 +120,7 @@ function CreateProduct() {
       pictures: [],
       price: 0,
       currency: "",
-      seller: "62bf48e53682a40660d2c540",
+      seller: _id,
       category: "",
       subCategory: "",
       shipping: { shippingtype: "" },
@@ -405,14 +406,6 @@ function CreateProduct() {
               3 -máxima visualización- 
             </option>
           </Form.Select>
-
-          {/* <Form.Control
-            name="visibility"
-            value={data.visibility}
-            onChange={(e) => handleOnChange(e)}
-            required
-          /> */}
-
         </Form.Group>
         
         <div className={img}>
