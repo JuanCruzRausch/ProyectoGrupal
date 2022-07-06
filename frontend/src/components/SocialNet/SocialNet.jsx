@@ -10,7 +10,6 @@ export default function SocialNet() {
   const user = useSelector((state) => state.userReducer.user);
   const seller = useSelector((state) => state.userReducer.seller)
   const dispatch = useDispatch();
-
   const setSeller = (payload) => {
     return { type: "SET_SELLER", payload };
   };
