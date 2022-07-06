@@ -11,6 +11,8 @@ const sellerRouter = require('./routes/sellerRouter');
 const publicationTestRouter = require('./routes/publicationTestRouter');
 const qandaRouter = require('./routes/qandaRouter')
 const transactionsRouter = require('./routes/transactionsRouter');
+const deleteUserRouter = require('./routes/deleteUserRouter');
+
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.use('/categories', categoriesTestRouter);
 app.use('/subcategory', subCategoryRouter);
 app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
+app.use('/userdelete', deleteUserRouter);
 app.use('/users', userRouter);
 app.use('/publication', publicationRouter);
 app.use('/publicationtest', publicationTestRouter);
