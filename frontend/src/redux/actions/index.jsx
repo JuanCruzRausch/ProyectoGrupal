@@ -80,13 +80,17 @@ export function setActive(page) {
   }
 }
 
-export function BuscarProducto(title){
-  return function (dispatch){
-    return dispatch({
-      type: GET_PRODUCT,
-      payload: title
-    })
-  }
+export function BuscarProducto(title, min, max){
+  return async (dispatch)=>{
+    return (await axios(`http://localhost:5050/publicationtest/byName/${title}?price[lte]=${max}&price[gte]=${min}`)
+      .then((res)=>{
+        console.log(res.data.data)
+        return dispatch({
+          type: GET_PRODUCT,
+          payload: res.data.data
+        })
+      })
+    )}
 }
 
 export function getProductByCategory(id, min, max) {

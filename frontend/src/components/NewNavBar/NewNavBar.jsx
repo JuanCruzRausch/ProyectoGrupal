@@ -43,7 +43,7 @@ function NewNavBar(props) {
         (e) => e.title
       ),
     ];
-
+   
     const [display, setDisplay] = useState([...productsCache]);
     const [displayFlag, setDisplayFlag] = useState(false);
     const [togglemenu, settogglemenu] = useState(false)
@@ -74,7 +74,7 @@ function NewNavBar(props) {
       navigate('/');
       props.scrollTo();
       dispatch(setActive(1));
-      dispatch(BuscarProducto(search));
+      dispatch(BuscarProducto(search, min, max));
     };
   
     function searchOnChange(e) {
