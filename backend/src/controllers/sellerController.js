@@ -56,7 +56,7 @@ exports.patch = catchAsync (async (req,res,next) =>{
 exports.getSeller = catchAsync(async(req,res,next)=>{
     const {id} = req.params;
     const features = new apiFeatures(Seller.findOne({user:id}, req.query))
-        .limit();
+        .filter()
    
     const seller = await features.query;
 if(!seller){
