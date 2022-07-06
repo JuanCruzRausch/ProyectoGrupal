@@ -14,9 +14,7 @@ function FavReducer(state= FavInitialState, {type, payload}){
     switch (type) {
         case ADD_TO_FAV:
             const item = payload;
-
             localStorage.setItem('favs', JSON.stringify(item))
-
             const product = state.Favs.find(x => x.product === item.product); 
             if (product) {
               return {

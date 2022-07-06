@@ -7,6 +7,7 @@ import {
   PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
+  SINGLE_ITEM,
   CREATE_PRODUCT,
   GET_ALL_CATEGORIES,
   PUBLICATION_ALERT,
@@ -19,6 +20,7 @@ const initialState = {
   Allproduct: [],
   FilterProducts: [],
   Detail: [],
+  SingleItem:[],
   pagina: 1,
   Categories: [],
   signUpAlert: '',
@@ -29,6 +31,7 @@ const initialState = {
 };
 
 function productReducer(state = initialState, { type, payload }) {
+  
   switch (type) {
 
     case PUBLICATION_ALERT:
@@ -39,26 +42,32 @@ function productReducer(state = initialState, { type, payload }) {
         if(payload.max<=0) payload.max = Infinity
         if(payload.min<=0) payload.min = -Infinity
         return {...state, maxMinPrice: {max: payload.max, min: payload.min}}}
+
     case SIGN_UP_ALERT:
       return { ...state, signUpAlert: payload };
+
     case SET_PAGE:
       return { ...state, pagina: payload };
 
+    case SINGLE_ITEM:
+      return{
+        ...state,
+        SingleItem: payload
+      }
+
     case GET_ALL_CATEGORIES:
-    
       return {
         ...state,
         Categories:[...payload]
       }
 
     case GET_PRODUCTS_BY_CATEGORY:
-     
       return {
         ...state,
         Allproduct: [...payload],
       };
-    case GET_ALL_PRODUCTS:
 
+    case GET_ALL_PRODUCTS:
       return {
         ...state,
         allProductCache: payload,
@@ -71,14 +80,15 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct:[...payload]
       };
+
     case GET_PRODUCT_BY_ID:
       return {
         ...state,
         Detail: payload,
       };
+
     case ORDENADO:
       let sortArray = [...state.Allproduct];
-
       if (payload === 'A-Z')
         sortArray = sortArray.sort((a, b) => a.title.localeCompare(b.title));
       if (payload === 'Z-A')
@@ -90,7 +100,7 @@ function productReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         Allproduct: [...sortArray],
-      };
+      }
     default:
       return state;
   }

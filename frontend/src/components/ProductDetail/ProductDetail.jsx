@@ -41,25 +41,26 @@ import {
   SelectedImg,
 } from './ProductDetail.module.css';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
-import finalPropsSelectorFactory from 'react-redux/es/connect/selectorFactory';
+import { GetSingleProduct } from '../../redux/actions';
 
 function ProductDetail(props) {
   const dispatch = useDispatch()
   const [count, setcount] = useState(1);
   const params = useParams();
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
-  const State = useSelector((state) => state.productReducer.Allproduct);
+  const State = useSelector((state) => state.productReducer.SingleItem);
   const navigate = useNavigate();
-  console.log(params)
-  const RES = State?.find((e) => e._id === params._id);
-  console.log(RES)
-  const [imgs, setimgs] = useState(RES?.image);
 
+  useEffect(()=>{
+    dispatch(GetSingleProduct(!State.length ? params._id : State.length))
+  },[])
+  const [imgs, setimgs] = useState(State?.image);
+  console.log(1);
   const atras = () => {
     navigate(-1);
     props.scrollTo();
   };
-
+  console.log(1);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -70,9 +71,9 @@ function ProductDetail(props) {
   }, [selector]);
 
   function ADDtoCart(){
-    const hasProduct = selector.find(x => x.product === RES?._id)
+    const hasProduct = selector.find(x => x.product === State?._id)
     if(hasProduct){
-      if(hasProduct.quantity>=hasProduct.stock || hasProduct.stock - hasProduct.quantity - count < 0){
+      if(hasProduct.quantity>=hasProduct?.stock.stockTotal || hasProduct.stock.stockTotal - hasProduct.quantity - count < 0){
         toast.error('Se ha superado el limite de Stock disponible', {
           position: 'top-right',
           autoClose: 1000,
@@ -84,7 +85,7 @@ function ProductDetail(props) {
         });
       return
     }
-    else if(hasProduct.quantity>=hasProduct.stock === false){
+    else if(hasProduct.quantity>=hasProduct?.stock.stockTotal === false){
        toast.warning(`Ya se encuentra en su carrito, se agrego la cantidad seleccionada: ${count}`, {
          position: 'top-right',
          autoClose: 1000,
@@ -107,15 +108,15 @@ function ProductDetail(props) {
       draggable: true,
       progress: undefined,
     });
-    dispatch(AddToCart(RES?._id, count))}
+    dispatch(AddToCart(State?._id, count))}
   }
   function handleSetOrder(){
-    dispatch(OrderSingleProduct(RES?._id, count))
+    dispatch(OrderSingleProduct(State?._id, count))
     navigate('/shipping')
   }
   
   const handleSelect = (index) => {
-    setimgs(RES?.pictures[index]);
+    setimgs(State?.pictures[index]);
   };
 
 
@@ -127,45 +128,43 @@ function ProductDetail(props) {
           <img src={arrow} alt="back" />
           <button>Atras</button>
         </div>
-        <h2>{RES?.category.name}</h2>
+      <h2>{State?.category?.name} / {State?.subCategory?.name}</h2>
       </div>
       <div className={Detail_Item}>
         <div className={Detail_Item_image}>
           <div className={Detail_Item_pictures}>
-            {RES?.pictures
+            {State?.pictures
               ?.filter((e, i) => i <= 5)
               .map((e, i) => (
                 <img key={i} onClick={() => handleSelect(i)} src={e} />
               ))}
           </div>
-          <img className={SelectedImg} src={imgs} alt={RES?.title} />
+          <img className={SelectedImg} src={imgs} alt={State?.title} />
         </div>
         <div className={Detail_Item_text}>
-          <h1>{RES?.title}</h1>
+          <h1>{State?.title}</h1>
 
-          {RES?.stock ? <h2 className={Item_text_stock}>En stock</h2> : null}
+          {State?.stock?.stockTotal ? <h2 className={Item_text_stock}>En stock</h2> : null}
 
           <h2>
             <img src={gps} />
             <span>Ubicación</span> <br />
-            {RES?.province}
+            {State?.location}
           </h2>
 
-          {RES?.shipping.shippinType === "free" ? (
+          {State?.shipping?.shippingType === "free" ? (
             <h2 className={EnvioGratis}>Envio gratis</h2>
           ) : null}
 
           <h2>
             <span>Condición:</span> <br />
-            {RES?.condition === 'new' ? 'Nuevo' : 'Usado'}
+            {State?.condition === 'new' ? 'Nuevo' : 'Usado'}
           </h2>
         </div>
       </div>
-      {/* este codigo es nuevo, arreglale el CSS     */}
       <div >
         <form className={Detail_Description}>
-            {RES?.stock?.options?.map(option=>{
-              console.log(option)
+            {State?.stock?.options?.map(option=>{
           return(
             <div>
                <input type="radio" name="combination" value={option._id}/>
@@ -173,34 +172,23 @@ function ProductDetail(props) {
                 return(
                   <div >
                     <span key={combi._id}>
-                     
-                      <label htmlFor="">{combi.name}</label>
+                      <label htmlFor="">{combi.name}:</label>
+                      <br />
                       <label htmlFor="">{combi.value}</label>
-                     
                     </span>
-
-                  </div>
-                )
-              })}
-                                  <div>
-                                  <label htmlFor="">stock:</label>
-                    <label htmlFor="">{option.stock}</label>
-                    </div>
+                  </div>)})}  
             </div>
           )
         })}
         </form>
             </div>
       <div className={Detail_CountPrice}>
-        <h1>${RES?.price}</h1>
+        <h1>${State?.price}</h1>
         <Count
           onAdd={setcount}
           count={count}
-          stockTotal={RES?.stock?.stockTotal}
-          price={RES?.finalPrice}
+          stockTotal={State?.stock?.stockTotal}
         />
-
-
         <button onClick={()=> handleSetOrder()} className={ButtonCompra}>Comprar</button>
         <img className={CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
@@ -209,35 +197,16 @@ function ProductDetail(props) {
 
       <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
-          {RES?.seller ? (
+          {State?.seller ? (
             <div className={userData}>
               <img src={user} />
-              <h1>{RES?.seller.name}</h1>
-              <h2>{RES?.seller.reputation?.status}</h2>
+              <h1>{State?.seller.name}</h1>
+              <h2>{State?.seller.reputation?.status}</h2>
             </div>
           ) : null}
           <hr />
           <h2>Descripción</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea amet
-            culpa debitis iste beatae voluptatibus non ullam provident, quisquam
-            minus, veritatis enim deserunt ipsam eius reprehenderit ut, at
-            necessitatibus. Quae! Recusandae suscipit culpa fuga beatae
-            adipisci. Mollitia, ex eveniet debitis exercitationem tempore illum
-            amet incidunt libero perferendis reprehenderit laudantium iure quas
-            praesentium molestias quaerat dolor repellat neque corporis labore
-            consequatur.
-            <br />
-            Nemo voluptatum iusto tempore voluptates impedit numquam quod
-            temporibus nam velit facere repellat maiores ea laudantium, iste
-            alias voluptas unde quasi perspiciatis assumenda dolorum, dicta
-            molestias neque doloremque! Corrupti, doloremque?
-            <br />
-            Nihil doloribus autem tempore amet sequi reiciendis perferendis,
-            natus maiores minima veniam cupiditate nostrum dicta cum, eligendi
-            saepe in optio placeat? Perspiciatis enim impedit ex soluta et ea
-            pariatur reiciendis!
-          </p>
+          <p>{State?.description}</p>
         </div>
         <div className={Detail_Description_payment}>
           <h2>Medios de pago</h2>
