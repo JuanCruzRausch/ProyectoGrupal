@@ -31,7 +31,7 @@ const publicationTestSchema = new Schema({
       message: 'A promotion price must be lower than the base price',
     },
   },
-  finalPrice: {
+  earnings: {
     type: Number,
   },
   currency: {
@@ -97,6 +97,8 @@ const publicationTestSchema = new Schema({
           },
         ],
         stock: Number,
+        stock_price: Number,
+        stock_earnings: Number,
       },
     ],
   },

@@ -6,7 +6,7 @@ const AppError = require('../utils/appError');
 exports.post = catchAsync(async(req,res,next)=>{
     
     let userFind = await CommonUser.findOne({_id: req.body.user});
-    if(userFind.role === 'seller'){
+    if(userFind.authorization.roles.includes('seller')){
         return next(new AppError('The user is already logged as a Seller', 400))
     }
    
