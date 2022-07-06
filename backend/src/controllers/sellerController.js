@@ -1,12 +1,13 @@
 const Seller = require ('../models/Seller');
 const CommonUser = require('../models/CommonUser');
+const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 exports.post = catchAsync(async(req,res,next)=>{
     
     let userFind = await CommonUser.findOne({_id: req.body.user});
-    if(userFind.role === 'seller'){
+    if(userFind.authorization.roles.includes('seller')){
         return next(new AppError('The user is already logged as a Seller', 400))
     }
    
@@ -51,4 +52,23 @@ exports.patch = catchAsync (async (req,res,next) =>{
    
 
 });
+
+exports.getSeller = catchAsync(async(req,res,next)=>{
+    const {id} = req.params;
+    const features = new apiFeatures(Seller.findOne({user:id}, req.query))
+        .limit();
+   
+    const seller = await features.query;
+if(!seller){
+    return next(new AppError('No seller was found with the id', 404));
+}
+    res.status(200).json({
+        status: 'success',
+        data:{
+            seller,
+        },
+    });
+
+});
+
 
