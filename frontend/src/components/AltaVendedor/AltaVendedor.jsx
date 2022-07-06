@@ -90,7 +90,7 @@ export default function AltaVededor() {
             {countries
               .filter((e) => e.name_es !== "")
               .map((country) => (
-                <option value={country.name} key={country.id}>{country.name}</option>
+                <option key={country.id}>{country.name}</option>
               ))}
           </Form.Select>
           <Form.Label>Provincia</Form.Label>

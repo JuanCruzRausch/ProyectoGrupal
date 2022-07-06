@@ -7,10 +7,11 @@ export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_PRODUCT_BY_ID = 'GET_PRODUCT_BY_ID';
 export const SET_PAGE = 'SET_PAGE';
 export const SIGN_UP_ALERT = 'SIGN_UP_ALERT';
-export const MAX_AND_MIN_PRICE = "MAX_AND_MIN_PRICE";
+export const PRICE = "PRICE";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
+export const COUNT = "COUNT"
 // import categorias from '../../components/Json/Categorias'
 export function signUp(data) {
   return async (dispatch) => {
@@ -36,29 +37,40 @@ export function addPublication( data ) {
 
 export function getAllProducts() {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + 1 + "&&limit=640")
-     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
+    return axios(`http://localhost:5050/publicationtest?page=1` )
+     .then(res => 
+      dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
 
 export function getAllCategories(){
+  const arr=[]
   return async (dispatch) => {
     return axios("http://localhost:5050/categories")
-    .then(res => dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories}))
-  }
+    .then(res =>{ 
+      res.data.data.categories.forEach(element => {
+        axios("http://localhost:5050/publicationtest?category="+ element._id)
+        .then(res2=> {
+          arr.push({...element, count: res2.data.results})}) 
+        .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
+    })
+  })}
 }
+
 
 export function getPaginate(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publication?page=" + page + "&&limit=100")
-     .then(res => dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
+    return axios("http://localhost:5050/publicationtest?page" + page )
+     .then(res => 
+      dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
   }
 }
 
 export function setMaxMinPrice(filterPrice){
-  return { type: MAX_AND_MIN_PRICE, payload: filterPrice }
+  
+  return { type: PRICE, payload: filterPrice }
 }
 
 export function setActive(page) {
@@ -77,14 +89,16 @@ export function BuscarProducto(title){
   }
 }
 
-export function getProductByCategory(payload) {
-  return {
-      type: GET_PRODUCTS_BY_CATEGORY,
-      payload
+export function getProductByCategory(id, min, max) {
+  return async (dispatch) => {
+    return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
+    .then(res=> {
+      console.log(res)
+      dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
+    })
   };
 }
 export function GetProductById(_id){
-  console.log(_id);
   return{
     type: GET_PRODUCT_BY_ID,
     payload: _id,

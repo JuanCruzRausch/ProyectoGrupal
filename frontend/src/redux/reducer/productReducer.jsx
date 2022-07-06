@@ -1,16 +1,16 @@
-import categories from '../../components/Json/categories';
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_PRODUCTS_BY_CATEGORY,
   ORDENADO,
   SET_PAGE,
-  MAX_AND_MIN_PRICE,
+  PRICE,
   GET_PRODUCT,
   SIGN_UP_ALERT,
   CREATE_PRODUCT,
   GET_ALL_CATEGORIES,
-  PUBLICATION_ALERT
+  PUBLICATION_ALERT,
+  COUNT
 } from '../actions/index';
 
 const initialState = {
@@ -20,7 +20,6 @@ const initialState = {
   FilterProducts: [],
   Detail: [],
   pagina: 1,
-  categories,
   Categories: [],
   signUpAlert: '',
   maxMinPrice:{
@@ -31,9 +30,11 @@ const initialState = {
 
 function productReducer(state = initialState, { type, payload }) {
   switch (type) {
+
     case PUBLICATION_ALERT:
       return {...state, publicationAlert: payload}
-    case MAX_AND_MIN_PRICE:
+
+    case PRICE:
       if((payload.max-payload.min)>=0){
         if(payload.max<=0) payload.max = Infinity
         if(payload.min<=0) payload.min = -Infinity
@@ -42,35 +43,24 @@ function productReducer(state = initialState, { type, payload }) {
       return { ...state, signUpAlert: payload };
     case SET_PAGE:
       return { ...state, pagina: payload };
+
     case GET_ALL_CATEGORIES:
+    
       return {
         ...state,
-        Categories:payload
+        Categories:[...payload]
       }
+
     case GET_PRODUCTS_BY_CATEGORY:
-      const AllProd = state.allProductCache;
-      const filter =
-        payload === 'Todos'
-          ? AllProd
-          : AllProd.filter((e) => e.category.name === payload);
+     
       return {
         ...state,
-        Allproduct: filter.filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
+        Allproduct: [...payload],
       };
     case GET_ALL_PRODUCTS:
-      let categoriesCount = state.categories.map((category) => {
-        return { ...category, count: 0 };
-      });
-      categoriesCount.forEach((category) => {
-        payload.forEach((product, i) => {
-          if (product.category.name === category.name) {
-            category.count += 1;
-          }
-        });
-      });
+
       return {
         ...state,
-        categories: categoriesCount,
         allProductCache: payload,
         Allproduct: payload,
         Detail: payload,
@@ -81,7 +71,7 @@ function productReducer(state = initialState, { type, payload }) {
         ...state,
         Allproduct: state.allProductCache.filter((e) =>
           e.title.toLocaleLowerCase().includes(payload.toLocaleLowerCase())
-        ).filter(e=>e.price>=state.maxMinPrice.min&&e.price<=state.maxMinPrice.max),
+        )
       };
     case GET_PRODUCT_BY_ID:
       return {

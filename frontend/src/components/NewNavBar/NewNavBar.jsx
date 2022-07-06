@@ -37,6 +37,7 @@ function NewNavBar(props) {
     const dispatch = useDispatch();
     const mode = useSelector((state)=> state.darkMode)
     const { isdarkMode } = mode;
+    const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
     let productsCache = [
       ...useSelector((state) => state.productReducer.allProductCache).map(
         (e) => e.title
@@ -50,13 +51,13 @@ function NewNavBar(props) {
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
     const [search, setSearch] = useState('');
   
-    const categories = useSelector((state) => state.productReducer.categories);
+    const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
     const { user, isAuthenticated, isLoading } = useAuth0();
     const toggleNav = () =>{
         settogglemenu(!togglemenu)
     }
-
+ 
   useEffect(()=> {
     const changeWidth = () =>{
       setscreen(window.innerWidth)
@@ -88,13 +89,15 @@ function NewNavBar(props) {
       !e.target.value && setDisplayFlag(false);
     }
   
-    const handleOnSelectCategory = (e, name) => {
+    const handleOnSelectCategory = (e, categoryName) => {
       e.preventDefault();
-      window.scrollTo(0, 650);
-      navigate('/');
+      navigate("/")
       dispatch(setActive(1));
-      dispatch(getProductByCategory(name));
+      window.scrollTo(0, 650);
+      const cat = categories.find(cat => cat.name===categoryName)
+      dispatch(getProductByCategory(cat._id, min, max));
     };
+
     function refreshPage(e) {
       e.preventDefault();
       navigate('/');
@@ -122,7 +125,7 @@ function NewNavBar(props) {
                 {categories?.map((category) => {
                     return (
                     <NavDropdown.Item
-                        key={category.id}
+                        key={category._id}
                         className={DropdownA}
                         onClick={(e) => handleOnSelectCategory(e, category.name)}
                         href="#"
@@ -179,7 +182,8 @@ function NewNavBar(props) {
                     <LogoutButton />
                   </div>
                 ) : (                  
-                  <p>please verify you email </p>
+                  <p><LogoutButton />please verify you email </p>
+                  
                 )}
               </NavDropdown>
             </div>

@@ -6,6 +6,7 @@ import {
   getPaginate,
   ordenado,
   setActive,
+  getAllCategories
 } from '../../redux/actions/index';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
@@ -37,6 +38,10 @@ function Products({ refElement, scrollTo }) {
   const noProducts = () => {
     setTimeout(() => setLoading('enanos'), 10000);
   };
+
+  useEffect(()=>{
+    dispatch(getAllCategories())
+  },[])
 
   useEffect(() => {
     if (!productos?.length) {
@@ -100,7 +105,7 @@ function Products({ refElement, scrollTo }) {
                   ADDtoFav={() => handleAddtoFav(e._id)}
                   Shipping={e.freeShipping}
                   key={i}
-                  image={e.thumbnail}
+                  image={e.pictures[0]}
                   name={e.title}
                   price={e.price}
                   id={e._id}

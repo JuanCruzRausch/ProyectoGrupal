@@ -108,13 +108,13 @@ function ProductDetail(props) {
     dispatch(OrderSingleProduct(RES[0]?._id, count))
     navigate('/shipping')
   }
-  const RES = State?.filter((e) => e._id === params._id);
-
-  const [imgs, setimgs] = useState(RES[0]?.image);
-
+  
   const handleSelect = (index) => {
     setimgs(RES[0]?.pictures[index]);
   };
+
+
+
   return (
     <div className={Detail_container}>
       <div className={Detail_Links}>
