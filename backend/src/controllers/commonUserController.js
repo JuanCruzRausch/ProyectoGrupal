@@ -67,7 +67,7 @@ exports.getUserEmail = async (req, res, next) => {
 exports.toSeller = catchAsync(async (req, res, next) => {
   const userToSeller = await CommonUser.findByIdAndUpdate(
     req.params.id,
-    { role: 'seller' },
+    { authorization: { roles: ['seller'] } },
     {
       new: true,
       runValidators: true,
