@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
-import { getProductByCategory, setActive } from '../../redux/actions';
+import { getProductByCategory, ProductPerCategory, setActive } from '../../redux/actions';
 import PriceFilter from '../PriceFilter/PriceFilter';
 const Filter = (props) => {
 
@@ -15,6 +15,12 @@ const Filter = (props) => {
     dispatch(getProductByCategory(cat._id, min, max));
   };
 
+    useEffect(()=> {
+      categories.forEach((category) => {
+        dispatch(ProductPerCategory(category.name._id))
+      });
+    }, [])
+
   return (
     <div className={container}>
       <span>
@@ -23,9 +29,9 @@ const Filter = (props) => {
         <div className={subtitle}>Categorías</div>
         {categories?.map((category) => {
           return (
-            <div className={categoryItem} key={category.id}>
+            <div className={categoryItem} key={category.name.id}>
               <a
-                onClick={(e) => handleOnSelectCategory(e, category.name)}
+                onClick={(e) => handleOnSelectCategory(e, category.name.name)}
                 href="#"
               >
                 {category.name||"subcategorías"} ({category.count || 0})
