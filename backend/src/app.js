@@ -9,8 +9,9 @@ const commonUserRouter = require('./routes/commonUserRouter');
 const subCategoryRouter = require('./routes/subCategoryRouter');
 const sellerRouter = require('./routes/sellerRouter');
 const publicationTestRouter = require('./routes/publicationTestRouter');
-const qandaRouter = require('./routes/qandaRouter')
+const qandaRouter = require('./routes/qandaRouter');
 const transactionsRouter = require('./routes/transactionsRouter');
+const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 
 const app = express();
 
@@ -23,7 +24,10 @@ app.use((req, res, next) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
   );
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  );
   next();
 });
 
@@ -36,7 +40,8 @@ app.use('/users', userRouter);
 app.use('/publication', publicationRouter);
 app.use('/publicationtest', publicationTestRouter);
 app.use('/qanda', qandaRouter);
-app.use('/transactions', transactionsRouter)
+app.use('/transactions', transactionsRouter);
+//app.use('/deletedpublication', deletedPublicationRouter);
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
