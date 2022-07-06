@@ -164,29 +164,27 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
 });
 
 exports.getPublicationByName = catchAsync(async (req, res, next) => {
-  const { title } = req.params;
-  if (!title) return next(new AppError('ID is required, 400'));
 
-  const publi = await PublicationTest.find({})
-    .select('-__v')
-    .populate({
-      path: 'seller',
-      select: '-user -non_answered -answered -inactive_pub -__v',
-    })
-    .populate({ path: 'category', select: '-subcategories -__v' })
-    .populate({ path: 'subCategory', select: '-properties -__v' })
-    .populate({ path: 'questions' })
-    .populate({ path: 'transactions' });
+  const {title} = req.params
 
-    if (!publi) {
+  const features = new apiFeatures(PublicationTest.find(), req.query)
+  .filter()
+  .sort()
+  .limit()
+  .paginate();
+  if (!title) return next(new AppError('Title is required, 400'));
+
+  const publications = await features.query;
+
+  const search = publications.filter(e => e.title.toLowerCase().startsWith(title.toLowerCase()))
+
+    if (!publications) {
       return next(new AppError('The id does not match with any product', 404));
     }
-  const search = publi.filter(e=> e.title.toLowerCase().startsWith(title.toLowerCase()))
+
   res.status(200).json({
     status: 'success',
-    data: {
-      search,
-    },
+    data: search,
   });
 });
 
