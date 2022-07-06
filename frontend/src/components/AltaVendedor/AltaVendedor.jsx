@@ -82,7 +82,7 @@ export default function AltaVededor() {
             value={seller?.country}
             aria-label="Default select example"
             name="country"
-            onChange={(e) => handleOnChange(e.target.name, e.target.value)}
+            onChange={(e) => sellerOnChange(e.target.name, e.target.value)}
           >
             <option value="" default>
               Seleccione un pais
@@ -97,7 +97,7 @@ export default function AltaVededor() {
           <Form.Select
             aria-label="Default select example"
             value={seller?.subsidiary?.province}
-            name="state"
+            name="province"
             onChange={(e) => subsidiaryOnChange(e.target.name, e.target.value)}
           >
             <option value="" disabled default>
