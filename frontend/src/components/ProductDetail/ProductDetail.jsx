@@ -49,6 +49,10 @@ function ProductDetail(props) {
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   const State = useSelector((state) => state.productReducer.Allproduct);
   const navigate = useNavigate();
+  console.log(params)
+  const RES = State?.find((e) => e._id === params._id);
+  console.log(RES)
+  const [imgs, setimgs] = useState(RES?.image);
 
   const atras = () => {
     navigate(-1);
@@ -65,7 +69,7 @@ function ProductDetail(props) {
   }, [selector]);
 
   function ADDtoCart(){
-    const hasProduct = selector.find(x => x.product === RES[0]?._id)
+    const hasProduct = selector.find(x => x.product === RES?._id)
     if(hasProduct){
       if(hasProduct.quantity>=hasProduct.stock || hasProduct.stock - hasProduct.quantity - count < 0){
         toast.error('Se ha superado el limite de Stock disponible', {
@@ -89,7 +93,7 @@ function ProductDetail(props) {
          draggable: true,
          progress: undefined,
        })
-       dispatch(AddToCart(RES[0]?._id, count))
+       dispatch(AddToCart(RES?._id, count))
      }
   }
   else {
@@ -102,15 +106,15 @@ function ProductDetail(props) {
       draggable: true,
       progress: undefined,
     });
-    dispatch(AddToCart(RES[0]?._id, count))}
+    dispatch(AddToCart(RES?._id, count))}
   }
   function handleSetOrder(){
-    dispatch(OrderSingleProduct(RES[0]?._id, count))
+    dispatch(OrderSingleProduct(RES?._id, count))
     navigate('/shipping')
   }
   
   const handleSelect = (index) => {
-    setimgs(RES[0]?.pictures[index]);
+    setimgs(RES?.pictures[index]);
   };
 
 
@@ -122,62 +126,84 @@ function ProductDetail(props) {
           <img src={arrow} alt="back" />
           <button>Atras</button>
         </div>
-        <h2>{RES[0]?.category.name}</h2>
+        <h2>{RES?.category.name}</h2>
       </div>
       <div className={Detail_Item}>
         <div className={Detail_Item_image}>
           <div className={Detail_Item_pictures}>
-            {RES[0]?.pictures
+            {RES?.pictures
               ?.filter((e, i) => i <= 5)
               .map((e, i) => (
                 <img key={i} onClick={() => handleSelect(i)} src={e} />
               ))}
           </div>
-          <img className={SelectedImg} src={imgs} alt={RES[0]?.title} />
+          <img className={SelectedImg} src={imgs} alt={RES?.title} />
         </div>
         <div className={Detail_Item_text}>
-          <h1>{RES[0]?.title}</h1>
+          <h1>{RES?.title}</h1>
 
-          {RES[0]?.stock ? <h2 className={Item_text_stock}>En stock</h2> : null}
+          {RES?.stock ? <h2 className={Item_text_stock}>En stock</h2> : null}
 
           <h2>
             <img src={gps} />
             <span>Ubicación</span> <br />
-            {RES[0]?.province}
+            {RES?.province}
           </h2>
 
-          {RES[0]?.freeShipping === true ? (
+          {RES?.shipping.shippinType === "free" ? (
             <h2 className={EnvioGratis}>Envio gratis</h2>
           ) : null}
 
           <h2>
             <span>Condición:</span> <br />
-            {RES[0]?.condition === 'new' ? 'Nuevo' : 'Usado'}
+            {RES?.condition === 'new' ? 'Nuevo' : 'Usado'}
           </h2>
         </div>
       </div>
-
-
+      {/* este codigo es nuevo, arreglale el CSS     */}
       <div className={Detail_CountPrice}>
-        <h1>${RES[0]?.price}</h1>
+        
+            {RES?.stock?.options?.map(option=>{
+              console.log(option)
+          return(
+            <div className={Detail_Description}>
+              {option?.combination?.map(combi=>{
+                return(
+                  <div >
+                    <span key={combi._id}>
+                      <label htmlFor="">{combi.name}</label>
+                      <label htmlFor="">{combi.value}</label>
+                    </span>
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+            </div>
+      <div className={Detail_CountPrice}>
+        <h1>${RES?.price}</h1>
         <Count
           onAdd={setcount}
           count={count}
-          stock={RES[0]?.stock}
-          price={RES[0]?.price}
+          stockTotal={RES?.stock?.stockTotal}
+          price={RES?.finalPrice}
         />
+
+
         <button onClick={()=> handleSetOrder()} className={ButtonCompra}>Comprar</button>
         <img className={CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
 
+           
 
       <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
-          {RES[0]?.seller ? (
+          {RES?.seller ? (
             <div className={userData}>
               <img src={user} />
-              <h1>{RES[0]?.seller.name}</h1>
-              <h2>{RES[0]?.seller.reputation?.status}</h2>
+              <h1>{RES?.seller.name}</h1>
+              <h2>{RES?.seller.reputation?.status}</h2>
             </div>
           ) : null}
           <hr />
