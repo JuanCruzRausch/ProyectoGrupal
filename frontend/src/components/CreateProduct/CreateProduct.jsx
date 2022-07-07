@@ -3,8 +3,13 @@ import { useState } from "react";
 import low from '../../assets/img/icons_Products/podium_last.png'
 import medium from '../../assets/img/icons_Products/podium_second.png'
 import high from '../../assets/img/icons_Products/podium_first.png'
+import free from '../../assets/img/icons_Products/free.png'
+import normal from '../../assets/img/icons_Products/correo.png'
+import seller from '../../assets/img/icons_Products/seller.png'
+import pickup from '../../assets/img/icons_Products/-person.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { CreateDiv, logo, img, linea ,FormImage,Visibility,ShippingType, CreateForm,SegundaParte } from "./CreateProduct.module.css";
 import { CreateDiv, logo, img, linea ,FormImage, Visibility } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
@@ -29,7 +34,7 @@ function CreateProduct() {
     pictures: [],
     price: 0,
     currency: "",
-    seller: _id,
+    seller:_id,
     category: "",
     subCategory: "",
     shipping: { shippingtype: "" },
@@ -157,8 +162,7 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-
-      <Form onSubmit={(e) => handleOnSubmit(e)}>
+      <Form onSubmit={(e) => handleOnSubmit(e)} className={CreateForm}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
           <Form.Control
@@ -307,30 +311,61 @@ function CreateProduct() {
             </Form>
           ) : null}
 
-          <Form.Label>Envío</Form.Label>
+    { data.title.length > 0 && data.description.length > 0 && data.category.length >0 && data.subCategory.length > 0 ? 
+      <div className={SegundaParte}>
+          <Form.Label>Envío: </Form.Label>
+          <form 
+            className={ShippingType}
+            value={data.shipping.shippingtype}
+            name="shippingtype"
+            onChange={(e) => handleShipping(e)}>
+            <div>
+              <input type="radio" value="free" name="shippingtype" />
+              <img src={free}/>
+              <label htmlFor=""> Envío gratis</label>
+            </div>
+            <div>
+               <input type="radio" value="normal" name="shippingtype" />
+                <img src={normal}/>
+                <label htmlFor="">Envio por Correo</label>
+            </div>
+            <div>
+              <input type="radio" value="seller" name="shippingtype" />
+              <img src={seller}/>
+              <label htmlFor="">Acordar con el comprador</label>
+            </div>
+            <div>
+              <input type="radio" value="pickup" name="shippingtype" />
+              <img src={pickup}/>
+              <label htmlFor="">Retiro por sucursal</label>
+            </div>
+        </form>
 
-          <Form.Select
+          {/* <Form.Select
             required
             aria-label="Default select example"
             value={data.shipping.shippingtype}
             name="shippingtype"
             onChange={(e) => handleShipping(e)}>
             <option value="" disabled default>
-              Seleccione un tipo de envío
+            Seleccione un tipo de envío
             </option>
             <option value="free">
-              Envío gratis
+            Envío gratis
             </option>
             <option value="normal">
-              Envio por Correo
+            Envio por Correo
             </option>
             <option value="seller">
-              Acordar con el comprador 
+            Acordar con el comprador 
             </option>
             <option value="pickup">
-              Retiro por sucursal
+            Retiro por sucursal
             </option>
-          </Form.Select>
+          </Form.Select> */}
+
+
+
           <Form.Label>Condición</Form.Label>
           <Form.Select
             aria-label="Default select example"
@@ -349,14 +384,14 @@ function CreateProduct() {
             value={data.brand}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Ubicación</Form.Label>
           <Form.Select
             aria-label="Default select example"
             value={data.location}
             name="location"
             onChange={(e) => handleOnChange(e)}
-          >
+            >
             <option value="" disabled default>
               Seleccione una provincia
             </option>
@@ -368,8 +403,27 @@ function CreateProduct() {
                 </option>
               ))}
           </Form.Select>
-
-                    <Form.Label>Visibilidad</Form.Label>
+          {/* <Form.Label>Visibilidad</Form.Label>
+          <Form.Select
+          aria-label="Default select example"
+          value={data.visibility}
+          name="visibility"
+          onChange={(e) => handleOnChange(e)}>
+          <option value="" disabled default>
+          Seleccione un tipo de visualizacion
+          </option>
+          <option value="1">
+          1 -poca visualizacion-
+          </option>
+          <option value="2">
+          2 -visualización intermedia-
+          </option>
+          <option value="3">
+          3 -máxima visualización- 
+          </option>
+        </Form.Select> */}
+          <Form.Label>Visualización</Form.Label>
+          <Form.Label>Visibilidad</Form.Label>
           <form 
             className={Visibility}
             value={data.visibility}
@@ -391,8 +445,10 @@ function CreateProduct() {
               <label htmlFor="">poca visualizacion</label>
             </div>
         </form>
+      </div>
+        : null
+                }
         </Form.Group>
-        
         <div className={img}>
           <div>
             <h1>
@@ -405,6 +461,20 @@ function CreateProduct() {
         </div>
       </Form>
       <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+      </div>
+      );
+    }
+    export default CreateProduct;
         position="top-right"
         autoClose={1000}
         hideProgressBar={false}
@@ -418,5 +488,4 @@ function CreateProduct() {
     </div>
   );
 }
-
 export default CreateProduct;
