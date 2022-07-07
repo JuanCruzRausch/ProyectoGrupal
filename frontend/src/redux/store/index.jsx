@@ -6,9 +6,11 @@ import CartReducer from '../reducer/CartReducer'
 import userReducer from '../reducer/userReducer'
 import FavReducer from '../reducer/FavReducer';
 import darkModeReducer from '../reducer/DarkmodeReducer';
+import interactionsReducer from "../reducer/InteractionsReducer"
 const initialState = {};
 
 const rootReducer = combineReducers({
+  interactionsReducer,
   productReducer,
   CartReducer,
   userReducer,
