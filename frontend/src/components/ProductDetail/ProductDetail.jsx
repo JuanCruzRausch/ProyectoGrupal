@@ -17,6 +17,8 @@ import gps from '../../assets/img/gps.png';
 import user from '../../assets/img/user.png';
 import arrow from '../../assets/img/leftarrow.png';
 import { ToastContainer, toast } from 'react-toastify';
+import Chat from "../Chat/Chat"
+import io from "socket.io-client"
 import {
   Detail_container,
   Detail_Links,
@@ -43,6 +45,8 @@ import {
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
 import Rating from '../Rating/Rating';
+
+const socket = io.connect("http://localhost:5050")
 
 function ProductDetail(props) {
   const dispatch = useDispatch()
@@ -269,6 +273,7 @@ function ProductDetail(props) {
           <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
           <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
         </div>
+        <Chat socket={socket}/>
       </div>
       <ToastContainer
         position="top-right"
