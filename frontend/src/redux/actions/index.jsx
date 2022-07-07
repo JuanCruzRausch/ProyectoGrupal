@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { Axios } from 'axios'
 export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY';
@@ -15,6 +15,7 @@ export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 export const COUNT = "COUNT";
 export const SINGLE_ITEM = "SINGLE_ITEM";
 export const SET_LOADING = "SET_LOADING"
+export const DELETE_PUBLICATION = "DELETE_PUBLICATION"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -127,14 +128,12 @@ export function getProductByCategory(id, min, max) {
     })
   };
 }
-export const deleteProduct = (id,userID, sellerId) => {
-  console.log("id product", id,"user: ", userID)
+export function deleteProduct(id,userID){
   return async (dispatch) => {
-    return axios.post(`http://localhost:5050/seller/${id}/${userID}`)
-    .then(res => {
-      dispatch(publicationSeller(sellerId))
+    return axios.post("http://localhost:5050/seller/"+id+"/"+userID)
+    .then(res =>{
+      dispatch({type: DELETE_PUBLICATION, id})
     })
-    .catch(e=> console.log(e))
   }
 }
 export function GetProductById(_id){

@@ -9,6 +9,7 @@ import {
   SIGN_UP_ALERT,
   SINGLE_ITEM,
   CREATE_PRODUCT,
+  DELETE_PUBLICATION,
   GET_ALL_CATEGORIES,
   PUBLICATION_ALERT,
   COUNT,
@@ -75,7 +76,12 @@ function productReducer(state = initialState, { type, payload }) {
         Allproduct: [...payload],
         loading: payload.length>0?"none":"enanos"
       };
-
+    case DELETE_PUBLICATION:
+      console.log(payload);
+      return{
+        ...state,
+        publicationSeller: state.productReducer.publicationSeller.filer(e => e.id !== payload)
+      }
     case GET_ALL_PRODUCTS:
       return {
         ...state,
