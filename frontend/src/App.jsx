@@ -25,6 +25,7 @@ import Error from "./components/Error/Error";
 import SocialNet from "./components/SocialNet/SocialNet";
 import Brand from "./components/Brand/Brand";
 import Historial from "./components/Historial/Historial";
+import Rating from "./components/Rating/Rating";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,19 +57,20 @@ function App() {
         </label>
         </div>
         <Routes>
+          <Route path="/perfil/historial/rating" element={ <Rating /> }/>
           <Route path="/perfil/historial" element={ <Historial /> } />
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
           <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
+          <Route path="/perfil/marca" element={<Brand />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/editar" element={<PerfilEditar />} />
+          <Route path="/perfil/redessociales" element={<SocialNet />} />
           <Route path="/enano" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
-          <Route path="/perfil/marca" element={<Brand />} />
           <Route path="/favoritos" element={<Favoritos />} />
-          <Route path="/perfil/redessociales" element={<SocialNet />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/placeorder" element={<PlaceOrder/>}/>
           <Route path="/shipping" element={<ShippingAddress />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="*" element={ <Error /> } />

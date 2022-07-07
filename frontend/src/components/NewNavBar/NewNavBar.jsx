@@ -23,7 +23,8 @@ import {
   getProductByCategory,
   BuscarProducto,
   setActive,
-  publicationSeller
+  publicationSeller,
+  getAllProducts
 } from '../../redux/actions/index';
 import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
@@ -99,6 +100,10 @@ function NewNavBar(props) {
   
     function searchOnChange(e) {
       setSearch(e.target.value);
+      if(e.target.value === ""){
+        dispatch(getAllProducts())
+      }
+      else{
       setDisplay([...productsCache]);
       setDisplay([
         ...productsCache.filter((e) =>
@@ -108,6 +113,7 @@ function NewNavBar(props) {
       e.target.value && setDisplayFlag(true);
       !e.target.value && setDisplayFlag(false);
     }
+  }
   
     const handleOnSelectCategory = (e, categoryName) => {
       e.preventDefault();
