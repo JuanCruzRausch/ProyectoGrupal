@@ -138,6 +138,9 @@ const publicationTestSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'Transaction',
   },
+  rating: {
+    type: Number,
+  },
 });
 
 const PublicationTest = model('PublicationTest', publicationTestSchema);

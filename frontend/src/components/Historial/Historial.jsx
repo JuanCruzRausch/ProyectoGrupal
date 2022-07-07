@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import StarRating from '../Rating/StarRating'
 import {historial, SingleProduct, ItemsContainer} from './Historial.module.css'
 function Historial() {
   return (
@@ -11,6 +13,10 @@ function Historial() {
             <h2>$8250</h2>
             <h3>Entregado</h3>
             <h3>Fecha de compra 23/2/22</h3>
+            <div>
+              <h2>Tu calificacion</h2>
+              < StarRating  />
+            </div>
         </div>
     </div>
   </div>
