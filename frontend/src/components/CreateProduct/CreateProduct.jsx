@@ -51,6 +51,7 @@ function CreateProduct() {
         icon: "success",
       });
     }
+  
     if (alert === "error") {
       swal({
         title: `Error en la publicación`,
@@ -116,23 +117,7 @@ function CreateProduct() {
         subCategory: objects?._id,
       })
     );
-    setImages([])
-    setData({
-      title: "",
-      description: "",
-      pictures: [],
-      price: 0,
-      currency: "",
-      seller: _id,
-      category: "",
-      subCategory: "",
-      shipping: { shippingtype: "" },
-      condition: "",
-      stock: { options: [] },
-      brand: "",
-      location: "",
-      visibility: 0,
-    })
+    
   }
   function submitStock(e) {
     e.preventDefault();
@@ -380,25 +365,7 @@ function CreateProduct() {
                 </option>
               ))}
           </Form.Select>
-          {/* <Form.Label>Visibilidad</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            value={data.visibility}
-            name="visibility"
-            onChange={(e) => handleOnChange(e)}>
-            <option value="" disabled default>
-              Seleccione un tipo de visualizacion
-            </option>
-            <option value="1">
-              1 -poca visualizacion-
-            </option>
-            <option value="2">
-              2 -visualización intermedia-
-            </option>
-            <option value="3">
-              3 -máxima visualización- 
-            </option>
-          </Form.Select> */}
+
                     <Form.Label>Visibilidad</Form.Label>
           <form 
             className={Visibility}
@@ -406,17 +373,17 @@ function CreateProduct() {
             name="visibility"
             onChange={(e) => handleOnChange(e)}>
             <div>
-              <input type="radio" value="3" name="combination" />
+              <input type="radio" value="3" name="visibility" />
               <img src={high}/>
               <label htmlFor="">máxima visualización</label>
             </div>
             <div>
-               <input type="radio" value="2" name="combination" />
+               <input type="radio" value="2" name="visibility" />
                 <img src={medium}/>
                 <label htmlFor="">visualización intermedia</label>
             </div>
             <div>
-              <input type="radio" value="1" name="combination" />
+              <input type="radio" value="1" name="visibility" />
               <img src={low}/>
               <label htmlFor="">poca visualizacion</label>
             </div>

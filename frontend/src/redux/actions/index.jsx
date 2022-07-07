@@ -13,6 +13,7 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 export const COUNT = "COUNT";
 export const SINGLE_ITEM = "SINGLE_ITEM";
+export const SET_LOADING = "SET_LOADING"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -29,6 +30,9 @@ export function signUp(data) {
   }
 }
 
+export function setAlert() {
+  return {type: PUBLICATION_ALERT, payload: "none"}
+}
 export function addPublication( data ) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/publicationtest", data)
@@ -39,6 +43,7 @@ export function addPublication( data ) {
 
 export function getAllProducts() {
   return async (dispatch) => {
+    dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?page=1` )
      .then(res => 
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
@@ -94,6 +99,7 @@ export function setActive(page) {
 
 export function BuscarProducto(title, min, max){
   return async (dispatch)=>{
+    dispatch({type:SET_LOADING, payload:"spin"})
     return (await axios(`http://localhost:5050/publicationtest/byName/${title}?price[lte]=${max}&price[gte]=${min}`)
       .then((res)=>{
         console.log(res.data.data)
@@ -107,6 +113,7 @@ export function BuscarProducto(title, min, max){
 
 export function getProductByCategory(id, min, max) {
   return async (dispatch) => {
+    dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
     .then(res=> {
       console.log(res)

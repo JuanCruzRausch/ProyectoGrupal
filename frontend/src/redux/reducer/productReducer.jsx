@@ -11,7 +11,8 @@ import {
   CREATE_PRODUCT,
   GET_ALL_CATEGORIES,
   PUBLICATION_ALERT,
-  COUNT
+  COUNT,
+  SET_LOADING
 } from '../actions/index';
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   Allproduct: [],
   FilterProducts: [],
   Detail: [],
+  loading:"none",
   SingleItem:[],
   pagina: 1,
   Categories: [],
@@ -34,6 +36,8 @@ function productReducer(state = initialState, { type, payload }) {
   
   switch (type) {
 
+    case SET_LOADING:
+      return {...state, loading: payload}
     case PUBLICATION_ALERT:
       return {...state, publicationAlert: payload}
 
@@ -65,6 +69,7 @@ function productReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         Allproduct: [...payload],
+        loading: payload.length>0?"none":"enanos"
       };
 
     case GET_ALL_PRODUCTS:
@@ -73,12 +78,14 @@ function productReducer(state = initialState, { type, payload }) {
         allProductCache: payload,
         Allproduct: payload,
         Detail: payload,
+        loading: payload.length>0?"none":"enanos"
       };
 
     case GET_PRODUCT:
       return {
         ...state,
-        Allproduct:[...payload]
+        Allproduct:[...payload],
+        loading: payload.length>0?"none":"enanos"
       };
 
     case GET_PRODUCT_BY_ID:
