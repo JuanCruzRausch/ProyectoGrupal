@@ -220,3 +220,19 @@ exports.postImages = catchAsync(async (req, res, next) => {
     });
   }
 });
+
+exports.getProductsBySeller = catchAsync(async(req,res,next)=>{
+    const {id} = req.params
+
+    const allSellerProducts = await PublicationTest.find({seller : id});
+    
+    if(!allSellerProducts){
+      return next(new AppError('There are no products posted from that seller', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: allSellerProducts
+    })
+
+});
