@@ -25,6 +25,10 @@ import Error from "./components/Error/Error";
 import SocialNet from "./components/SocialNet/SocialNet";
 import Brand from "./components/Brand/Brand";
 import Historial from "./components/Historial/Historial";
+import socketIO from "socket.io-client";
+import { useEffect } from "react";
+
+const WS = "http://localhost:5050"
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +40,10 @@ function App() {
       : dispatch(handledarkMode(true));
   };
   const scrollTo = useRef();
+  useEffect(()=>{
+    socketIO(WS)
+  },[])
+
   const scrollToSort = () => {
     scrollTo.current.scrollIntoView();
   };

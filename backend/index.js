@@ -1,9 +1,15 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
+const {Server} = require('socket.io')
 dotenv.config({ path: "./.env" });
 const app = require("./src/app");
+const cors = require("cors")
 
+app.use(cors)
+
+
+// const http = require("http");
+// const serverIO = http.createServer(app)
 const DB = process.env.database.replace("<password>", process.env.passwordDB);
 
 mongoose
@@ -21,3 +27,15 @@ const port = process.env.port || 5050;
 const server = app.listen(port, () => {
   console.log(`Aplicacion corriendo en el puerto ${port}...`);
 });
+
+const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
+
+io.on("connection", (socket)=>{
+  console.log("user connected")
+  socket.on("disconnect", ()=>{
+    console.log("user is disconected")
+  })
+})
+
+
+
