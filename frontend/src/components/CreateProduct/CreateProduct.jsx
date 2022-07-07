@@ -16,11 +16,15 @@ import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
 import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
 import swal from "sweetalert";
+import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer, toast } from "react-toastify";
+import LoginButton from "../Auth0/login";
 
 function CreateProduct() {
+  const { isAuthenticated } = useAuth0();
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
   const alert = useSelector((state) => state.productReducer.publicationAlert);
+  const userState = useSelector( state => state.userReducer.user)
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
@@ -36,7 +40,7 @@ function CreateProduct() {
     seller:_id,
     category: "",
     subCategory: "",
-    shipping: { shippingtype: "" },
+    shipping: { shippingType: "" },
     condition: "",
     stock: { options: [] },
     brand: "",
@@ -47,7 +51,7 @@ function CreateProduct() {
   const objects = subcategories?.subcategories.find(
     (e) => e.name === data.subCategory
   );
-
+console.log(data);
   useEffect(() => {
     if (alert === "success") {
       swal({
@@ -75,7 +79,7 @@ function CreateProduct() {
   function handleShipping(e) {
     setData({
       ...data,
-      shipping: { shippingtype: e.target.value },
+      shipping: { shippingType: e.target.value },
     });
   }
   function handleCombinations(e, i) {
@@ -160,6 +164,9 @@ function CreateProduct() {
 
   return (
     <div className={CreateDiv}>
+      {
+    userState?.authorization?.roles.includes('seller')  ?
+      <div>
       <h1>Publica tu Producto</h1>
       <Form onSubmit={(e) => handleOnSubmit(e)} className={CreateForm}>
         <Form.Group className="mb-3" controlId="name">
@@ -171,7 +178,7 @@ function CreateProduct() {
             value={data.title}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
             name="description"
@@ -181,7 +188,7 @@ function CreateProduct() {
             placeholder="Describa su producto.."
             rows={4}
             required
-          />
+            />
           <Form.Label>Imagenes (.jpg .jpeg .png)</Form.Label>
           <Form.Control
             type="file"
@@ -189,7 +196,7 @@ function CreateProduct() {
             onChange={(e) => handleOnChangeImages(e.target.files)}
             required
             className={FormImage}
-          />
+            />
           <div >
             {images.length > 0 &&
               images.map((e, i) => (
@@ -219,28 +226,28 @@ function CreateProduct() {
             value={data.price}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Categoria</Form.Label>
           <Form.Select
             aria-label="Default select example"
             value={data.category}
             name="category"
             onChange={(e) => handleOnChange(e)}
-          >
+            >
             <option value="" disabled default>
               Seleccione una categoria
             </option>
             {CATEGORIAS?.filter((e) => e.name !== "").map((e) => (
               <option key={e.id}>{e.name}</option>
-            ))}
+              ))}
           </Form.Select>
           {subcategories ? <Form.Label>Sub-Categoria</Form.Label> : null}
           {subcategories ? (
             <Form.Select
-              aria-label="Default select example"
-              value={data.subCategory}
-              name="subCategory"
-              onChange={(e) => handleOnChange(e)}
+            aria-label="Default select example"
+            value={data.subCategory}
+            name="subCategory"
+            onChange={(e) => handleOnChange(e)}
             >
               <option value="" disabled default>
                 Seleccione una categoria
@@ -277,15 +284,15 @@ function CreateProduct() {
                       </option>
                       {e.options.map((e, i) => (
                         <option key={i}>{e}</option>
-                      ))}
+                        ))}
                     </Form.Select>
                   ) : (
                     <Form.Control
                     name={e.nameprop}
                     value={combination[i]?.value}
                     onChange={(e) => handleCombinations(e, i)}
-                  />
-                  )}
+                    />
+                    )}
                 </div>
               ))}
               <Form.Label>Stock</Form.Label>
@@ -295,7 +302,7 @@ function CreateProduct() {
                 value={stock}
                 onChange={(e) => handleStock(e)}
                 required
-              />
+                />
               <div className={img}>
                 <div>
                   <button onClick={(e) => submitStock(e)}>Agregar Stock</button>
@@ -315,26 +322,26 @@ function CreateProduct() {
           <Form.Label>Envío: </Form.Label>
           <form 
             className={ShippingType}
-            value={data.shipping.shippingtype}
-            name="shippingtype"
+            value={data.shipping.shippingType}
+            name="shippingType"
             onChange={(e) => handleShipping(e)}>
             <div>
-              <input type="radio" value="free" name="shippingtype" />
+              <input type="radio" value="free" name="shippingType" />
               <img src={free}/>
               <label htmlFor=""> Envío gratis</label>
             </div>
             <div>
-               <input type="radio" value="normal" name="shippingtype" />
+               <input type="radio" value="normal" name="shippingType" />
                 <img src={normal}/>
                 <label htmlFor="">Envio por Correo</label>
             </div>
             <div>
-              <input type="radio" value="seller" name="shippingtype" />
+              <input type="radio" value="seller" name="shippingType" />
               <img src={seller}/>
               <label htmlFor="">Acordar con el comprador</label>
             </div>
             <div>
-              <input type="radio" value="pickup" name="shippingtype" />
+              <input type="radio" value="pickup" name="shippingType" />
               <img src={pickup}/>
               <label htmlFor="">Retiro por sucursal</label>
             </div>
@@ -446,7 +453,7 @@ function CreateProduct() {
         </form>
       </div>
         : null
-                }
+      }
         </Form.Group>
         <div className={img}>
           <div>
@@ -459,6 +466,10 @@ function CreateProduct() {
           </span>
         </div>
       </Form>
+
+      </div>  :
+      <LoginButton />
+      }
       <ToastContainer
       position="top-right"
       autoClose={1000}
@@ -470,7 +481,7 @@ function CreateProduct() {
       draggable
       pauseOnHover
       />
-      </div>
-      );
-    }
+    </div>
+    );
+  }
     export default CreateProduct;

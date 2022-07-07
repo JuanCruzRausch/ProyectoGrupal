@@ -42,6 +42,7 @@ import {
 } from './ProductDetail.module.css';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
+import Rating from '../Rating/Rating';
 
 function ProductDetail(props) {
   const dispatch = useDispatch()
@@ -148,6 +149,7 @@ function ProductDetail(props) {
           <img className={SelectedImg} src={imgs} alt={State?.title} />
         </div>
         <div className={Detail_Item_text}>
+          <Rating />
           <h1>{State?.title}</h1>
 
           {State?.stock?.stockTotal ? <h2 className={Item_text_stock}>En stock</h2> : null}
