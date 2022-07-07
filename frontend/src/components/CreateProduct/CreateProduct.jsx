@@ -5,12 +5,12 @@ import medium from '../../assets/img/icons_Products/podium_second.png'
 import high from '../../assets/img/icons_Products/podium_first.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img, linea ,FormImage,Visibility } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage, Visibility } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from "../../redux/actions/index";
+import { addPublication, setAlert } from "../../redux/actions/index";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -29,7 +29,7 @@ function CreateProduct() {
     pictures: [],
     price: 0,
     currency: "",
-    seller: "_id",
+    seller: _id,
     category: "",
     subCategory: "",
     shipping: { shippingtype: "" },
@@ -57,6 +57,7 @@ function CreateProduct() {
         icon: "error",
       });
     }
+    dispatch(setAlert("none"))
     dispatch(getAllCategories());
   }, [dispatch, alert]);
 
@@ -76,7 +77,6 @@ function CreateProduct() {
     setCombination({ ...combination, [e.target.name]: e.target.value });
   }
   function handleOnChange(e) {
-    console.log(e.target.value)
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -105,7 +105,6 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-      console.log(result);
       arrayImg.push(result.data.data[0].imageURL);
     }
 
@@ -170,17 +169,7 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
       <Form onSubmit={(e) => handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -410,7 +399,7 @@ function CreateProduct() {
               3 -máxima visualización- 
             </option>
           </Form.Select> */}
-          <Form.Label>Visibilidad</Form.Label>
+                    <Form.Label>Visibilidad</Form.Label>
           <form 
             className={Visibility}
             value={data.visibility}
@@ -432,13 +421,8 @@ function CreateProduct() {
               <label htmlFor="">poca visualizacion</label>
             </div>
         </form>
-          {/* <Form.Control
-            name="visibility"
-            value={data.visibility}
-            onChange={(e) => handleOnChange(e)}
-            required
-          /> */}
         </Form.Group>
+        
         <div className={img}>
           <div>
             <h1>
@@ -450,7 +434,19 @@ function CreateProduct() {
           </span>
         </div>
       </Form>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
+
 export default CreateProduct;
