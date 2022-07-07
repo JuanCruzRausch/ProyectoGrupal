@@ -109,7 +109,7 @@ function CreateProduct() {
       arrayImg.push(result.data.data[0].imageURL);
     }
 
-    await dispatch(
+    dispatch(
       addPublication({
         ...data,
         pictures: [...arrayImg],
