@@ -23,6 +23,7 @@ import AltaVendedor from "./components/AltaVendedor/AltaVendedor"
 import Footer from "./components/Footer/Footer";
 import Error from "./components/Error/Error";
 import SocialNet from "./components/SocialNet/SocialNet";
+import Rating from "./components/Rating/Rating";
 import Brand from "./components/Brand/Brand";
 import Historial from "./components/Historial/Historial";
 import socketIO from "socket.io-client";
