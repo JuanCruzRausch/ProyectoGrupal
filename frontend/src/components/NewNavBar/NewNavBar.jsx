@@ -23,7 +23,8 @@ import {
   getProductByCategory,
   BuscarProducto,
   setActive,
-} from '../../redux/actions';
+  publicationSeller
+} from '../../redux/actions/index';
 import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';
@@ -50,7 +51,7 @@ function NewNavBar(props) {
     const [screen, setscreen] = useState(window.innerWidth)
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
     const [search, setSearch] = useState('');
-  
+    const seller = useSelector(state => state.userReducer.seller)
     const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -80,6 +81,14 @@ function NewNavBar(props) {
       :null
     },[userLogged])
   
+    useEffect(() => {
+      seller?._id?
+      dispatch(publicationSeller(seller._id))
+      .then((res)=> console.log(res))
+      .catch((e)=> console.log(e))
+      :null
+    },[seller])
+
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
@@ -186,7 +195,8 @@ function NewNavBar(props) {
                 {userLogged?.email_verified ? (
                   <div>
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
-                    {userLogged?.authorization?.roles?.includes("seller")?<NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>:null}
+                    {userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>}
+                    {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <LogoutButton />

@@ -34,10 +34,8 @@ function Products({ refElement, scrollTo }) {
   const productos = useSelector((state) => state.productReducer.Allproduct);
 
   let Active = useSelector((state) => state.productReducer.pagina);
-  const [loading, setLoading] = React.useState('spin');
-  const noProducts = () => {
-    setTimeout(() => setLoading('enanos'), 10000);
-  };
+  const loading = useSelector(state => state.productReducer.loading)
+
 
   useEffect(()=>{
     dispatch(getAllCategories())
@@ -45,7 +43,6 @@ function Products({ refElement, scrollTo }) {
 
   useEffect(() => {
     if (!productos?.length) {
-      noProducts();
       dispatch(getAllProducts(Active));
       dispatch(ordenado());
     }

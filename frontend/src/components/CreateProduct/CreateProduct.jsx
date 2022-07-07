@@ -10,11 +10,12 @@ import pickup from '../../assets/img/icons_Products/-person.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { CreateDiv, logo, img, linea ,FormImage,Visibility,ShippingType, CreateForm,SegundaParte } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage, Visibility } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from "../../redux/actions/index";
+import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -55,12 +56,14 @@ function CreateProduct() {
         icon: "success",
       });
     }
+  
     if (alert === "error") {
       swal({
         title: `Error en la publicación`,
         icon: "error",
       });
     }
+    dispatch(setAlert("none"))
     dispatch(getAllCategories());
   }, [dispatch, alert]);
 
@@ -108,7 +111,6 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-      console.log(result);
       arrayImg.push(result.data.data[0].imageURL);
     }
 
@@ -119,25 +121,12 @@ function CreateProduct() {
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-    );
-    setImages([])
-    setData({
-      title: "",
-      description: "",
-      pictures: [],
-      price: 0,
-      currency: "",
-      seller: _id,
-      category: "",
-      subCategory: "",
-      shipping: { shippingtype: "" },
-      condition: "",
-      stock: { options: [] },
-      brand: "",
-      location: "",
-      visibility: 0,
-    })
+      
+    )
+    dispatch(publicationSeller(_id))
+    
   }
+
   function submitStock(e) {
     e.preventDefault();
     if (stock <= 0) {
@@ -434,6 +423,7 @@ function CreateProduct() {
           </option>
         </Form.Select> */}
           <Form.Label>Visualización</Form.Label>
+          <Form.Label>Visibilidad</Form.Label>
           <form 
             className={Visibility}
             value={data.visibility}
@@ -485,3 +475,17 @@ function CreateProduct() {
       );
     }
     export default CreateProduct;
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
+  );
+}
+export default CreateProduct;
