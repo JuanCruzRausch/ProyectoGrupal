@@ -80,20 +80,19 @@ exports.updateActivePubs = catchAsync(async(req,res,next)=>{
     const{id} = req.params;
     let idsArr=[];
     const pubUpdate = await PublicationTest.find({seller:id}).select('_id')
-    console.log(pubUpdate)
+   
     if(!pubUpdate){
         return next(new AppError('The publication doesnt match to any seller weeeeeiiiird', 404));
     }
+
     for(let i=0; i < pubUpdate.length; i++){
         idsArr.push(pubUpdate[i]._id)
     }
-    console.log('++++++++++++++++++++++++++++++++')
-    console.log(idsArr)
-    const sellerUpdate = await Seller.findByIdAndUpdate({_id:id},{active_pub:[idsArr]},{
+  
+    const sellerUpdate = await Seller.findByIdAndUpdate({_id:id},{$push:{active_pub:[idsArr]}},{
         new:true
     })
-    console.log('******************************')
-    console.log(sellerUpdate)
+ 
     res.status(200).json({
         status:'success',
         data:{
