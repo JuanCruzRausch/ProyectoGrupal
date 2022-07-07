@@ -118,7 +118,7 @@ console.log(data);
     }
 
     dispatch(
-      addPublication({
+      addPublication(userState._id,{
         ...data,
         pictures: [...arrayImg],
         category: subcategories?._id,
