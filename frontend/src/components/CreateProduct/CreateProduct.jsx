@@ -5,12 +5,12 @@ import medium from '../../assets/img/icons_Products/podium_second.png'
 import high from '../../assets/img/icons_Products/podium_first.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img, linea ,FormImage,Visibility } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage, Visibility } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from "../../redux/actions/index";
+import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -29,7 +29,7 @@ function CreateProduct() {
     pictures: [],
     price: 0,
     currency: "",
-    seller: "_id",
+    seller: _id,
     category: "",
     subCategory: "",
     shipping: { shippingtype: "" },
@@ -51,12 +51,14 @@ function CreateProduct() {
         icon: "success",
       });
     }
+  
     if (alert === "error") {
       swal({
         title: `Error en la publicación`,
         icon: "error",
       });
     }
+    dispatch(setAlert("none"))
     dispatch(getAllCategories());
   }, [dispatch, alert]);
 
@@ -76,7 +78,6 @@ function CreateProduct() {
     setCombination({ ...combination, [e.target.name]: e.target.value });
   }
   function handleOnChange(e) {
-    console.log(e.target.value)
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -105,7 +106,6 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-      console.log(result);
       arrayImg.push(result.data.data[0].imageURL);
     }
 
@@ -116,25 +116,12 @@ function CreateProduct() {
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-    );
-    setImages([])
-    setData({
-      title: "",
-      description: "",
-      pictures: [],
-      price: 0,
-      currency: "",
-      seller: _id,
-      category: "",
-      subCategory: "",
-      shipping: { shippingtype: "" },
-      condition: "",
-      stock: { options: [] },
-      brand: "",
-      location: "",
-      visibility: 0,
-    })
+      
+    )
+    dispatch(publicationSeller(_id))
+    
   }
+
   function submitStock(e) {
     e.preventDefault();
     if (stock <= 0) {
@@ -170,17 +157,7 @@ function CreateProduct() {
   return (
     <div className={CreateDiv}>
       <h1>Publica tu Producto</h1>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+
       <Form onSubmit={(e) => handleOnSubmit(e)}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
@@ -391,54 +368,31 @@ function CreateProduct() {
                 </option>
               ))}
           </Form.Select>
-          {/* <Form.Label>Visibilidad</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            value={data.visibility}
-            name="visibility"
-            onChange={(e) => handleOnChange(e)}>
-            <option value="" disabled default>
-              Seleccione un tipo de visualizacion
-            </option>
-            <option value="1">
-              1 -poca visualizacion-
-            </option>
-            <option value="2">
-              2 -visualización intermedia-
-            </option>
-            <option value="3">
-              3 -máxima visualización- 
-            </option>
-          </Form.Select> */}
-          <Form.Label>Visibilidad</Form.Label>
+
+                    <Form.Label>Visibilidad</Form.Label>
           <form 
             className={Visibility}
             value={data.visibility}
             name="visibility"
             onChange={(e) => handleOnChange(e)}>
             <div>
-              <input type="radio" value="3" name="combination" />
+              <input type="radio" value="3" name="visibility" />
               <img src={high}/>
               <label htmlFor="">máxima visualización</label>
             </div>
             <div>
-               <input type="radio" value="2" name="combination" />
+               <input type="radio" value="2" name="visibility" />
                 <img src={medium}/>
                 <label htmlFor="">visualización intermedia</label>
             </div>
             <div>
-              <input type="radio" value="1" name="combination" />
+              <input type="radio" value="1" name="visibility" />
               <img src={low}/>
               <label htmlFor="">poca visualizacion</label>
             </div>
         </form>
-          {/* <Form.Control
-            name="visibility"
-            value={data.visibility}
-            onChange={(e) => handleOnChange(e)}
-            required
-          /> */}
         </Form.Group>
+        
         <div className={img}>
           <div>
             <h1>
@@ -450,7 +404,19 @@ function CreateProduct() {
           </span>
         </div>
       </Form>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
+
 export default CreateProduct;
