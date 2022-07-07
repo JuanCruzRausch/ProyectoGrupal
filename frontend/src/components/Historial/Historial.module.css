@@ -1,0 +1,17 @@
+.historial{
+    width: 90%;
+    margin: auto;
+}
+.SingleProduct{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px 0;
+    align-items: center;
+}
+.ItemsContainer{
+    display: flex;
+}
+.SingleProduct img{
+    width: 100px;
+}

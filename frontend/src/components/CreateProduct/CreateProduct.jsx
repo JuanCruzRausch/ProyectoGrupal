@@ -1,34 +1,46 @@
 import React from "react";
 import { useState } from "react";
+import low from '../../assets/img/icons_Products/podium_last.png'
+import medium from '../../assets/img/icons_Products/podium_second.png'
+import high from '../../assets/img/icons_Products/podium_first.png'
+import free from '../../assets/img/icons_Products/free.png'
+import normal from '../../assets/img/icons_Products/correo.png'
+import seller from '../../assets/img/icons_Products/seller.png'
+import pickup from '../../assets/img/icons_Products/-person.png'
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { CreateDiv, logo, img, linea ,FormImage } from "./CreateProduct.module.css";
+import { CreateDiv, logo, img, linea ,FormImage,Visibility,ShippingType, CreateForm,SegundaParte } from "./CreateProduct.module.css";
 import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication } from "../../redux/actions/index";
+import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
 import swal from "sweetalert";
+import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer, toast } from "react-toastify";
+import LoginButton from "../Auth0/login";
 
 function CreateProduct() {
+  const { isAuthenticated } = useAuth0();
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
   const alert = useSelector((state) => state.productReducer.publicationAlert);
+  const userState = useSelector( state => state.userReducer.user)
   const dispatch = useDispatch();
   const [stock, setStock] = useState(0);
   const [combination, setCombination] = useState({});
   const [images, setImages] = useState([]);
   const [stockTotal, setStockTotal] = useState(0)
+  const {_id} = useSelector(state => state.userReducer.seller)
   const [data, setData] = useState({
     title: "",
     description: "",
     pictures: [],
     price: 0,
     currency: "",
-    seller: "62bf48e53682a40660d2c540",
+    seller:_id,
     category: "",
     subCategory: "",
-    shipping: { shippingtype: "" },
+    shipping: { shippingType: "" },
     condition: "",
     stock: { options: [] },
     brand: "",
@@ -39,7 +51,7 @@ function CreateProduct() {
   const objects = subcategories?.subcategories.find(
     (e) => e.name === data.subCategory
   );
-
+console.log(data);
   useEffect(() => {
     if (alert === "success") {
       swal({
@@ -47,12 +59,14 @@ function CreateProduct() {
         icon: "success",
       });
     }
+  
     if (alert === "error") {
       swal({
         title: `Error en la publicación`,
         icon: "error",
       });
     }
+    dispatch(setAlert("none"))
     dispatch(getAllCategories());
   }, [dispatch, alert]);
 
@@ -65,7 +79,7 @@ function CreateProduct() {
   function handleShipping(e) {
     setData({
       ...data,
-      shipping: { shippingtype: e.target.value },
+      shipping: { shippingType: e.target.value },
     });
   }
   function handleCombinations(e, i) {
@@ -100,7 +114,6 @@ function CreateProduct() {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
-      console.log(result);
       arrayImg.push(result.data.data[0].imageURL);
     }
 
@@ -111,25 +124,12 @@ function CreateProduct() {
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-    );
-    setImages([])
-    setData({
-      title: "",
-      description: "",
-      pictures: [],
-      price: 0,
-      currency: "",
-      seller: "62bf48e53682a40660d2c540",
-      category: "",
-      subCategory: "",
-      shipping: { shippingtype: "" },
-      condition: "",
-      stock: { options: [] },
-      brand: "",
-      location: "",
-      visibility: 0,
-    })
+      
+    )
+    dispatch(publicationSeller(_id))
+    
   }
+
   function submitStock(e) {
     e.preventDefault();
     if (stock <= 0) {
@@ -164,19 +164,11 @@ function CreateProduct() {
 
   return (
     <div className={CreateDiv}>
+      {
+    userState?.authorization?.roles.includes('seller')  ?
+      <div>
       <h1>Publica tu Producto</h1>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <Form onSubmit={(e) => handleOnSubmit(e)}>
+      <Form onSubmit={(e) => handleOnSubmit(e)} className={CreateForm}>
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>Nombre del producto</Form.Label>
           <Form.Control
@@ -186,7 +178,7 @@ function CreateProduct() {
             value={data.title}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Descripcion</Form.Label>
           <Form.Control
             name="description"
@@ -196,15 +188,14 @@ function CreateProduct() {
             placeholder="Describa su producto.."
             rows={4}
             required
-          />
+            />
           <Form.Label>Imagenes (.jpg .jpeg .png)</Form.Label>
           <Form.Control
             type="file"
             multiple
             onChange={(e) => handleOnChangeImages(e.target.files)}
-            required
             className={FormImage}
-          />
+            />
           <div >
             {images.length > 0 &&
               images.map((e, i) => (
@@ -234,28 +225,28 @@ function CreateProduct() {
             value={data.price}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Categoria</Form.Label>
           <Form.Select
             aria-label="Default select example"
             value={data.category}
             name="category"
             onChange={(e) => handleOnChange(e)}
-          >
+            >
             <option value="" disabled default>
               Seleccione una categoria
             </option>
             {CATEGORIAS?.filter((e) => e.name !== "").map((e) => (
               <option key={e.id}>{e.name}</option>
-            ))}
+              ))}
           </Form.Select>
           {subcategories ? <Form.Label>Sub-Categoria</Form.Label> : null}
           {subcategories ? (
             <Form.Select
-              aria-label="Default select example"
-              value={data.subCategory}
-              name="subCategory"
-              onChange={(e) => handleOnChange(e)}
+            aria-label="Default select example"
+            value={data.subCategory}
+            name="subCategory"
+            onChange={(e) => handleOnChange(e)}
             >
               <option value="" disabled default>
                 Seleccione una categoria
@@ -292,15 +283,15 @@ function CreateProduct() {
                       </option>
                       {e.options.map((e, i) => (
                         <option key={i}>{e}</option>
-                      ))}
+                        ))}
                     </Form.Select>
                   ) : (
                     <Form.Control
                     name={e.nameprop}
                     value={combination[i]?.value}
                     onChange={(e) => handleCombinations(e, i)}
-                  />
-                  )}
+                    />
+                    )}
                 </div>
               ))}
               <Form.Label>Stock</Form.Label>
@@ -310,7 +301,7 @@ function CreateProduct() {
                 value={stock}
                 onChange={(e) => handleStock(e)}
                 required
-              />
+                />
               <div className={img}>
                 <div>
                   <button onClick={(e) => submitStock(e)}>Agregar Stock</button>
@@ -325,30 +316,61 @@ function CreateProduct() {
             </Form>
           ) : null}
 
-          <Form.Label>Envío</Form.Label>
+    { data.title.length > 0 && data.description.length > 0 && data.category.length >0 && data.subCategory.length > 0 ? 
+      <div className={SegundaParte}>
+          <Form.Label>Envío: </Form.Label>
+          <form 
+            className={ShippingType}
+            value={data.shipping.shippingType}
+            name="shippingType"
+            onChange={(e) => handleShipping(e)}>
+            <div>
+              <input type="radio" value="free" name="shippingType" />
+              <img src={free}/>
+              <label htmlFor=""> Envío gratis</label>
+            </div>
+            <div>
+               <input type="radio" value="normal" name="shippingType" />
+                <img src={normal}/>
+                <label htmlFor="">Envio por Correo</label>
+            </div>
+            <div>
+              <input type="radio" value="seller" name="shippingType" />
+              <img src={seller}/>
+              <label htmlFor="">Acordar con el comprador</label>
+            </div>
+            <div>
+              <input type="radio" value="pickup" name="shippingType" />
+              <img src={pickup}/>
+              <label htmlFor="">Retiro por sucursal</label>
+            </div>
+        </form>
 
-          <Form.Select
+          {/* <Form.Select
             required
             aria-label="Default select example"
             value={data.shipping.shippingtype}
             name="shippingtype"
             onChange={(e) => handleShipping(e)}>
             <option value="" disabled default>
-              Seleccione un tipo de envío
+            Seleccione un tipo de envío
             </option>
             <option value="free">
-              Envío gratis
+            Envío gratis
             </option>
             <option value="normal">
-              Envio por Correo
+            Envio por Correo
             </option>
             <option value="seller">
-              Acordar con el comprador 
+            Acordar con el comprador 
             </option>
             <option value="pickup">
-              Retiro por sucursal
+            Retiro por sucursal
             </option>
-          </Form.Select>
+          </Form.Select> */}
+
+
+
           <Form.Label>Condición</Form.Label>
           <Form.Select
             aria-label="Default select example"
@@ -367,14 +389,14 @@ function CreateProduct() {
             value={data.brand}
             onChange={(e) => handleOnChange(e)}
             required
-          />
+            />
           <Form.Label>Ubicación</Form.Label>
           <Form.Select
             aria-label="Default select example"
             value={data.location}
             name="location"
             onChange={(e) => handleOnChange(e)}
-          >
+            >
             <option value="" disabled default>
               Seleccione una provincia
             </option>
@@ -386,35 +408,52 @@ function CreateProduct() {
                 </option>
               ))}
           </Form.Select>
-          <Form.Label>Visibilidad</Form.Label>
+          {/* <Form.Label>Visibilidad</Form.Label>
           <Form.Select
-            aria-label="Default select example"
+          aria-label="Default select example"
+          value={data.visibility}
+          name="visibility"
+          onChange={(e) => handleOnChange(e)}>
+          <option value="" disabled default>
+          Seleccione un tipo de visualizacion
+          </option>
+          <option value="1">
+          1 -poca visualizacion-
+          </option>
+          <option value="2">
+          2 -visualización intermedia-
+          </option>
+          <option value="3">
+          3 -máxima visualización- 
+          </option>
+        </Form.Select> */}
+          <Form.Label>Visualización</Form.Label>
+          <Form.Label>Visibilidad</Form.Label>
+          <form 
+            className={Visibility}
             value={data.visibility}
             name="visibility"
             onChange={(e) => handleOnChange(e)}>
-            <option value="" disabled default>
-              Seleccione un tipo de visualizacion
-            </option>
-            <option value="1">
-              1 -poca visualizacion-
-            </option>
-            <option value="2">
-              2 -visualización intermedia-
-            </option>
-            <option value="3">
-              3 -máxima visualización- 
-            </option>
-          </Form.Select>
-
-          {/* <Form.Control
-            name="visibility"
-            value={data.visibility}
-            onChange={(e) => handleOnChange(e)}
-            required
-          /> */}
-
+            <div>
+              <input type="radio" value="3" name="visibility" />
+              <img src={high}/>
+              <label htmlFor="">máxima visualización</label>
+            </div>
+            <div>
+               <input type="radio" value="2" name="visibility" />
+                <img src={medium}/>
+                <label htmlFor="">visualización intermedia</label>
+            </div>
+            <div>
+              <input type="radio" value="1" name="visibility" />
+              <img src={low}/>
+              <label htmlFor="">poca visualizacion</label>
+            </div>
+        </form>
+      </div>
+        : null
+      }
         </Form.Group>
-        
         <div className={img}>
           <div>
             <h1>
@@ -426,8 +465,22 @@ function CreateProduct() {
           </span>
         </div>
       </Form>
-    </div>
-  );
-}
 
-export default CreateProduct;
+      </div>  :
+      <LoginButton />
+      }
+      <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+    </div>
+    );
+  }
+    export default CreateProduct;

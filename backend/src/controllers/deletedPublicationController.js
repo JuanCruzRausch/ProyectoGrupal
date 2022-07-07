@@ -25,31 +25,7 @@ exports.getAllDeletedPublication = catchAsync(async (req, res, next) => {
 exports.postDeletedPublication = catchAsync(async (req, res, next) => {
   let deletedPub = await PublicationTest.findById(req.params.id);
   console.log(deletedPub);
-  const newDeletedPub = await DeletedPublication.create({
-    _id: deletedPub._id,
-    title: deletedPub.title,
-    description: deletedPub.description,
-    pictures: deletedPub.pictures,
-    price: deletedPub.price,
-    earnings: deletedPub.earnings,
-    promPrice: deletedPub.promPrice,
-    currency: deletedPub.currency,
-    seller: deletedPub.seller,
-    category: deletedPub.category,
-    subCategory: deletedPub.subCategory,
-    shipping: {
-      shippingType: deletedPub.shipping.shippingType,
-      shippingPrice: deletedPub.shipping.shippingPrice,
-    },
-    condition: deletedPub.condition,
-    stock: {
-      stockTotal: deletedPub.stock.stockTotal,
-      options: deletedPub.stock.options,
-    },
-    brand: deletedPub.brand,
-    location: deletedPub.location,
-    visibility: deletedPub.visibility,
-  });
+  const newDeletedPub = await DeletedPublication.create({ ...deletedPub._doc });
 
   await PublicationTest.findByIdAndDelete(req.params.id);
 

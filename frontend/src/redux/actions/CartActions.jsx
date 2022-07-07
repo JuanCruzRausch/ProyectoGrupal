@@ -9,7 +9,6 @@ export const DECREASE = "DECREASE"
 export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
 
 export function AddToCart(id,count){
-    console.log(id);
     return async(dispatch) => {
             axios("http://localhost:5050/publicationtest/"+id)
             .then(res=>

@@ -1,11 +1,16 @@
 const { Router } = require('express');
-const sellerController = require('../controllers/sellerController')
+const sellerController = require('../controllers/sellerController');
 
 const sellerRouter = Router();
 
-sellerRouter.post('/', sellerController.post)
-sellerRouter.patch('/',sellerController.patch)
-sellerRouter.get('/:id',sellerController.getSeller)
-sellerRouter.patch('/:id',sellerController.updateActivePubs);
+sellerRouter
+  .route('/')
+  .post(sellerController.post)
+  .patch(sellerController.patch);
+sellerRouter.route('/:id').get(sellerController.getSeller).patch(sellerController.updateActivePubs);
+
+sellerRouter
+  .route('/:idpub/:iduser')
+  .post(sellerController.postAndDeletePublication);
 
 module.exports = sellerRouter;

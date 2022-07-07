@@ -42,6 +42,7 @@ import {
 } from './ProductDetail.module.css';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
+import Rating from '../Rating/Rating';
 
 function ProductDetail(props) {
   const dispatch = useDispatch()
@@ -49,18 +50,23 @@ function ProductDetail(props) {
   const params = useParams();
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
   const State = useSelector((state) => state.productReducer.SingleItem);
+  const [imgs, setimgs] = useState()
   const navigate = useNavigate();
 
   useEffect(()=>{
     dispatch(GetSingleProduct(!State.length ? params._id : State.length))
   },[])
-  const [imgs, setimgs] = useState(State?.image);
-  console.log(1);
+  
+  useEffect(()=>{
+    setimgs( State?.pictures?.length>0 ?  State?.pictures[0] : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU")
+  },[State])
+
+
   const atras = () => {
     navigate(-1);
     props.scrollTo();
   };
-  console.log(1);
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -68,7 +74,11 @@ function ProductDetail(props) {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(selector));
     //console.log(localStorage);
-  }, [selector]);
+  }, [selector]);  
+  
+  const handleSelect = (index) => {
+    setimgs(State?.pictures[index]);
+  };
 
   function ADDtoCart(){
     const hasProduct = selector.find(x => x.product === State?._id)
@@ -82,9 +92,9 @@ function ProductDetail(props) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-      return
-    }
+        });  
+      return  
+    }  
     else if(hasProduct.quantity>=hasProduct?.stock.stockTotal === false){
        toast.warning(`Ya se encuentra en su carrito, se agrego la cantidad seleccionada: ${count}`, {
          position: 'top-right',
@@ -94,10 +104,10 @@ function ProductDetail(props) {
          pauseOnHover: true,
          draggable: true,
          progress: undefined,
-       })
+       })  
        dispatch(AddToCart(RES?._id, count))
-     }
-  }
+     }  
+  }   
   else {
     toast.success('Item Agregado Correctamente', {
       position: 'top-right',
@@ -107,18 +117,15 @@ function ProductDetail(props) {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-    });
+    });  
     dispatch(AddToCart(State?._id, count))}
-  }
+  }  
+
   function handleSetOrder(){
     dispatch(OrderSingleProduct(State?._id, count))
     navigate('/shipping')
-  }
+  }  
   
-  const handleSelect = (index) => {
-    setimgs(State?.pictures[index]);
-  };
-
 
 
   return (
@@ -142,6 +149,7 @@ function ProductDetail(props) {
           <img className={SelectedImg} src={imgs} alt={State?.title} />
         </div>
         <div className={Detail_Item_text}>
+          <Rating />
           <h1>{State?.title}</h1>
 
           {State?.stock?.stockTotal ? <h2 className={Item_text_stock}>En stock</h2> : null}

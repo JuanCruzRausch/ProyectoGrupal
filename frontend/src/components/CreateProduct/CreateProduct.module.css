@@ -1,23 +1,39 @@
 
 .CreateDiv{
     padding: 15px;
-    width: 60%;
+    width: 65%;
     margin: 3rem auto;
+    background-color: #fff;
+    border-radius: 15px;
+}
+.CreateForm div{
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
 }
 .CreateDiv form div label{
-    margin: 1rem;
-    font-weight: 600;
+    margin: 1rem auto;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0000007c;
+    margin: 1rem auto;
 }
 .logo{
     width: 200px;
     height: auto;
 }
 .CreateDiv form input, select,textarea{
-    width: 70% !important;
+    width: 50% !important;
+    border-radius: 15px !important;
+    margin: auto !important;
 }
 .img{
     margin-top: 3vh;
     margin-bottom: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .img div{
     display: inline;
@@ -32,6 +48,15 @@
     background-color: #3483FA;
     color: white;
     width: 40vh;
+    transition: all .3s ease-in-out;
+}
+.img span button:hover{
+    background-color: #22549f;
+    color: white;
+    width: 40vh;
+}
+.SegundaParte{
+    transition: all 1s ease-in-out;
 }
 .img div button{
     height: 45px;
@@ -54,3 +79,79 @@
   .FormImage{
     width: 120px !important;
   }
+
+.Visibility{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.Visibility div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.515);
+    border: 3px solid transparent;
+    outline: none;
+    box-shadow: 15px 15px 25px rgba(2, 28, 53, 0.05);
+    transition: all .5s ease-in-out;
+}
+.Visibility input{
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+}
+  .Visibility div:hover{
+    transform: scale(1.05) !important;
+  }
+
+
+  .Visibility div img{
+    width: 100px;
+  }
+
+  
+.ShippingType{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.ShippingType div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.515);
+    border: 3px solid transparent;
+    outline: none;
+    box-shadow: 15px 15px 25px rgba(2, 28, 53, 0.05);
+    transition: all .5s ease-in-out;
+}
+.ShippingType label, .Visibility label{
+    font-size: .8rem !important;
+    text-align: center;
+    font-weight: 400 !important;
+    color: #000000 !important;
+
+}
+.ShippingType input{
+    width: 80px !important;
+    height: 80px !important;
+    cursor: pointer;
+}
+  .ShippingType div:hover{
+    transform: scale(1.05) !important;
+  }
+
+
+  .ShippingType div img{
+    margin-top: .4rem;
+    width: 80px;
+  }
+

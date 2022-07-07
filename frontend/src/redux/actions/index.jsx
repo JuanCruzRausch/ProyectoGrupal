@@ -1,4 +1,5 @@
 import axios from 'axios'
+export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY';
 export const ORDENADO = 'ORDENADO';
@@ -13,6 +14,7 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 export const COUNT = "COUNT";
 export const SINGLE_ITEM = "SINGLE_ITEM";
+export const SET_LOADING = "SET_LOADING"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -28,7 +30,17 @@ export function signUp(data) {
 
   }
 }
+export function publicationSeller (seller_id) {
+  return async (dispatch) => {
+    return axios("http://localhost:5050/publicationtest/sellerpublications/"+seller_id)
+    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data}))
+    // .then(res => dispatch({type: PUBLICATION_SELLER, payload: res.data.data}))
+  }
+}
 
+export function setAlert() {
+  return {type: PUBLICATION_ALERT, payload: "none"}
+}
 export function addPublication( data ) {
   return async (dispatch) => {
     return axios.post("http://localhost:5050/publicationtest", data)
@@ -39,6 +51,7 @@ export function addPublication( data ) {
 
 export function getAllProducts() {
   return async (dispatch) => {
+    dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?page=1` )
      .then(res => 
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
@@ -47,7 +60,6 @@ export function getAllProducts() {
 }
 
 export function GetSingleProduct(id){
-  console.log(id)
   return async(dispatch) => {
           axios("http://localhost:5050/publicationtest/" + id)
           .then(res=> 
@@ -94,6 +106,7 @@ export function setActive(page) {
 
 export function BuscarProducto(title, min, max){
   return async (dispatch)=>{
+    dispatch({type:SET_LOADING, payload:"spin"})
     return (await axios(`http://localhost:5050/publicationtest/byName/${title}?price[lte]=${max}&price[gte]=${min}`)
       .then((res)=>{
         console.log(res.data.data)
@@ -107,12 +120,23 @@ export function BuscarProducto(title, min, max){
 
 export function getProductByCategory(id, min, max) {
   return async (dispatch) => {
+    dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
     .then(res=> {
-      console.log(res)
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })
   };
+}
+export const deleteProduct = (id, sellerId) => {
+  console.log("id product", id, "seller:",sellerId)
+  return async (dispatch) => {
+    return axios.delete("http://localhost:5050/seller/"+id)
+    .then(res => {
+      console.log("despues del axios")
+      dispatch(publicationSeller(sellerId))
+    })
+    .catch(e=> console.log(e))
+  }
 }
 export function GetProductById(_id){
   return{

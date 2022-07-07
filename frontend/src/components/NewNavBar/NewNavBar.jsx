@@ -23,7 +23,9 @@ import {
   getProductByCategory,
   BuscarProducto,
   setActive,
-} from '../../redux/actions';
+  publicationSeller,
+  getAllProducts
+} from '../../redux/actions/index';
 import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';
@@ -50,7 +52,7 @@ function NewNavBar(props) {
     const [screen, setscreen] = useState(window.innerWidth)
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
     const [search, setSearch] = useState('');
-  
+    const seller = useSelector(state => state.userReducer.seller)
     const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -80,6 +82,14 @@ function NewNavBar(props) {
       :null
     },[userLogged])
   
+    useEffect(() => {
+      seller?._id?
+      dispatch(publicationSeller(seller._id))
+      .then((res)=> {})
+      .catch((e)=> {})
+      :null
+    },[seller])
+
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
@@ -90,6 +100,10 @@ function NewNavBar(props) {
   
     function searchOnChange(e) {
       setSearch(e.target.value);
+      if(e.target.value === ""){
+        dispatch(getAllProducts())
+      }
+      else{
       setDisplay([...productsCache]);
       setDisplay([
         ...productsCache.filter((e) =>
@@ -99,6 +113,7 @@ function NewNavBar(props) {
       e.target.value && setDisplayFlag(true);
       !e.target.value && setDisplayFlag(false);
     }
+  }
   
     const handleOnSelectCategory = (e, categoryName) => {
       e.preventDefault();
@@ -186,8 +201,8 @@ function NewNavBar(props) {
                 {userLogged?.email_verified ? (
                   <div>
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/shipping")}>Shipping</NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>
+                    {userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>}
+                    {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <LogoutButton />
