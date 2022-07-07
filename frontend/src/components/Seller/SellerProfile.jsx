@@ -16,6 +16,7 @@ import {
 } from "chart.js";
 import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
 import arrow from "../../assets/img/leftarrow.png";
+import { useDispatch } from "react-redux";
 import { Line } from "react-chartjs-2";
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -56,6 +57,7 @@ export default function SellerProfile() {
   );
   const userState = useSelector((state) => state.userReducer.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useAuth0();
   const data3 = {
     labels: [
@@ -163,14 +165,11 @@ export default function SellerProfile() {
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
-                    <button onClick={()=>deleteProduct(product._id, userState._id)}>X</button>
+                    <button onClick={()=>dispatch(deleteProduct(product._id, userState._id))}>X</button>
                   </div>
                   <hr />
                  </div>
-
               ))}
-              
-
             </div>
             <div className={Container_card2}>
               <h2>ventas en los ultimos 30 días</h2>

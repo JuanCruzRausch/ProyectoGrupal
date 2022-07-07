@@ -51,7 +51,6 @@ function CreateProduct() {
   const objects = subcategories?.subcategories.find(
     (e) => e.name === data.subCategory
   );
-console.log(data);
   useEffect(() => {
     if (alert === "success") {
       swal({
