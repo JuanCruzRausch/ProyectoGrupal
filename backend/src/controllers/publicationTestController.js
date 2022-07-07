@@ -1,4 +1,5 @@
 const PublicationTest = require('../models/PublicationTest');
+const Seller = require('../models/Seller');
 const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -6,7 +7,7 @@ const cloudinary = require('../../cloudinary');
 const fs = require('fs');
 
 exports.postPublicationTest = catchAsync(async (req, res, next) => {
-  let stockArr = [];
+  let userId = req.params.id;
   let earnings = 0,
     freeS = 0,
     vis = 0,
@@ -109,6 +110,14 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     location: req.body.location,
     visibility: req.body.visibility,
   });
+
+  let seller = await Seller.findOne({ user: userId });
+
+  let doc = await Seller.findOneAndUpdate(
+    { user: userId },
+    { active_pub: [...seller.active_pub, newPub._id] },
+    { new: true }
+  );
 
   res.status(201).json({
     status: 'success',
@@ -221,18 +230,19 @@ exports.postImages = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.getProductsBySeller = catchAsync(async(req,res,next)=>{
-    const {id} = req.params
+exports.getProductsBySeller = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
 
-    const allSellerProducts = await PublicationTest.find({seller : id});
-    
-    if(!allSellerProducts){
-      return next(new AppError('There are no products posted from that seller', 404));
-    }
+  const allSellerProducts = await PublicationTest.find({ seller: id });
 
-    res.status(200).json({
-      status: 'success',
-      data: allSellerProducts
-    })
+  if (!allSellerProducts) {
+    return next(
+      new AppError('There are no products posted from that seller', 404)
+    );
+  }
 
+  res.status(200).json({
+    status: 'success',
+    data: allSellerProducts,
+  });
 });

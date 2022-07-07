@@ -34,19 +34,24 @@ exports.post = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.patch = catchAsync (async (req,res,next) =>{    
-    const {_id, brand, social_net, subsidiary} = req.body
-    const {ig,fb,tw} = social_net
-    const {google_map, province, city, postalCode, street, number, reference} = subsidiary
-     
-    const updatedSeller = await Seller.findByIdAndUpdate({_id:_id}, {
-        brand, 
-        social_net, 
-        subsidiary, 
-    },{
-        new: true,
-        runValidators: true,
-    });
+exports.patch = catchAsync(async (req, res, next) => {
+  const { _id, brand, social_net, subsidiary } = req.body;
+  const { ig, fb, tw } = social_net;
+  const { google_map, province, city, postalCode, street, number, reference } =
+    subsidiary;
+
+  const updatedSeller = await Seller.findByIdAndUpdate(
+    { _id: _id },
+    {
+      brand,
+      social_net,
+      subsidiary,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!updatedSeller) {
     return next(new AppError('No seller was found', 404));
@@ -74,49 +79,67 @@ exports.getSeller = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateActivePubs = catchAsync(async(req,res,next)=>{
-    const{id} = req.params; //recibe el ID del Seller
-    let idsArr=[];//Está vacío, pero vos esperá
-    const pubUpdate = await PublicationTest.find({seller:id}).select('_id') // Busca en las publicaciones de ese seller y solo trae el id, si es poco performante 
-   
-    if(!pubUpdate){
-        return next(new AppError('The publication doesnt match to any seller weeeeeiiiird', 404));
-    } 
-    
-    let pubID = pubUpdate[0]._id //pubID solamente tiene el ID ahora
-    
-    const findSeller = await Seller.findById({_id:id}) //Encuentra al vendedor con ese ID que le pasaste arriba
+exports.updateActivePubs = catchAsync(async (req, res, next) => {
+  const { id } = req.params; //recibe el ID del Seller
+  let idsArr = []; //Está vacío, pero vos esperá
+  const pubUpdate = await PublicationTest.find({ seller: id }).select('_id'); // Busca en las publicaciones de ese seller y solo trae el id, si es poco performante
 
-    const activeSeller = findSeller.active_pub //Entra a active_pub que es un arreglo, son muchos pasos pero a Mongoose le gusta caminar
+  if (!pubUpdate) {
+    return next(
+      new AppError(
+        'The publication doesnt match to any seller weeeeeiiiird',
+        404
+      )
+    );
+  }
 
-    console.log('ESTE ES EL SELLER ENCONTRADO', findSeller)
-    console.log('ESTE ES EL PUBID',pubID)
-    console.log('ESTE ES EL FINDSELLER ACTIVE PUB', activeSeller)
-   
-    if(!activeSeller.includes(pubID)){ //Si el active_pub del vendedor ya tiene ese ID del producto, entonces no lo incorpora
-         idsArr.push(pubID)
-    }else{
-       return next(new AppError('This product is already in the active_pub of seller', 404))
+  let pubID = pubUpdate[0]._id; //pubID solamente tiene el ID ahora
+
+  const findSeller = await Seller.findById({ _id: id }); //Encuentra al vendedor con ese ID que le pasaste arriba
+
+  const activeSeller = findSeller.active_pub; //Entra a active_pub que es un arreglo, son muchos pasos pero a Mongoose le gusta caminar
+
+  console.log('ESTE ES EL SELLER ENCONTRADO', findSeller);
+  console.log('ESTE ES EL PUBID', pubID);
+  console.log('ESTE ES EL FINDSELLER ACTIVE PUB', activeSeller);
+
+  if (!activeSeller.includes(pubID)) {
+    //Si el active_pub del vendedor ya tiene ese ID del producto, entonces no lo incorpora
+    idsArr.push(pubID);
+  } else {
+    return next(
+      new AppError('This product is already in the active_pub of seller', 404)
+    );
+  }
+
+  console.log('Este es el array', idsArr);
+
+  const sellerUpdate = await Seller.findByIdAndUpdate(
+    { _id: id },
+    { $push: { active_pub: [idsArr] } },
+    {
+      //Sin ese $push mongo no te deja colocar más elementos en el active_pub
+      new: true,
     }
-
-    console.log('Este es el array',idsArr)
-  
-    const sellerUpdate = await Seller.findByIdAndUpdate({_id:id},{$push:{active_pub:[idsArr]}},{ //Sin ese $push mongo no te deja colocar más elementos en el active_pub
-        new:true
-    })
-    console.log('ESTE ES EL SELLER UPDATE',sellerUpdate)
-    res.status(200).json({
-        status:'success',
-        data:{
-            sellerUpdate
-        }
-    })
-    
-})
+  );
+  console.log('ESTE ES EL SELLER UPDATE', sellerUpdate);
+  res.status(200).json({
+    status: 'success',
+    data: {
+      sellerUpdate,
+    },
+  });
+});
 
 exports.postAndDeletePublication = catchAsync(async (req, res, next) => {
   let deletedPub = await PublicationTest.findById(req.params.idpub);
+  if (!deletedPub) {
+    return next(new AppError('There is no publication with that id', 404));
+  }
   let seller = await Seller.findOne({ user: req.params.iduser });
+  if (!seller) {
+    return next(new AppError('There is no seller with that id', 404));
+  }
   let sellerpub = deletedPub.seller + '';
   let sellerid = seller._id + '';
   console.log(deletedPub);
