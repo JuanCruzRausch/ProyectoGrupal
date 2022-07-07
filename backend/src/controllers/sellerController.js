@@ -1,5 +1,6 @@
 const Seller = require ('../models/Seller');
 const CommonUser = require('../models/CommonUser');
+const PublicationTest = require('../models/PublicationTest');
 const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -33,12 +34,16 @@ exports.post = catchAsync(async(req,res,next)=>{
     next();
 })
 
-exports.patch = catchAsync (async (req,res,next) =>{
+exports.patch = catchAsync (async (req,res,next) =>{    
     const {_id, brand, social_net, subsidiary} = req.body
     const {ig,fb,tw} = social_net
     const {google_map, province, city, postalCode, street, number, reference} = subsidiary
      
-    const updatedSeller = await Seller.findByIdAndUpdate({_id:_id}, {brand, social_net, subsidiary},{
+    const updatedSeller = await Seller.findByIdAndUpdate({_id:_id}, {
+        brand, 
+        social_net, 
+        subsidiary, 
+    },{
         new: true,
         runValidators: true,
     });
@@ -70,5 +75,32 @@ if(!seller){
     });
 
 });
+
+exports.updateActivePubs = catchAsync(async(req,res,next)=>{
+    const{id} = req.params;
+    let idsArr=[];
+    const pubUpdate = await PublicationTest.find({seller:id}).select('_id')
+    console.log(pubUpdate)
+    if(!pubUpdate){
+        return next(new AppError('The publication doesnt match to any seller weeeeeiiiird', 404));
+    }
+    for(let i=0; i < pubUpdate.length; i++){
+        idsArr.push(pubUpdate[i]._id)
+    }
+    console.log('++++++++++++++++++++++++++++++++')
+    console.log(idsArr)
+    const sellerUpdate = await Seller.findByIdAndUpdate({_id:id},{active_pub:[idsArr]},{
+        new:true
+    })
+    console.log('******************************')
+    console.log(sellerUpdate)
+    res.status(200).json({
+        status:'success',
+        data:{
+            sellerUpdate
+        }
+    })
+
+})
 
 
