@@ -1,4 +1,5 @@
 import axios from 'axios'
+export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY';
 export const ORDENADO = 'ORDENADO';
@@ -27,6 +28,13 @@ export function signUp(data) {
     .catch(e=> dispatch({type:SIGN_UP_ALERT, payload: "fail" }))
     .then(()=> dispatch({type:SIGN_UP_ALERT, payload: "none"}))
 
+  }
+}
+export function publicationSeller (seller_id) {
+  return async (dispatch) => {
+    return axios("http://localhost:5050/publicationtest/sellerpublications/"+seller_id)
+    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data}))
+    // .then(res => dispatch({type: PUBLICATION_SELLER, payload: res.data.data}))
   }
 }
 

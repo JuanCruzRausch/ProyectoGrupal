@@ -10,7 +10,7 @@ import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication, setAlert } from "../../redux/actions/index";
+import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
 import swal from "sweetalert";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -109,16 +109,19 @@ function CreateProduct() {
       arrayImg.push(result.data.data[0].imageURL);
     }
 
-    dispatch(
+    await dispatch(
       addPublication({
         ...data,
         pictures: [...arrayImg],
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-    );
+      
+    )
+    dispatch(publicationSeller(_id))
     
   }
+
   function submitStock(e) {
     e.preventDefault();
     if (stock <= 0) {
