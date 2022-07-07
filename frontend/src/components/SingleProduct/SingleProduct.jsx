@@ -93,7 +93,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
     <div className={SingleProduct_container}>
       <div className={SingleProduct_img}>
         <Link to={`/products/${id}`}>
-          <img src={image} />
+          <img src={image?image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} />
         </Link>
       </div>
 

@@ -58,7 +58,7 @@ function ProductDetail(props) {
   },[])
   
   useEffect(()=>{
-    setimgs( State?.pictures?.length ?  State?.pictures[0] : null)
+    setimgs( State?.pictures?.length>0 ?  State?.pictures[0] : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU")
   },[State])
 
 
@@ -66,7 +66,7 @@ function ProductDetail(props) {
     navigate(-1);
     props.scrollTo();
   };
-  console.log(1);
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

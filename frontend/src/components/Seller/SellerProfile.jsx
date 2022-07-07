@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { deleteProduct } from "../../redux/actions/index"
 import {
   Chart as ChartJS,
   ArcElement,
@@ -155,13 +156,14 @@ export default function SellerProfile() {
           <div className={Container_card1}>
             <div className={PublicacionesContainer}>
               {myProducts?.map(product => (
-                 <div>
+                 <div key={product._id}>
                   <div className={SingleProduct}>
-                    <img src={product?.pictures[0]} alt={product?.title} />
+                    <img src={product?.pictures?.length>0?product?.pictures[0]:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} alt={product?.title} />
                     <h2>{product?.title}</h2>
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
+                    <button onClick={()=>deleteProduct(product._id, product.seller)}>X</button>
                   </div>
                   <hr />
                  </div>

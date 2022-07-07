@@ -194,7 +194,6 @@ console.log(data);
             type="file"
             multiple
             onChange={(e) => handleOnChangeImages(e.target.files)}
-            required
             className={FormImage}
             />
           <div >
