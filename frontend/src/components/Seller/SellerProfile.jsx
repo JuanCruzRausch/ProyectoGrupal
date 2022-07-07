@@ -163,7 +163,7 @@ export default function SellerProfile() {
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
-                    <button onClick={()=>deleteProduct(product._id, product.seller)}>X</button>
+                    <button onClick={()=>deleteProduct(product._id, userState._id)}>X</button>
                   </div>
                   <hr />
                  </div>
