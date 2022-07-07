@@ -127,12 +127,11 @@ export function getProductByCategory(id, min, max) {
     })
   };
 }
-export const deleteProduct = (id, sellerId) => {
-  console.log("id product", id, "seller:",sellerId)
+export const deleteProduct = (id,userID, sellerId) => {
+  console.log("id product", id,"user: ", userID)
   return async (dispatch) => {
-    return axios.delete("http://localhost:5050/seller/"+id)
+    return axios.post(`http://localhost:5050/seller/${id}/${userID}`)
     .then(res => {
-      console.log("despues del axios")
       dispatch(publicationSeller(sellerId))
     })
     .catch(e=> console.log(e))
