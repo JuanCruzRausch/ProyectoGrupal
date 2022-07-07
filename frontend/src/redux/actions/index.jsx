@@ -60,7 +60,6 @@ export function getAllProducts() {
 }
 
 export function GetSingleProduct(id){
-  console.log(id)
   return async(dispatch) => {
           axios("http://localhost:5050/publicationtest/" + id)
           .then(res=> 
@@ -124,10 +123,20 @@ export function getProductByCategory(id, min, max) {
     dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
     .then(res=> {
-      console.log(res)
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })
   };
+}
+export const deleteProduct = (id, sellerId) => {
+  console.log("id product", id, "seller:",sellerId)
+  return async (dispatch) => {
+    return axios.delete("http://localhost:5050/seller/"+id)
+    .then(res => {
+      console.log("despues del axios")
+      dispatch(publicationSeller(sellerId))
+    })
+    .catch(e=> console.log(e))
+  }
 }
 export function GetProductById(_id){
   return{

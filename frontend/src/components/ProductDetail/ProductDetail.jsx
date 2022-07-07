@@ -65,7 +65,7 @@ function ProductDetail(props) {
     navigate(-1);
     props.scrollTo();
   };
-  console.log(1);
+ 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
