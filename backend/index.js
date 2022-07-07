@@ -32,10 +32,17 @@ const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
 
 io.on("connection", (socket)=>{
   console.log("user connected")
+  
+  socket.on("comentarios", (data)=>{
+    console.log(data)
+  })
+  
   socket.on("disconnect", ()=>{
     console.log("user is disconected")
   })
 })
+
+
 
 
 
