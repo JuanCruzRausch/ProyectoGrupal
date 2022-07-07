@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       domain="mercadodeenanos.us.auth0.com"
       clientId="qg9uZSprKYm0CjuhThkfdyRHkXSAde6j"
       redirectUri={window.location.origin}
+      audience='auth'
     >
       <HelmetProvider>
         <App />

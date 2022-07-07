@@ -11,11 +11,16 @@ const qandaRouter = require('./routes/qandaRouter');
 const transactionsRouter = require('./routes/transactionsRouter');
 const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Credentials', 'true');
