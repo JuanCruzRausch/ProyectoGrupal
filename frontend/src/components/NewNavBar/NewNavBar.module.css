@@ -168,21 +168,21 @@
     margin: auto;
 }
 @media screen and (max-width: 768px) {
-    .NavContainer{
-        position: sticky;
-    }
     .Nav{
         height: auto;
-        flex-direction: row;
-        justify-content: space-evenly;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .searchdata2{
         display: inline;
-        width: 45%;
+        width: 80%;
         height: 30%;
-        margin: auto 0;
+        margin: 1rem 0;
     }
-
+    .searchdata2 img{
+        width: 20px !important;
+    }
     .NavMenu{
         flex-direction: column;
         height: auto;  
@@ -197,7 +197,7 @@
         display: none
     }
     .NavLinked img{
-        width: 150px;
+        width: 120px;
         margin-left:0;
     }
 }

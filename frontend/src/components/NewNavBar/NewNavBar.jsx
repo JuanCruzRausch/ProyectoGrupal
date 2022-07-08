@@ -159,11 +159,7 @@ function NewNavBar(props) {
                     <img src={lupa} />
                     </Button>
                 </Form>
-            </div>
-          <div onClick={toggleNav} className={Bars}>
-            <FaBars/> 
           </div>
-          
         {    (togglemenu || screen >768) && (
             <div className={NavMenu}>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
