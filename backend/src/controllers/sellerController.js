@@ -168,4 +168,30 @@ exports.postAndDeletePublication = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.passtoInactive = catchAsync(async (req, res, next) => {});
+exports.passtoInactive = catchAsync(async (req, res, next) => {
+  const { idpub, iduser } = req.params;
+
+  let pub = await PublicationTest.findOne({ _id: idpub });
+  let sel = await Seller.findOne({ user: iduser });
+
+  let active = sel.active_pub.filter((el) => el + '' !== idpub);
+  console.log(active);
+  let seller = await Seller.findOneAndUpdate(
+    { user: iduser },
+    {
+      active_pub: [...active],
+      inactive_pub: [...sel.inactive_pub, pub._id],
+    },
+    { new: true }
+  );
+  console.log('seller updated');
+  let publication = await PublicationTest.findOneAndUpdate(
+    { _id: idpub },
+    { status: false }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: { seller },
+  });
+});
