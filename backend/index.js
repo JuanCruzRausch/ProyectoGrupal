@@ -38,6 +38,7 @@ io.on("connection", (socket)=>{
     socket.to(data.room).emit("envio_front", data)
   })
   socket.on("join_room", (room)=>{
+    
     socket.join(room)
     console.log(`usuario con id ${socket.id} se unió a la sala ${room} `)
   })

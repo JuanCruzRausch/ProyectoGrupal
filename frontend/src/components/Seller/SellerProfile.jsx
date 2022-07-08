@@ -121,6 +121,10 @@ export default function SellerProfile() {
     dispatch(inactivePublication(productId, userState._id))
   }
 
+  const showPublication = (productId) =>{
+    return
+  }
+
   return (
     <div className={Container}>
       <div className={Detail_Links}>
@@ -181,6 +185,29 @@ export default function SellerProfile() {
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
                     <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> desactivarPublication(product._id)}>ocultar</button>
+                  </div>
+                  <hr />
+                 </div>
+              ))}
+            </div>
+            <div className={Container_card2}>
+              <h2>ventas en los ultimos 30 días</h2>
+              <Line data={data3} />
+            </div>
+          </div>
+          <h1 className={Titles}>Publicaciones ocultas</h1>
+          <div className={Container_card1}>
+            <div className={PublicacionesContainer}>
+              {seller?.inactive_pub?.map(product => (
+                 <div key={product._id}>
+                  <div className={SingleProduct}>
+                    <img src={product?.pictures?.length>0?product?.pictures[0]:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} alt={product?.title} />
+                    <h2>{product?.title}</h2>
+                    <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
+                    <h2>${product?.price}</h2>
+                    <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
+                    <button onClick={()=> deletePublication(product._id)}>X</button>
+                    <button onClick={()=> showPublication(product._id)}>mostrar</button>
                   </div>
                   <hr />
                  </div>
