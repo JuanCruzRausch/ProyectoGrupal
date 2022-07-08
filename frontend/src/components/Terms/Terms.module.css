@@ -1,0 +1,5 @@
+.TermsContainer{
+    width: 80%;
+    transition: all .6s ease-in-out;
+    margin: 3rem auto;
+}

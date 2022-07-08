@@ -1,11 +1,13 @@
 import { ordenado, setActive } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import { useDispatch } from 'react-redux';
-import { SortContainer } from './Sort.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { SortContainer, SortDark } from './Sort.module.css';
 import { scrollToProducts } from '../variablesGlobales';
 
 const Sort = React.forwardRef((props, ref) => {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const [order, setOrder] = useState('');
   const dispatch = useDispatch();
 
@@ -22,7 +24,7 @@ const Sort = React.forwardRef((props, ref) => {
   };
 
   return (
-    <div className={SortContainer} ref={ref}>
+    <div className={isdarkMode? SortDark :  SortContainer} ref={ref}>
       <Form.Select onChange={(e) => handleChange(e)}>
         {/* <option value="High to Low Price">mayor precio</option>
           <option value="Low to High Price">menor precio</option> */}
