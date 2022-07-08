@@ -273,7 +273,7 @@ function ProductDetail(props) {
           <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
           <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
         </div>
-        <Chat socket={socket}/>
+        <Chat socket={socket} _id={State._id}/>
       </div>
       <ToastContainer
         position="top-right"

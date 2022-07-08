@@ -117,7 +117,7 @@ function CreateProduct() {
     }
 
     dispatch(
-      addPublication({
+      addPublication(userState._id,{
         ...data,
         pictures: [...arrayImg],
         category: subcategories?._id,
