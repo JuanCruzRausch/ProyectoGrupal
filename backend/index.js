@@ -34,7 +34,6 @@ io.on("connection", (socket)=>{
   console.log("user connected")
   
   socket.on("comentarios", (data)=>{
-    console.log(data)
     socket.emit("envio_front", data)
   })
   

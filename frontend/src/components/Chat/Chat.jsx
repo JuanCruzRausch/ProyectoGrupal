@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 
 export default function Chat({socket, _id}) {
     
-    
     const dispatch = useDispatch()
     const recived = useSelector(state => state.interactionsReducer.chat)
     const [saludo, setSaludo] = React.useState({})
@@ -34,7 +33,6 @@ export default function Chat({socket, _id}) {
         socket.on("envio_front", (data)=>{
             setRecived( data)
         })
-        
     },[socket])
 
     const handleOnChange = (e) =>{
