@@ -21,7 +21,13 @@ const CartInitialState = {
       ? JSON.parse(localStorage.getItem('shippingAddress'))
       : {}, 
   },
-  SingleCart:[]
+  SingleCart:{
+    CartItem:[],
+    shippingAddress: 
+    localStorage.getItem('shippingAddress')
+    ? JSON.parse(localStorage.getItem('shippingAddress'))
+    : {}, 
+  }
 };
 function CartReducer(state = CartInitialState, { type, payload }) {
 
@@ -29,6 +35,7 @@ function CartReducer(state = CartInitialState, { type, payload }) {
     case SAVE_SHIPPING_ADDRESS:
       localStorage.setItem('shippingAddress', JSON.stringify(payload));
       return {...state, cart: {...state.cart, shippingAddress: {...payload}} }
+
     case ADD_TO_CART:
       const item = payload;
       var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
@@ -85,7 +92,10 @@ function CartReducer(state = CartInitialState, { type, payload }) {
     case ORDER_PRODUCT :
       return {
         ...state,
-        SingleCart: payload
+        SingleCart: {
+          ...state.SingleCart,
+            CartItem: payload
+        }
       }
     case REMOVE_FROM_CART:
       const carrito = state.cart.cartItem;

@@ -30,6 +30,7 @@ import socketIO from "socket.io-client";
 import { useEffect } from "react";
 import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
+import Controlls from "./components/Controlls/Controlls";
 
 const WS = "http://localhost:5050"
 
@@ -90,6 +91,7 @@ function App() {
           <Route exact path="/" element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}/>
         </Routes>
         <Footer />
+        <Controlls />
       </BrowserRouter>
     </div>
   );

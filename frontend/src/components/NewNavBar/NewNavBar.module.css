@@ -131,7 +131,10 @@
 .Nav a dropdown-item{
     color: rgb(246, 239, 239) !important;
 }
-.searchdata{
+.searchdata2{
+    display: none;
+}
+.searchdata, .searchdata2{
     background-color: #fff !important;
     border-radius: 15px;
 }
@@ -168,6 +171,17 @@
     .Nav{
         height: auto;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .searchdata2{
+        display: inline;
+        width: 80%;
+        height: 30%;
+        margin: 1rem 0;
+    }
+    .searchdata2 img{
+        width: 20px !important;
     }
     .NavMenu{
         flex-direction: column;
@@ -180,11 +194,10 @@
         display:none;
     }
     .Bars{
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 1.8rem;
-        cursor: pointer;
+        display: none
+    }
+    .NavLinked img{
+        width: 120px;
+        margin-left:0;
     }
 }
