@@ -55,9 +55,8 @@ app.use('/deletedpublication', deletedPublicationRouter);
 app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
   try {
     const token = await getAccessTokenAdmin()
-    const response = await apiAuth0.searchUsersByEmail(token.data.access_token, 'javierzv999@hotmail.com') // perdon Javi por usarte xD
-    const json = circularJSON.stringify(response.data)
-    res.send(json)
+    const response = await apiAuth0.removePermissionsFromAUser(token.data.access_token, "google-oauth2|103351927024755621017", ["create:category"]) // perdon Javi por usarte xD
+    res.json(response)
   } catch (error) {
     res.status(400).json({error:error.message})
   }  
