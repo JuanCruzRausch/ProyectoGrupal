@@ -139,7 +139,7 @@ function NewNavBar(props) {
         <nav className={Nav}>
             <NavLink className={NavLinked} onClick={(e) => 
                 {refreshPage(e);
-                }} to="/" ActiveClassname={NavLinkActive}>
+                }} to="/" activeclassname={NavLinkActive}>
             <img src={isdarkMode ? mercadolight : mercado} />
           </NavLink>
           <div onClick={toggleNav} className={Bars}>
@@ -181,7 +181,7 @@ function NewNavBar(props) {
                     </Button>
                 </Form>
             </div>
-                <NavLink to="/cart" ActiveClassname={NavLinkActive}>
+                <NavLink to="/cart" activeclassname={NavLinkActive}>
                 {
                 CartState.length > 0 ? <div className={Cart}>
                   <img className={ isdarkMode ? DarkcartIMG : cartIMG } src={cart} alt="cart" />

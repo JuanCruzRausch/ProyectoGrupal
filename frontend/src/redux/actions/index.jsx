@@ -131,10 +131,12 @@ export function BuscarProducto(title, min, max){
     )}
 }
 
-export function getProductBy(id, min, max, sort) {
+export function getProductBy(cat, min, max, sort) {
   return async (dispatch) => {
+    let category = cat?`&category=${cat}`:null
+    let order = sort?`&sort=${sort}`:null
     dispatch({type:SET_LOADING, payload:"spin"})
-    return axios(`http://localhost:5050/publicationtest?sort=${sort}&category=${id}&price[lte]=${max}&price[gte]=${min}` )
+    return axios(`http://localhost:5050/publicationtest?&price[lte]=${max}&price[gte]=${min}${order}${category}` )
     .then(res=> {
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })

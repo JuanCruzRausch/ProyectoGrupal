@@ -21,7 +21,7 @@ import {
 
 const initialState = {
   category:'',
-  sort: 'Ordenado por...',
+  sort: '',
   publicationSeller: [],
   publicationAlert: "none",
   allProductCache: [],
