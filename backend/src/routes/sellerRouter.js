@@ -15,6 +15,7 @@ sellerRouter
 sellerRouter
   .route('/:idpub/:iduser')
   .post(sellerController.postAndDeletePublication)
-  .patch(sellerController.passtoInactive);
+  .patch(sellerController.passtoInactive)
+  .put(sellerController.reactivate);
 
 module.exports = sellerRouter;

@@ -195,3 +195,31 @@ exports.passtoInactive = catchAsync(async (req, res, next) => {
     data: { seller },
   });
 });
+
+exports.reactivate = catchAsync(async (req, res, next) => {
+  const { idpub, iduser } = req.params;
+
+  let pub = await PublicationTest.findOne({ _id: idpub });
+  let sel = await Seller.findOne({ user: iduser });
+
+  let inactive = sel.inactive_pub.filter((el) => el + '' !== idpub);
+  console.log(inactive);
+  let seller = await Seller.findOneAndUpdate(
+    { user: iduser },
+    {
+      active_pub: [...sel.active_pub, pub._id],
+      inactive_pub: [...inactive],
+    },
+    { new: true }
+  );
+  console.log('seller updated');
+  let publication = await PublicationTest.findOneAndUpdate(
+    { _id: idpub },
+    { status: true }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: { seller },
+  });
+});
