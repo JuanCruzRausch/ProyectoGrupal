@@ -131,7 +131,10 @@
 .Nav a dropdown-item{
     color: rgb(246, 239, 239) !important;
 }
-.searchdata{
+.searchdata2{
+    display: none;
+}
+.searchdata, .searchdata2{
     background-color: #fff !important;
     border-radius: 15px;
 }
@@ -165,10 +168,21 @@
     margin: auto;
 }
 @media screen and (max-width: 768px) {
+    .NavContainer{
+        position: sticky;
+    }
     .Nav{
         height: auto;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-evenly;
     }
+    .searchdata2{
+        display: inline;
+        width: 45%;
+        height: 30%;
+        margin: auto 0;
+    }
+
     .NavMenu{
         flex-direction: column;
         height: auto;  
@@ -180,11 +194,10 @@
         display:none;
     }
     .Bars{
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-size: 1.8rem;
-        cursor: pointer;
+        display: none
+    }
+    .NavLinked img{
+        width: 150px;
+        margin-left:0;
     }
 }

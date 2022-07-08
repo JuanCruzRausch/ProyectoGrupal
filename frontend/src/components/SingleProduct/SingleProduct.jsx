@@ -7,6 +7,13 @@ import {
   SingleProduct_img,
   AddToCart
 } from './SingleProduct.module.css';
+import {
+  SingleProduct_containerDark,
+  SingleProduct_textDark,
+  SingleProduct_imgDark,
+  SingleProduct_buttonsDark,
+  DarkFavs
+} from './SingleProductDark.module.css'
 import imagen from '../../assets/img/heart.png';
 import carrito from '../../assets/img/addcart.png'
 import { Link } from 'react-router-dom';
@@ -19,6 +26,8 @@ import { GetSingleProduct } from '../../redux/actions';
 
 
 function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav }) {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const [count, setcount] = useState(1);
   const dispatch = useDispatch()
   const selector = useSelector((state) => state.CartReducer.cart.cartItem);
@@ -90,14 +99,14 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
   }, [selector]);
 
   return (
-    <div className={SingleProduct_container}>
-      <div className={SingleProduct_img}>
+    <div className={isdarkMode? SingleProduct_containerDark : SingleProduct_container}>
+      <div className={isdarkMode ? SingleProduct_imgDark : SingleProduct_img}>
         <Link to={`/products/${id}`}>
           <img src={image?image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} />
         </Link>
       </div>
 
-      <div className={SingleProduct_text}>
+      <div className={isdarkMode? SingleProduct_textDark :  SingleProduct_text}>
         <Link to={`/products/${id}`}>
           <h1 onClick={() => dispatch(GetSingleProduct(id))}>{name}</h1>
         </Link>
@@ -106,7 +115,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
           Shipping == true ? <h3>Envío Gratis</h3> : null
         }
       </div>
-      <div className={SingleProduct_buttons}>
+      <div className={isdarkMode ? SingleProduct_buttonsDark : SingleProduct_buttons}>
         <button onClick={() => handleAddtoCart(id,count)} className={AddToCart}>
           <img src={carrito} alt="addToCart"/>
         </button>
@@ -114,7 +123,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
             isAuthenticated ?
           handleAddtoFav(id)
           : loginWithRedirect()
-          }  className={ProductFav}>
+          }  className={isdarkMode ? DarkFavs : ProductFav}>
           <img src={imagen} />
         </button>
       </div>

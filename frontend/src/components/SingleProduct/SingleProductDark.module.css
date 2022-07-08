@@ -1,21 +1,20 @@
-*{
-    text-decoration: none !important;
+.SingleProduct_containerDark{
+    width: 100%;
 }
-.SingleProduct_container{
+
+.SingleProduct_containerDark{
     width: 85%;
     height: 170px;
     border-radius: 15px;
     margin: 2vh ;
     display: flex;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: #2D2C2F;
     align-self: flex-end;
-    transition: all .6s ease-in-out;
-
 }
 
 
-.SingleProduct_img img{
+.SingleProduct_imgDark img{
     width: 18vh;
     height: auto;
     height: 170px;
@@ -25,36 +24,36 @@
     border-radius: 12px;
 }
 
-.SingleProduct_img:hover, .SingleProduct_text:hover{
+.SingleProduct_img:hover, .SingleProduct_textDark:hover{
     cursor: pointer;
 }
-.SingleProduct_text{
+.SingleProduct_textDark{
     margin: auto; 
     width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
-.SingleProduct_text h1{
+.SingleProduct_textDark h1{
     font-size: 1.3rem;
     width: 80%;
     margin: 1rem 0;
-    color: #333333;
+    color: #fbfbfb;
     font-weight: 300;
 }
-.SingleProduct_text h2{
+.SingleProduct_textDark h2{
     align-self: flex-start;
     font-size: 1.8rem !important;
     font-weight: 700;
-    color: #000000;
+    color: #ffffff;
 }
-.SingleProduct_text h3{
+.SingleProduct_textDark h3{
     align-self: flex-start;
     color: #00A650 !important;
     font-size: 1rem !important;
     font-weight: 400 !important;
 }
-.SingleProduct_buttons{
+.SingleProduct_buttonsDark{
     width: 200px;
     margin-right: 10vh;
     display: flex;
@@ -62,11 +61,14 @@
     flex-direction: row; 
     justify-content: space-between;
 }
-.SingleProduct_buttons button{
+.SingleProduct_buttonsDark button{
     align-self: flex-end;
     margin: auto;
     font-weight: 400;
     color: rgb(70, 70, 70);
+    transition: all .5s ease-in-out;
+    filter: invert(100%);
+    background-color: rgba(0, 0, 0, 0);
     transition: all .5s ease-in-out;
     border: none;
     border-radius: 10px;
@@ -75,14 +77,14 @@
 .AddToCart:hover{
     transform: scale(1.3);
 }
-.SingleProduct_buttons button img{
+.SingleProduct_buttonsDark button img{
     width: 35px;
 }
 
-.ProductFav{
-    background-color: #fff !important;
+.DarkFavs{
+    background-color: rgba(0, 0, 0, 0) !important;
     transition: all .6s ease-in-out;
 }
-.ProductFav:hover{
+.DarkFavs:hover{
    transform: scale(1.3);
 }
