@@ -92,14 +92,14 @@ exports.apiAuth0 = {
             }
         })
     },
-    removeRolesFromUser : async(token, id) => {
-        return response = await axios.delete(`https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`, {
-            headers: {
-                'content-type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            }
-        })
-    },
+ //   removeRolesFromUser : async(token, id) => {
+ //       return response = await axios.delete(`https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`, {
+ //           headers: {
+ //               'content-type': 'application/json',
+ //               Authorization: `Bearer ${token}`,
+ //           }
+ //       })
+ //  },
     assingRolesToAUser: async (token, id, body) => {
         return response = await axios.post(`https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`, body, {
             headers: {
@@ -116,15 +116,15 @@ exports.apiAuth0 = {
             }
         })
     },
-    removePermissionsFromAUser : async (token, id, body) => {
-        return response = await axios.delete(`https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/permissions`, body, 
-        {
-            headers: {
-                'content-type': 'application/json',
-                Authorization: `Bearer ${token}`, 
-            }
-        })
-    },
+//    removePermissionsFromAUser : async (token, id, body) => {
+//        return response = await axios.delete(`https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/permissions`, body, 
+//        {
+//            headers: {
+//                'content-type': 'application/json',
+//                Authorization: `Bearer ${token}`, 
+//            }
+//        })
+//    },
     getActiveUsersCount : async (token) => {
         return response = await axios.get(`https://mercadodeenanos.us.auth0.com/api/v2/stats/active-users`)
     }
