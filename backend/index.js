@@ -34,16 +34,17 @@ io.on("connection", (socket)=>{
   console.log("user connected")
   
   socket.on("comentarios", (data)=>{
+    console.log(data)
     socket.emit("envio_front", data)
   })
+  socket.on("alertas", (data)=>{
+    
+    socket.emit("envio_alert", data)
+  })
   
-  // socket.on("alertas", (data)=>{
-  //   socket.emit("envio_alert", data)
-  // })
-  
-  // socket.on("disconnect", ()=>{
-  //   console.log("user is disconected")
-  // })
+  socket.on("disconnect", ()=>{
+    console.log("user is disconected")
+  })
 })
 
 
