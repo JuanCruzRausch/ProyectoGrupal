@@ -31,7 +31,7 @@ const DeletedPublicationSchema = new Schema({
       message: 'A promotion price must be lower than the base price',
     },
   },
-  finalPrice: {
+  earnings: {
     type: Number,
   },
   currency: {
@@ -45,7 +45,7 @@ const DeletedPublicationSchema = new Schema({
   },
   seller: {
     type: Schema.Types.ObjectId,
-    ref: 'SellerDeleted',
+    ref: 'Seller',
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -137,6 +137,9 @@ const DeletedPublicationSchema = new Schema({
   transactions: {
     type: [Schema.Types.ObjectId],
     ref: 'Transaction',
+  },
+  rating: {
+    type: Number,
   },
 });
 
