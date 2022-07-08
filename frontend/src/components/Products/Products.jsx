@@ -28,6 +28,8 @@ import { AddToFav } from '../../redux/actions/FavActions';
 import { Helmet } from 'react-helmet-async';
 
 function Products({ refElement, scrollTo }) {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   JSON.parse(localStorage.getItem('cart'));
   const [count, setcount] = React.useState(1);
   const dispatch = useDispatch();
@@ -35,7 +37,6 @@ function Products({ refElement, scrollTo }) {
 
   let Active = useSelector((state) => state.productReducer.pagina);
   const loading = useSelector(state => state.productReducer.loading)
-
 
   useEffect(()=>{
     dispatch(getAllCategories())
@@ -87,8 +88,8 @@ function Products({ refElement, scrollTo }) {
             {!productos.length && loading === 'spin' && <Loading />}
             {!productos.length && loading === 'enanos' && (
               <div className={ErrorEnano}>
-                <h1>los enanos no hicieron los productos</h1>
-                <h1>los enanos exigen un aumento salarial</h1>
+                <h1>los enanitos no hicieron los productos.</h1>
+                <h1>los enanitos exigen un aumento salarial</h1>
                 <img src={sindicato} />
               </div>
             )}

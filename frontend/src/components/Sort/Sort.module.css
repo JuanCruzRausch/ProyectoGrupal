@@ -13,3 +13,22 @@
 .SortContainer option {
     background: rgba(0, 0, 0, 0) !important;
 }
+.SortDark{
+    margin-top: 3vh;
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.SortDark select {
+    color: white !important;
+    width: 15%;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border: none;
+    display: flex;
+}
+.SortDark option {
+    background: rgba(255, 255, 255, 0) !important;
+    color: black !important;
+    font-weight: 500;
+}
