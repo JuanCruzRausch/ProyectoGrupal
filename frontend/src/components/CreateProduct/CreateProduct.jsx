@@ -14,7 +14,8 @@ import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
+import { addPublication, setAlert } from "../../redux/actions/index";
+import {setSeller } from "../../redux/actions/userAction"
 import swal from "sweetalert";
 import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer, toast } from "react-toastify";
@@ -124,7 +125,7 @@ function CreateProduct() {
         subCategory: objects?._id,
       })
     )
-    dispatch(publicationSeller(_id))
+    dispatch(setSeller(userState._id))
     
   }
 

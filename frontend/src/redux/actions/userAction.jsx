@@ -26,7 +26,7 @@ export function patchToSeller (id) {
 export function setSeller (id) {
   return async (dispatch) => {
     return axios.get("http://localhost:5050/seller/"+id)
-    .then(res=>dispatch({type: SET_SELLER, payload: res.data.data.seller[0] }))
+    .then(res=>dispatch({type: SET_SELLER, payload: res.data.data.seller }))
     .catch(err=> {})
   }
 }

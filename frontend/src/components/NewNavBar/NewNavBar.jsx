@@ -83,13 +83,13 @@ function NewNavBar(props) {
       :null
     },[userLogged])
 
-    useEffect(() => {
-      seller?._id?
-      dispatch(publicationSeller(seller._id))
-      .then((res)=> {})
-      .catch((e)=> {})
-      :null
-    },[seller])
+    // useEffect(() => {
+    //   seller?._id?
+    //   dispatch(publicationSeller(seller._id))
+    //   .then((res)=> {})
+    //   .catch((e)=> {})
+    //   :null
+    // },[seller])
 
     const searchOnSubmit = (e) => {
       e.preventDefault();
