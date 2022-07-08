@@ -63,14 +63,20 @@ exports.patch = catchAsync(async (req, res, next) => {
 
 exports.getSeller = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const features = new apiFeatures(
-    Seller.findOne({ user: id }, req.query)
-  ).filter();
 
-  const seller = await features.query;
+  const seller = await Seller.findOne({ user: id })
+    .populate('active_pub')
+    .populate('inactive_pub')
+    .populate('reputation')
+    .populate('transactionsTotal')
+    .populate('non_answered')
+    .populate('answered')
+    .populate('user');
+
   if (!seller) {
     return next(new AppError('No seller was found with the id', 404));
   }
+
   res.status(200).json({
     status: 'success',
     data: {

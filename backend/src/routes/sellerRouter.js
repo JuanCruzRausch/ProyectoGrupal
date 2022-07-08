@@ -7,7 +7,10 @@ sellerRouter
   .route('/')
   .post(sellerController.post)
   .patch(sellerController.patch);
-sellerRouter.route('/:id').get(sellerController.getSeller).patch(sellerController.updateActivePubs);
+sellerRouter
+  .route('/:id')
+  .get(sellerController.getSeller)
+  .patch(sellerController.updateActivePubs);
 
 sellerRouter
   .route('/:idpub/:iduser')
