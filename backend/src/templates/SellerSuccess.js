@@ -1,11 +1,14 @@
-exports.orderConfirmation = () => {
-    const error = `
+exports.SellerSuccess = (info) =>{
+    const {id, total_price, products, address, estimated_delivery_date } = info
+
+    const venta = 
+    `  
     <html>
     <div class="">
     <div class="aHl"></div>
-    <div id=":pi" tabindex="-1"></div>
-    <div id=":pt" class="ii gt" jslog="20277; u014N:xr6bB; 4:W251bGwsbnVsbCxbXV0.">
-        <div id=":pu" class="a3s aiL msg-6921349476324025261"><u></u>
+    <div id=":ps" tabindex="-1"></div>
+    <div id=":ph" class="ii gt" jslog="20277; u014N:xr6bB; 4:W251bGwsbnVsbCxbXV0.">
+        <div id=":pg" class="a3s aiL msg-208038626744013380"><u></u>
             <div style="background-color:#f5f5f5;margin:0;padding:0">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
                     style="background-color:#f5f5f5">
@@ -17,15 +20,15 @@ exports.orderConfirmation = () => {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <table class="m_-6921349476324025261row-content" align="center"
+                                                <table class="m_-208038626744013380row-content" align="center"
                                                     border="0" cellpadding="0" cellspacing="0" role="presentation"
                                                     style="background-color:#fff;color:#333;width:650px"
                                                     width="650">
                                                     <tbody>
                                                         <tr>
-                                                            <td class="m_-6921349476324025261column" width="50%"
+                                                            <td class="m_-208038626744013380column" width="50%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;padding-left:25px;padding-right:25px;border-top:0;border-right:0;border-bottom:0;border-left:0">
-                                                                <table class="m_-6921349476324025261image_block"
+                                                                <table class="m_-208038626744013380image_block"
                                                                     width="100%" border="0" cellpadding="0"
                                                                     cellspacing="0" role="presentation">
                                                                     <tbody>
@@ -43,7 +46,7 @@ exports.orderConfirmation = () => {
                                                                     </tbody>
                                                                 </table>
                                                             </td>
-                                                            <td class="m_-6921349476324025261column" width="50%"
+                                                            <td class="m_-208038626744013380column" width="50%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;border-top:0;border-right:0;border-bottom:0;border-left:0">
                                                                 <table width="100%" border="0" cellpadding="0"
                                                                     cellspacing="0" role="presentation">
@@ -85,16 +88,16 @@ exports.orderConfirmation = () => {
                                         <tr>
                                             <td>
                                                 <table
-                                                    class="m_-6921349476324025261row-content m_-6921349476324025261stack"
+                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
                                                     align="center" border="0" cellpadding="0" cellspacing="0"
                                                     role="presentation"
-                                                    style="background-color:#ff6e71;color:#000;width:650px"
+                                                    style="background-color:#fee600;color:#000;width:650px"
                                                     width="650">
                                                     <tbody>
                                                         <tr>
-                                                            <td class="m_-6921349476324025261column" width="100%"
+                                                            <td class="m_-208038626744013380column" width="100%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;padding-top:55px;padding-bottom:15px;border-top:0;border-right:0;border-bottom:0;border-left:0">
-                                                                <table class="m_-6921349476324025261image_block"
+                                                                <table class="m_-208038626744013380image_block"
                                                                     width="100%" border="0" cellpadding="0"
                                                                     cellspacing="0" role="presentation">
                                                                     <tbody>
@@ -103,20 +106,20 @@ exports.orderConfirmation = () => {
                                                                                 style="padding-bottom:15px;padding-top:25px;width:100%;padding-right:0;padding-left:0">
                                                                                 <div align="center"
                                                                                     style="line-height:10px"><img
-                                                                                        class="m_-6921349476324025261big CToWUd a6T"
+                                                                                        class="m_-208038626744013380big CToWUd a6T"
                                                                                         src="https://ci3.googleusercontent.com/proxy/5j8fZ_Pcl2sKQkvILnUOy_MU4CSXrx7CAASWUxAMeUkSt--hbM4G8p38YzeUpSmMcv9EBhvjZlGPtUxavuYCxuSBtWnKw_ByGrvpqf7Do319kVjQrdmSVa68Iz-1hcQ=s0-d-e1-ft#https://publictemplates.wbsrvcx.com/t/shipping-confirmation/illo_shipped.png"
                                                                                         style="display:block;height:auto;border:0;width:488px;max-width:100%"
                                                                                         width="488" alt="Image"
                                                                                         title="Image" tabindex="0">
                                                                                     <div class="a6S" dir="ltr"
-                                                                                        style="opacity: 0.01;">
-                                                                                        <div id=":1as"
+                                                                                        style="opacity: 0.01; left: 950px; top: 527.047px;">
+                                                                                        <div id=":rl"
                                                                                             class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q"
-                                                                                            title="Descargar"
                                                                                             role="button"
                                                                                             tabindex="0"
                                                                                             aria-label="Descargar el archivo adjunto "
-                                                                                            data-tooltip-class="a1V">
+                                                                                            data-tooltip-class="a1V"
+                                                                                            data-tooltip="Descargar">
                                                                                             <div class="akn">
                                                                                                 <div
                                                                                                     class="aSK J-J5-Ji aYr">
@@ -143,19 +146,19 @@ exports.orderConfirmation = () => {
                                                                                             style="margin:0;font-size:14px;text-align:center">
                                                                                             <span
                                                                                                 style="font-size:38px"><strong><span
-                                                                                                        style="font-size:38px"><span
-                                                                                                            style="color:#2190e3;font-size:38px">Ups..</span></span></strong></span>
+                                                                                                        style="font-size:38px">Felicitaciones</span></strong></span>
                                                                                         </p>
                                                                                         <p
                                                                                             style="margin:0;font-size:14px;text-align:center">
                                                                                             <span
                                                                                                 style="font-size:38px"><strong><span
-                                                                                                        style="font-size:38px"><span
-                                                                                                            style="color:#2190e3;font-size:38px">hubo
+                                                                                                        style="font-size:38px">
+                                                                                                        <span
+                                                                                                            style="color:#2190e3;font-size:38px">has
+                                                                                                            vendido
                                                                                                             un
-                                                                                                            problema
-                                                                                                            con tu
-                                                                                                            venta!</span></span></strong></span>
+                                                                                                            producto
+                                                                                                            publicado!</span></span></strong></span>
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -177,7 +180,8 @@ exports.orderConfirmation = () => {
                                                                                             style="margin:0;font-size:14px;text-align:center">
                                                                                             <span
                                                                                                 style="font-size:22px"><span
-                                                                                                    style="font-size:22px">Equipo
+                                                                                                    style="font-size:22px">Gracias
+                                                                                                    por elegir
                                                                                                     MEL7E</span></span>
                                                                                         </p>
                                                                                     </div>
@@ -200,14 +204,14 @@ exports.orderConfirmation = () => {
                                         <tr>
                                             <td>
                                                 <table
-                                                    class="m_-6921349476324025261row-content m_-6921349476324025261stack"
+                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
                                                     align="center" border="0" cellpadding="0" cellspacing="0"
                                                     role="presentation"
-                                                    style="background-color:#ff6e71;color:#000;width:650px"
+                                                    style="background-color:#fee600;color:#000;width:650px"
                                                     width="650">
                                                     <tbody>
                                                         <tr>
-                                                            <td class="m_-6921349476324025261column" width="100%"
+                                                            <td class="m_-208038626744013380column" width="100%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;padding-top:15px;padding-bottom:35px;border-top:0;border-right:0;border-bottom:0;border-left:0">
                                                                 <table width="100%" border="0" cellpadding="10"
                                                                     cellspacing="0" role="presentation">
@@ -215,12 +219,12 @@ exports.orderConfirmation = () => {
                                                                         <tr>
                                                                             <td>
                                                                                 <div align="center">
-                                                                                    <a href="#m_-6921349476324025261_"
+                                                                                    <a href="#m_-208038626744013380_"
                                                                                         style="text-decoration:none;display:inline-block;color:#000;background-color:#fff;border-radius:15px;width:auto;border-top:1px solid #fff;font-weight:400;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #fff;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
                                                                                             style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal"><span
                                                                                                 style="font-size:16px;line-height:2;word-break:break-word"><span
                                                                                                     style="font-size:18px;line-height:36px"><strong>Ver
-                                                                                                        problema</strong></span></span></span></a>
+                                                                                                        venta</strong></span></span></span></a>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
@@ -240,14 +244,175 @@ exports.orderConfirmation = () => {
                                         <tr>
                                             <td>
                                                 <table
-                                                    class="m_-6921349476324025261row-content m_-6921349476324025261stack"
+                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
+                                                    align="center" border="0" cellpadding="0" cellspacing="0"
+                                                    role="presentation"
+                                                    style="background-color:#fee600;color:#333;width:650px"
+                                                    width="650">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="m_-208038626744013380column" width="50%"
+                                                                style="font-weight:400;text-align:left;vertical-align:top;background-color:#fff;border-bottom:18px solid #d6e7f0;border-left:18px solid #d6e7f0;border-right:18px solid #d6e7f0;border-top:18px solid #d6e7f0;padding-left:15px">
+                                                                <table class="m_-208038626744013380image_block"
+                                                                    width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="width:100%;padding-right:0;padding-left:0;padding-top:5px">
+                                                                                <div align="center"
+                                                                                    style="line-height:10px"><img
+                                                                                        src="https://ci4.googleusercontent.com/proxy/k515wsmiSA1xmMaaVxoGL_zKO66ufp9Kq5sciLDgaORQ9PUGr70K1PQ2grxlJ-ycQAC-exqk2D2jw84rYS4wAJuxo1aw0uzv8ENV8mc87s5tuy3nmDBgDc_-1EegbQ=s0-d-e1-ft#https://publictemplates.wbsrvcx.com/t/shipping-confirmation/002-shipped.png"
+                                                                                        style="display:block;height:auto;border:0;width:123px;max-width:100%"
+                                                                                        width="123" alt="Image"
+                                                                                        title="Image"
+                                                                                        class="CToWUd"></div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation"
+                                                                    style="word-break:break-word">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding-bottom:5px;padding-left:15px;padding-right:15px;padding-top:15px">
+                                                                                <div style="font-family:sans-serif">
+                                                                                    <div
+                                                                                        style="font-size:12px;color:#fc7318;line-height:1.2;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
+                                                                                        <p
+                                                                                            style="margin:0;font-size:14px;text-align:left">
+                                                                                            <span
+                                                                                                style="font-size:24px"><span
+                                                                                                    style="font-size:24px"><strong>Dirección</strong></span><strong
+                                                                                                    style="font-size:24px">&nbsp;de
+                                                                                                </strong><span
+                                                                                                    style="font-size:24px"><strong>envío</strong></span><strong
+                                                                                                    style="font-size:24px">&nbsp;</strong></span>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation"
+                                                                    style="word-break:break-word">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding-bottom:15px;padding-left:15px;padding-right:15px;padding-top:5px">
+                                                                                <div style="font-family:sans-serif">
+                                                                                    <div
+                                                                                        style="font-size:12px;color:#555;line-height:1.5;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
+                                                                                        <p
+                                                                                            style="margin:0;font-size:14px">
+                                                                                            <strong>HARRY MAC
+                                                                                                INTOSH</strong><br>123
+                                                                                            Anywhere
+                                                                                            road<br>Anywhere, IT
+                                                                                            82933</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:10px;text-align:left">
+                                                                                <div
+                                                                                    style="text-decoration:none;display:inline-block;color:#fff;background-color:#fc7318;border-radius:15px;width:auto;border-top:1px solid #fc7318;font-weight:400;border-right:1px solid #fc7318;border-bottom:1px solid #fc7318;border-left:1px solid #fc7318;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all">
+                                                                                    <span
+                                                                                        style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal"><span
+                                                                                            style="font-size:16px;line-height:2;word-break:break-word"><strong>Sigue
+                                                                                                tu
+                                                                                                envío</strong></span></span>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td class="m_-208038626744013380column" width="50%"
+                                                                style="font-weight:400;text-align:left;vertical-align:top;border-top:0;border-right:0;border-bottom:0;border-left:0">
+                                                                <table class="m_-208038626744013380image_block"
+                                                                    width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="width:100%;padding-right:0;padding-left:0;padding-top:5px">
+                                                                                <div align="center"
+                                                                                    style="line-height:10px"><img
+                                                                                        src="https://ci5.googleusercontent.com/proxy/7B3_lvRhf07GCryAPNUhCdQnRlUcZaHBRo45n_J9DZlW52sWunMQNrNtXBtWk5vfHocws73gUZbIlHN2Ukt4-HS3j3nRcvXllmVbA2iz0PTAZkNnvJ6zKMs3vVjpCcaTe4ubtmy-zhPipDx0ItiJdavXOnN8CGRC4WIUIW1rTi4orY2uyEFo=s0-d-e1-ft#https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/d12425a2-57e5-445b-896d-425ad79fd2ca/1183196/user.png"
+                                                                                        style="display:block;height:auto;border:0;width:146px;max-width:100%"
+                                                                                        width="146" class="CToWUd">
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="width:100%;text-align:center">
+                                                                                <h1
+                                                                                    style="margin:0;color:#555;font-size:23px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;line-height:120%;text-align:center;direction:ltr;font-weight:700;letter-spacing:normal;margin-top:0;margin-bottom:0">
+                                                                                    <span>Datos del
+                                                                                        comprador:</span></h1>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table width="100%" border="0" cellpadding="0"
+                                                                    cellspacing="0" role="presentation"
+                                                                    style="word-break:break-word">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding-top:10px;padding-right:10px;padding-bottom:15px;padding-left:10px">
+                                                                                <div
+                                                                                    style="color:#000;font-size:19px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;font-weight:400;line-height:120%;text-align:left;direction:ltr;letter-spacing:0">
+                                                                                    <p style="margin:0">
+                                                                                        <strong>HARRY MAC
+                                                                                            INTOSH</strong><br>123
+                                                                                        Anywhere road<br>Anywhere,
+                                                                                        IT 82933</p>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
+                                    role="presentation">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table
+                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
                                                     align="center" border="0" cellpadding="0" cellspacing="0"
                                                     role="presentation"
                                                     style="background-color:#f0f0f0;color:#000;width:650px"
                                                     width="650">
                                                     <tbody>
                                                         <tr>
-                                                            <td class="m_-6921349476324025261column" width="100%"
+                                                            <td class="m_-208038626744013380column" width="100%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;border-bottom:18px solid #fff;border-left:25px solid #fff;border-right:25px solid #fff;border-top:18px solid #fff;padding-left:35px;padding-right:35px;padding-top:15px;padding-bottom:5px">
                                                                 <table width="100%" border="0" cellpadding="0"
                                                                     cellspacing="0" role="presentation"
@@ -266,7 +431,8 @@ exports.orderConfirmation = () => {
                                                                                                         style="font-size:34px"><span
                                                                                                             style="color:#fc7318;font-size:34px">Tienes
                                                                                                             alguna
-                                                                                                            pregunta?&nbsp;</span><br></span></strong><span
+                                                                                                            pregunta?&nbsp;</span><br>
+                                                                                                    </span></strong><span
                                                                                                     style="font-size:34px">Estamos
                                                                                                     aqui para
                                                                                                     ayudarte</span></span>
@@ -292,7 +458,7 @@ exports.orderConfirmation = () => {
                                                                                             <span
                                                                                                 style="font-size:18px"><strong><a
                                                                                                         style="text-decoration:none;color:#2190e3"
-                                                                                                        href="#m_-6921349476324025261_"
+                                                                                                        href="#m_-208038626744013380_"
                                                                                                         rel="noopener">mercadolos7enanitos@help.com</a></strong></span><br><span
                                                                                                 style="font-size:18px">(011)22334455</span>
                                                                                         </p>
@@ -316,14 +482,14 @@ exports.orderConfirmation = () => {
                                         <tr>
                                             <td>
                                                 <table
-                                                    class="m_-6921349476324025261row-content m_-6921349476324025261stack"
+                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
                                                     align="center" border="0" cellpadding="0" cellspacing="0"
                                                     role="presentation"
                                                     style="background-color:#fff;color:#000;width:650px"
                                                     width="650">
                                                     <tbody>
                                                         <tr>
-                                                            <td class="m_-6921349476324025261column" width="100%"
+                                                            <td class="m_-208038626744013380column" width="100%"
                                                                 style="font-weight:400;text-align:left;vertical-align:top;padding-top:0;padding-bottom:5px;border-top:0;border-right:0;border-bottom:0;border-left:0">
                                                                 <div
                                                                     style="height:20px;line-height:20px;font-size:1px">
@@ -346,5 +512,5 @@ exports.orderConfirmation = () => {
 </div>
     </html>
     `
-    return error
+    return venta
 }

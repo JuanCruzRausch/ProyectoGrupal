@@ -393,10 +393,9 @@ exports.orderConfirmation = (info) => {
                                                         border="0" cellpadding="0" cellspacing="0" role="presentation"
                                                         style="background-color:#fff;color:#333;width:650px"
                                                         width="650">
-                                                        <tbody>
-                                                            
-                                                            {
-                                                                products?.map(e => 
+                                                        <tbody>                                                         
+                                                            ${products?.map(e => 
+                                                                `
                                                                 <tr> 
                                                                 <td class="m_-5006345486347126279column" width="25%"
                                                                     style="font-weight:400;text-align:left;vertical-align:top;border-top:0;border-right:0;border-bottom:0;border-left:0">
@@ -513,9 +512,9 @@ exports.orderConfirmation = (info) => {
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
-                                                                </tr>  
-                                                                    )
-                                                            }
+                                                                </tr> 
+                                                                ` 
+                                                            )}
                                                         </tbody>
                                                     </table>
                                                 </td>
