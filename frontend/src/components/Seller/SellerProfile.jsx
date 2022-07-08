@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteProduct, inactivePublication } from "../../redux/actions/index"
+import { deleteProduct, inactivePublication, activePublication } from "../../redux/actions/index"
 import swal from 'sweetalert'
 import {
   Chart as ChartJS,
@@ -122,7 +122,7 @@ export default function SellerProfile() {
   }
 
   const showPublication = (productId) =>{
-    return
+    dispatch(activePublication((productId, userState._id)))
   }
 
   return (

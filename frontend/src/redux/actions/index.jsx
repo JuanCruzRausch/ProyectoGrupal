@@ -160,6 +160,15 @@ export function inactivePublication (_id, userID){
     })
   }
 }
+export function activePublication (_id, userID){
+  return async (dispatch) => {
+    return axios.put("http://localhost:5050/seller/"+_id+"/"+userID)
+    .then(res =>{
+      dispatch(setSeller(userID))
+    })
+  }
+}
+
 export function GetProductById (_id){
   return{
     type: GET_PRODUCT_BY_ID,
