@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 export default function Chat({socket, _id}) {
     
+    
     const dispatch = useDispatch()
     const recived = useSelector(state => state.interactionsReducer.chat)
     const [saludo, setSaludo] = React.useState({})
@@ -22,8 +23,9 @@ export default function Chat({socket, _id}) {
     }
     React.useEffect(()=>{
         seller?setSaludo({
-            ...saludo, 
-            idSeller: seller?._id,
+            ...saludo,
+            room: _id, 
+            seller_id: seller?._id,
             product_Id: _id
         }):null
     },[seller])
