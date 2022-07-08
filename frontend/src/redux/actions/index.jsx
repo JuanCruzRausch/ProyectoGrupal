@@ -14,8 +14,10 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 export const COUNT = "COUNT";
 export const SINGLE_ITEM = "SINGLE_ITEM";
-export const SET_LOADING = "SET_LOADING"
-export const DELETE_PUBLICATION = "DELETE_PUBLICATION"
+export const SET_LOADING = "SET_LOADING";
+export const DELETE_PUBLICATION = "DELETE_PUBLICATION";
+export const SET_ORDER = "SET_ORDER"
+export const SET_CATEGORY = "SET_CATEGORY"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -49,6 +51,14 @@ export function addPublication( id,data ) {
     return axios.post("http://localhost:5050/publicationtest/"+id, data)
     .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
     .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
+  }
+}
+
+export function sort (atribute){
+  console.log(atribute)
+  return async (dispatch) =>{
+    return axios(`http://localhost:5050/publicationtest/?sort=${atribute}`)
+    .then(res => dispatch({type: GET_ALL_PRODUCTS, payload: res.data.data.publications}))
   }
 }
 
@@ -121,10 +131,10 @@ export function BuscarProducto(title, min, max){
     )}
 }
 
-export function getProductByCategory(id, min, max) {
+export function getProductByCategory(id, min, max, sort) {
   return async (dispatch) => {
     dispatch({type:SET_LOADING, payload:"spin"})
-    return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
+    return axios(`http://localhost:5050/publicationtest?sort=${sort}&category=${id}&price[lte]=${max}&price[gte]=${min}` )
     .then(res=> {
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })
@@ -153,11 +163,11 @@ export function getAllCategory(payload) {
   }
  }
 
-export function ordenado(payload) {
-  return (dispatch) => {
-    dispatch({
-      type: ORDENADO,
-      payload,
-    });
-  };
-}
+// export function ordenado(payload) {
+//   return (dispatch) => {
+//     dispatch({
+//       type: ORDENADO,
+//       payload,
+//     });
+//   };
+// }

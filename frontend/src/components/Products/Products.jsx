@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllProducts,
   getPaginate,
-  ordenado,
+  sort,
   setActive,
   getAllCategories
 } from '../../redux/actions/index';
@@ -44,8 +44,8 @@ function Products({ refElement, scrollTo }) {
 
   useEffect(() => {
     if (!productos?.length) {
-      dispatch(getAllProducts(Active));
-      dispatch(ordenado());
+      // dispatch(getAllProducts(Active));
+      dispatch(sort("title"));
     }
   }, []);
 

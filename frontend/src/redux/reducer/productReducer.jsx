@@ -14,10 +14,14 @@ import {
   PUBLICATION_ALERT,
   COUNT,
   SET_LOADING, 
-  PUBLICATION_SELLER
+  PUBLICATION_SELLER,
+  SET_ORDER,
+  SET_CATEGORY
 } from '../actions/index';
 
 const initialState = {
+  category:'',
+  sort: 'Ordenado por...',
   publicationSeller: [],
   publicationAlert: "none",
   allProductCache: [],
@@ -38,7 +42,10 @@ const initialState = {
 function productReducer(state = initialState, { type, payload }) {
   
   switch (type) {
-
+    case SET_CATEGORY:
+      return {...state, category: payload}
+    case SET_ORDER:
+        return {...state, sort: payload}
     case PUBLICATION_SELLER:
       return {...state, publicationSeller: [...payload]}
     case SET_LOADING:

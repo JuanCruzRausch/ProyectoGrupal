@@ -116,14 +116,13 @@ function CreateProduct() {
       arrayImg.push(result.data.data[0].imageURL);
     }
 
-    dispatch(
+    await dispatch(
       addPublication(userState._id,{
         ...data,
         pictures: [...arrayImg],
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-      
     )
     dispatch(publicationSeller(_id))
     
