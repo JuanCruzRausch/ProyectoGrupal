@@ -1,40 +1,50 @@
-import { ordenado, setActive } from '../../redux/actions';
+import {  setActive, getProductBy } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
-import { useDispatch, useSelector } from 'react-redux';
 import { SortContainer, SortDark } from './Sort.module.css';
-import { scrollToProducts } from '../variablesGlobales';
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const Sort = React.forwardRef((props, ref) => {
+  const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
+  const order = useSelector (state => state.productReducer.sort)
+  const category = useSelector (state => state.productReducer.category)
   const mode = useSelector((state)=> state.darkMode)
   const { isdarkMode } = mode;
-  const [order, setOrder] = useState('');
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(ordenado());
-  }, [dispatch]);
+
+  const setOrder = (val) =>{
+    dispatch({type: "SET_ORDER" , payload: val})
+  }
 
   const handleChange = (e) => {
     e.preventDefault();
-    dispatch(ordenado(e.target.value));
-    setOrder(`Ordenado ${e.target.value}`);
+    setOrder(e.target.value)
+    e.target.value==="A-Z"&&dispatch(getProductBy(category, min, max, "title"))
+    e.target.value==="Z-A"&&dispatch(getProductBy(category, min, max, "-title"))
+    e.target.value==="Mayor Precio"&&dispatch(getProductBy(category, min, max, "-price"))
+    e.target.value==="Menor Precio"&&dispatch(getProductBy(category, min, max, "price"))
+   
     dispatch(setActive(1));
     props.scrollTo();
+
   };
 
   return (
     <div className={isdarkMode? SortDark :  SortContainer} ref={ref}>
-      <Form.Select onChange={(e) => handleChange(e)}>
+      <Form.Select 
+      value={order}
+      onChange={(e) => handleChange(e)}>
         {/* <option value="High to Low Price">mayor precio</option>
           <option value="Low to High Price">menor precio</option> */}
         <option value="" defaultValue>
           Ordena por
         </option>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
-        <option value="High to Low">Mayor precio</option>
-        <option value="Low to High">Menor precio</option>
+        <option >A-Z</option>
+        <option >Z-A</option>
+        <option >Menor Precio</option>
+        <option >Mayor Precio</option>
       </Form.Select>
     </div>
   );

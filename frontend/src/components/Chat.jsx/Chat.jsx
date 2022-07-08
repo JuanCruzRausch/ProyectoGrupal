@@ -1,7 +1,6 @@
 
 import React from 'react'
 import {useSelector} from "react-redux"
-import SellerProfile from '../Seller/SellerProfile';
 import {chat_header, chat_body, chat_footer} from "./Chat.module.css"
 import { useDispatch } from 'react-redux';
 
@@ -12,9 +11,9 @@ export default function Chat({socket, _id}) {
     const [saludo, setSaludo] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
    
-    const mostrarComentarios = (e)=>{
+    const enviarComentarios = async (e)=>{
         e.preventDefault()
-        socket.emit("comentarios", saludo);
+        await socket.emit("comentarios", saludo);
         setSaludo({...saludo, data:''})
     };
     const setRecived = (data) =>{
@@ -39,7 +38,8 @@ export default function Chat({socket, _id}) {
         
         setSaludo({
             ...saludo, 
-            data:e.target.value,
+            room: _id,
+            data: e.target.value,
             date: new Date( Date.now()),
             time: new Date( Date.now()).getHours() +
             ":" +
@@ -61,7 +61,7 @@ export default function Chat({socket, _id}) {
             {recived?.map(data=> <div><h1>{data.data}</h1></div>)}
         </div>
         <div className={chat_footer}>
-            <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
+            <form action="" onSubmit={(e)=> enviarComentarios(e)}>
                 <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
 
                 <button type="submit" >

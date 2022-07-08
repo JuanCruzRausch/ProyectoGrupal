@@ -20,7 +20,7 @@ import {
   useSelector
 } from 'react-redux';
 import {
-  getProductByCategory,
+  getProductBy,
   BuscarProducto,
   setActive,
   publicationSeller,
@@ -35,6 +35,7 @@ import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function NewNavBar(props) {
+    const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const mode = useSelector((state)=> state.darkMode)
@@ -81,7 +82,7 @@ function NewNavBar(props) {
       .catch((e)=> console.log(e))
       :null
     },[userLogged])
-  
+
     useEffect(() => {
       seller?._id?
       dispatch(publicationSeller(seller._id))
@@ -121,7 +122,7 @@ function NewNavBar(props) {
       dispatch(setActive(1));
       window.scrollTo(0, 650);
       const cat = categories.find(cat => cat.name===categoryName)
-      dispatch(getProductByCategory(cat._id, min, max));
+      dispatch(getProductBy(cat._id, min, max, sort));
     };
 
     function refreshPage(e) {
@@ -138,7 +139,7 @@ function NewNavBar(props) {
         <nav className={Nav}>
             <NavLink className={NavLinked} onClick={(e) => 
                 {refreshPage(e);
-                }} to="/" ActiveClassname={NavLinkActive}>
+                }} to="/" activeclassname={NavLinkActive}>
             <img src={isdarkMode ? mercadolight : mercado} />
           </NavLink>
           <div className={searchdata2}>
@@ -195,7 +196,7 @@ function NewNavBar(props) {
                     </Button>
                 </Form>
             </div>
-                <NavLink to="/cart" ActiveClassname={NavLinkActive}>
+                <NavLink to="/cart" activeclassname={NavLinkActive}>
                 {
                 CartState.length > 0 ? <div className={Cart}>
                   <img className={ isdarkMode ? DarkcartIMG : cartIMG } src={cart} alt="cart" />
