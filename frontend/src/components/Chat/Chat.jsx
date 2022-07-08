@@ -11,9 +11,11 @@ export default function Chat({socket, _id}) {
     const recived = useSelector(state => state.interactionsReducer.chat)
     const [saludo, setSaludo] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
+   
     const mostrarComentarios = (e)=>{
         e.preventDefault()
         socket.emit("comentarios", saludo);
+        setSaludo({...saludo, data:''})
     };
     const setRecived = (data) =>{
         dispatch({type: "SET_CHAT", payload: data})
@@ -30,6 +32,7 @@ export default function Chat({socket, _id}) {
         socket.on("envio_front", (data)=>{
             setRecived( data)
         })
+        
     },[socket])
 
     const handleOnChange = (e) =>{
@@ -59,7 +62,7 @@ export default function Chat({socket, _id}) {
         </div>
         <div className={chat_footer}>
             <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
-                <input onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
+                <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
 
                 <button type="submit" >
                     enviar
