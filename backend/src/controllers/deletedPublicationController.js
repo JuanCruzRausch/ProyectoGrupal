@@ -24,9 +24,9 @@ exports.getAllDeletedPublication = catchAsync(async (req, res, next) => {
 
 exports.postDeletedPublication = catchAsync(async (req, res, next) => {
   let deletedPub = await PublicationTest.findById(req.params.id);
-  console.log(deletedPub);
+  
   const newDeletedPub = await DeletedPublication.create({ ...deletedPub._doc });
-
+  
   await PublicationTest.findByIdAndDelete(req.params.id);
 
   res.status(200).json({

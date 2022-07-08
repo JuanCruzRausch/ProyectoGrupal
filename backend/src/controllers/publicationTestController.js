@@ -82,7 +82,10 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   if (req.body.shipping.shippingType === 'free') {
     freeS = 0;
   }
-
+  let sell = await Seller.findOne({user: userId})
+  if(!sell){
+    return next(new AppError('There is no seller with that id', 404))
+  }
   const newPub = await PublicationTest.create({
     title: req.body.title,
     description: req.body.description,
@@ -91,7 +94,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     earnings,
     promPrice: req.body.promPrice,
     currency: req.body.currency,
-    seller: req.body.seller,
+    seller: sell._id,
     category: req.body.category,
     subCategory: req.body.subCategory,
     shipping: {

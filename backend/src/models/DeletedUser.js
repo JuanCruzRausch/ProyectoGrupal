@@ -45,7 +45,6 @@ const deletedUser = new Schema({
   },
   phone: {
     type: String,
-    validate: [validator.isMobilePhone, 'Please provide your phone number'],
   },
   credit_card: {
     type: String,
