@@ -1,3 +1,5 @@
+import { setSeller } from './userAction';
+
 import axios, { Axios } from 'axios'
 export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
@@ -35,8 +37,8 @@ export function signUp(data) {
 }
 export function publicationSeller (seller_id) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest/sellerpublications/"+seller_id)
-    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data}))
+    return axios("http://localhost:5050/Seller/"+seller_id)
+    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data.sell}))
     // .then(res => dispatch({type: PUBLICATION_SELLER, payload: res.data.data}))
   }
 }
@@ -146,11 +148,19 @@ export function deleteProduct(id,userID){
   return async (dispatch) => {
     return axios.post("http://localhost:5050/seller/"+id+"/"+userID)
     .then(res =>{
-      dispatch({type: DELETE_PUBLICATION, id})
+      dispatch(setSeller(userID))
     })
   }
 }
-export function GetProductById(_id){
+export function inactivePublication (_id, userID){
+  return async (dispatch) => {
+    return axios.patch("http://localhost:5050/seller/"+_id+"/"+userID)
+    .then(res =>{
+      dispatch(setSeller(userID))
+    })
+  }
+}
+export function GetProductById (_id){
   return{
     type: GET_PRODUCT_BY_ID,
     payload: _id,
