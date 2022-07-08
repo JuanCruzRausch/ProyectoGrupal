@@ -9,26 +9,31 @@ const catchAsync = require('../utils/catchAsync');
 exports.getPostAndDelete = catchAsync(async (req, res, next) => {
   const {id} = req.params
 
-  let userForDelete = await CommonUser.findById(id);
+  let userForDelete = await CommonUser.findById(id); 
   let sellerForDelete = await Seller.findOne({ user: id });
 
 
+//A continuacion crea en la nueva collection las publicaciones a borrar
+  PublicationTest.find({seller: sellerForDelete._id})
+        .then(publication=>{
+            for (let i=0; i < publication.length; i++){
+                var newPubli = new DeletedPublication(publication[i])
+                newPubli.isNew = true;
+                newPubli.save();
 
-  let pubsForDelete = await PublicationTest.find({seller: sellerForDelete._id}); 
+            }
+        })
+
+
+const userDeleted = await DeletedUser.create({ ...userForDelete._doc });
+const sellerDeleted = await DeletedSeller.create({...sellerForDelete._doc});
+
+//A continuacion borra todos los datos de la original collection
+await PublicationTest.deleteMany({ seller: sellerForDelete._id });
+
+await Seller.deleteOne({ user: id });
   
-
-  const userDeleted = await DeletedUser.create({ ...userForDelete._doc });
-
-  const sellerDeleted = await DeletedSeller.create({...sellerForDelete._doc});
-
-  const pubsDeleted = await DeletedPublication.create([...pubsForDelete]);
-    
-
-//   await PublicationTest.deleteMany({ seller: sellerForDelete._id });
-//   console.log('BORRÓ LAS PUBLICACIONES')
-//   await Seller.deleteOne({ user: id });
-//   console.log('BORRÓ EL SELLER');
-//   await CommonUser.deleteOne(id);
+await CommonUser.deleteOne({_id:id});
 
   res.status(200).json({ 
     status: 'success', 
