@@ -34,12 +34,12 @@ io.on("connection", (socket)=>{
   console.log("user connected")
   
   socket.on("comentarios", (data)=>{
-    console.log(data)
-    socket.emit("envio_front", data)
+    console.log(`usuario ${socket.id} envió ${data.data}`)
+    socket.to(data.room).emit("envio_front", data)
   })
-  socket.on("alertas", (data)=>{
-    
-    socket.emit("envio_alert", data)
+  socket.on("join_room", (room)=>{
+    socket.join(room)
+    console.log(`usuario con id ${socket.id} se unió a la sala ${room} `)
   })
   
   socket.on("disconnect", ()=>{

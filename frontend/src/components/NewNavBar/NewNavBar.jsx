@@ -81,7 +81,7 @@ function NewNavBar(props) {
       .catch((e)=> console.log(e))
       :null
     },[userLogged])
-  
+
     useEffect(() => {
       seller?._id?
       dispatch(publicationSeller(seller._id))

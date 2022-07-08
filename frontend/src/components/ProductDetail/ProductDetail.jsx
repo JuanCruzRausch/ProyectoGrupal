@@ -62,9 +62,11 @@ function ProductDetail(props) {
   },[])
   
   useEffect(()=>{
+    socket.emit("join_room", State?._id)
     setimgs( State?.pictures?.length>0 ?  State?.pictures[0] : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU")
-  },[State])
+  },[State, socket])
 
+  
 
   const atras = () => {
     navigate(-1);
