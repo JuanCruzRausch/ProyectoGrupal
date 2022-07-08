@@ -14,7 +14,9 @@ function Footer() {
     <div className={FooterContainer}>
         <div className={FooterSubcontainer1}>
             <div>
+                <Link to="/privacidad">
                 <h1>Politica de privacidad</h1>
+                </Link>
             </div>
             <div>
             <Link to="/terminos-y-condiciones">

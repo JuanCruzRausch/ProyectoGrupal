@@ -29,6 +29,7 @@ import Historial from "./components/Historial/Historial";
 import socketIO from "socket.io-client";
 import { useEffect } from "react";
 import Terms from "./components/Terms/Terms";
+import Privacy from "./components/Privacy/Privacy";
 
 const WS = "http://localhost:5050"
 
@@ -66,6 +67,7 @@ function App() {
         </label>
         </div>
         <Routes>
+          <Route path="/privacidad" element={ <Privacy /> } />
           <Route path="/terminos-y-condiciones" element={ <Terms /> } />
           <Route path="/perfil/historial/rating" element={ <Rating /> }/>
           <Route path="/perfil/historial" element={ <Historial /> } />
@@ -84,19 +86,12 @@ function App() {
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="*" element={ <Error /> } />
-          <Route
-           exact path="/products/:_id"
-            element={<ProductDetail scrollTo={scrollToSort} />}
-          />
-          <Route
-           exact path="/"
-            element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}
-          />
+          <Route exact path="/products/:_id" element={<ProductDetail scrollTo={scrollToSort} />} />
+          <Route exact path="/" element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}/>
         </Routes>
         <Footer />
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;

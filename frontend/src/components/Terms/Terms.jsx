@@ -1,9 +1,22 @@
 import React from 'react'
 import { Accordion } from 'react-bootstrap'
+import arrow from '../../assets/img/leftarrow.png'
+import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
 import {TermsContainer} from './Terms.module.css'
+import {TermsContainerDark, DetailDark} from './TermsDark.module.css'
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 function Terms() {
+    const mode = useSelector((state)=> state.darkMode)
+    const { isdarkMode } = mode;
   return (
-    <div className={TermsContainer}>
+    <div className={isdarkMode ? TermsContainerDark : TermsContainer}>
+    <div className={isdarkMode? DetailDark : Detail_Links}>
+        <img src={arrow} alt="back" />
+        <Link to="/">
+          <h2>Home</h2>
+        </Link>
+      </div>
         <Accordion defaultActiveKey={['0']} alwaysOpen>
             <Accordion.Item eventKey="0">
                 <Accordion.Header>#1 Términos y Condiciones </Accordion.Header>
