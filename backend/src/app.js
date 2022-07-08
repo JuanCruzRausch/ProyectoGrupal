@@ -13,8 +13,13 @@ const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 dotenv.config({ path: "./.env" });
+const circularJSON = require('circular-json')
+
+const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
+const {roles} = require('./utils/roles')
+const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0')
+
 
 const app = express();
 
@@ -45,6 +50,20 @@ app.use('/qanda', qandaRouter);
 app.use('/transactions', transactionsRouter);
 app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
+
+//Es de ejemplo, 
+app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
+  try {
+    const token = await getAccessTokenAdmin()
+    const response = await apiAuth0.searchUsersByEmail(token.data.access_token, 'javierzv999@hotmail.com') // perdon Javi por usarte xD
+    const json = circularJSON.stringify(response.data)
+    res.send(json)
+  } catch (error) {
+    res.status(400).json({error:error.message})
+  }  
+    
+})
+
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

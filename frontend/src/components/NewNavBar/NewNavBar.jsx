@@ -33,6 +33,7 @@ import { useState } from 'react';
 import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios'
 
 function NewNavBar(props) {
     let navigate = useNavigate();
@@ -55,7 +56,7 @@ function NewNavBar(props) {
     const seller = useSelector(state => state.userReducer.seller)
     const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
     const toggleNav = () =>{
         settogglemenu(!togglemenu)
     }
@@ -205,6 +206,14 @@ function NewNavBar(props) {
                     {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
+                    <button onClick={async()=>{
+                      const token = await getAccessTokenSilently()
+                      const response = await axios.get('http://localhost:5050/apiAuth0', {
+                        headers: {
+                          Authorization: `Bearer ${token}`
+                        }
+                      })
+                    }} >api Admin Auth0</button>
                     <LogoutButton />
                   </div>
                 ) : (                  
