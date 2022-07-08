@@ -30,7 +30,7 @@ function CreateProduct() {
   const [combination, setCombination] = useState({});
   const [images, setImages] = useState([]);
   const [stockTotal, setStockTotal] = useState(0)
-  const {_id} = useSelector(state => state.userReducer.seller)
+  const {_id} = useSelector(state => state.userReducer)
   const [data, setData] = useState({
     title: "",
     description: "",
