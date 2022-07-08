@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const upload = require('../../multer');
 const publicationTestController = require('../controllers/publicationTestController');
 
 const publicationTestRouter = Router();
@@ -17,11 +16,11 @@ publicationTestRouter.get(
   '/:id',
   publicationTestController.getPublicationTestID
 );
-publicationTestRouter.post(
-  '/upload-image',
-  upload.array('image'),
-  publicationTestController.postImages
-);
+// publicationTestRouter.post(
+//   '/upload-image',
+//   upload.array('image'),
+//   publicationTestController.postImages
+// );
 publicationTestRouter.get(
   '/sellerpublications/:id',
   publicationTestController.getProductsBySeller
