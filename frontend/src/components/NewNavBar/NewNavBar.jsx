@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata,  } from './NewNavBar.module.css'
+import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata, searchdata2 } from './NewNavBar.module.css'
 import {DarkcartIMG, NavDark} from './NavBarDarkmode.module.css'
 import {FaBars} from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
@@ -142,10 +142,25 @@ function NewNavBar(props) {
                 }} to="/" activeclassname={NavLinkActive}>
             <img src={isdarkMode ? mercadolight : mercado} />
           </NavLink>
-          <div onClick={toggleNav} className={Bars}>
-            <FaBars/> 
+          <div className={searchdata2}>
+                <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
+                    <input
+                    type="text"
+                    className={datalist}
+                    placeholder="...buscar"
+                    list="data"
+                    onChange={(e) => searchOnChange(e)}
+                    />
+                    <datalist id="data">
+                    {display.map((item, key) => (
+                        <option key={key} value={item} />
+                        ))}
+                    </datalist>
+                    <Button type="submit" variant="outline-success">
+                    <img src={lupa} />
+                    </Button>
+                </Form>
           </div>
-
         {    (togglemenu || screen >768) && (
             <div className={NavMenu}>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">

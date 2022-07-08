@@ -1,0 +1,165 @@
+.SingleProduct_containerDark{
+    width: 100%;
+}
+
+.SingleProduct_containerDark{
+    width: 85%;
+    height: 170px;
+    border-radius: 15px;
+    margin: 2vh ;
+    display: flex;
+    justify-content: space-between;
+    background-color: #2D2C2F;
+    align-self: flex-end;
+}
+
+
+.SingleProduct_imgDark img{
+    width: 18vh;
+    height: auto;
+    height: 170px;
+    width: 170px;
+    object-fit: contain;
+    margin: auto;
+    border-radius: 12px;
+}
+
+.SingleProduct_img:hover, .SingleProduct_textDark:hover{
+    cursor: pointer;
+}
+.SingleProduct_textDark{
+    margin: auto; 
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.SingleProduct_textDark h1{
+    font-size: 1.3rem;
+    width: 80%;
+    margin: 1rem 0;
+    color: #d7d7d7;
+    font-weight: 300;
+}
+.SingleProduct_textDark h2{
+    align-self: flex-start;
+    font-size: 1.8rem !important;
+    font-weight: 700;
+    color: #d7d7d7;
+}
+.SingleProduct_textDark h3{
+    align-self: flex-start;
+    color: #00A650 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+}
+.SingleProduct_buttonsDark{
+    width: 200px;
+    margin-right: 10vh;
+    display: flex;
+    justify-self: flex-end;
+    flex-direction: row; 
+    justify-content: space-between;
+}
+.SingleProduct_buttonsDark button{
+    align-self: flex-end;
+    margin: auto;
+    font-weight: 400;
+    color: rgb(70, 70, 70);
+    transition: all .5s ease-in-out;
+    filter: invert(100%);
+    background-color: rgba(0, 0, 0, 0);
+    transition: all .5s ease-in-out;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+}
+.AddToCart:hover{
+    transform: scale(1.3);
+}
+.SingleProduct_buttonsDark button img{
+    width: 35px;
+}
+
+.DarkFavs{
+    background-color: rgba(0, 0, 0, 0) !important;
+    transition: all .6s ease-in-out;
+}
+.DarkFavs:hover{
+   transform: scale(1.3);
+}
+
+@media screen and (max-width:600px) {
+    
+.SingleProduct_containerDark{
+    margin: 1.5rem auto;
+    width: 99%;
+    border-radius: 10px;
+    display: flex;
+    transition: all .6s ease-in-out;
+}
+
+.SingleProduct_imgDark img{
+    height:90px !important;
+    width: 90px !important;
+    object-fit: contain;
+    margin: auto;
+    border-radius: 12px;
+}
+
+.SingleProduct_imgDark:hover, .SingleProduct_textDark:hover{
+    cursor: pointer;
+}
+.SingleProduct_textDark{
+    margin: auto; 
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.SingleProduct_textDark h1{
+    font-size: 1.3rem;
+    width: 80%;
+    margin: 1rem 0;
+    font-weight: 300;
+}
+.SingleProduct_textDark h2{
+    align-self: flex-start;
+    font-size: 1.8rem !important;
+    font-weight: 700;
+}
+.SingleProduct_textDark h3{
+    align-self: flex-start;
+    color: #00A650 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+}
+.SingleProduct_buttonsDark{
+    width: 200px;
+    display: flex;
+    justify-self: flex-end;
+    flex-direction: column; 
+    justify-content: space-between;
+}
+.SingleProduct_buttonsDark button{
+    margin: auto;
+    font-weight: 400;
+    transition: all .5s ease-in-out;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+}
+.AddToCart:hover{
+    transform: scale(1.3);
+}
+.SingleProduct_buttonsDark button img{
+    width: 35px;
+}
+
+.DarkFavs{
+    transition: all .6s ease-in-out;
+}
+.DarkFavs:hover{
+   transform: scale(1.3);
+}
+}

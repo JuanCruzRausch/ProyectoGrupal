@@ -1,0 +1,59 @@
+.controllsContainer{
+    display: none;
+}    
+.ControllsDark{
+   display: none;
+}
+
+.Controll{
+        padding: 1rem;
+        cursor: pointer;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: .7rem 0;
+        transition: all .6s ease-in-out;
+
+    }
+@media screen and (max-width:600px) {
+    .controllsContainer{
+        background-color: white;
+        position: fixed;
+        display: flex;
+        top:auto;
+        bottom: 0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 100%;
+        transition: all .6s ease-in-out;
+
+    }
+    .ControllsDark{
+        background-color: rgb(1, 1, 1);
+        position: fixed;
+        display: flex;
+        top:auto;
+        bottom: 0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        left: 50%;
+        transform: translate(-50%);
+        width: 100%;
+        transition: all .6s ease-in-out;
+
+    }
+    .ControllsDark img{
+        filter: invert(90%);
+        transition: all .6s ease-in-out;
+
+    }
+    .controll{
+        margin: 1rem .5rem;
+    }
+    .Controll img{
+        width: 35px;
+    }
+}
