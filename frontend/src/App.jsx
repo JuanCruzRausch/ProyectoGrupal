@@ -1,5 +1,5 @@
-import Products from "./components/Products/Products";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Products from "./components/Products/Products";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Favoritos from './components/Favoritos/Favoritos'
 import SignupScreen from "./components/SignupScreen/SignupScreen";
@@ -9,14 +9,9 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import ShippingAddress from "./components/ShippingAddressScreen/ShippingAddress";
 import Perfil from "./components/Perfil/Perfil";
 import SellerProfile from "./components/Seller/SellerProfile";
-import { useRef } from "react";
 import Cart from "./components/Cart/Cart";
+import About from './components/About/About';
 import PlaceOrder from "./components/PlaceOrder/PlaceOrder";
-import 'react-toastify/dist/ReactToastify.css';
-import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
-import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { handledarkMode } from "./redux/actions/DarkActions";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import NewNavBar from "./components/NewNavBar/NewNavBar";
 import AltaVendedor from "./components/AltaVendedor/AltaVendedor"
@@ -26,11 +21,17 @@ import SocialNet from "./components/SocialNet/SocialNet";
 import Rating from "./components/Rating/Rating";
 import Brand from "./components/Brand/Brand";
 import Historial from "./components/Historial/Historial";
-import socketIO from "socket.io-client";
-import { useEffect } from "react";
 import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
 import Controlls from "./components/Controlls/Controlls";
+import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import socketIO from "socket.io-client";
+import { handledarkMode } from "./redux/actions/DarkActions";
+import { useRef } from "react";
+import { useEffect } from "react";
+import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const WS = "http://localhost:5050"
 
@@ -86,9 +87,10 @@ function App() {
           <Route path="/shipping" element={<ShippingAddress />} />
           <Route path="/signin" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
-          <Route path="*" element={ <Error /> } />
+          <Route path="/nosotros" element={ <About /> } />
           <Route exact path="/products/:_id" element={<ProductDetail scrollTo={scrollToSort} />} />
           <Route exact path="/" element={<Products refElement={scrollTo} scrollTo={scrollToSort} />}/>
+          <Route path="*" element={ <Error /> } />
         </Routes>
         <Footer />
         <Controlls />

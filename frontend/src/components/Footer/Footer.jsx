@@ -3,7 +3,7 @@ import {FooterContainer, FooterSubcontainer1, FooterSubcontainer2, MiCuenta} fro
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 function Footer() {
@@ -33,7 +33,9 @@ function Footer() {
         )}
             </div>
             <div>
-                <h1>Acerca de nosotros</h1>
+                <Link to="/Nosotros">
+                    <h1>Acerca de nosotros</h1>
+                </Link>
             </div>
         </div>
         <hr />
