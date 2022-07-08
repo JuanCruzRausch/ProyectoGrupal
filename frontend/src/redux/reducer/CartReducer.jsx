@@ -30,7 +30,6 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       localStorage.setItem('shippingAddress', JSON.stringify(payload));
       return {...state, cart: {...state.cart, shippingAddress: {...payload}} }
     case ADD_TO_CART:
-
       const item = payload;
       var TotalPrice = JSON.stringify(state.cart.cartItem.reduce((prev, next)=> prev + next.price, 0));
       localStorage.setItem('prices', JSON.stringify(TotalPrice))

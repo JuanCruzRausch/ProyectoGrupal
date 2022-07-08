@@ -28,6 +28,7 @@ import Brand from "./components/Brand/Brand";
 import Historial from "./components/Historial/Historial";
 import socketIO from "socket.io-client";
 import { useEffect } from "react";
+import Terms from "./components/Terms/Terms";
 
 const WS = "http://localhost:5050"
 
@@ -65,6 +66,7 @@ function App() {
         </label>
         </div>
         <Routes>
+          <Route path="/terminos-y-condiciones" element={ <Terms /> } />
           <Route path="/perfil/historial/rating" element={ <Rating /> }/>
           <Route path="/perfil/historial" element={ <Historial /> } />
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
