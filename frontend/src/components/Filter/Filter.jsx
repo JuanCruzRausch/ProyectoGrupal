@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
-import { getProductByCategory,setActive } from '../../redux/actions';
+import { getProductBy,setActive } from '../../redux/actions';
 import PriceFilter from '../PriceFilter/PriceFilter';
 const Filter = (props) => {
 
@@ -9,18 +9,19 @@ const Filter = (props) => {
   const categories = useSelector((state) => state.productReducer.Categories);
   const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
   const dispatch = useDispatch();
-  const handleOnSelectCategory = (e, categoryName) => {
-    setCategory(e.target.value)
+  const handleOnSelectCategory = async(e, categoryName) => {
+    
     dispatch(setActive(1));
     e.preventDefault();
     props.scrollTo();
     const cat = categories.find(cat => cat.name===categoryName)
+    setCategory(cat._id)
     let sortToSend
     sort==="A-Z"&&(sortToSend = "title")
     sort==="Z-A"&&(sortToSend = "-title")
     sort==="Mayor Precio"&&(sortToSend = "-price")
     sort==="Menor Precio"&&(sortToSend = "price")
-    dispatch(getProductByCategory(cat._id, min, max, sortToSend ));
+    dispatch(getProductBy(cat._id, min, max, sortToSend ));
   };
 
     const setCategory = (data) =>{

@@ -1,4 +1,4 @@
-import { sort, setActive } from '../../redux/actions';
+import {  setActive, getProductBy } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import { SortContainer, SortDark } from './Sort.module.css';
@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 const Sort = React.forwardRef((props, ref) => {
+  const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
   const order = useSelector (state => state.productReducer.sort)
+  const category = useSelector (state => state.productReducer.category)
   const mode = useSelector((state)=> state.darkMode)
   const { isdarkMode } = mode;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(sort());
-  }, [dispatch]);
 
   const setOrder = (val) =>{
     dispatch({type: "SET_ORDER" , payload: val})
@@ -22,13 +21,14 @@ const Sort = React.forwardRef((props, ref) => {
   const handleChange = (e) => {
     e.preventDefault();
     setOrder(e.target.value)
-    e.target.value==="A-Z"&&dispatch(sort("title"))
-    e.target.value==="Z-A"&&dispatch(sort("-title"))
-    e.target.value==="Mayor Precio"&&dispatch(sort("-price"))
-    e.target.value==="Menor Precio"&&dispatch(sort("price"))
+    e.target.value==="A-Z"&&dispatch(getProductBy(category, min, max, "title"))
+    e.target.value==="Z-A"&&dispatch(getProductBy(category, min, max, "-title"))
+    e.target.value==="Mayor Precio"&&dispatch(getProductBy(category, min, max, "-price"))
+    e.target.value==="Menor Precio"&&dispatch(getProductBy(category, min, max, "price"))
    
     dispatch(setActive(1));
     props.scrollTo();
+
   };
 
   return (

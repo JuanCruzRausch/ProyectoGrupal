@@ -131,7 +131,7 @@ export function BuscarProducto(title, min, max){
     )}
 }
 
-export function getProductByCategory(id, min, max, sort) {
+export function getProductBy(id, min, max, sort) {
   return async (dispatch) => {
     dispatch({type:SET_LOADING, payload:"spin"})
     return axios(`http://localhost:5050/publicationtest?sort=${sort}&category=${id}&price[lte]=${max}&price[gte]=${min}` )
@@ -163,11 +163,3 @@ export function getAllCategory(payload) {
   }
  }
 
-// export function ordenado(payload) {
-//   return (dispatch) => {
-//     dispatch({
-//       type: ORDENADO,
-//       payload,
-//     });
-//   };
-// }
