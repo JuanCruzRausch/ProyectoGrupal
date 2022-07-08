@@ -12,6 +12,7 @@ const transactionsRouter = require('./routes/transactionsRouter');
 const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
 const paymentRouter = require('./routes/paymentRouter');
+const uploadImageRouter = require('./routes/uploadImageRouter');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
@@ -47,6 +48,7 @@ app.use('/transactions', transactionsRouter);
 app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
 app.use('/payment', paymentRouter);
+app.use('/upload-image', uploadImageRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
