@@ -122,7 +122,10 @@ export default function SellerProfile() {
   }
 
   const showPublication = (productId) =>{
+
     dispatch(activePublication(productId, userState._id))
+
+
   }
 
   return (
