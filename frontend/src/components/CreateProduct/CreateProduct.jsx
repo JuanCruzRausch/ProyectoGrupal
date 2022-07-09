@@ -92,6 +92,9 @@ function CreateProduct() {
     });
   }
 
+  function priceValidation (e){
+    if (e.target.value >= 0) handleOnChange(e)
+  }
   function handleStock(e) {
     setStock(e.target.value);
   }
@@ -205,25 +208,13 @@ function CreateProduct() {
                 </span>
               ))}
           </div>
-          {/* <Form.Label>Moneda USD</Form.Label> */}
-          {/* <Form.Select
-            aria-label="Default select example"
-            value={data.currency}
-            name="currency"
-            onChange={(e) => handleOnChange(e)}
-          > */}
-            {/* <option value="" disabled default>
-              Seleccione una moneda
-            </option>
-            <option>ARS</option>
-            <option>USD</option>
-          </Form.Select> */}
+         
           <Form.Label>Precio en USD</Form.Label>
           <Form.Control
             type="number"
             name="price"
             value={data.price}
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => priceValidation(e)}
             required
             />
           <Form.Label>Categoria</Form.Label>
