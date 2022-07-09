@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata, searchdata2 } from './NewNavBar.module.css'
 import {DarkcartIMG, NavDark, darkA} from './NavBarDarkmode.module.css'
+import { getUsers } from '../../redux/actions/adminAction'
 import {FaBars} from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
@@ -34,6 +35,7 @@ import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios'
+
 
 function NewNavBar(props) {
     const sort = useSelector(state => state.productReducer.sort)
@@ -83,6 +85,14 @@ function NewNavBar(props) {
       :null
     },[userLogged])
 
+    useEffect(()=>{
+      getAllUsers()
+    },[userLogged])
+
+    async function getAllUsers (){
+      const token = await getAccessTokenSilently()
+      dispatch(getUsers(token))
+    }
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
