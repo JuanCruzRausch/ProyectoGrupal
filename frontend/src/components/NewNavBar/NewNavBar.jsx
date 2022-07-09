@@ -211,7 +211,7 @@ function NewNavBar(props) {
                     {/* <button onClick={async()=>{
                       // Sirve de ejemplo para el uso de token de auth0
                       const token = await getAccessTokenSilently()
-                      const response = await axios.get('http://localhost:5050/stats/getActiveUsersCount', {
+                      const response = await axios.get('http://localhost:5050/stats/listUsers', {
                         headers: {
                           Authorization: `Bearer ${token}`
                         }
@@ -219,7 +219,6 @@ function NewNavBar(props) {
                     }} >api Admin Auth0</button> */}
                     <LogoutButton />
                   </div>
-
                 ) : (                  
                   <p><LogoutButton />please verify you email </p>
                   
