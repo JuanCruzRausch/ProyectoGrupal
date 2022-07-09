@@ -14,7 +14,6 @@ exports.getActiveUsersCount = async(_, res, next) => {
         next(new AppError(error))
         console.log(error)
     }
-
 }
 
 exports.getListUsers = async(_, res, next) => {
