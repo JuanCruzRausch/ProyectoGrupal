@@ -203,7 +203,10 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
 exports.getPublicationByName = catchAsync(async (req, res, next) => {
   const { title } = req.params;
 
-  const features = new apiFeatures(PublicationTest.find(), req.query)
+  const features = new apiFeatures(
+    PublicationTest.find({ status: { $ne: false } }),
+    req.query
+  )
     .filter()
     .sort()
     .limit()
