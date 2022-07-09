@@ -4,7 +4,6 @@ const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
-
 exports.postPublicationTest = catchAsync(async (req, res, next) => {
   let userId = req.params.id;
   let earnings = 0,
@@ -81,9 +80,9 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   if (req.body.shipping.shippingType === 'free') {
     freeS = 0;
   }
-  let sell = await Seller.findOne({user: userId})
-  if(!sell){
-    return next(new AppError('There is no seller with that id', 404))
+  let sell = await Seller.findOne({ user: userId });
+  if (!sell) {
+    return next(new AppError('There is no seller with that id', 404));
   }
   const newPub = await PublicationTest.create({
     title: req.body.title,
@@ -137,6 +136,27 @@ exports.deletePublicationTest = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
+  const features = new apiFeatures(
+    PublicationTest.find({ status: { $ne: false } }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limit()
+    .paginate();
+  // Ejecutamos el query
+  const publications = await features.query;
+
+  res.status(200).json({
+    status: 'success',
+    results: publications.length,
+    data: {
+      publications,
+    },
+  });
+});
+
+exports.getAllPublicationForAdmin = catchAsync(async (req, res, next) => {
   const features = new apiFeatures(PublicationTest.find(), req.query)
     .filter()
     .sort()
@@ -205,8 +225,6 @@ exports.getPublicationByName = catchAsync(async (req, res, next) => {
     data: search,
   });
 });
-
-
 
 exports.getProductsBySeller = catchAsync(async (req, res, next) => {
   const { id } = req.params;
