@@ -211,7 +211,9 @@ function NewNavBar(props) {
                     {/* <button onClick={async()=>{
                       // Sirve de ejemplo para el uso de token de auth0
                       const token = await getAccessTokenSilently()
-                      const response = await axios.get('http://localhost:5050/stats/listUsers', {
+
+                      const response = await axios.delete('http://localhost:5050/commonuser/block/auth0|62c721d017f47b00111d15df', {
+
                         headers: {
                           Authorization: `Bearer ${token}`
                         }
