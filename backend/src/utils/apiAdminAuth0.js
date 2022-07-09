@@ -177,7 +177,7 @@ exports.apiAuth0 = {
 //     } 
 //},
   getActiveUsersCount: async (token) => {
-    return (response = await axios.get(
+    const response = await axios.get(
       `https://mercadodeenanos.us.auth0.com/api/v2/stats/active-users`,
       {
         headers: {
@@ -185,6 +185,7 @@ exports.apiAuth0 = {
           Authorization: `Bearer ${token}`,
         },
       }
-    ));
+    );
+    return circularJSON.stringify(response)
   },
 }

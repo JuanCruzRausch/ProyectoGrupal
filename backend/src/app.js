@@ -13,6 +13,7 @@ const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
 const paymentRouter = require('./routes/paymentRouter');
 const uploadImageRouter = require('./routes/uploadImageRouter');
+const statsRouter = require('./routes/statsRouter')
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config({ path: "./.env" });
@@ -54,6 +55,7 @@ app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
 app.use('/payment', paymentRouter);
 app.use('/upload-image', uploadImageRouter);
+app.use('/stats', statsRouter)
 
 //Es de ejemplo, 
 app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
