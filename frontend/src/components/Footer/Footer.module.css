@@ -1,7 +1,7 @@
 .FooterContainer{
     bottom: 0;
     width: 100%;
-    background-color: white;
+    background-color: #fefefe;
     display: flex;
     flex-direction: column;
     padding: 10px;
