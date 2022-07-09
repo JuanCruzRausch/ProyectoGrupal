@@ -1,6 +1,7 @@
 const CommonUser = require('../models/CommonUser');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { getAccessTokenAdmin, apiAuth0 } = require('../utils/apiAdminAuth0');
 
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
@@ -85,3 +86,18 @@ exports.toSeller = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.blockUser = catchAsync(async (req, res, next) => {
+  
+  try {
+    const { id } = req.params
+    const token = await getAccessTokenAdmin()
+    await apiAuth0.blockUser(token.data.access_token, id)
+    res.status(200).json({
+      status: 'success',
+      data: `usuario ${id} bloqueado`
+    })
+  } catch (error) {
+    next(new AppError(error))
+  }
+})
