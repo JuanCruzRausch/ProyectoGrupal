@@ -78,6 +78,14 @@ const commonUser = new Schema({
     },
     strikes_total: Number,
   },
+  notifications: [
+    {
+      date_create: Schema.Types.Date,
+      content: Schema.Types.String,
+      state: Schema.Types.String,
+    },
+  ],
+  chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
 });
 
 commonUser.pre('save', function (next) {
