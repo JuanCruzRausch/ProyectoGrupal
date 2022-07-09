@@ -62,9 +62,11 @@ function ProductDetail(props) {
   },[])
   
   useEffect(()=>{
-    socket.emit("join_room", State?._id)
+    State?._id?
+    socket.emit("join_room", State._id):
+    null
     setimgs( State?.pictures?.length>0 ?  State?.pictures[0] : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU")
-  },[State, socket])
+  },[State])
 
   
 

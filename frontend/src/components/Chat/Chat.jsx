@@ -33,7 +33,8 @@ export default function Chat({socket, _id}) {
         socket.on("envio_front", (data)=>{
             setRecived( data)
         })
-    },[socket])
+        return () =>{socket.off()}
+    },[recived])
 
     const handleOnChange = (e) =>{
         
