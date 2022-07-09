@@ -1,7 +1,9 @@
 const AppError = require('../utils/appError')
 const {getAccessTokenAdmin, apiAuth0} = require('../utils/apiAdminAuth0')
 
+
 const CommonUser = require('../models/CommonUser');
+
 
 exports.getActiveUsersCount = async(_, res, next) => {
     try {
@@ -12,6 +14,7 @@ exports.getActiveUsersCount = async(_, res, next) => {
         next(new AppError(error))
         console.log(error)
     }
+
 }
 
 exports.getListUsers = async(_, res, next) => {

@@ -64,32 +64,30 @@ export default function Chat({socket, _id}) {
          <div className={PyR_container}>
              <h1>preguntas y respuestas</h1>
              <hr />
-           
-            {recived?.map(data=> ( 
-             <div className={PyR_content}>
-               {data.seller_id===seller._id?
-               <div>
-
-                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
-                   <h3 className={PyR_content_Respuesta}>{data.data}</h3>
-                </div>:
-               <div>
-                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
-
-                   <h3 className={PyR_content_Pregunta}>{data.data}</h3>
-                </div>
-               }
-             </div>
-)    )}
         <div className={chat_footer}>
             <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
                 <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
                 <br />
                 <button className={button} type="submit" >
-                    enviar
+                    Preguntar
                 </button>
             </form>
         </div>
+           
+            {recived?.map(data=> ( 
+             <div className={PyR_content}>
+               {data.seller_id===seller._id?
+               <div>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+                </div>:
+               <div>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Pregunta}>{data.data}</h3>
+                </div>
+               }
+             </div>
+)    )}
      </div>
        
     </div>

@@ -49,7 +49,6 @@ function NewNavBar(props) {
     ];
    
     const [display, setDisplay] = useState([...productsCache]);
-    const [displayFlag, setDisplayFlag] = useState(false);
     const [togglemenu, settogglemenu] = useState(false)
     const [screen, setscreen] = useState(window.innerWidth)
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
@@ -84,14 +83,6 @@ function NewNavBar(props) {
       :null
     },[userLogged])
 
-    // useEffect(() => {
-    //   seller?._id?
-    //   dispatch(publicationSeller(seller._id))
-    //   .then((res)=> {})
-    //   .catch((e)=> {})
-    //   :null
-    // },[seller])
-
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
@@ -102,19 +93,14 @@ function NewNavBar(props) {
   
     function searchOnChange(e) {
       setSearch(e.target.value);
-      if(e.target.value === ""){
-        dispatch(getAllProducts())
-      }
-      else{
       setDisplay([...productsCache]);
       setDisplay([
         ...productsCache.filter((e) =>
           e.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         ),
       ]);
-      e.target.value && setDisplayFlag(true);
-      !e.target.value && setDisplayFlag(false);
-    }
+
+    
   }
   
     const handleOnSelectCategory = (e, categoryName) => {
@@ -222,7 +208,7 @@ function NewNavBar(props) {
                     {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <button onClick={async()=>{
+                    {/* <button onClick={async()=>{
                       // Sirve de ejemplo para el uso de token de auth0
                       const token = await getAccessTokenSilently()
                       const response = await axios.get('http://localhost:5050/stats/listUsers', {
@@ -230,10 +216,9 @@ function NewNavBar(props) {
                           Authorization: `Bearer ${token}`
                         }
                       })
-                    }} >api Admin Auth0</button>
+                    }} >api Admin Auth0</button> */}
                     <LogoutButton />
                   </div>
-
                 ) : (                  
                   <p><LogoutButton />please verify you email </p>
                   
