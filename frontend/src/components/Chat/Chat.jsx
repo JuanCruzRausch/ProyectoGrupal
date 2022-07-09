@@ -49,6 +49,7 @@ export default function Chat({socket, _id}) {
         
         setSaludo({
             ...saludo, 
+            name: seller?.user?.name? seller?.user?.name: null,
             data:e.target.value,
             date: new Date( Date.now()),
             time: new Date( Date.now()).getHours() +
@@ -67,8 +68,14 @@ export default function Chat({socket, _id}) {
             {recived?.map(data=> ( 
              <div className={PyR_content}>
                {data.seller_id===seller._id?
-               <h3 className={PyR_content_Pregunta}>{data.data}</h3>:
-               <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+               <div>
+                   <p>{data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+                </div>:
+               <div>
+                   <p>{data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Pregunta}>{data.data}</h3>
+                </div>
                }
              </div>
 )    )}
