@@ -1,16 +1,24 @@
 .chat_header{
     padding: 0;
 }
-.chat_footer{
+.chat_footer form{
+    width: 60%;
     padding: 0;
     display: flex;
-    justify-content: left;
+    flex-direction: row;
+}
+.chat_footer form input{
+    width: 500px;
+    height: 45px;
+    border-radius: 15px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.09);
 }
 .chat_body{
     padding: 0;
 }
 .PyR_container{
-    padding: 3vh;
+    padding: 2rem;
     border-radius: 15px;
     width: 70%;
     background: #ffffff77;
@@ -19,13 +27,11 @@
     
 }
 .PyR_content{
-    margin:3vh 0;
+    margin:1rem 0;
     padding: 1vh;
-
     display:flex;
     justify-content: end;
     width: 30rem;
-
 }
 .PyR_content_Pregunta{
     color: grey;
@@ -47,7 +53,6 @@
 .PyR_content_Respuesta{ 
     color: black;
     font-size: 2.8vh;
-
     margin-left: 6vh;
     min-width: 25rem;
     min-height: 3rem;
@@ -60,10 +65,12 @@
 .button{
     height: 45px;
     font-size: 1.3rem;
-    margin: 3vh auto;
+    text-align: center;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color:  #00A650;
     color: white;
-    width: 40vh;
+    width: 150px;
+    margin-left: 2rem;
+    align-self: center;
 }
