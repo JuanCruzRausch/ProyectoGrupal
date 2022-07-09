@@ -204,20 +204,20 @@ function CreateProduct() {
                 </span>
               ))}
           </div>
-          <Form.Label>Moneda</Form.Label>
-          <Form.Select
+          {/* <Form.Label>Moneda USD</Form.Label> */}
+          {/* <Form.Select
             aria-label="Default select example"
             value={data.currency}
             name="currency"
             onChange={(e) => handleOnChange(e)}
-          >
-            <option value="" disabled default>
+          > */}
+            {/* <option value="" disabled default>
               Seleccione una moneda
             </option>
             <option>ARS</option>
             <option>USD</option>
-          </Form.Select>
-          <Form.Label>Precio</Form.Label>
+          </Form.Select> */}
+          <Form.Label>Precio en USD</Form.Label>
           <Form.Control
             type="number"
             name="price"

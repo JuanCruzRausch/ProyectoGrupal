@@ -125,7 +125,6 @@ export default function SellerProfile() {
 
     dispatch(activePublication(productId, userState._id))
 
-
   }
 
   return (
