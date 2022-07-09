@@ -91,8 +91,9 @@ exports.blockUser = catchAsync(async (req, res, next) => {
   
   try {
     const { id } = req.params
+    const { block } = req.query
     const token = await getAccessTokenAdmin()
-    await apiAuth0.blockUser(token.data.access_token, id)
+    await apiAuth0.blockUser(token.data.access_token, id, block)
     res.status(200).json({
       status: 'success',
       data: `usuario ${id} bloqueado`
