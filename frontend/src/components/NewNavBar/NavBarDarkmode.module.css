@@ -12,3 +12,6 @@
     color: white;
     transition: all .6s ease-in-out;
 }
+.darkA a{
+    color: black;
+}
