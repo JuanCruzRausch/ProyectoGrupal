@@ -37,7 +37,7 @@ const publicationTestSchema = new Schema({
   currency: {
     type: String,
     enum: ['USD', 'ARS'],
-    default: 'ARS',
+    default: 'USD',
   },
   status: {
     type: Boolean,

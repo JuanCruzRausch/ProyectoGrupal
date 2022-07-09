@@ -9,8 +9,8 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   let earnings = 0,
     freeS = 0,
     vis = 0,
-    f = 0,
-    p = 0;
+    f = 2.5;
+  p = 50;
 
   if (Number(req.body.promPrice) > Number(req.body.price)) {
     return next(
@@ -34,14 +34,6 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     default:
       vis = 0;
       break;
-  }
-
-  if (req.body.currency === 'USD') {
-    f = 2.5;
-    p = 50;
-  } else {
-    f = 500;
-    p = 10000;
   }
 
   if (
@@ -91,7 +83,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     price: Number(req.body.price),
     earnings,
     promPrice: req.body.promPrice,
-    currency: req.body.currency,
+    currency: 'USD',
     seller: sell._id,
     category: req.body.category,
     subCategory: req.body.subCategory,
@@ -203,7 +195,10 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
 exports.getPublicationByName = catchAsync(async (req, res, next) => {
   const { title } = req.params;
 
-  const features = new apiFeatures(PublicationTest.find(), req.query)
+  const features = new apiFeatures(
+    PublicationTest.find({ status: { $ne: false } }),
+    req.query
+  )
     .filter()
     .sort()
     .limit()
