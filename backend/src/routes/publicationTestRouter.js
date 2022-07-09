@@ -3,19 +3,19 @@ const publicationTestController = require('../controllers/publicationTestControl
 
 const publicationTestRouter = Router();
 
+publicationTestRouter.get('/', publicationTestController.getAllPublicationTest);
 publicationTestRouter
   .route('/:id')
   .post(publicationTestController.postPublicationTest)
-  .delete(publicationTestController.deletePublicationTest);
-publicationTestRouter.get('/', publicationTestController.getAllPublicationTest);
+  .delete(publicationTestController.deletePublicationTest)
+  .get(publicationTestController.getPublicationTestID);
 publicationTestRouter.get(
   '/byName/:title',
   publicationTestController.getPublicationByName
 );
-publicationTestRouter.get(
-  '/:id',
-  publicationTestController.getPublicationTestID
-);
+publicationTestRouter
+  .route('/admin')
+  .get(publicationTestController.getAllPublicationForAdmin);
 // publicationTestRouter.post(
 //   '/upload-image',
 //   upload.array('image'),
