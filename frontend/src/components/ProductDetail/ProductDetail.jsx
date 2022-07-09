@@ -199,7 +199,7 @@ function ProductDetail(props) {
         </form>
             </div>
       <div className={Detail_CountPrice}>
-        <h1>${State?.price}</h1>
+        <h1>US$ {State?.price}</h1>
         <Count
           onAdd={setcount}
           count={count}
@@ -213,14 +213,6 @@ function ProductDetail(props) {
 
       <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
-          {State?.seller ? (
-            <div className={userData}>
-              <img src={user} />
-              <h1>{State?.seller.name}</h1>
-              <h2>{State?.seller.reputation?.status}</h2>
-            </div>
-          ) : null}
-          <hr />
           <h2>Descripción</h2>
           <p>{State?.description}</p>
         </div>
@@ -256,6 +248,21 @@ function ProductDetail(props) {
               </div>
             </div>
           </div>
+          <hr />
+          <h1>Vendido por:</h1>
+          {State?.seller ? (
+            <div className={userData}>
+              <img src={user} />
+              <h1>{State?.seller.brand}</h1>
+              <h2>{State?.seller.reputation?.status}</h2>
+              {
+                State?.seller.reputation?.votes.length > 0 ?
+                <h2>{State?.seller.reputation?.votes}</h2>
+                :null
+              }
+            </div>
+          ) : null}
+          
         </div>
       </div>
      

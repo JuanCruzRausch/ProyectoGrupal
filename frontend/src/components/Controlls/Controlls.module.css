@@ -16,7 +16,6 @@
         justify-content: center;
         margin: .7rem 0;
         transition: all .6s ease-in-out;
-
     }
 @media screen and (max-width:600px) {
     .controllsContainer{
@@ -39,8 +38,6 @@
         bottom: 0;
         flex-direction: row;
         justify-content: space-evenly;
-        left: 50%;
-        transform: translate(-50%);
         width: 100%;
         transition: all .6s ease-in-out;
 
