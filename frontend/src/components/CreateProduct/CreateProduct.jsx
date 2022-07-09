@@ -37,7 +37,7 @@ function CreateProduct() {
     description: "",
     pictures: [],
     price: 0,
-    currency: "",
+    currency: "USD",
     seller:_id,
     category: "",
     subCategory: "",
@@ -120,6 +120,7 @@ function CreateProduct() {
     await dispatch(
       addPublication(userState._id,{
         ...data,
+        currency:"USD",
         pictures: [...arrayImg],
         category: subcategories?._id,
         subCategory: objects?._id,
