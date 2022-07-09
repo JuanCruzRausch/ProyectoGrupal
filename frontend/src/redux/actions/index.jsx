@@ -169,12 +169,12 @@ export function activePublication (_id, userID){
   }
 }
 
-export function GetProductById (_id){
-  return{
-    type: GET_PRODUCT_BY_ID,
-    payload: _id,
-  }
-}
+// export function GetProductById (_id){
+//   return{
+//     type: GET_PRODUCT_BY_ID,
+//     payload: _id,
+//   }
+// }
 export function getAllCategory(payload) {
   return (dispatch) => {
     dispatch({
