@@ -2,7 +2,14 @@
 import React from 'react'
 import {useSelector} from "react-redux"
 import SellerProfile from '../Seller/SellerProfile';
-import {chat_header, chat_body, chat_footer} from "./Chat.module.css"
+import {chat_header,
+    chat_body, 
+    button,
+    chat_footer,
+    PyR_container,
+    PyR_content,
+    PyR_content_Pregunta,
+    PyR_content_Respuesta,} from "./Chat.module.css"
 import { useDispatch } from 'react-redux';
 
 export default function Chat({socket, _id}) {
@@ -14,8 +21,10 @@ export default function Chat({socket, _id}) {
    
     const mostrarComentarios = (e)=>{
         e.preventDefault()
-        socket.emit("comentarios", saludo);
-        setSaludo({...saludo, data:''})
+        if(saludo.data!==""){
+            socket.emit("comentarios", saludo);
+            setSaludo({...saludo, data:''})
+        }
     };
     const setRecived = (data) =>{
         dispatch({type: "SET_CHAT", payload: data})
@@ -50,26 +59,30 @@ export default function Chat({socket, _id}) {
 
     return (
     <div>
-        <div className={chat_header}>
-            Deja tu comentario
-        </div>
-        <div className={chat_body}>
-            {[]?.map(comentarios=> 
-            <div>
-                {comentarios?._id===seller._id?<div className={seller_comentario}>{comentarios?.message}</div>:
-                <div className={cliente_comentario}>{comentarios?.message}</div>}
-            </div>)}
-            {recived?.map(data=> <div><h1>{data.data}</h1></div>)}
-        </div>
+      
+         <div className={PyR_container}>
+             <h1>preguntas y respuestas</h1>
+             <hr />
+           
+            {recived?.map(data=> ( 
+             <div className={PyR_content}>
+               {data.seller_id===seller._id?
+               <h3 className={PyR_content_Pregunta}>{data.data}</h3>:
+               <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+               }
+             </div>
+)    )}
         <div className={chat_footer}>
             <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
                 <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
-
-                <button type="submit" >
+                <br />
+                <button className={button} type="submit" >
                     enviar
                 </button>
             </form>
         </div>
+     </div>
+       
     </div>
   )
 }

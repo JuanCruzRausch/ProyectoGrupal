@@ -36,6 +36,7 @@ io.on("connection", (socket)=>{
   socket.on("comentarios", (data)=>{
     console.log(`usuario ${socket.id} envió ${data.data}`)
     socket.broadcast.emit("envio_front", data)
+    socket.emit("envio_front", data)
   })
   socket.on("join_room", (room)=>{
     

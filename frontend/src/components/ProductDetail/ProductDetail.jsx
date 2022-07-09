@@ -258,27 +258,9 @@ function ProductDetail(props) {
           </div>
         </div>
       </div>
-      <div className={PyR_container}>
-        <h1>preguntas y respuestas</h1>
-        <hr />
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <Chat socket={socket} _id={State._id}/>
-      </div>
+     
+      <Chat socket={socket} _id={State._id}/>
+      
       <ToastContainer
         position="top-right"
         autoClose={1000}
