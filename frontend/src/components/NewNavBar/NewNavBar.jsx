@@ -206,7 +206,8 @@ function NewNavBar(props) {
                     {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    {/* <button onClick={async()=>{
+                    {/*  Es para probar rutas con token de auth0
+                    <button onClick={async()=>{
                       const token = await getAccessTokenSilently()
                       const response = await axios.get('http://localhost:5050/apiAuth0', {
                         headers: {
@@ -216,6 +217,7 @@ function NewNavBar(props) {
                     }} >api Admin Auth0</button> */}
                     <LogoutButton />
                   </div>
+
                 ) : (                  
                   <p><LogoutButton />please verify you email </p>
                   

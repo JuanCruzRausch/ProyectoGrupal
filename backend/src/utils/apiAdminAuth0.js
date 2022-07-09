@@ -1,5 +1,6 @@
 const axios = require('axios');
 const AppError = require('./appError');
+const circularJSON = require('circular-json')
 
 const getConfigTokenAdmin = {
   method: 'POST',
@@ -45,7 +46,7 @@ exports.apiAuth0 = {
         },
       }
     );
-    return response;
+    return circularJSON.stringify(response);
   },
   blockUser: async (token, id) => {
     return (response = await axios.patch(
@@ -73,7 +74,7 @@ exports.apiAuth0 = {
     ));
   },
   getUser: async (token, id) => {
-    return (response = await axios.get(
+    const response = await axios.get(
       `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}`,
       {
         headers: {
@@ -81,7 +82,8 @@ exports.apiAuth0 = {
           Authorization: `Bearer ${token}`,
         },
       }
-    ));
+    );
+    return circularJSON.stringify(response)
   },
   deleteUser: async (token, id) => {
     return (response = await axios.delete(
@@ -105,20 +107,31 @@ exports.apiAuth0 = {
 //       }
 //     ));
 //   },
+  getRole: async (token) => {
+    const response = await axios.get(`https://mercadodeenanos.us.auth0.com/api/v2/roles`,{
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return circularJSON.stringify(response)
+  },
   assingRolesToAUser: async (token, id, body) => {
-    return (response = await axios.post(
+    const response = await axios.post(
       `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`,
       body,
       {
         headers: {
           'content-type': 'application/json',
           Authorization: `Bearer ${token}`,
+          'cache-control': 'no-cache'
         },
       }
-    ));
+    )
+    return circularJSON.stringify(response);
   },
   assingPermissionsToUser: async (token, id, body) => {
-    return (response = await axios.post(
+    const response = await axios.post(
       `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/permissions`,
       body,
       {
@@ -127,7 +140,8 @@ exports.apiAuth0 = {
           Authorization: `Bearer ${token}`,
         },
       }
-    ));
+    );
+    return circularJSON.stringify(response)
   },
 //   removePermissionsFromAUser: async (token, id, arrayOfString) => {
 //     const permissions = [];

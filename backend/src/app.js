@@ -14,7 +14,7 @@ const deleteUserRouter = require('./routes/deleteUserRouter');
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config({ path: "./.env" });
-const circularJSON = require('circular-json')
+
 
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 const {roles} = require('./utils/roles')
@@ -55,8 +55,9 @@ app.use('/deletedpublication', deletedPublicationRouter);
 app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
   try {
     const token = await getAccessTokenAdmin()
-    const response = await apiAuth0.removePermissionsFromAUser(token.data.access_token, "google-oauth2|103351927024755621017", ["create:category"]) // perdon Javi por usarte xD
-    res.json(response)
+    console.log(token.data.access_token)
+    const response = await apiAuth0.assingRolesToAUser(token.data.access_token, "google-oauth2|113524192845578480045", {"roles":["rol_okNnus6dt6Itz5Xa"]}) // perdon Javi por usarte xD
+    res.send(response)
   } catch (error) {
     res.status(400).json({error:error.message})
   }  
