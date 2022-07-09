@@ -36,6 +36,7 @@ exports.getAccessTokenAdmin = async () => {
 };
 
 exports.apiAuth0 = {
+
   listUsers: async (token) => {
     const response = await axios.get(
       'https://mercadodeenanos.us.auth0.com/api/v2/users',
@@ -186,4 +187,4 @@ exports.apiAuth0 = {
       }
     ));
   },
-};
+}
