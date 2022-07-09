@@ -49,7 +49,6 @@ function NewNavBar(props) {
     ];
    
     const [display, setDisplay] = useState([...productsCache]);
-    const [displayFlag, setDisplayFlag] = useState(false);
     const [togglemenu, settogglemenu] = useState(false)
     const [screen, setscreen] = useState(window.innerWidth)
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
@@ -84,14 +83,6 @@ function NewNavBar(props) {
       :null
     },[userLogged])
 
-    // useEffect(() => {
-    //   seller?._id?
-    //   dispatch(publicationSeller(seller._id))
-    //   .then((res)=> {})
-    //   .catch((e)=> {})
-    //   :null
-    // },[seller])
-
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
@@ -102,19 +93,14 @@ function NewNavBar(props) {
   
     function searchOnChange(e) {
       setSearch(e.target.value);
-      if(e.target.value === ""){
-        dispatch(getAllProducts())
-      }
-      else{
       setDisplay([...productsCache]);
       setDisplay([
         ...productsCache.filter((e) =>
           e.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         ),
       ]);
-      e.target.value && setDisplayFlag(true);
-      !e.target.value && setDisplayFlag(false);
-    }
+
+    
   }
   
     const handleOnSelectCategory = (e, categoryName) => {
