@@ -69,11 +69,11 @@ export default function Chat({socket, _id}) {
              <div className={PyR_content}>
                {data.seller_id===seller._id?
                <div>
-                   <p>{data?.name? data.name :"anonimo"}</p>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
                    <h3 className={PyR_content_Respuesta}>{data.data}</h3>
                 </div>:
                <div>
-                   <p>{data?.name? data.name :"anonimo"}</p>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
                    <h3 className={PyR_content_Pregunta}>{data.data}</h3>
                 </div>
                }
