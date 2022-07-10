@@ -8,7 +8,7 @@ const dispatch = useDispatch()
 const allUsers = useSelector(state => state.adminReducer.allUsers)
 const token = useSelector (state => state.adminReducer.token)
 
-console.log(allUsers)
+
 
 const handleOnClick = (user_id) =>{
     dispatch(lockUser(user_id, token))
