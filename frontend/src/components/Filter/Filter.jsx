@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
 import { getProductBy,setActive } from '../../redux/actions';
 import PriceFilter from '../PriceFilter/PriceFilter';
+import Subcategory from '../Subcategory/Subcategory';
 const Filter = (props) => {
 
   const category = useSelector((state)=> state.productReducer.category)
@@ -46,6 +47,7 @@ const Filter = (props) => {
             </div>
           );
         })}
+        <Subcategory/>
       </span>
     </div>
   );

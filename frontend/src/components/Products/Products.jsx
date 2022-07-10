@@ -24,6 +24,7 @@ import Pagination from 'react-bootstrap/Pagination';
 import { AddToCart } from '../../redux/actions/CartActions';
 import sindicato from '../../assets/img/enanoenojado.webp';
 import Loading from '../Loading/Loading';
+import Subcategory from '../Subcategory/Subcategory';
 import { AddToFav } from '../../redux/actions/FavActions';
 import { Helmet } from 'react-helmet-async';
 
@@ -83,7 +84,7 @@ function Products({ refElement, scrollTo }) {
         <Carousell />
         <Sort ref={refElement} scrollTo={scrollTo} />
         <div className={Cards_Filter_Container}>
-          <Filter className={Filter_Container} scrollTo={scrollTo} />
+          <Filter className={Filter_Container} scrollTo={scrollTo} />      
           <span className={Cards_Container}>
             {!productos.length && loading === 'spin' && <Loading />}
             {!productos.length && loading === 'enanos' && (
@@ -114,6 +115,7 @@ function Products({ refElement, scrollTo }) {
         <div className={Products_Paginate}>
           <Pagination size="lg">{items}</Pagination>
         </div>
+
       </div>
     </div>
   );
