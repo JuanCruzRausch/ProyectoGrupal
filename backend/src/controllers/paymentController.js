@@ -168,8 +168,8 @@ exports.captureOrder = async (req, res, next) => {
             status: 'pending',
             earnings: {
                 total_money: e.price * publications[i].quantity,
-                seller_earnings: (e.price * publications[i].quantity) - ( publications[i].quantity * e.earnings),
-                platform_earnings: e.earnings * publications[i].quantity
+                seller_earnings: e.earnings * publications[i].quantity,
+                platform_earnings: (e.price * publications[i].quantity) - ( publications[i].quantity * e.earnings),
             }
         }})
 
