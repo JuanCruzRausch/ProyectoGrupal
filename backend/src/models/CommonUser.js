@@ -78,17 +78,17 @@ const commonUser = new Schema({
     },
     strikes_total: Number,
   },
-  purchase_order:{
+  purchase_order: {
     products: [{
-      publicationId:{
+      publicationId: {
         type: Schema.Types.ObjectId,
         ref: 'PublicationTest'
       },
-      quantity:{
+      quantity: {
         type: Number
       },
     }],
-    link:{
+    link: {
       type: String
     }
   },
@@ -104,6 +104,12 @@ const commonUser = new Schema({
     },
   ],
   chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
+  purchase_history: [{
+    transaction_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Transaction"
+    }
+  }]
 });
 
 commonUser.pre('save', function (next) {
