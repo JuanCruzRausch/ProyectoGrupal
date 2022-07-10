@@ -71,7 +71,7 @@ function App() {
         </label>
         </div>
         <Routes>
-          <Route path="/transaction/:queries" element={ <Transaction />} />
+          <Route path="/transaction/" element={ <Transaction />} />
           <Route path="/admin/userlist" element={ <UserList /> } />
           <Route path="/privacidad" element={ <Privacy /> } />
           <Route path="/terminos-y-condiciones" element={ <Terms /> } />
