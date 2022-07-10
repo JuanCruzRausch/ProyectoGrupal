@@ -7,7 +7,7 @@ import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import arrow from '../../assets/img/leftarrow.png';
 import {Container, DashboardDiv,CurrentData,CurrentData1, CurrentData2,CurrentData3,CurrentData4, CurrentBars} from './Dashboard.module.css'
-import UserList from '../UserList/UserList';
+
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
 ChartJS.register(CategoryScale,LinearScale, PointElement,LineElement,Title,Tooltip,Legend);
@@ -117,7 +117,9 @@ function Dashboard() {
           <h1>Consultas/Servicio al cliente</h1>
         </div>
       </div>
-      <UserList/>
+      <Link to = "/admin/userlist">
+        <button className='button btn-success'>Buscar Usuarios</button>
+      </Link>
     </div>
   )
 }

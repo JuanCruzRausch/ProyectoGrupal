@@ -123,7 +123,7 @@ export default function Chat({socket, _id}) {
                    <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                         <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                       
-                        <button type="submit" >comentar</button>
+                        <button type="submit" >Responder</button>
                    </form>
                 </div>:
                <div>

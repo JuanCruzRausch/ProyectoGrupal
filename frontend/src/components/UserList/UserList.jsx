@@ -1,8 +1,9 @@
 import React from 'react'
 import { lockUser, unlockUser } from '../../redux/actions/adminAction'
 import { useSelector, useDispatch } from 'react-redux'
-import { photo, container_users, container_user, container, }  from './UserList.module.css'
+import { photo, container_users, container_user, container, searchBar}  from './UserList.module.css'
 import swal from 'sweetalert'
+import {Form, FormControl, Button } from 'react-bootstrap'
 
 function UserList() {
 const dispatch = useDispatch()
@@ -52,6 +53,17 @@ const handleOnUnlock = (user_id) =>{
   return (
     <div className={container}>
         <h1>Lista de Usuario</h1>
+        <div className={searchBar}>
+          <Form className="d-flex">
+          <FormControl
+            type="search"
+            placeholder="Search"
+            className="me-2"
+            aria-label="Search"
+          />
+          <Button variant="outline-success">Search</Button>
+        </Form>
+        </div>
         <div className={container_users}>
             <br />
             {allUsers?.length&&allUsers?.map(user => (

@@ -39,9 +39,7 @@ function Products({ refElement, scrollTo }) {
   let Active = useSelector((state) => state.productReducer.pagina);
   const loading = useSelector(state => state.productReducer.loading)
 
-  useEffect(()=>{
-    dispatch(getAllCategories())
-  },[])
+
 
   useEffect(() => {
     if (!productos?.length) {

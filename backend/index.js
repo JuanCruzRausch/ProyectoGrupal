@@ -33,17 +33,14 @@ const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
 io.on("connection", (socket)=>{
   
   socket.on("comentarios", (data)=>{
- 
-    console.log("comentario", data.chat)
+    const {_id, data} = data
+
+    
+    console.log("comentario", data)
     socket.broadcast.emit("envio_front", data.chat)
     socket.emit("envio_front", data.chat)
   })
 
-  socket.on("comentarios2", (data)=>{
-    console.log("comentario", data.chat)
-    socket.broadcast.emit("envio_front", data.chat)
-    socket.emit("envio_front", data.chat)
-  })
   
   socket.on("join_room", (room)=>{
     

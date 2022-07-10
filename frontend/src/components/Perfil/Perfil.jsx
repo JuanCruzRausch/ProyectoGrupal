@@ -79,7 +79,7 @@ export default function Perfil() {
                 </button>
             </Link>
             {userState?.authorization?.roles.includes("admin") ? (
-              <Link to="/enano">
+              <Link to="/admin/dashboard">
                 <button>Administra el sitio</button>
               </Link>
             ) : null}
