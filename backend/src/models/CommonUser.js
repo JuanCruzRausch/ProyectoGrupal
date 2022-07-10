@@ -79,7 +79,8 @@ const commonUser = new Schema({
     strikes_total: Number,
   },
   blocked: {
-    type: Schema.Types.Boolean
+    type: Schema.Types.Boolean,
+    default: false
   },
   notifications: [
     {
