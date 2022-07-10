@@ -125,10 +125,8 @@ export function BuscarProducto(title, min, max){
     let name = title? `/byName/${title}`: "";
     let valMin = min === -Infinity? "" : `price[gte]=${min}`
     let valMax = max === Infinity? "" : `price[lte]=${max}`
-    console.log(max, min)
     return (await axios(`http://localhost:5050/publicationtest${name}?${valMax}&${valMin}`)
       .then((res)=>{
-        console.log(res.data.data.publications)
         return dispatch({
           type: GET_PRODUCT,
           payload: Array.isArray(res.data.data)? res.data.data : res.data.data.publications

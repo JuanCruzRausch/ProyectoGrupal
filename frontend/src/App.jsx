@@ -79,7 +79,7 @@ function App() {
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/perfil/redessociales" element={<SocialNet />} />
-          <Route path="/enano" element={ <Dashboard />} />
+          <Route path="/admin/dashboard" element={ <Dashboard />} />
           <Route path="/publicar" element={ <CreateProduct /> } />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/Cart" element={<Cart />} />
