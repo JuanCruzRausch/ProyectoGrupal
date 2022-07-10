@@ -1,45 +1,47 @@
-const Transaction = require ('../models/Transaction');
+const Transaction = require('../models/Transaction');
 const CommonUser = require('../models/CommonUser');
-//const catchAsync = require('../utils/catchAsync');
-//const AppError = require('../utils/appError');
+const Seller = require('../models/Seller')
+const PublicationTest = require('../models/PublicationTest')
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 const axios = require('axios');
 
 const { PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET } = process.env;
 
-exports.createOrder = async(req,res,next)=>{
+exports.createOrder = async (req, res, next) => {
     try {
-        const {cartItem, shippingAddress} = req.body;
-        const {id} = req.params
-        
+        const { cartItem, shippingAddress } = req.body;
+        const { id } = req.params
+
         let itemsPaypal = []
-        for(let item of cartItem){
+        for (let item of cartItem) {
             let itemObj = {
-                    id: item.product,
-                    name: item.title,
-                    description: item.title,
-                    sku: item.stock.stockTotal.toString(),
-                    unit_amount: {
-                         currency_code: "USD",
-                         value: item.price.toString()
-                    },
-                    tax: {
-                        currency_code: "USD",
-                        value: "0"
-                    },
-                    quantity: item.quantity.toString(),
-                    category: "PHYSICAL_GOODS"
-                }
-            itemsPaypal.push(itemObj);        
+                id: item.product,
+                name: item.title,
+                description: item.title,
+                sku: item.stock.stockTotal.toString(),
+                unit_amount: {
+                    currency_code: "USD",
+                    value: item.price.toString()
+                },
+                tax: {
+                    currency_code: "USD",
+                    value: "0"
+                },
+                quantity: item.quantity.toString(),
+                category: "PHYSICAL_GOODS"
+            }
+            itemsPaypal.push(itemObj);
         }
         let total_value = 0;
-        for(let itemV of cartItem){
-            total_value=total_value+(itemV.price*itemV.quantity)
+        for (let itemV of cartItem) {
+            total_value = total_value + (itemV.price * itemV.quantity)
         }
         //Orden de compra que recibe Paypal
         const order = {
             intent: 'CAPTURE',
-            purchase_units:[{
-                reference_id: "PUHF",
+            purchase_units: [{
+                reference_id: id,
                 description: "Orden de Pago MercadoEnanos",
                 custom_id: "CUST-MercadoEnanos",
                 soft_descriptor: "MercadoEnanos",
@@ -86,7 +88,7 @@ exports.createOrder = async(req,res,next)=>{
                     }
                 }
             }],
-            application_context:{
+            application_context: {
                 brand_name: 'MercadoEnanitos',
                 landing_page: 'LOGIN',
                 user_action: 'PAY_NOW',
@@ -94,15 +96,15 @@ exports.createOrder = async(req,res,next)=>{
                 cancel_url: 'http://localhost:5050/payment/cancel-order'
             }
         }
-        
+
         const params = new URLSearchParams();
         params.append('grant_type', 'client_credentials');
         //Genero el access token
-        const {data:{access_token}} = await axios.post('https://api-m.sandbox.paypal.com/v1/oauth2/token', params, {
-            headers:{
-                'Content_Type':'application/x-www-form-urlencoded'
+        const { data: { access_token } } = await axios.post('https://api-m.sandbox.paypal.com/v1/oauth2/token', params, {
+            headers: {
+                'Content_Type': 'application/x-www-form-urlencoded'
             },
-            auth:{
+            auth: {
                 username: PAYPAL_API_CLIENT,
                 password: PAYPAL_API_SECRET
             }
@@ -110,45 +112,84 @@ exports.createOrder = async(req,res,next)=>{
 
         // se manda info a paypal
         const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders`, order, {
-            headers:{
+            headers: {
                 Authorization: `Bearer ${access_token}`
             }
         })
 
         //--guardar en commonuser la orden compra
         let products = []
-        cartItem.map(el=>products.push({
+        cartItem.map(el => products.push({
             publicationId: el.product,
             quantity: el.quantity
         }));
 
-        let user = await CommonUser.findByIdAndUpdate(id,{purchase_order: {
-            products: products,
-            link: response.data.links[1].href
-        }})
-        
+        let user = await CommonUser.findByIdAndUpdate(id, {
+            purchase_order: {
+                products: products,
+                link: response.data.links[1].href
+            }
+        })
+
         res.json(response.data.links[1].href) //-- devuelvo el link de pago
     } catch (error) {
-        //console.log(error);
+        // console.log(error);
         next(error);
     }
 };
 
-exports.captureOrder = async(req,res,next)=>{
-    const {token} = req.query
+exports.captureOrder = async (req, res, next) => {
+    try {
+        const { token } = req.query
 
-    const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{},{
-        auth:{
-            username: PAYPAL_API_CLIENT,
-            password: PAYPAL_API_SECRET
+        const response = await axios.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
+            auth: {
+                username: PAYPAL_API_CLIENT,
+                password: PAYPAL_API_SECRET
+            }
+        })
+
+        const buyer_id = response.data.purchase_units[0].reference_id
+
+        const buyer = await CommonUser.findOne({_id: buyer_id})
+        const publications = buyer.purchase_order.products.map(e => e)
+        const pubs = []
+        console.log(publications.length)
+
+        for (let i = 0; i < publications.length; i++) {
+            pubs.push(await PublicationTest.findById(publications[i].publicationId))
         }
-    })
+        
+        
 
-    //---create de transactions
+        const purchase_units = pubs.map((e,i) => {return {
+            seller: e.seller,
+            quantity: publications[i].quantity,
+            status: 'pending',
+            earnings: {
+                total_money: e.price * publications[i].quantity,
+                seller_earnings: (e.price * publications[i].quantity) - ( publications[i].quantity * e.earnings),
+                platform_earnings: e.earnings * publications[i].quantity
+            }
+        }})
 
-    res.json(response.data);
+        const newTransaction = await Transaction.create({
+            transactions: purchase_units,
+            buyer: buyer._id,
+        })
+
+        await CommonUser.updateOne({_id: buyer_id}, {  purchase_order:{
+            products: [],
+            link: ""
+          }})
+
+        res.status(200).json({status: 'success', data: newTransaction});
+    } catch (error) {
+        console.log(error)
+        next(new AppError(error))
+    }
 }
-exports.cancelOrder = async(req,res,next)=>{
+exports.cancelOrder = async (req, res, next) => {
 
     res.json('hola')
 }
