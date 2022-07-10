@@ -21,6 +21,7 @@ import {
   useSelector
 } from 'react-redux';
 import {
+  getAllCategories,
   getProductBy,
   BuscarProducto,
   setActive,
@@ -35,6 +36,7 @@ import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios'
+import swal from 'sweetalert'
 
 
 function NewNavBar(props) {
@@ -49,7 +51,7 @@ function NewNavBar(props) {
         (e) => e.title
       ),
     ];
-   
+    const transaction = useSelector(state => state.interactionsReducer.transaction)
     const [display, setDisplay] = useState([...productsCache]);
     const [togglemenu, settogglemenu] = useState(false)
     const [screen, setscreen] = useState(window.innerWidth)
@@ -64,6 +66,9 @@ function NewNavBar(props) {
     }
  
   useEffect(()=> {
+    
+      dispatch(getAllCategories())
+  
     const changeWidth = () =>{
       setscreen(window.innerWidth)
     }
@@ -88,6 +93,7 @@ function NewNavBar(props) {
     useEffect(()=>{
       getAllUsers()
     },[userLogged])
+
 
     async function getAllUsers (){
       const token = await getAccessTokenSilently()

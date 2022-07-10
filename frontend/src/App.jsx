@@ -24,6 +24,7 @@ import Historial from "./components/Historial/Historial";
 import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Privacy/Privacy";
 import Controlls from "./components/Controlls/Controlls";
+import UserList from "./components/UserList/UserList";
 import { BsMoonStarsFill, BsFillSunFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import socketIO from "socket.io-client";
@@ -32,6 +33,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
 import 'react-toastify/dist/ReactToastify.css';
+import Transaction from "./components/Transtaction/Transaction";
 
 const WS = "http://localhost:5050"
 
@@ -69,6 +71,8 @@ function App() {
         </label>
         </div>
         <Routes>
+          <Route path="/transaction/:queries" element={ <Transaction />} />
+          <Route path="/admin/userlist" element={ <UserList /> } />
           <Route path="/privacidad" element={ <Privacy /> } />
           <Route path="/terminos-y-condiciones" element={ <Terms /> } />
           <Route path="/perfil/historial/rating" element={ <Rating /> }/>
