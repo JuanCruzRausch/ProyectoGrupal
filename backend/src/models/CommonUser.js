@@ -105,7 +105,7 @@ const commonUser = new Schema({
   ],
   chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
   purchase_history: [{
-    publication_id: {
+    transaction_id: {
       type: Schema.Types.ObjectId,
       ref: "Transaction"
     }
