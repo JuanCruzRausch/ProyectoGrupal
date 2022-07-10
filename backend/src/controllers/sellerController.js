@@ -6,6 +6,19 @@ const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
+exports.getAllSellers =  async(req, res, next) => {
+  try {
+    const listSellers = await Seller.find({})
+    res.status(200).json({
+      status: 'success',
+      data: listSellers
+    })
+  } catch (error) {
+    next(new AppError(error))
+  }
+}
+
+
 exports.post = catchAsync(async (req, res, next) => {
   let userFind = await CommonUser.findOne({ _id: req.body.user });
   if (userFind.authorization.roles.includes('seller')) {
