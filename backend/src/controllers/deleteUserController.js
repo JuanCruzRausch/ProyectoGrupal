@@ -5,13 +5,15 @@ const DeletedPublication = require('../models/DeletedPublication');
 const DeletedSeller = require('../models/DeletedSeller');
 const PublicationTest = require('../models/PublicationTest');
 const catchAsync = require('../utils/catchAsync');
+const {getAccessTokenAdmin, apiAuth0} = require('../utils/apiAdminAuth0')
 
 exports.getPostAndDelete = catchAsync(async (req, res, next) => {
   const {id} = req.params
 
   let userForDelete = await CommonUser.findById(id); 
   let sellerForDelete = await Seller.findOne({ user: id });
-
+  const token = await getAccessTokenAdmin();
+  await apiAuth0.deleteUser(token.data.access_token, userForDelete.user_id);
 
 //A continuacion crea en la nueva collection las publicaciones a borrar
   PublicationTest.find({seller: sellerForDelete._id})
