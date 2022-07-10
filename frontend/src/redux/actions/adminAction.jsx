@@ -39,7 +39,7 @@ export function lockUser (userId, token) {
 export function unlockUser (userId, token) {
     return async(dispatch)=>{
         console.log(userId)
-        axios.delete(`http://localhost:5050/commonuser/block/${userId}?block=true`, {
+        axios.delete(`http://localhost:5050/commonuser/block/${userId}?block=false`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
