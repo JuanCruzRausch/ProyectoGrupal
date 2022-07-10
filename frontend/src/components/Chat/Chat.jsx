@@ -113,15 +113,16 @@ export default function Chat({socket, _id}) {
                <div>
                    <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
                    <h3 className={PyR_content_Respuesta}>{message?.data}</h3>
-                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                        {message?.coments?.map((coment)=>(
+                   {message?.coments?.map((coment)=>(
                             <div>
                                 <p>
                                     {coment}
                                 </p>
                             </div>
                         ))}
+                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                      
                         <button type="submit" >comentar</button>
                    </form>
                 </div>:
