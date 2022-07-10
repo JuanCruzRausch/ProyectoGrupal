@@ -42,3 +42,4 @@ exports.getAllSales = async (_, res, next) => {
         next(new AppError(error))
     }
 }
+
