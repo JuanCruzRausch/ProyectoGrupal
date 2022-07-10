@@ -68,6 +68,7 @@ const handleOnUnlock = (user_id) =>{
             <br />
             {allUsers?.length&&allUsers?.map(user => (
                 <div className={container_user}>
+                  {console.log(user.user_id)}
                     {!user.blocked?(<button 
                     onClick={()=> handleOnLock(user.user_id)}
                     className="btn-danger button">bloquear</button>):

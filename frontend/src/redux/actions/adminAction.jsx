@@ -24,7 +24,8 @@ export function lockUser (userId, token) {
               Authorization: `Bearer ${token}`
             }
         } )
-        .then(()=>{
+        .then((res)=>{
+            console.log(res)
             axios("http://localhost:5050/stats/listUsers",{
                 headers: {
                   Authorization: `Bearer ${token}`
@@ -44,7 +45,8 @@ export function unlockUser (userId, token) {
               Authorization: `Bearer ${token}`
             }
         } )
-        .then(()=>{
+        .then((res)=>{
+            console.log(res)
             axios("http://localhost:5050/stats/listUsers",{
                 headers: {
                   Authorization: `Bearer ${token}`
