@@ -92,7 +92,7 @@ exports.createOrder = async (req, res, next) => {
                 brand_name: 'MercadoEnanitos',
                 landing_page: 'LOGIN',
                 user_action: 'PAY_NOW',
-                return_url: 'http://localhost:5050/payment/capture-order',
+                return_url: 'http://localhost:3000/transaction',
                 cancel_url: 'http://localhost:5050/payment/cancel-order'
             }
         }
