@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
@@ -36,18 +37,15 @@ export default function PlaceOrderScreen() {
   const dispatch = useDispatch();
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
-    dispatch(
-      sendOrder(userState?._id,{
-        PrecioTotal,
-        cartItem,
-        shippingAddress,
-        userState,
-      })
-    );
-    navigate('/');
+      // sendOrder(userState?._id,{
+      //   PrecioTotal,
+      //   cartItem,
+      //   shippingAddress,
+      //   userState,
+      // })
+    let res =  await axios.post("http://localhost:5050/payment/create-order/"+userState?._id,{PrecioTotal,cartItem,shippingAddress,userState,})
+    window.location.href= res.data
   };
-
-  console.log(SingleCart.price === undefined && cartItem.length === 0);
   return (
     <div>
       <Helmet>
