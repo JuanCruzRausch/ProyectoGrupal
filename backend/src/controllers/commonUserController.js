@@ -95,8 +95,7 @@ exports.blockUser = catchAsync(async (req, res, next) => {
     const value = block==='true'?true:false
     const token = await getAccessTokenAdmin()
     await apiAuth0.blockUser(token.data.access_token, id, value)
-    const user = await CommonUser.findOne({user_id : id})
-    console.log(user)
+    const user = await CommonUser.updateOne({user_id : id}, {blocked: value})
     res.status(200).json({
       status: 'success',
       data: user
