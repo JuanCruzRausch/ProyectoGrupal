@@ -151,7 +151,7 @@ exports.captureOrder = async (req, res, next) => {
 
         const buyer_id = response.data.purchase_units[0].reference_id
 
-        const buyer = await CommonUser.findOne({_id: buyer_id})
+        const buyer = await CommonUser.findOne({ _id: buyer_id })
         const publications = buyer.purchase_order.products.map(e => e)
         const pubs = []
         console.log(publications.length)
@@ -159,37 +159,44 @@ exports.captureOrder = async (req, res, next) => {
         for (let i = 0; i < publications.length; i++) {
             pubs.push(await PublicationTest.findById(publications[i].publicationId))
         }
-        
-        
 
-        const purchase_units = pubs.map((e,i) => {return {
-            seller: e.seller,
-            quantity: publications[i].quantity,
-            status: 'pending',
-            earnings: {
-                total_money: e.price * publications[i].quantity,
-                seller_earnings: e.earnings * publications[i].quantity,
-                platform_earnings: (e.price * publications[i].quantity) - ( publications[i].quantity * e.earnings),
+
+
+        const purchase_units = pubs.map((e, i) => {
+            return {
+                seller: e.seller,
+                quantity: publications[i].quantity,
+                status: 'pending',
+                earnings: {
+                    total_money: e.price * publications[i].quantity,
+                    seller_earnings: e.earnings * publications[i].quantity,
+                    platform_earnings: (e.price * publications[i].quantity) - (publications[i].quantity * e.earnings),
+                }
             }
-        }})
+        })
 
         const newTransaction = await Transaction.create({
             transactions: purchase_units,
             buyer: buyer._id,
         })
 
-        await CommonUser.updateOne({_id: buyer_id}, {  purchase_order:{
-            products: [],
-            link: ""
-          }})
+        await CommonUser.updateOne({ _id: buyer_id }, {
+            purchase_order: {
+                products: [],
+                link: ""
+            },
+            purchase_history: buyer.purchase_history.concat({publication_id: new mongoose.mongo.ObjectId(newTransaction._id)})
+        })
 
-          for(let pub of publications){
-            const pubUpdate = await PublicationTest.findOne({_id:pub.publicationId})
-            pubUpdate.stock.stockTotal-=pub.quantity;
+
+
+        for (let pub of publications) {
+            const pubUpdate = await PublicationTest.findOne({ _id: pub.publicationId })
+            pubUpdate.stock.stockTotal -= pub.quantity;
             pubUpdate.save();
-            console.log('pub-----',pubUpdate);
-          }
-        res.status(200).json({status: 'success', data: newTransaction});
+            console.log('pub-----', pubUpdate);
+        }
+        res.status(200).json({ status: 'success', data: newTransaction });
     } catch (error) {
         console.log(error)
         next(new AppError(error))
