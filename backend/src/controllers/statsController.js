@@ -1,4 +1,5 @@
 const AppError = require('../utils/appError')
+const Seller = require('../models/Seller');
 const {getAccessTokenAdmin, apiAuth0} = require('../utils/apiAdminAuth0')
 
 
@@ -27,3 +28,18 @@ exports.getListUsers = async(_, res, next) => {
         next(new AppError(error))
     }
 }
+
+exports.getAllSales = async (_, res, next) => {
+    try {
+        let num = 0
+        const listSeller = await Seller.find({})
+        listSeller.forEach(e => num = num + e.active_pub.length)
+        res.status(200).json({
+            status: 'success',
+            data: num
+        })
+    } catch (error) {
+        next(new AppError(error))
+    }
+}
+
