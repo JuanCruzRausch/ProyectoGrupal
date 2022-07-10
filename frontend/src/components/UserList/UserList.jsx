@@ -2,6 +2,7 @@ import React from 'react'
 import { lockUser } from '../../redux/actions/adminAction'
 import { useSelector, useDispatch } from 'react-redux'
 import { photo, container_users, container_user, container, }  from './UserList.module.css'
+import swal from 'sweetalert'
 
 function UserList() {
 const dispatch = useDispatch()
@@ -11,6 +12,13 @@ const token = useSelector (state => state.adminReducer.token)
 
 
 const handleOnClick = (user_id) =>{
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
     dispatch(lockUser(user_id, token))
 }
   return (
