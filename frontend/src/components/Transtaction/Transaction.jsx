@@ -7,6 +7,7 @@ import { getTransaction } from '../../redux/actions/InteractionsActions'
 export default function Transaction () {
     const queries = useLocation().search
     const navigate = useNavigate()
+    const dispatch = useDispatch
 useEffect(()=>{
         swal({
           title: `transacción exitosa`,
