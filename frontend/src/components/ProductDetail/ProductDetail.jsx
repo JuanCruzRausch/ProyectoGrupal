@@ -5,13 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import Count from '../Count/Count';
-import mercadopago from '../../assets/img/cards/mercadopago.svg';
-import naranja from '../../assets/img/cards/naranja.svg';
-import visa from '../../assets/img/cards/visa.svg';
-import americanexpress from '../../assets/img/cards/americanexpress.svg';
-import pagofacil from '../../assets/img/cards/pagofacil.svg';
-import rapipago from '../../assets/img/cards/rapipago.svg';
-import visadebito from '../../assets/img/cards/visadebito.svg';
+import paypal from '../../assets/img/paypal.jpg';
 import cart from '../../assets/img/addcart.png';
 import gps from '../../assets/img/gps.png';
 import user from '../../assets/img/user.png';
@@ -35,10 +29,6 @@ import {
   Detail_Description_payment,
   userData,
   Payment_methods,
-  PyR_container,
-  PyR_content,
-  PyR_content_Pregunta,
-  PyR_content_Respuesta,
   Detail_Item_pictures,
   SelectedImg,
 } from './ProductDetail.module.css';
@@ -133,7 +123,6 @@ function ProductDetail(props) {
   }  
   
 
-
   return (
     <div className={Detail_container}>
       <div className={Detail_Links}>
@@ -219,30 +208,9 @@ function ProductDetail(props) {
           <hr />
           <div className={Payment_methods}>
             <div>
-              Paga con MercadoPago
+              Paga con paypal
               <div>
-                <img src={mercadopago} alt="MercadoPago" />
-              </div>
-            </div>
-            <div>
-              Tarjetas de crédito
-              <div>
-                <img src={naranja} alt="naranja" />
-                <img src={americanexpress} alt="american-express" />
-                <img src={visa} alt="visa" />
-              </div>
-            </div>
-            <div>
-              Tarjetas de débito
-              <div>
-                <img src={visadebito} alt="visaDebito" />
-              </div>
-            </div>
-            <div>
-              Efectivo
-              <div>
-                <img src={rapipago} alt="rapipago" />
-                <img src={pagofacil} alt="pagofacil" />
+                <img src={paypal} alt="MercadoPago" />
               </div>
             </div>
           </div>

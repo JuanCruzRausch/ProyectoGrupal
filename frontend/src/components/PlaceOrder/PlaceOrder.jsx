@@ -37,6 +37,7 @@ export default function PlaceOrderScreen() {
   const dispatch = useDispatch();
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
+    console.log(window.location.href)
       // sendOrder(userState?._id,{
       //   PrecioTotal,
       //   cartItem,
@@ -45,6 +46,7 @@ export default function PlaceOrderScreen() {
       // })
     let res =  await axios.post("http://localhost:5050/payment/create-order/"+userState?._id,{PrecioTotal,cartItem,shippingAddress,userState,})
     window.location.href= res.data
+    console.log(window.location.href)
   };
   return (
     <div>
