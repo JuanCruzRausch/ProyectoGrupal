@@ -1,5 +1,5 @@
 import React from 'react'
-import { lockUser } from '../../redux/actions/adminAction'
+import { lockUser, unlockUser } from '../../redux/actions/adminAction'
 import { useSelector, useDispatch } from 'react-redux'
 import { photo, container_users, container_user, container, }  from './UserList.module.css'
 import swal from 'sweetalert'
@@ -11,7 +11,7 @@ const token = useSelector (state => state.adminReducer.token)
 
 
 
-const handleOnClick = (user_id) =>{
+const handleOnLock = (user_id) =>{
     swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -28,9 +28,26 @@ const handleOnClick = (user_id) =>{
         } else {
           swal("Your imaginary file is safe!");
         }
-      });
-      
-    
+      });  
+}
+const handleOnUnlock = (user_id) =>{
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+          dispatch(unlockUser(user_id, token))
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      });  
 }
   return (
     <div className={container}>
@@ -39,9 +56,12 @@ const handleOnClick = (user_id) =>{
             <br />
             {allUsers?.length&&allUsers?.map(user => (
                 <div className={container_user}>
+                    {!user.blocked?(<button 
+                    onClick={()=> handleOnLock(user.user_id)}
+                    className="btn-danger button">bloquear</button>):
                     <button 
-                    onClick={()=> handleOnClick(user.user_id)}
-                    className="btn-danger button">X</button>
+                    onClick={()=> handleOnUnlock(user.user_id)}
+                    className="btn-success button">desbloquear</button>}
                     <div className={photo}>
                         <img  src={user.photo} alt={user.name}/> 
                     </div>

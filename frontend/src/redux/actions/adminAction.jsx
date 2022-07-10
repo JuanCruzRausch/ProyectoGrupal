@@ -24,12 +24,34 @@ export function lockUser (userId, token) {
               Authorization: `Bearer ${token}`
             }
         } )
-        axios("http://localhost:5050/stats/listUsers",{
+        .then(()=>{
+            axios("http://localhost:5050/stats/listUsers",{
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => dispatch({type: GET_ALL_USER, payload:response.data.data}))
+        })
+    }
+
+}
+
+export function unlockUser (userId, token) {
+    return async(dispatch)=>{
+        console.log(userId)
+        axios.delete(`http://localhost:5050/commonuser/block/${userId}?block=false`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
+        } )
+        .then(()=>{
+            axios("http://localhost:5050/stats/listUsers",{
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => dispatch({type: GET_ALL_USER, payload:response.data.data}))
         })
-        .then(response => dispatch({type: GET_ALL_USER, payload:response.data.data}))
     }
 
 }

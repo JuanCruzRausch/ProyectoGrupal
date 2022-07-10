@@ -12,63 +12,94 @@ import {chat_header,
     PyR_content_Respuesta,} from "./Chat.module.css"
 import { useDispatch } from 'react-redux';
 
+
 export default function Chat({socket, _id}) {
     
     const dispatch = useDispatch()
-    const recived = useSelector(state => state.interactionsReducer.chat)
-    const [saludo, setSaludo] = React.useState({})
+    const chat = useSelector(state => state.interactionsReducer.chat)
+    const [message, setMessage] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
-   
-    const mostrarComentarios = (e)=>{
-        e.preventDefault()
-        if(saludo.data!==""){
-            socket.emit("comentarios", saludo);
-            setSaludo({...saludo, data:''})
-        }
+    const [coment, setComent] = React.useState ('')
+    const [coments, setComents] = React.useState ([])
+    const sendMessage = ()=>{
+         socket.emit("comentarios", {_id, chat: [...chat, message]});
+            setMessage({...message, data:"", coment:""})
     };
-    const setRecived = (data) =>{
-        dispatch({type: "SET_CHAT", payload: data})
+
+    const submitMessage = (e) => {
+        e.preventDefault()
+        if(message.data!==""){
+            setChat( [...chat, {...message}])
+            sendMessage()
+        }
+    }
+    const setChat = (data) =>{
+         dispatch({type: "SET_CHAT", payload: data})
+         
     }
     React.useEffect(()=>{
-        seller?setSaludo({
-            ...saludo,
-            room: _id, 
+        seller?setMessage({
+            _id: _id + chat.length,
             seller_id: seller?._id,
-            product_Id: _id
+            data:""
         }):null
     },[seller])
 
     React.useEffect(()=>{
         socket.on("envio_front", (data)=>{
-            setRecived( data)
+            setChat( data)
         })
         return () =>{socket.off()}
-    },[recived])
+    },[chat])
 
-    const handleOnChange = (e) =>{
+    const handleOnSubmitComent = (e, _id) => {
+        e.preventDefault()
+        const arr = [...chat]
+        arr.forEach(message =>{
+            if (message._id === _id){
+                message.coments.push(message.coment)
+                message.coment = "";
+            }
+        })
+            // dispatch(setChat(arr))
+            socket.emit("comentarios", {_id, chat:arr})
+
+    }
+    const handleOnChangeComent = (value, _id) =>{
+        setComent(value)
+        chat.forEach(message =>{
+            if (message._id === _id){
+                message.coment=value
+            }
+        })
+            dispatch(setChat(chat))
         
-        setSaludo({
-            ...saludo, 
+    }
+    const handleOnChange = (name, value) =>{
+        
+        setMessage({
+            ...message, 
+            _id: _id + chat.length,
             product_id: _id,
-            room: seller?._id,
-            name: seller?.user?.name? seller?.user?.name: null,
-            data: e.target.value,
+            name: seller?.user?.name? seller.user.name: null,
             date: new Date( Date.now()),
             time: new Date( Date.now()).getHours() +
             ":" +
             new Date(Date.now()).getMinutes(),
+            coments:[],
+            coment: '',
+            [name]: value,
         })
     }
 
     return (
     <div>
-      
          <div className={PyR_container}>
              <h1>preguntas y respuestas</h1>
              <hr />
         <div className={chat_footer}>
-            <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
-                <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
+            <form action="" onSubmit={(e)=> submitMessage(e)}>
+                <input name="data" value={message?.data} onChange={(e)=>handleOnChange(e.target.name, e.target.value)}type="text" id="" />
                 <br />
                 <button className={button} type="submit" >
                     Preguntar
@@ -76,16 +107,27 @@ export default function Chat({socket, _id}) {
             </form>
         </div>
            
-            {recived?.map(data=> ( 
+            {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
-               {data.seller_id===seller._id?
+               {message.seller_id===seller._id?
                <div>
-                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
-                   <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+                   <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Respuesta}>{message?.data}</h3>
+                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                        {message?.coments?.map((coment)=>(
+                            <div>
+                                <p>
+                                    {coment}
+                                </p>
+                            </div>
+                        ))}
+                        <button type="submit" >comentar</button>
+                   </form>
                 </div>:
                <div>
-                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
-                   <h3 className={PyR_content_Pregunta}>{data.data}</h3>
+                   <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Pregunta}>{message?.data}</h3>
                 </div>
                }
              </div>
