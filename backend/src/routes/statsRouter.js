@@ -9,6 +9,7 @@ const statsRouter = Router();
 
 statsRouter.get('/getActiveUsersCount', authorizeAccessToken, roles.admin, getActiveUsersCount)
 statsRouter.get('/listUsers', authorizeAccessToken, roles.admin, getListUsers)
+statsRouter.get('/getAllSales', authorizeAccessToken, roles.admin, )
 
 
 module.exports = statsRouter;
