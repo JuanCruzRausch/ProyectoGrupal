@@ -24,6 +24,11 @@ export function lockUser (userId, token) {
               Authorization: `Bearer ${token}`
             }
         } )
+        axios("http://localhost:5050/stats/listUsers",{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+        })
         .then(response => dispatch({type: GET_ALL_USER, payload:response.data.data}))
     }
 

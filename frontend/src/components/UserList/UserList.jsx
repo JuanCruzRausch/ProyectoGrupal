@@ -19,7 +19,18 @@ const handleOnClick = (user_id) =>{
         buttons: true,
         dangerMode: true,
       })
-    dispatch(lockUser(user_id, token))
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+          });
+          dispatch(lockUser(user_id, token))
+        } else {
+          swal("Your imaginary file is safe!");
+        }
+      });
+      
+    
 }
   return (
     <div className={container}>
