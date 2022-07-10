@@ -18,7 +18,6 @@ export default function PlaceOrderScreen() {
   const { cartItem, shippingAddress } = useSelector(
     (state) => state.CartReducer.cart
   );
-  const { user } = useAuth0();
   //   const { cart, userInfo } = state;
 
   //   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; //123.1234 => 123.12
@@ -28,7 +27,7 @@ export default function PlaceOrderScreen() {
   //   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   //   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   //   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-
+  const userState = useSelector( state => state.userReducer.user)
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
   const SingleCart = useSelector((state) => state.CartReducer.SingleCart);
   const PrecioTotal = JSON.stringify(
@@ -38,11 +37,11 @@ export default function PlaceOrderScreen() {
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
     dispatch(
-      sendOrder({
+      sendOrder(userState?._id,{
         PrecioTotal,
         cartItem,
         shippingAddress,
-        user,
+        userState,
       })
     );
     navigate('/');

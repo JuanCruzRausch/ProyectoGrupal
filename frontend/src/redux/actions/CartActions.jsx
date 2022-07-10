@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Navigate } from 'react-router'
 export const ADD_TO_CART = "ADD_TO_CART"
 export const ORDER_PRODUCT = "ORDER_PRODUCT"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
@@ -46,9 +47,14 @@ export function OrderSingleProduct(id,count){
     }         
 }
 
-export function sendOrder (){
-   
-  return {type:CLEAR_CART}
+export function sendOrder (id,data){
+    console.log(id);
+    console.log(data);
+    return async (dispatch) => {
+    axios.post("http://localhost:5050/payment/create-order/"+id,data)
+    .then(res => 
+        console.log(res.data))
+    }
       
 }
 export function IncreaseCart(id){
@@ -83,3 +89,4 @@ export function ClearFromCart(){
         type: CLEAR_CART
     }
 }
+
