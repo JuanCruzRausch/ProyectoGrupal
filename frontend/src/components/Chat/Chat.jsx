@@ -2,7 +2,14 @@
 import React from 'react'
 import {useSelector} from "react-redux"
 import SellerProfile from '../Seller/SellerProfile';
-import {chat_header, chat_body, chat_footer} from "./Chat.module.css"
+import {chat_header,
+    chat_body, 
+    button,
+    chat_footer,
+    PyR_container,
+    PyR_content,
+    PyR_content_Pregunta,
+    PyR_content_Respuesta,} from "./Chat.module.css"
 import { useDispatch } from 'react-redux';
 
 export default function Chat({socket, _id}) {
@@ -11,17 +18,22 @@ export default function Chat({socket, _id}) {
     const recived = useSelector(state => state.interactionsReducer.chat)
     const [saludo, setSaludo] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
+   
     const mostrarComentarios = (e)=>{
         e.preventDefault()
-        socket.emit("comentarios", saludo);
+        if(saludo.data!==""){
+            socket.emit("comentarios", saludo);
+            setSaludo({...saludo, data:''})
+        }
     };
     const setRecived = (data) =>{
         dispatch({type: "SET_CHAT", payload: data})
     }
     React.useEffect(()=>{
         seller?setSaludo({
-            ...saludo, 
-            idSeller: seller?._id,
+            ...saludo,
+            room: _id, 
+            seller_id: seller?._id,
             product_Id: _id
         }):null
     },[seller])
@@ -30,13 +42,17 @@ export default function Chat({socket, _id}) {
         socket.on("envio_front", (data)=>{
             setRecived( data)
         })
-    },[socket])
+        return () =>{socket.off()}
+    },[recived])
 
     const handleOnChange = (e) =>{
         
         setSaludo({
             ...saludo, 
-            data:e.target.value,
+            product_id: _id,
+            room: seller?._id,
+            name: seller?.user?.name? seller?.user?.name: null,
+            data: e.target.value,
             date: new Date( Date.now()),
             time: new Date( Date.now()).getHours() +
             ":" +
@@ -46,26 +62,36 @@ export default function Chat({socket, _id}) {
 
     return (
     <div>
-        <div className={chat_header}>
-            Deja tu comentario
-        </div>
-        <div className={chat_body}>
-            {[]?.map(comentarios=> 
-            <div>
-                {comentarios?._id===seller._id?<div className={seller_comentario}>{comentarios?.message}</div>:
-                <div className={cliente_comentario}>{comentarios?.message}</div>}
-            </div>)}
-            {recived?.map(data=> <div><h1>{data.data}</h1></div>)}
-        </div>
+      
+         <div className={PyR_container}>
+             <h1>preguntas y respuestas</h1>
+             <hr />
         <div className={chat_footer}>
             <form action="" onSubmit={(e)=> mostrarComentarios(e)}>
-                <input onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
-
-                <button type="submit" >
-                    enviar
+                <input  value={saludo.data} onChange={(e)=>handleOnChange(e)}type="text" name="" id="" />
+                <br />
+                <button className={button} type="submit" >
+                    Preguntar
                 </button>
             </form>
         </div>
+           
+            {recived?.map(data=> ( 
+             <div className={PyR_content}>
+               {data.seller_id===seller._id?
+               <div>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Respuesta}>{data.data}</h3>
+                </div>:
+               <div>
+                   <p>{data.time}- {data?.name? data.name :"anonimo"}</p>
+                   <h3 className={PyR_content_Pregunta}>{data.data}</h3>
+                </div>
+               }
+             </div>
+)    )}
+     </div>
+       
     </div>
   )
 }

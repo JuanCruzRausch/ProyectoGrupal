@@ -7,6 +7,7 @@ import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import arrow from '../../assets/img/leftarrow.png';
 import {Container, DashboardDiv,CurrentData,CurrentData1, CurrentData2,CurrentData3,CurrentData4, CurrentBars} from './Dashboard.module.css'
+import UserList from '../UserList/UserList';
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
 ChartJS.register(CategoryScale,LinearScale, PointElement,LineElement,Title,Tooltip,Legend);
@@ -71,7 +72,8 @@ function Dashboard() {
   };
   
   return (
-    <div className={Container}>
+    <div >
+     
       <div className={Detail_Links}>
         <img src={arrow} alt="back" />
         <Link to="/perfil">
@@ -115,6 +117,7 @@ function Dashboard() {
           <h1>Consultas/Servicio al cliente</h1>
         </div>
       </div>
+      <UserList/>
     </div>
   )
 }

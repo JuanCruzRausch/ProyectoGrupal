@@ -1,17 +1,12 @@
 import React from 'react'
-import {FooterContainer, FooterSubcontainer1, FooterSubcontainer2, MiCuenta} from './Footer.module.css'
-import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from '../Auth0/login';
-import LogoutButton from '../Auth0/logout';
-import { Link } from 'react-router-dom';
+import {FooterContainer, FooterSubcontainer1, FooterSubcontainer2,DarkFooter} from './Footer.module.css'
+import { Link} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
 function Footer() {
-    const navigate = useNavigate()
-    const { user, isAuthenticated} = useAuth0();
-    const userLogged = useSelector((state) => state.userReducer.user)
+    const mode = useSelector((state)=> state.darkMode)
+    const { isdarkMode } = mode;
   return (
-    <div className={FooterContainer}>
+    <div className={isdarkMode? DarkFooter : FooterContainer}>
         <div className={FooterSubcontainer1}>
             <div>
                 <Link to="/privacidad">
@@ -24,16 +19,9 @@ function Footer() {
             </Link>
             </div>
             <div>
-                {isAuthenticated ? (
-                    <div className={MiCuenta}>
-                            <a onClick={() => navigate("/perfil")}>perfil</a>
-                    </div>
-        ) : (
-          <LoginButton />
-        )}
-            </div>
-            <div>
-                <h1>Acerca de nosotros</h1>
+                <Link to="/Nosotros">
+                    <h1>Acerca de nosotros</h1>
+                </Link>
             </div>
         </div>
         <hr />

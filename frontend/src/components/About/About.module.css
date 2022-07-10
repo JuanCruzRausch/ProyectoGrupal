@@ -1,0 +1,14 @@
+.AboutUs{
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 15px;
+}
+.AboutTeam{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 70%;
+    justify-content: space-around;
+    margin: 0 auto;
+}

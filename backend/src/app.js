@@ -12,10 +12,17 @@ const transactionsRouter = require('./routes/transactionsRouter');
 const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
 const paymentRouter = require('./routes/paymentRouter');
+const uploadImageRouter = require('./routes/uploadImageRouter');
+const statsRouter = require('./routes/statsRouter')
 const dotenv = require('dotenv');
 const cors = require('cors');
-const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 dotenv.config({ path: "./.env" });
+
+
+const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
+const {roles} = require('./utils/roles')
+const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0')
+
 
 const app = express();
 
@@ -47,6 +54,22 @@ app.use('/transactions', transactionsRouter);
 app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
 app.use('/payment', paymentRouter);
+app.use('/upload-image', uploadImageRouter);
+app.use('/stats', statsRouter)
+
+//Es de ejemplo, 
+app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
+  try {
+    const token = await getAccessTokenAdmin()
+    console.log(token.data.access_token)
+    const response = await apiAuth0.assingRolesToAUser(token.data.access_token, "google-oauth2|113524192845578480045", {"roles":["rol_okNnus6dt6Itz5Xa"]}) // perdon Javi por usarte xD
+    res.send(response)
+  } catch (error) {
+    res.status(400).json({error:error.message})
+  }  
+    
+})
+
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -3,8 +3,6 @@ const Seller = require('../models/Seller');
 const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const cloudinary = require('../../cloudinary');
-const fs = require('fs');
 
 exports.postPublicationTest = catchAsync(async (req, res, next) => {
   let userId = req.params.id;
@@ -82,7 +80,10 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
   if (req.body.shipping.shippingType === 'free') {
     freeS = 0;
   }
-
+  let sell = await Seller.findOne({ user: userId });
+  if (!sell) {
+    return next(new AppError('There is no seller with that id', 404));
+  }
   const newPub = await PublicationTest.create({
     title: req.body.title,
     description: req.body.description,
@@ -91,7 +92,7 @@ exports.postPublicationTest = catchAsync(async (req, res, next) => {
     earnings,
     promPrice: req.body.promPrice,
     currency: req.body.currency,
-    seller: req.body.seller,
+    seller: sell._id,
     category: req.body.category,
     subCategory: req.body.subCategory,
     shipping: {
@@ -135,6 +136,27 @@ exports.deletePublicationTest = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllPublicationTest = catchAsync(async (req, res, next) => {
+  const features = new apiFeatures(
+    PublicationTest.find({ status: { $ne: false } }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limit()
+    .paginate();
+  // Ejecutamos el query
+  const publications = await features.query;
+
+  res.status(200).json({
+    status: 'success',
+    results: publications.length,
+    data: {
+      publications,
+    },
+  });
+});
+
+exports.getAllPublicationForAdmin = catchAsync(async (req, res, next) => {
   const features = new apiFeatures(PublicationTest.find(), req.query)
     .filter()
     .sort()
@@ -181,7 +203,10 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
 exports.getPublicationByName = catchAsync(async (req, res, next) => {
   const { title } = req.params;
 
-  const features = new apiFeatures(PublicationTest.find(), req.query)
+  const features = new apiFeatures(
+    PublicationTest.find({ status: { $ne: false } }),
+    req.query
+  )
     .filter()
     .sort()
     .limit()
@@ -202,32 +227,6 @@ exports.getPublicationByName = catchAsync(async (req, res, next) => {
     status: 'success',
     data: search,
   });
-});
-
-exports.postImages = catchAsync(async (req, res, next) => {
-  try {
-    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
-    const urls = [];
-    const files = req.files;
-    console.log(files);
-    for (const file of files) {
-      const { path } = file;
-      const newPath = await uploader(path);
-      urls.push(newPath);
-      fs.unlinkSync(path);
-    }
-
-    res.status(200).json({
-      message: 'Images uploaded successfully',
-      data: urls,
-    });
-    console.log('urls', urls);
-    // await Image.insertMany(urls);
-  } catch (e) {
-    res.status(405).json({
-      err: 'Images not uploaded successfully',
-    });
-  }
 });
 
 exports.getProductsBySeller = catchAsync(async (req, res, next) => {

@@ -14,7 +14,8 @@ import states from "../Json/states.jsx";
 import { useEffect } from "react";
 import { getAllCategories } from "../../redux/actions";
 import axios from "axios";
-import { addPublication, setAlert, publicationSeller } from "../../redux/actions/index";
+import { addPublication, setAlert } from "../../redux/actions/index";
+import {setSeller } from "../../redux/actions/userAction"
 import swal from "sweetalert";
 import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer, toast } from "react-toastify";
@@ -36,7 +37,7 @@ function CreateProduct() {
     description: "",
     pictures: [],
     price: 0,
-    currency: "",
+    currency: "USD",
     seller:_id,
     category: "",
     subCategory: "",
@@ -91,6 +92,9 @@ function CreateProduct() {
     });
   }
 
+  function priceValidation (e){
+    if (e.target.value >= 0) handleOnChange(e)
+  }
   function handleStock(e) {
     setStock(e.target.value);
   }
@@ -109,23 +113,23 @@ function CreateProduct() {
       let f = new FormData();
       f.append("image", images[i][0]);
       let result = await axios
-        .post("http://localhost:5050/publicationtest/upload-image", f, {
+        .post("http://localhost:5050/upload-image", f, {
           headers: { "content-type": "multipart/form-data" },
         })
         .catch((res) => console.log(res));
       arrayImg.push(result.data.data[0].imageURL);
     }
 
-    dispatch(
+    await dispatch(
       addPublication(userState._id,{
         ...data,
+        currency:"USD",
         pictures: [...arrayImg],
         category: subcategories?._id,
         subCategory: objects?._id,
       })
-      
     )
-    dispatch(publicationSeller(_id))
+    dispatch(setSeller(userState._id))
     
   }
 
@@ -204,25 +208,13 @@ function CreateProduct() {
                 </span>
               ))}
           </div>
-          <Form.Label>Moneda</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            value={data.currency}
-            name="currency"
-            onChange={(e) => handleOnChange(e)}
-          >
-            <option value="" disabled default>
-              Seleccione una moneda
-            </option>
-            <option>ARS</option>
-            <option>USD</option>
-          </Form.Select>
-          <Form.Label>Precio</Form.Label>
+         
+          <Form.Label>Precio en USD</Form.Label>
           <Form.Control
             type="number"
             name="price"
             value={data.price}
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => priceValidation(e)}
             required
             />
           <Form.Label>Categoria</Form.Label>

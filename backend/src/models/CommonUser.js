@@ -91,7 +91,19 @@ const commonUser = new Schema({
     link:{
       type: String
     }
-  }
+  },
+  blocked: {
+    type: Schema.Types.Boolean,
+    default: false
+  },
+  notifications: [
+    {
+      date_create: Schema.Types.Date,
+      content: Schema.Types.String,
+      state: Schema.Types.String,
+    },
+  ],
+  chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
 });
 
 commonUser.pre('save', function (next) {

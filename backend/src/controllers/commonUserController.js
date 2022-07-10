@@ -1,6 +1,7 @@
 const CommonUser = require('../models/CommonUser');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const { getAccessTokenAdmin, apiAuth0 } = require('../utils/apiAdminAuth0');
 
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
@@ -38,7 +39,7 @@ exports.updateToUser = async (req, res, next) => {
     const lastname = req.body.last_name;
     const userUpdated = await CommonUser.updateOne(
       { _id: _id },
-      { name, lastname, nickname, country, address, phone, credit_card, photo }
+      { name, lastname, nickname, country, address, phone, credit_card, photo, authorization: { roles: ['buyer'] } }
     );
     console.log(userUpdated);
     const user = await CommonUser.findOne({ _id });
@@ -85,3 +86,22 @@ exports.toSeller = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.blockUser = catchAsync(async (req, res, next) => {
+  
+  try {
+    const { id } = req.params
+    const { block } = req.query
+    const value = block==='true'?true:false
+    const token = await getAccessTokenAdmin()
+    await apiAuth0.blockUser(token.data.access_token, id, value)
+    const user = await CommonUser.updateOne({user_id : id}, {blocked: value})
+    res.status(200).json({
+      status: 'success',
+      data: user
+    })
+  } catch (error) {
+    console.log(error.response)
+    next(new AppError(error))
+  }
+})

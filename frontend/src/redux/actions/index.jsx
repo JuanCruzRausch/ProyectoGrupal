@@ -1,3 +1,5 @@
+import { setSeller } from './userAction';
+
 import axios, { Axios } from 'axios'
 export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
@@ -14,8 +16,10 @@ export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const PUBLICATION_ALERT = "PUBLICATION_ALERT";
 export const COUNT = "COUNT";
 export const SINGLE_ITEM = "SINGLE_ITEM";
-export const SET_LOADING = "SET_LOADING"
-export const DELETE_PUBLICATION = "DELETE_PUBLICATION"
+export const SET_LOADING = "SET_LOADING";
+export const DELETE_PUBLICATION = "DELETE_PUBLICATION";
+export const SET_ORDER = "SET_ORDER"
+export const SET_CATEGORY = "SET_CATEGORY"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -33,8 +37,8 @@ export function signUp(data) {
 }
 export function publicationSeller (seller_id) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest/sellerpublications/"+seller_id)
-    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data}))
+    return axios("http://localhost:5050/Seller/"+seller_id)
+    .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data.sell}))
     // .then(res => dispatch({type: PUBLICATION_SELLER, payload: res.data.data}))
   }
 }
@@ -49,6 +53,14 @@ export function addPublication( id,data ) {
     return axios.post("http://localhost:5050/publicationtest/"+id, data)
     .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
     .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
+  }
+}
+
+export function sort (atribute){
+  console.log(atribute)
+  return async (dispatch) =>{
+    return axios(`http://localhost:5050/publicationtest/?sort=${atribute}`)
+    .then(res => dispatch({type: GET_ALL_PRODUCTS, payload: res.data.data.publications}))
   }
 }
 
@@ -110,21 +122,25 @@ export function setActive(page) {
 export function BuscarProducto(title, min, max){
   return async (dispatch)=>{
     dispatch({type:SET_LOADING, payload:"spin"})
-    return (await axios(`http://localhost:5050/publicationtest/byName/${title}?price[lte]=${max}&price[gte]=${min}`)
+    let name = title? `/byName/${title}`: "";
+    let valMin = min === -Infinity? "" : `price[gte]=${min}`
+    let valMax = max === Infinity? "" : `price[lte]=${max}`
+    return (await axios(`http://localhost:5050/publicationtest${name}?${valMax}&${valMin}`)
       .then((res)=>{
-        console.log(res.data.data)
         return dispatch({
           type: GET_PRODUCT,
-          payload: res.data.data
+          payload: Array.isArray(res.data.data)? res.data.data : res.data.data.publications
         })
       })
     )}
 }
 
-export function getProductByCategory(id, min, max) {
+export function getProductBy(cat, min, max, sort) {
   return async (dispatch) => {
+    let category = cat?`&category=${cat}`:null
+    let order = sort?`&sort=${sort}`:null
     dispatch({type:SET_LOADING, payload:"spin"})
-    return axios(`http://localhost:5050/publicationtest?category=${id}&price[lte]=${max}&price[gte]=${min}` )
+    return axios(`http://localhost:5050/publicationtest?price[lte]=${max}&price[gte]=${min}${order}${category}` )
     .then(res=> {
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })
@@ -134,16 +150,33 @@ export function deleteProduct(id,userID){
   return async (dispatch) => {
     return axios.post("http://localhost:5050/seller/"+id+"/"+userID)
     .then(res =>{
-      dispatch({type: DELETE_PUBLICATION, id})
+      dispatch(setSeller(userID))
     })
   }
 }
-export function GetProductById(_id){
-  return{
-    type: GET_PRODUCT_BY_ID,
-    payload: _id,
+export function inactivePublication (_id, userID){
+  return async (dispatch) => {
+    return axios.patch("http://localhost:5050/seller/"+_id+"/"+userID)
+    .then(res =>{
+      dispatch(setSeller(userID))
+    })
   }
 }
+export function activePublication (_id, userID){
+  return async (dispatch) => {
+    return axios.put("http://localhost:5050/seller/"+_id+"/"+userID)
+    .then(res =>{
+      dispatch(setSeller(userID))
+    })
+  }
+}
+
+// export function GetProductById (_id){
+//   return{
+//     type: GET_PRODUCT_BY_ID,
+//     payload: _id,
+//   }
+// }
 export function getAllCategory(payload) {
   return (dispatch) => {
     dispatch({
@@ -153,11 +186,3 @@ export function getAllCategory(payload) {
   }
  }
 
-export function ordenado(payload) {
-  return (dispatch) => {
-    dispatch({
-      type: ORDENADO,
-      payload,
-    });
-  };
-}

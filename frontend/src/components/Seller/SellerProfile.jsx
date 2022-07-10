@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteProduct } from "../../redux/actions/index"
+import { deleteProduct, inactivePublication, activePublication } from "../../redux/actions/index"
+import swal from 'sweetalert'
 import {
   Chart as ChartJS,
   ArcElement,
@@ -52,8 +53,8 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../Auth0/login";
 export default function SellerProfile() {
-  const myProducts = useSelector(
-    (state) => state.productReducer.publicationSeller
+  const seller = useSelector(
+    (state) => state.userReducer.seller
   );
   const userState = useSelector((state) => state.userReducer.user);
   const navigate = useNavigate();
@@ -106,6 +107,25 @@ export default function SellerProfile() {
       total: 9,
     },
   };
+  const deletePublication = (productId) =>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    dispatch(deleteProduct(productId, userState._id))
+  }
+  const desactivarPublication = (productId) =>{  
+    dispatch(inactivePublication(productId, userState._id))
+  }
+
+  const showPublication = (productId) =>{
+
+    dispatch(activePublication(productId, userState._id))
+
+  }
 
   return (
     <div className={Container}>
@@ -157,7 +177,7 @@ export default function SellerProfile() {
           <h1 className={Titles}>Publicaciones</h1>
           <div className={Container_card1}>
             <div className={PublicacionesContainer}>
-              {myProducts?.map(product => (
+              {seller?.active_pub?.map(product => (
                  <div key={product._id}>
                   <div className={SingleProduct}>
                     <img src={product?.pictures?.length>0?product?.pictures[0]:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} alt={product?.title} />
@@ -165,7 +185,31 @@ export default function SellerProfile() {
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
-                    <button onClick={()=>dispatch(deleteProduct(product._id, userState._id))}>X</button>
+                    <button onClick={()=> deletePublication(product._id)}>X</button>
+                    <button onClick={()=> desactivarPublication(product._id)}>ocultar</button>
+                  </div>
+                  <hr />
+                 </div>
+              ))}
+            </div>
+            <div className={Container_card2}>
+              <h2>ventas en los ultimos 30 días</h2>
+              <Line data={data3} />
+            </div>
+          </div>
+          <h1 className={Titles}>Publicaciones ocultas</h1>
+          <div className={Container_card1}>
+            <div className={PublicacionesContainer}>
+              {seller?.inactive_pub?.map(product => (
+                 <div key={product._id}>
+                  <div className={SingleProduct}>
+                    <img src={product?.pictures?.length>0?product?.pictures[0]:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU"} alt={product?.title} />
+                    <h2>{product?.title}</h2>
+                    <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
+                    <h2>${product?.price}</h2>
+                    <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
+                    <button onClick={()=> deletePublication(product._id)}>X</button>
+                    <button onClick={()=> showPublication(product._id)}>mostrar</button>
                   </div>
                   <hr />
                  </div>

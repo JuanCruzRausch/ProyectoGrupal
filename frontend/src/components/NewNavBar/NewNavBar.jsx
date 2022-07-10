@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata, searchdata2 } from './NewNavBar.module.css'
-import {DarkcartIMG, NavDark} from './NavBarDarkmode.module.css'
+import {DarkcartIMG, NavDark, darkA} from './NavBarDarkmode.module.css'
+import { getUsers } from '../../redux/actions/adminAction'
 import {FaBars} from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
@@ -20,7 +21,7 @@ import {
   useSelector
 } from 'react-redux';
 import {
-  getProductByCategory,
+  getProductBy,
   BuscarProducto,
   setActive,
   publicationSeller,
@@ -33,8 +34,11 @@ import { useState } from 'react';
 import LoginButton from '../Auth0/login';
 import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
+import axios from 'axios'
+
 
 function NewNavBar(props) {
+    const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const mode = useSelector((state)=> state.darkMode)
@@ -47,7 +51,6 @@ function NewNavBar(props) {
     ];
    
     const [display, setDisplay] = useState([...productsCache]);
-    const [displayFlag, setDisplayFlag] = useState(false);
     const [togglemenu, settogglemenu] = useState(false)
     const [screen, setscreen] = useState(window.innerWidth)
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
@@ -55,7 +58,7 @@ function NewNavBar(props) {
     const seller = useSelector(state => state.userReducer.seller)
     const categories = useSelector((state) => state.productReducer.Categories);
     const userLogged = useSelector((state) => state.userReducer.user)
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
     const toggleNav = () =>{
         settogglemenu(!togglemenu)
     }
@@ -81,15 +84,15 @@ function NewNavBar(props) {
       .catch((e)=> console.log(e))
       :null
     },[userLogged])
-  
-    useEffect(() => {
-      seller?._id?
-      dispatch(publicationSeller(seller._id))
-      .then((res)=> {})
-      .catch((e)=> {})
-      :null
-    },[seller])
 
+    useEffect(()=>{
+      getAllUsers()
+    },[userLogged])
+
+    async function getAllUsers (){
+      const token = await getAccessTokenSilently()
+      dispatch(getUsers(token))
+    }
     const searchOnSubmit = (e) => {
       e.preventDefault();
       navigate('/');
@@ -100,19 +103,14 @@ function NewNavBar(props) {
   
     function searchOnChange(e) {
       setSearch(e.target.value);
-      if(e.target.value === ""){
-        dispatch(getAllProducts())
-      }
-      else{
       setDisplay([...productsCache]);
       setDisplay([
         ...productsCache.filter((e) =>
           e.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         ),
       ]);
-      e.target.value && setDisplayFlag(true);
-      !e.target.value && setDisplayFlag(false);
-    }
+
+    
   }
   
     const handleOnSelectCategory = (e, categoryName) => {
@@ -121,7 +119,7 @@ function NewNavBar(props) {
       dispatch(setActive(1));
       window.scrollTo(0, 650);
       const cat = categories.find(cat => cat.name===categoryName)
-      dispatch(getProductByCategory(cat._id, min, max));
+      dispatch(getProductBy(cat._id, min, max, sort));
     };
 
     function refreshPage(e) {
@@ -138,7 +136,7 @@ function NewNavBar(props) {
         <nav className={Nav}>
             <NavLink className={NavLinked} onClick={(e) => 
                 {refreshPage(e);
-                }} to="/" ActiveClassname={NavLinkActive}>
+                }} to="/" activeclassname={NavLinkActive}>
             <img src={isdarkMode ? mercadolight : mercado} />
           </NavLink>
           <div className={searchdata2}>
@@ -195,7 +193,7 @@ function NewNavBar(props) {
                     </Button>
                 </Form>
             </div>
-                <NavLink to="/cart" ActiveClassname={NavLinkActive}>
+                <NavLink to="/cart" activeclassname={NavLinkActive}>
                 {
                 CartState.length > 0 ? <div className={Cart}>
                   <img className={ isdarkMode ? DarkcartIMG : cartIMG } src={cart} alt="cart" />
@@ -214,12 +212,23 @@ function NewNavBar(props) {
             <div >
               <NavDropdown title={user.nickname}>
                 {userLogged?.email_verified ? (
-                  <div>
+                  <div className={ isdarkMode ? darkA : null }>
                     <NavDropdown.Item onClick={() => navigate("/favoritos")}>Favoritos</NavDropdown.Item>
                     {userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/publicar")}>Publica tu producto</NavDropdown.Item>}
                     {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
+                    <button onClick={async()=>{
+                      // Sirve de ejemplo para el uso de token de auth0
+                      const token = await getAccessTokenSilently()
+
+                      const response = await axios.delete('http://localhost:5050/commonuser/block/auth0|62ca199c22809700112893e6?block=true', {
+
+                        headers: {
+                          Authorization: `Bearer ${token}`
+                        }
+                      })
+                    }} >api Admin Auth0</button>
                     <LogoutButton />
                   </div>
                 ) : (                  

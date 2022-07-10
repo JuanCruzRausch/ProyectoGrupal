@@ -20,7 +20,7 @@ exports.checkPermissions =
       const authorizations = req.auth.permissions;
       if (checkAll) {
         for (let i = 0; i < permissions.length; i++) {
-          if (!permissions.join(' ').includes(authorizations[i])) {
+          if (!authorizations.join(' ').includes(permissions[i])) {
             return res
               .status(403)
               .json({

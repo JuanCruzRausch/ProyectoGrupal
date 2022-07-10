@@ -62,9 +62,13 @@ function ProductDetail(props) {
   },[])
   
   useEffect(()=>{
+    State?._id?
+    socket.emit("join_room", State._id):
+    null
     setimgs( State?.pictures?.length>0 ?  State?.pictures[0] : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU")
   },[State])
 
+  
 
   const atras = () => {
     navigate(-1);
@@ -195,7 +199,7 @@ function ProductDetail(props) {
         </form>
             </div>
       <div className={Detail_CountPrice}>
-        <h1>${State?.price}</h1>
+        <h1>US$ {State?.price}</h1>
         <Count
           onAdd={setcount}
           count={count}
@@ -209,14 +213,6 @@ function ProductDetail(props) {
 
       <div className={Detail_Description}>
         <div className={Detail_Description_Detail}>
-          {State?.seller ? (
-            <div className={userData}>
-              <img src={user} />
-              <h1>{State?.seller.name}</h1>
-              <h2>{State?.seller.reputation?.status}</h2>
-            </div>
-          ) : null}
-          <hr />
           <h2>Descripción</h2>
           <p>{State?.description}</p>
         </div>
@@ -252,29 +248,26 @@ function ProductDetail(props) {
               </div>
             </div>
           </div>
+          <hr />
+          <h1>Vendido por:</h1>
+          {State?.seller ? (
+            <div className={userData}>
+              <img src={user} />
+              <h1>{State?.seller.brand}</h1>
+              <h2>{State?.seller.reputation?.status}</h2>
+              {
+                State?.seller.reputation?.votes.length > 0 ?
+                <h2>{State?.seller.reputation?.votes}</h2>
+                :null
+              }
+            </div>
+          ) : null}
+          
         </div>
       </div>
-      <div className={PyR_container}>
-        <h1>preguntas y respuestas</h1>
-        <hr />
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <div className={PyR_content}>
-          <h3 className={PyR_content_Pregunta}>Lorem ipsum?</h3>
-          <h3 className={PyR_content_Respuesta}>Lorem ipsum</h3>
-        </div>
-        <Chat socket={socket} _id={State._id}/>
-      </div>
+     
+      <Chat socket={socket} _id={State._id}/>
+      
       <ToastContainer
         position="top-right"
         autoClose={1000}
