@@ -7,7 +7,6 @@ export const CLEAR_CART = "CLEAR_CART"
 export const INCREASE = "INCREASE"
 export const DECREASE = "DECREASE"
 export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
-
 export function AddToCart(id,count){
     return async(dispatch) => {
             axios("http://localhost:5050/publicationtest/"+id)
@@ -46,10 +45,10 @@ export function OrderSingleProduct(id,count){
     }         
 }
 
-export function sendOrder (){
-   
-  return {type:CLEAR_CART}
-      
+export async function sendOrder (id,data){
+    let url = ''
+    await axios.post("http://localhost:5050/payment/create-order/"+id,data)
+    .then(res =>  url = res.data)
 }
 export function IncreaseCart(id){
     return{
@@ -83,3 +82,4 @@ export function ClearFromCart(){
         type: CLEAR_CART
     }
 }
+
