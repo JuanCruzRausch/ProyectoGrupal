@@ -12,7 +12,7 @@ useEffect(()=>{
           title: `transacción exitosa`,
           icon: "success",
         });
-        console.log(queries)
+        
         dispatch(getTransaction(queries))
         navigate("/")
 },[])
