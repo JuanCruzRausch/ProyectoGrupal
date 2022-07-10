@@ -183,6 +183,12 @@ exports.captureOrder = async (req, res, next) => {
             link: ""
           }})
 
+          for(let pub of publications){
+            const pubUpdate = await PublicationTest.findOne({_id:pub.publicationId})
+            pubUpdate.stock.stockTotal-=pub.quantity;
+            pubUpdate.save();
+            console.log('pub-----',pubUpdate);
+          }
         res.status(200).json({status: 'success', data: newTransaction});
     } catch (error) {
         console.log(error)

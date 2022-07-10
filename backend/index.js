@@ -33,7 +33,6 @@ const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
 io.on("connection", (socket)=>{
   
   socket.on("comentarios", (data)=>{
-    const {_id, data} = data
 
     
     console.log("comentario", data)
