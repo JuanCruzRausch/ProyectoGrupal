@@ -49,11 +49,11 @@ exports.apiAuth0 = {
     );
     return circularJSON.stringify(response);
   },
-  blockUser: async (token, id) => {
+  blockUser: async (token, id, block) => {
     return (response = await axios.patch(
       `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}`,
       {
-        blocked: true,
+        blocked: block,
       },
       {
         headers: {
