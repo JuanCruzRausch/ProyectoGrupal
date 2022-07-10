@@ -37,7 +37,7 @@ const publicationTestSchema = new Schema({
   currency: {
     type: String,
     enum: ['USD', 'ARS'],
-    default: 'ARS',
+    default: 'USD',
   },
   status: {
     type: Boolean,
@@ -141,6 +141,13 @@ const publicationTestSchema = new Schema({
   rating: {
     type: Number,
   },
+});
+
+publicationTestSchema.pre('save', function (next) {
+  if (this.stock.stockTotal <= 0) {
+    this.status = false;
+  }
+  next();
 });
 
 const PublicationTest = model('PublicationTest', publicationTestSchema);
