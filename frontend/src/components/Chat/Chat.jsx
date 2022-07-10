@@ -49,8 +49,10 @@ export default function Chat({socket, _id}) {
         
         setSaludo({
             ...saludo, 
+            product_id: _id,
+            room: seller?._id,
             name: seller?.user?.name? seller?.user?.name: null,
-            data:e.target.value,
+            data: e.target.value,
             date: new Date( Date.now()),
             time: new Date( Date.now()).getHours() +
             ":" +
