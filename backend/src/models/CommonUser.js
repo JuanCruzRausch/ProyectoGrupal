@@ -78,6 +78,9 @@ const commonUser = new Schema({
     },
     strikes_total: Number,
   },
+  blocked: {
+    type: Schema.Types.Boolean
+  }
 });
 
 commonUser.pre('save', function (next) {
