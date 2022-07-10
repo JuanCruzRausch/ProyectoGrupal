@@ -29,7 +29,7 @@ export default function Chat({socket, _id}) {
     const submitMessage = (e) => {
         e.preventDefault()
         if(message.data!==""){
-            setChat( [...chat, {...message}])
+            // setChat( [...chat, {...message}])
             sendMessage()
         }
     }
@@ -52,11 +52,11 @@ export default function Chat({socket, _id}) {
         return () =>{socket.off()}
     },[chat])
 
-    const handleOnSubmitComent = (e, _id) => {
+    const handleOnSubmitComent = (e, coment_id) => {
         e.preventDefault()
         const arr = [...chat]
         arr.forEach(message =>{
-            if (message._id === _id){
+            if (message._id === coment_id){
                 message.coments.push(message.coment)
                 message.coment = "";
             }
