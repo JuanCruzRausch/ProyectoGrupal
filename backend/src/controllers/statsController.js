@@ -36,7 +36,7 @@ exports.getAllSales = async (_, res, next) => {
         listSeller.forEach(e => num = num + e.active_pub.length)
         res.status(200).json({
             status: 'success',
-            data: activePubs.length
+            data: num
         })
     } catch (error) {
         next(new AppError(error))
