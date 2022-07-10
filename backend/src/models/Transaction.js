@@ -2,8 +2,11 @@ const { Schema, model } = require('mongoose');
 
 const transactionSchema = new Schema({
   publication: {
-    type: [Schema.Types.ObjectId],
+    type: Schema.Types.ObjectId,
     ref: 'PublicationTest',
+  },
+  quantity:{
+    type: Number
   },
   transactionAmount: {
     total_amount:{

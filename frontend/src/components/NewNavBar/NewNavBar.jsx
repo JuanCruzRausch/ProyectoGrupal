@@ -222,7 +222,7 @@ function NewNavBar(props) {
                       // Sirve de ejemplo para el uso de token de auth0
                       const token = await getAccessTokenSilently()
 
-                      const response = await axios.delete('http://localhost:5050/commonuser/block/auth0|62c721d017f47b00111d15df', {
+                      const response = await axios.delete('http://localhost:5050/commonuser/block/auth0|62ca199c22809700112893e6?block=true', {
 
                         headers: {
                           Authorization: `Bearer ${token}`

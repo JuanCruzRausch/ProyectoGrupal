@@ -78,6 +78,20 @@ const commonUser = new Schema({
     },
     strikes_total: Number,
   },
+  purchase_order:{
+    products: [{
+      publicationId:{
+        type: Schema.Types.ObjectId,
+        ref: 'PublicationTest'
+      },
+      quantity:{
+        type: Number
+      },
+    }],
+    link:{
+      type: String
+    }
+  },
   blocked: {
     type: Schema.Types.Boolean,
     default: false
