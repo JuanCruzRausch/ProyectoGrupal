@@ -39,7 +39,7 @@ exports.updateToUser = async (req, res, next) => {
     const lastname = req.body.last_name;
     const userUpdated = await CommonUser.updateOne(
       { _id: _id },
-      { name, lastname, nickname, country, address, phone, credit_card, photo }
+      { name, lastname, nickname, country, address, phone, credit_card, photo, authorization: { roles: ['buyer'] } }
     );
     console.log(userUpdated);
     const user = await CommonUser.findOne({ _id });
@@ -91,11 +91,13 @@ exports.blockUser = catchAsync(async (req, res, next) => {
   
   try {
     const { id } = req.params
+    const { block } = req.query
     const token = await getAccessTokenAdmin()
-    await apiAuth0.blockUser(token.data.access_token, id)
+    await apiAuth0.blockUser(token.data.access_token, id, block)
+    const user = await CommonUser.findOne({user_id : id}, {blocked: block})
     res.status(200).json({
       status: 'success',
-      data: `usuario ${id} bloqueado`
+      data: user
     })
   } catch (error) {
     next(new AppError(error))

@@ -31,13 +31,15 @@ exports.getListUsers = async(_, res, next) => {
 
 exports.getAllSales = async (_, res, next) => {
     try {
+        let num = 0
         const listSeller = await Seller.find({})
-        const activePubs = listSeller.map(e => e.active_pub)
+        listSeller.forEach(e => num = num + e.active_pub.length)
         res.status(200).json({
             status: 'success',
-            data: activePubs.length
+            data: num
         })
     } catch (error) {
         next(new AppError(error))
     }
 }
+
