@@ -1,7 +1,6 @@
 
 import React from 'react'
 import {useSelector} from "react-redux"
-import SellerProfile from '../Seller/SellerProfile';
 import {chat_header,
     chat_body, 
     button,
@@ -163,7 +162,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
-                        <div key = {index}>
+                        <div className={PyR_content_Respuesta} key = {index}>
                              <p>
                                 {coment?.time}-{coment?.user_name}--{coment?.date}
                             </p>

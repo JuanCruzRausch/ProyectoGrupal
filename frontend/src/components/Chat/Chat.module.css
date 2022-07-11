@@ -1,4 +1,4 @@
-/* .chat_header{
+.chat_header{
     padding: 0;
 }
 .chat_footer form{
@@ -30,10 +30,11 @@
     margin:1rem 0;
     padding: 1vh;
     display:flex;
-    justify-content: end;
-    width: 100%;
+    width: auto;
 }
 .PyR_content_Pregunta{
+    flex-direction: flex-end;
+    width: 100%;
     color: grey;
     font-size: 2.5vh;
     margin-left: 3rem;
@@ -49,16 +50,22 @@
 }
 
 .PyR_content_Respuesta{ 
+    width: 100%;
     color: black;
     font-size: 2.8vh;
-    margin-left: 6vh;
+    margin-left: 0;
     min-height: 3rem;
     background-color: antiquewhite;
     border-radius: 10px;
     padding: 10px;
     height: max-content;
     position: relative;
+}        
+.PyR_container form button {
+    color: #00A650;
+    border-radius: 15px;
 }
+
 .button{
     height: 45px;
     font-size: 1.3rem;
@@ -70,7 +77,7 @@
     width: 150px;
     margin-left: 2rem;
     align-self: center;
-} */
+}
 .PyR_content_Respuesta button{
     position: absolute;
     right: 0;
@@ -103,14 +110,21 @@
             margin: 4rem auto;
         }
         .PyR_content{
-            margin: 0;
+            margin: 3rem 0;
             padding: 0;
             display:flex;
-            min-width: 100%;
             justify-content: flex-start;
         }
+        .PyR_container form button {
+            color: #000000;
+            border-radius: 15px;
+        }
+        .PyR_container input {
+            margin-top: 1rem;
+            border: none;
+        }
         .PyR_content_Pregunta{
-            min-width: 100%;
+            width:60%;
             color: grey;
             font-size: 2vh;
             color: grey;
@@ -120,7 +134,8 @@
         }
         
         .PyR_content_Respuesta{ 
-            min-width:90%;
+            margin-left: 0;
+            width:60%;
             color: black;
             font-size: 2vh;
             background-color: antiquewhite;
