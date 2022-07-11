@@ -38,9 +38,8 @@ io.on("connection", (socket)=>{
     const publication = await PublicationTest.findOne({_id:_id})
     publication.questions=[...chat]
     publication.save()
-    console.log("comentario", data)
-    socket.broadcast.emit("envio_front", data.chat)
-    socket.emit("envio_front", data.chat)
+    socket.broadcast.emit("envio_front", data)
+    socket.emit("envio_front", data)
   })
 
   socket.on("join_room", (room)=>{
