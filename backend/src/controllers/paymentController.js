@@ -5,6 +5,7 @@ const PublicationTest = require('../models/PublicationTest')
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const axios = require('axios');
+const mongoose = require('mongoose')
 
 const { PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET } = process.env;
 
@@ -188,13 +189,14 @@ exports.captureOrder = async (req, res, next) => {
             purchase_history: buyer.purchase_history.concat({transaction_id: new mongoose.mongo.ObjectId(newTransaction._id)})
         })
 
-
-
         for (let pub of publications) {
             const pubUpdate = await PublicationTest.findOne({ _id: pub.publicationId })
             pubUpdate.stock.stockTotal -= pub.quantity;
             pubUpdate.save();
-            console.log('pub-----', pubUpdate);
+            const seller = await Seller.findOne({_id: pubUpdate.seller.toString()})
+            seller.transactionsTotal.total += 1
+            seller.save();
+            console.log(seller) 
         }
         res.status(200).json({ status: 'success', data: newTransaction });
     } catch (error) {
