@@ -115,7 +115,17 @@ export default function SellerProfile() {
       buttons: true,
       dangerMode: true,
     })
-    dispatch(deleteProduct(productId, userState._id))
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        });
+        dispatch(deleteProduct(productId, userState._id))
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    }); 
+   
   }
   const desactivarPublication = (productId) =>{  
     dispatch(inactivePublication(productId, userState._id))

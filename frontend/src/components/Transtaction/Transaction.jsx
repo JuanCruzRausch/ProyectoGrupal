@@ -4,6 +4,7 @@ import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getTransaction } from '../../redux/actions/InteractionsActions'
+
 export default function Transaction () {
     const queries = useLocation().search
     const navigate = useNavigate()
@@ -13,10 +14,10 @@ useEffect(()=>{
           title: `transacción exitosa`,
           icon: "success",
         });
-        
         dispatch(getTransaction(queries))
-        navigate("/")
 },[])
+navigate("/")
+
   return (
     <div>
         

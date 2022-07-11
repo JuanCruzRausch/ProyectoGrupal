@@ -92,6 +92,7 @@ exports.blockUser = catchAsync(async (req, res, next) => {
   try {
     const { id } = req.params
     const { block } = req.query
+    console.log(block)
     const value = block==='true'?true:false
     const token = await getAccessTokenAdmin()
     console.log(value)
