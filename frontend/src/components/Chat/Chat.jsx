@@ -13,12 +13,13 @@ import {chat_header,
 import { useDispatch } from 'react-redux';
 
 
-export default function Chat({socket, _id, questions}) {
+export default function Chat({socket, _id, questions, product_seller_id}) {
     
     const dispatch = useDispatch()
     const chat = useSelector(state => state.interactionsReducer.chat)
     const [message, setMessage] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
+    const user = useSelector( state => state.userReducer.user)
     const [coment, setComent] = React.useState ('')
     const [coments, setComents] = React.useState ([])
     const sendMessage = ()=>{
@@ -43,7 +44,7 @@ export default function Chat({socket, _id, questions}) {
 
     React.useEffect(()=>{
         seller?setMessage({
-            _id: _id + chat.length,
+            // _id: _id + chat.length,
             seller_id: seller?._id,
             data:""
         }):null
@@ -61,7 +62,15 @@ export default function Chat({socket, _id, questions}) {
         const arr = [...chat]
         arr.forEach(message =>{
             if (message._id === coment_id){
-                message.coments.push(message.coment)
+                message.coments.push({
+                    user_id: user?._id,
+                    user_name: user?.name,
+                    coment: message.coment,
+                    date: new Date( Date.now()),
+                    time: new Date( Date.now()).getHours() +
+                    ":" +
+                    new Date(Date.now()).getMinutes(),
+                })
                 message.coment = "";
             }
         })
@@ -91,9 +100,14 @@ export default function Chat({socket, _id, questions}) {
             ":" +
             new Date(Date.now()).getMinutes(),
             coments:[],
-            coment: '',
+            coment: "",
             [name]: value,
         })
+    }
+
+    const deleteComent = (message_id) =>{
+        const newChat = chat.filter(message => message._id!== message_id)
+        socket.emit("comentarios", {_id, chat:newChat})
     }
 
     return (
@@ -113,29 +127,52 @@ export default function Chat({socket, _id, questions}) {
            
             {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
-               {message?.seller_id===seller._id?
+               {product_seller_id===message.seller_id?
                <div>
-                   <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
-                   <h3 className={PyR_content_Respuesta}>{message?.data}</h3>
-                   {message?.coments?.map((coment)=>(
-                            <div>
-                                <p>
-                                    {coment}
-                                </p>
-                            </div>
-                        ))}
+                   <div className={PyR_content_Respuesta}>
+                   {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                        <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
+                        <h3 >{message?.data}</h3>
+                   </div>
+                   {message?.coments?.map((coment, index)=>(
+                        <div key={index}>
+                            <p>
+                                {coment.time}-{coment.user_name}
+                            </p>
+                            <p>
+                                {coment.coment}
+                            </p>
+                        </div>
+                    ))}
+                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                        <button type="submit" >Responder</button>
+                   </form>
+                </div>:
+               <div>
+                   <div className={PyR_content_Pregunta}>
+                   {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                        <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
+                        <h3 >{message?.data}</h3>
+                   </div>
+                   {message?.coments?.map((coment, index)=>(
+                        <div key = {index}>
+                             <p>
+                                {coment?.time}-{coment?.user_name}--{coment?.date}
+                            </p>
+                            <p>
+                                {coment?.coment}
+                            </p>
+                        </div>
+                    ))}
                    <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                         <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                       
 
                         <button type="submit" >Responder</button>
-
                    </form>
-                </div>:
-               <div>
-                   <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
-                   <h3 className={PyR_content_Pregunta}>{message?.data}</h3>
                 </div>
+                
                }
              </div>
 )    )}
