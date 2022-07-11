@@ -21,7 +21,8 @@ dotenv.config({ path: "./.env" });
 
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 const {roles} = require('./utils/roles')
-const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0')
+const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0');
+const reputationRouter = require('./routes/reputationController');
 
 
 const app = express();
@@ -56,6 +57,7 @@ app.use('/deletedpublication', deletedPublicationRouter);
 app.use('/payment', paymentRouter);
 app.use('/upload-image', uploadImageRouter);
 app.use('/stats', statsRouter)
+app.use('/reputation', reputationRouter)
 
 //Es de ejemplo, 
 app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
