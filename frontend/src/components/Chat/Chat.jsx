@@ -82,10 +82,10 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
             socket.emit("comentarios", {_id, chat:arr})
 
     }
-    const handleOnChangeComent = (value, _id) =>{
+    const handleOnChangeComent = (value, coment_id) =>{
         setComent(value)
         chat.forEach(message =>{
-            if (message._id === _id){
+            if (message._id === coment_id){
                 message.coment=value
             }
         })
