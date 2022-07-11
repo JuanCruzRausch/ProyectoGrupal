@@ -22,7 +22,7 @@ dotenv.config({ path: "./.env" });
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 const {roles} = require('./utils/roles')
 const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0');
-const reputationRouter = require('./routes/reputationController');
+const reputationRouter = require('./routes/reputationRouter');
 
 
 const app = express();
