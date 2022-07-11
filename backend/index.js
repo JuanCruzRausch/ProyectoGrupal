@@ -43,7 +43,6 @@ io.on("connection", (socket)=>{
     socket.emit("envio_front", data.chat)
   })
 
-  
   socket.on("join_room", (room)=>{
     
     // socket.join(room)

@@ -29,6 +29,7 @@ export default function Chat({socket, _id, questions}) {
     const submitMessage = (e) => {
         e.preventDefault()
         if(message.data!==""){
+
             sendMessage()
         }
     }
