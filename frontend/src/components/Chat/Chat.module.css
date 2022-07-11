@@ -76,16 +76,17 @@
 }
 
 @media screen and (max-width:600px) {
-        .chat_header{
-            padding: 0;
-        }
+
+    .chat_header{
+         padding: 0;
+    }
         .chat_footer form{
             padding: 0;
             display: flex;
             flex-direction: row;
         }
         .chat_footer form input{
-            border-radius: 15px;
+            border-radius: 14px;
             outline: none;
             border: 1px solid rgba(0, 0, 0, 0.09);
         }
