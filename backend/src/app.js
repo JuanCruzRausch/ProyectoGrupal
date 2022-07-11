@@ -8,22 +8,19 @@ const subCategoryRouter = require('./routes/subCategoryRouter');
 const sellerRouter = require('./routes/sellerRouter');
 const publicationTestRouter = require('./routes/publicationTestRouter');
 const qandaRouter = require('./routes/qandaRouter');
-const transactionsRouter = require('./routes/transactionsRouter');
 const deletedPublicationRouter = require('./routes/deletedPublicationRouter');
 const deleteUserRouter = require('./routes/deleteUserRouter');
 const paymentRouter = require('./routes/paymentRouter');
 const uploadImageRouter = require('./routes/uploadImageRouter');
-const statsRouter = require('./routes/statsRouter')
+const statsRouter = require('./routes/statsRouter');
 const dotenv = require('dotenv');
 const cors = require('cors');
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: './.env' });
 
-
-const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
-const {roles} = require('./utils/roles')
-const {getAccessTokenAdmin, apiAuth0} = require('./utils/apiAdminAuth0');
+const { authorizeAccessToken } = require('./utils/authorizeAccessToken');
+const { roles } = require('./utils/roles');
+const { getAccessTokenAdmin, apiAuth0 } = require('./utils/apiAdminAuth0');
 const reputationRouter = require('./routes/reputationRouter');
-
 
 const app = express();
 
@@ -51,27 +48,33 @@ app.use('/seller', sellerRouter);
 app.use('/commonuser', commonUserRouter);
 app.use('/publicationtest', publicationTestRouter);
 app.use('/qanda', qandaRouter);
-app.use('/transactions', transactionsRouter);
 app.use('/deleteuser', deleteUserRouter);
 app.use('/deletedpublication', deletedPublicationRouter);
 app.use('/payment', paymentRouter);
 app.use('/upload-image', uploadImageRouter);
-app.use('/stats', statsRouter)
-app.use('/reputation', reputationRouter)
+app.use('/stats', statsRouter);
+app.use('/reputation', reputationRouter);
 
-//Es de ejemplo, 
-app.get('/apiAuth0', authorizeAccessToken, roles.admin, async(req, res, next) => {
-  try {
-    const token = await getAccessTokenAdmin()
-    console.log(token.data.access_token)
-    const response = await apiAuth0.assingRolesToAUser(token.data.access_token, "google-oauth2|113524192845578480045", {"roles":["rol_okNnus6dt6Itz5Xa"]}) // perdon Javi por usarte xD
-    res.send(response)
-  } catch (error) {
-    res.status(400).json({error:error.message})
-  }  
-    
-})
-
+//Es de ejemplo,
+app.get(
+  '/apiAuth0',
+  authorizeAccessToken,
+  roles.admin,
+  async (req, res, next) => {
+    try {
+      const token = await getAccessTokenAdmin();
+      console.log(token.data.access_token);
+      const response = await apiAuth0.assingRolesToAUser(
+        token.data.access_token,
+        'google-oauth2|113524192845578480045',
+        { roles: ['rol_okNnus6dt6Itz5Xa'] }
+      ); // perdon Javi por usarte xD
+      res.send(response);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

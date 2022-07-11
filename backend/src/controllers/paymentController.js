@@ -96,7 +96,7 @@ exports.createOrder = async (req, res, next) => {
         landing_page: 'LOGIN',
         user_action: 'PAY_NOW',
         return_url: 'http://localhost:3000/transaction',
-        cancel_url: 'http://localhost:5050/payment/cancel-order',
+        cancel_url: 'http://localhost:3000/',
       },
     };
 
@@ -216,7 +216,7 @@ exports.captureOrder = async (req, res, next) => {
               ...seller.transactionsTotal.transactionHistory,
               newTransaction._id,
             ],
-            total : seller.transactionsTotal.total + 1
+            total: seller.transactionsTotal.total + 1,
           },
         },
         { new: true }
@@ -249,6 +249,39 @@ exports.captureOrder = async (req, res, next) => {
     next(new AppError(error));
   }
 };
-exports.cancelOrder = async (req, res, next) => {
-  res.json('hola');
-};
+
+exports.toCanceled = catchAsync(async (req, res, next) => {
+  let { id } = req.params;
+  const transaction = await Transaction.findByIdAndUpdate(
+    id,
+    { transaction: { status: 'rejected' } },
+    { new: true }
+  );
+  if (!transaction) {
+    return next(new AppError('There are no transaction with that id', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      transaction,
+    },
+  });
+});
+
+exports.toFulfilled = catchAsync(async (req, res, next) => {
+  let { id } = req.params;
+  const transaction = await Transaction.findByIdAndUpdate(
+    id,
+    { transaction: { status: 'fulfilled' } },
+    { new: true }
+  );
+  if (!transaction) {
+    return next(new AppError('There are no transaction with that id', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      transaction,
+    },
+  });
+});
