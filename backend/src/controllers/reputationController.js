@@ -13,10 +13,10 @@ exports.updateReputation = catchAsync(async(req,res,next) =>{
         return next(new AppError('There is not a seller with that id', 404))
     }
 
-    const sellerRating = await Seller.updateOne({_id:idseller},{reputation:{total_votes: [...findSeller.reputation.total_votes,rep]}})
+    await Seller.updateOne({_id:idseller},{reputation:{total_votes: [...findSeller.reputation.total_votes,rep]}})
 
     const findPublication = await PublicationTest.find({_id: idpubli});
-    const publiRating = await PublicationTest.updateOne({_id: idpubli}, {rating:{total_votes:[...findPublication.rating.total_votes,rat]}})
+    await PublicationTest.updateOne({_id: idpubli}, {rating: [...findPublication.rating.total_votes,rat]})
 
     res.status(200).json({
         status:'success',
