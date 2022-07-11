@@ -26,6 +26,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     const user = useSelector( state => state.userReducer.user)
     const [coment, setComent] = React.useState ('')
     const [coments, setComents] = React.useState ([])
+    const [tokenProductId, setTokenProductId] = React.useState('')
     const sendMessage = ()=>{
          socket.emit("comentarios", {_id, chat: [...chat, message]});
             setMessage({...message, data:"", coment:""})
@@ -56,7 +57,9 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
 
     React.useEffect(()=>{
         socket.on("envio_front", (data)=>{
-            setChat( data)
+            const {_id, chat} = data
+            setTokenProductId(_id)
+            setChat( chat)
         })
         return () =>{socket.off()}
     },[chat])
@@ -131,7 +134,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
            
             {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
-               {product_seller_id===message.seller_id?
+               {tokenProductId===_id && product_seller_id===message.seller_id?
                <div>
                    <div className={PyR_content_Respuesta}>
                    {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
@@ -155,7 +158,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                 </div>:
                <div>
                    <div className={PyR_content_Pregunta}>
-                   {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                   {tokenProductId === _id && product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
