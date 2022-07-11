@@ -35,7 +35,6 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     const submitMessage = (e) => {
         e.preventDefault()
         if(message.data!==""){
-
             sendMessage()
         }
     }
