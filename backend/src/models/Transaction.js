@@ -27,15 +27,14 @@ const transactionSchema = new Schema({
         type: Number
       },
       platform_earnings:{
-        type: Number
-      
+        type: Number  
     },
-    status: {
-      type: String,
-      enum: ['pending', 'rejected', 'fulfilled'],
-      default: 'pending',
-    },
-    }
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'rejected', 'fulfilled'],
+    default: 'pending',
+  },
   }],
   buyer: {
     type: Schema.Types.ObjectId,
