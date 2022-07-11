@@ -76,8 +76,6 @@
 }
 
 @media screen and (max-width:600px) {
-
-    @media screen and (max-width:600px) {
         .chat_header{
             padding: 0;
         }
@@ -140,4 +138,3 @@
             align-self: center;
         }
     }
-}
