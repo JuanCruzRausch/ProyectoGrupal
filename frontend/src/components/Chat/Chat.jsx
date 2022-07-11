@@ -10,11 +10,15 @@ import {chat_header,
     PyR_content,
     PyR_content_Pregunta,
     PyR_content_Respuesta,} from "./Chat.module.css"
+import {
+    Dark_PyR 
+} from './DarkChat.module.css'
 import { useDispatch } from 'react-redux';
 
 
 export default function Chat({socket, _id, questions, product_seller_id}) {
-    
+    const mode = useSelector((state)=> state.darkMode)
+    const { isdarkMode } = mode;
     const dispatch = useDispatch()
     const chat = useSelector(state => state.interactionsReducer.chat)
     const [message, setMessage] = React.useState({})
@@ -112,7 +116,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
 
     return (
     <div>
-         <div className={PyR_container}>
+         <div className={isdarkMode ? Dark_PyR : PyR_container}>
              <h1>preguntas y respuestas</h1>
              <hr />
         <div className={chat_footer}>

@@ -6,7 +6,7 @@ import {Count,Counterstock,Counter,counterbutton} from './Count.module.css'
        <div className={Count}>
         <div className={Counter}>
            {
-             count > 0 ? <button className={counterbutton} onClick={() => onAdd(count-1)}><h1>-</h1></button> : <button className={counterbutton} onClick={() => onAdd(count-1)} disabled><h1>-</h1></button>
+             count > 1 ? <button className={counterbutton} onClick={() => onAdd(count-1)}><h1>-</h1></button> : <button className={counterbutton} onClick={() => onAdd(count-1)} disabled><h1>-</h1></button>
             }
            <h1>{count}</h1>
             {
