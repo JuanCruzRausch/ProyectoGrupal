@@ -138,7 +138,11 @@ const publicationTestSchema = new Schema({
     ref: 'Transaction',
   },
   rating: {
-    type: Number,
+    value: Number,
+    votes:{
+      type: [Schema.Types.ObjectId],
+      ref:'Transaction'
+    }
   },
 });
 
@@ -147,6 +151,13 @@ publicationTestSchema.pre('save', function (next) {
     this.status = false;
   }
   next();
+});
+
+publicationTestSchema.pre('save',function(next){
+  let arrRating = this.rating.votes.productRating
+  const sum = arrRating.reduce((prev,curr)=> prev + curr,0)
+  this.rating.value = sum/arrRating.length;
+  next()
 });
 
 const PublicationTest = model('PublicationTest', publicationTestSchema);
