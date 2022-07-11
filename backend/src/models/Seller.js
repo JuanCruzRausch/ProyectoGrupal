@@ -32,10 +32,7 @@ const sellerSchema = new Schema({
   },
   reputation: {
     value: Number,
-    votes: {
-      type: [Schema.Types.ObjectId],
-      ref: 'Transaction'
-    }
+    total_votes: [Number],
   },
   transactionsTotal: {
     transactionHistory: {
@@ -68,6 +65,13 @@ const sellerSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'QandA',
   },
+});
+
+sellerSchema.pre('save', function(next){
+  let sum = this.reputation.total_votes.reduce((prev,curr)=>prev+curr,0)
+  let prom = Math.floor(sum/this.reputation.total_votes.length);
+  this.reputation.value = prom;
+  next()
 });
 
 const Seller = model('Seller', sellerSchema);
