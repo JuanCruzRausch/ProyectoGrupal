@@ -109,7 +109,8 @@ const commonUser = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Transaction"
     }
-  }]
+  }],
+  user_id: String
 });
 
 commonUser.pre('save', function (next) {

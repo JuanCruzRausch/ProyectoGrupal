@@ -186,7 +186,7 @@ exports.captureOrder = async (req, res, next) => {
                 products: [],
                 link: ""
             },
-            purchase_history: buyer.purchase_history.concat({transaction_id: new mongoose.mongo.ObjectId(newTransaction._id)})
+            purchase_history: buyer.purchase_history.concat({publication_id: new mongoose.mongo.ObjectId(newTransaction._id)})
         })
 
         for (let pub of publications) {
