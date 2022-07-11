@@ -236,3 +236,19 @@ exports.reactivate = catchAsync(async (req, res, next) => {
     data: { seller },
   });
 });
+
+exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
+  try {
+      const {id} = req.params
+      const transactionsSeller = await Seller.findOne({user: id});
+      res.status(201).json({
+          status:'success',
+          data:{
+              transactionSellerHistory: transactionsSeller.transactionsTotal.transactionHistory
+          }
+      });
+  } catch (error) {
+      console.log(error);
+      next(new AppError(error));
+  }
+})
