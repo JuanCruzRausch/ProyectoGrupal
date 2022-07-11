@@ -151,19 +151,6 @@ export default function PlaceOrderScreen() {
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <Row>
-                        <Col>Costo de envío</Col>
-                        <Col>${0.0}</Col>
-                      </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Row>
-                        <Col>Iva</Col>
-                        <Col>${0.0}</Col>
-                      </Row>
-                    </ListGroup.Item>
-
-                    <ListGroup.Item>
-                      <Row>
                         <Col>Valor Total</Col>
                         <Col>
                           <strong>
