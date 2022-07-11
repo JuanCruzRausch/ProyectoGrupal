@@ -4,21 +4,9 @@ const validator = require('validator');
 const commonUser = new Schema({
   name: {
     type: String,
-    validate: {
-      validator: (val) => validator.isAlpha(val, ['en-US'], { ignore: ' ' }),
-      message: 'Name must have letters only',
-    },
-    minlength: [2, 'User name must have at least 2 letters'],
-    maxlength: [40, 'User name can only have 40 letters'],
   },
   lastname: {
     type: String,
-    validate: {
-      validator: (val) => validator.isAlpha(val, ['en-US'], { ignore: ' ' }),
-      message: 'Lastname must have letters only',
-    },
-    minlength: [2, 'User lastname must have at least 2 letters'],
-    maxlength: [40, 'User lastname can only have 40 letters'],
   },
   password: {
     type: String,
@@ -57,11 +45,9 @@ const commonUser = new Schema({
   },
   phone: {
     type: String,
-    validate: [validator.isMobilePhone, 'Please provide your phone number'],
   },
   credit_card: {
     type: String,
-    validate: [validator.isCreditCard, 'Credit card data is invalid'],
   },
   photo: {
     type: String,
@@ -104,12 +90,11 @@ const commonUser = new Schema({
     },
   ],
   chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
-  purchase_history: [{
-    transaction_id: {
-      type: Schema.Types.ObjectId,
-      ref: "Transaction"
-    }
-  }]
+  purchase_history: {
+      type: [Schema.Types.ObjectId],
+      ref: "Transaction",
+    },
+  user_id: String
 });
 
 commonUser.pre('save', function (next) {
