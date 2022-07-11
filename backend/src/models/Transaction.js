@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const transactionSchema = new Schema({
-  transactions: [{
+  transaction: {
     seller: {
       type: Schema.Types.ObjectId,
       ref: 'Seller',
@@ -35,7 +35,7 @@ const transactionSchema = new Schema({
     enum: ['pending', 'rejected', 'fulfilled'],
     default: 'pending',
   },
-  }],
+  },
   buyer: {
     type: Schema.Types.ObjectId,
     ref: 'CommonUser',

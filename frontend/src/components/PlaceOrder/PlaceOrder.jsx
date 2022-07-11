@@ -111,7 +111,7 @@ export default function PlaceOrderScreen() {
                             <Col md={6}>
                               <img
                                 className={logo}
-                                src={item.pictures[0]}
+                                src={item.thumbnail[0]}
                                 alt={item.title}
                                 //   className="img-fluid rounded img-thumbnail"
                               ></img>{' '}
