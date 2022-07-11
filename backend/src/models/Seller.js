@@ -70,6 +70,13 @@ const sellerSchema = new Schema({
   },
 });
 
+sellerSchema.pre('save', function(next){
+  let arrVotes = this.reputation.votes.sellerRating
+  const sum= arrVotes.reduce((prev,curr)=>prev+curr,0);
+  this.reputation.value = sum/arrVotes.length;
+  next()
+})
+
 const Seller = model('Seller', sellerSchema);
 
 module.exports = Seller;
