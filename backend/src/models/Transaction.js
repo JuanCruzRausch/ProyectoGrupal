@@ -6,6 +6,10 @@ const transactionSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Seller',
     },
+    publication: {
+      type: Schema.Types.ObjectId,
+      ref: 'PublicationTest'
+    },
     sellerRating: {
       type: Number,
       min: [1, 'Rating must be above 1.0'],

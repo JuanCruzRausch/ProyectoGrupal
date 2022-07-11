@@ -183,6 +183,7 @@ exports.captureOrder = async (req, res, next) => {
         seller: e.seller,
         quantity: publications[i].quantity,
         status: 'pending',
+        publication: pubs[i]._id,
         earnings: {
           total_money: e.price * publications[i].quantity,
           seller_earnings: e.earnings * publications[i].quantity,
