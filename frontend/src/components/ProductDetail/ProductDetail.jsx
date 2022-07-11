@@ -21,6 +21,7 @@ import {
   Detail_Item_image,
   Detail_Item_text,
   Item_text_stock,
+  Item_text_stockOut,
   CountPrice_AddCart,
   EnvioGratis,
   Detail_Description,
@@ -32,6 +33,18 @@ import {
   Detail_Item_pictures,
   SelectedImg,
 } from './ProductDetail.module.css';
+import {
+  Dark_Item_text,
+  Dark_Description,
+  Dark_Description_Detail,
+  Dark_CountPrice,
+  DarkCompra,
+  DarkCountPrice_AddCart,
+  Dark_text_stockOut,
+  DarkStock, 
+  Dark_Description_payment
+} from './DarkDetails.module.css'
+import { DetailDark} from '../Terms/TermsDark.module.css'
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
 import Rating from '../Rating/Rating';
@@ -39,6 +52,8 @@ import Rating from '../Rating/Rating';
 const socket = io.connect("http://localhost:5050")
 
 function ProductDetail(props) {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const dispatch = useDispatch()
   const [count, setcount] = useState(1);
   const params = useParams();
@@ -125,14 +140,14 @@ function ProductDetail(props) {
 
   return (
     <div className={Detail_container}>
-      <div className={Detail_Links}>
+      <div className={isdarkMode ? DetailDark : Detail_Links}>
         <div onClick={() => atras()}>
           <img src={arrow} alt="back" />
           <button>Atras</button>
         </div>
       <h2>{State?.category?.name} / {State?.subCategory?.name}</h2>
       </div>
-      <div className={Detail_Item}>
+      <div className={ Detail_Item}>
         <div className={Detail_Item_image}>
           <div className={Detail_Item_pictures}>
             {State?.pictures
@@ -143,11 +158,11 @@ function ProductDetail(props) {
           </div>
           <img className={SelectedImg} src={imgs} alt={State?.title} />
         </div>
-        <div className={Detail_Item_text}>
+        <div className={isdarkMode? Dark_Item_text : Detail_Item_text}>
           <Rating />
           <h1>{State?.title}</h1>
 
-          {State?.stock?.stockTotal ? <h2 className={Item_text_stock}>En stock</h2> : null}
+          {State?.stock?.stockTotal ? <h2 className={isdarkMode ? DarkStock : Item_text_stock}>En stock</h2> : <h2 className={isdarkMode ? Dark_text_stockOut : Item_text_stockOut}>Sin Stock disponible</h2>}
 
           <h2>
             <img src={gps} />
@@ -166,7 +181,7 @@ function ProductDetail(props) {
         </div>
       </div>
       <div >
-        <form className={Detail_Description}>
+        <form className={isdarkMode? Dark_Description : Detail_Description}>
             {State?.stock?.options?.map(option=>{
           return(
             <div>
@@ -185,25 +200,26 @@ function ProductDetail(props) {
         })}
         </form>
             </div>
-      <div className={Detail_CountPrice}>
+
+      <div className={isdarkMode ? Dark_CountPrice : Detail_CountPrice}>
         <h1>US$ {State?.price}</h1>
         <Count
           onAdd={setcount}
           count={count}
           stockTotal={State?.stock?.stockTotal}
         />
-        <button onClick={()=> handleSetOrder()} className={ButtonCompra}>Comprar</button>
-        <img className={CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
+        <button onClick={()=> handleSetOrder()} className={isdarkMode? DarkCompra:  ButtonCompra}>Comprar</button>
+        <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
 
            
 
-      <div className={Detail_Description}>
-        <div className={Detail_Description_Detail}>
+      <div className={isdarkMode ? Dark_Description : Detail_Description}>
+        <div className={isdarkMode ? Dark_Description_Detail : Detail_Description_Detail}>
           <h2>Descripción</h2>
           <p>{State?.description}</p>
         </div>
-        <div className={Detail_Description_payment}>
+        <div className={isdarkMode ? Dark_Description_payment : Detail_Description_payment}>
           <h2>Medios de pago</h2>
           <hr />
           <div className={Payment_methods}>
@@ -219,7 +235,7 @@ function ProductDetail(props) {
           {State?.seller ? (
             <div className={userData}>
               <img src={user} />
-              <h1>{State?.seller.brand}</h1>
+              <h2>{State?.seller.brand}</h2>
               <h2>{State?.seller.reputation?.status}</h2>
               {
                 State?.seller.reputation?.votes.length > 0 ?

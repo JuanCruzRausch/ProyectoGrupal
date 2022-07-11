@@ -1,41 +1,47 @@
 .Detail_container{
+    transition: all .6s ease-in-out;
     width: 90%;
     margin: auto;
-    background-color: #eceded7c;
+    border-radius: 15px;
+    padding: 1.5rem;
 }
 /* buttons top  */
 .Detail_Links{
-    width: 40%;
+    transition: all .6s ease-in-out;
     display: flex;
     margin: 2vh 0;
-    justify-content: space-around;
-    justify-items: center;
-    align-self: center;
+    background: none !important;
 }
 .Detail_Links img{
-    width: 40px;
-    margin-left: 50px;
+    width: 35px;
 }
 .Detail_Links button{
+    background-color: rgba(0, 0, 0, 0);
+}
+.Detail_Links a{
     margin-left: 3vh;
     border: none;
-    background-color: rgba(0, 0, 0, 0);
     border-radius: 15px;
     font-weight: 600;
-    font-size: 2.1vh;
-    align-items: center;
-    align-content: center;
+    font-size: 2.5vh;  
     align-self: center;
+    align-content: center;
+    background: none !important;
+}
+.Detail_Links a h2{
+    margin: auto;
+    font-size: 2.1vh;
+    font-weight: 700;
+    background: none !important;
 }
 .Detail_Links h2{
     margin: auto;
-    font-size: 2.1vh;
-    font-weight: 300;
+    color: black !important;
 }
-
 /* Item Details */
 
 .Detail_Item{
+    transition: all .6s ease-in-out;
     width: 65%;
     margin: 3vh auto;
     display: flex;
@@ -60,8 +66,8 @@
 }
 
 .Detail_Item_pictures img{
-    width: 50px !important;
-    height: 50px !important;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
 }
 .Detail_Item_pictures img:hover{
@@ -76,28 +82,38 @@
     align-content: space-between;
 }
 .Detail_Item_text h1{
-font-style: normal;
-font-weight: 700;
-font-size: 3.4vh;
-line-height: 48px;
-display: flex;
-align-items: center;
-letter-spacing: 0.04em;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3.4vh;
+    line-height: 48px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
 }
 .Detail_Item_text .Item_text_stock {
-    width:10vh;
+    width:10vw;
     text-align: center;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: .4vh;
     background: #25E159;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
+}
+.Item_text_stockOut{
+    width:10vw;
+    text-align: center;
+    color: white;
+    padding: .4vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    background: #e66617;
 }
 .Detail_Item_text h2 span{
     font-weight: 700;
 }
 .Detail_Item_text h2 img{
     width: 30px;
+    height: 30px;
     margin: 1.6vh 0;
 }
 .Detail_Item_text h2{
@@ -114,12 +130,12 @@ letter-spacing: 0.04em;
 /* Stock, price, buy, add cart */
 
 .Detail_CountPrice{
+    transition: all .6s ease-in-out;
     display: flex;
-    height:150px;
-    width: 70%;
+    width: 80%;
     align-items: center;
     justify-content: space-evenly;
-    padding: 1vh;
+    padding: 1.5rem;
     margin:10vh auto;
     background: #ffffffa8;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -127,6 +143,7 @@ letter-spacing: 0.04em;
 }
 .Detail_CountPrice .ButtonCompra{
     margin: auto 0;
+    transition: all .6s ease-in-out;
     padding: 1vh;
     color: rgb(0, 0, 0);
     font-weight: 600;
@@ -136,9 +153,10 @@ letter-spacing: 0.04em;
 }
 
 .CountPrice_AddCart{
+    transition: all .6s ease-in-out;
     border: none;
-    width: 30px;
-    transition: all .4s ease-in-out;
+    width: 35px;
+    height: 35px;
 }
 .CountPrice_AddCart:hover{
     cursor: pointer;
@@ -147,6 +165,7 @@ letter-spacing: 0.04em;
 /* Detail Description */
 
 .Detail_Description{
+    transition: all .6s ease-in-out;
     display: flex;
     justify-content: space-evenly;
     width: 70%;
@@ -193,13 +212,14 @@ letter-spacing: 0.04em;
     font-size: 2vh;
 }
 .Detail_Description_payment h1{
+    font-size: 1.6rem;
     color: #353535 !important;
     font-weight: 400 !important;
 }
 .Detail_Description_payment{
     border-left: rgba(125, 124, 124, 0.531) 1px solid;
     margin:0 auto;
-    width: 30%;
+    width: 40%;
     padding: 3vh;
     display: flex;
     flex-direction: column;
@@ -274,8 +294,6 @@ letter-spacing: 0.04em;
         font-weight: 300;
     }
     /*  */
-
-
     .Detail_Item{
         width: 100%;
         margin: auto;
@@ -284,18 +302,20 @@ letter-spacing: 0.04em;
     }
     .Detail_Item_image{
         width:90%;
+        margin: auto;
         display: flex;
         flex-direction: column-reverse;
     }
     .Detail_Item_pictures{
         margin: 1rem;
         display: flex;
+        position: absolute;
         flex-direction: column;
         justify-content: space-evenly;
     }
     .Detail_Item_image .SelectedImg{
-        height: 99vw;
-        width: 99vw;
+        height: 330px;
+        width: 330px;
         margin: auto;
         object-fit: contain;
     }
