@@ -20,7 +20,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     const mode = useSelector((state)=> state.darkMode)
     const { isdarkMode } = mode;
     const dispatch = useDispatch()
-    const chat = useSelector(state => state.interactionsReducer.chat)
+    const [chat, setChat] = React.useState([])
     const [message, setMessage] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
     const user = useSelector( state => state.userReducer.user)
@@ -39,10 +39,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
             sendMessage()
         }
     }
-    const setChat = (data) =>{
-         dispatch({type: "SET_CHAT", payload: data})
-         
-    }
+   
     React.useEffect(()=>{
         questions?.length? setChat([...questions]):null
     },[questions])
@@ -63,6 +60,28 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
         })
         return () =>{socket.off()}
     },[chat])
+
+    React.useEffect(()=>{
+        setChat([])
+        // socket.on("envio_front", (data)=>{
+        //             const {_id, chat} = data
+        //             setTokenProductId(_id)
+        //             setChat( chat)
+        //         })
+    },[])
+
+    React.useEffect(()=>{
+
+        setChat
+        return () =>{
+            setChat([])
+            socket.off()}
+        
+    },[])
+
+    React.useEffect(()=>{
+        setTokenProductId(_id)
+    },[_id])
 
     const handleOnSubmitComent = (e, coment_id) => {
         e.preventDefault()
@@ -92,7 +111,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                 message.coment=value
             }
         })
-            dispatch(setChat(chat))
+            setChat(chat)
         
     }
     const handleOnChange = (name, value) =>{
@@ -137,7 +156,9 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                {tokenProductId===_id && product_seller_id===message.seller_id?
                <div>
                    <div className={PyR_content_Respuesta}>
-                   {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                   {/* {product_seller_id===seller?._id? */}
+                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                   {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
@@ -155,10 +176,12 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                         <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                         <button type="submit" >Responder</button>
                    </form>
-                </div>:
+                </div>:tokenProductId === _id &&
                <div>
                    <div className={PyR_content_Pregunta}>
-                   {tokenProductId === _id && product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                   {/* {tokenProductId === _id && product_seller_id===seller?._id? */}
+                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                    {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
