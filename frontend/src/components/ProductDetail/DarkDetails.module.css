@@ -236,9 +236,12 @@
 
 @media screen and (max-width:600px) {
     .Dark_container{
+        transition: all .6s ease-in-out;
         width: 100%;
     }
+    /* buttons top  */
     .Dark_Links{
+        transition: all .6s ease-in-out;
         width: 100%;
         display: flex;
         margin: 2rem 0;
@@ -248,7 +251,9 @@
         width: 20px;
     }
     .Dark_Links button{
+        margin-left: 3vh;
         border: none;
+        background-color: rgba(0, 0, 0, 0);
         border-radius: 15px;
         font-weight: 600;
         font-size: 2.1vh;
@@ -261,10 +266,11 @@
         font-size: 2.1vh;
         font-weight: 300;
     }
-    /*  */
-
-
+    
+    /* Item Details */
+    
     .Dark_Item{
+        transition: all .6s ease-in-out;
         width: 100%;
         margin: auto;
         display: flex;
@@ -272,6 +278,7 @@
     }
     .Dark_Item_image{
         width:90%;
+        margin: auto;
         display: flex;
         flex-direction: column-reverse;
     }
@@ -282,8 +289,8 @@
         justify-content: space-evenly;
     }
     .Dark_Item_image .SelectedImg{
-        height: 99vw;
-        width: 99vw;
+        height: 330px;
+        width: 330px;
         margin: auto;
         object-fit: contain;
     }
@@ -300,116 +307,118 @@
     .Dark_Item_text{
         width: 100%;
         display: flex;
-        text-align: center;
+        flex-direction: column !important;
         align-items: center !important;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: center !important;
     }
     .Dark_Item_text h1{
-    font-style: normal;
-    font-weight: 700;
-    font-size: 3.4vh;
-    line-height: 48px;
-    display: flex;
-    align-items: center;
-    letter-spacing: 0.04em;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 3.4vh;
+        line-height: 48px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.04em;
     }
-    .Dark_Item_text .Item_text_stock {
+    .Dark_Item_text .DarkStock {
+        width: auto;
         margin: auto;
         text-align: center !important;
-        color: white;
+        color: rgb(0, 0, 0);
         padding: .4vh;
         background: #25E159;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 8px;
     }
+    .Dark_text_stockOut{
+        width:auto;
+        text-align: center;
+        color: white;
+        padding: .4vh;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        background: #e66617;
+    }
+    
     .Dark_Item_text h2 span{
         font-weight: 700;
         text-align: center !important;
     }
     .Dark_Item_text h2 img{
+        filter: invert(100%);
         width: 30px;
+        height: 30px;
         margin: 1em auto;
     }
     .Dark_Item_text h2{
-        align-self: center;
-        color: rgb(0, 0, 0);
+        align-self: flex-start;
+        color: rgb(255, 255, 255);
         font-weight: 300;
         font-size: 2vh;
     }
     .EnvioGratis{
         color: #00A650 !important;
-        font-size: 1.3rem !important;
+        font-size: 1.8rem !important;
         font-weight: 400 !important;
     }
-    .combinations{
-        margin-top: 3rem !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 70%;
-        margin: auto;
-        text-align: center;
-    }
-    .combinations input{
-        width: 20px;
-        height: 20px;
-    }
-    /*  */
-
-    .Detail_CountPrice{
+    /* Stock, price, buy, add cart */
+    
+    .Dark_CountPrice{
         display: flex;
         height: 100%;
         width: 90%;
         flex-direction: column;
         align-items: center;
         padding: 1rem;
-        background: #979797aa;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 15px;
     }
-    .Detail_CountPrice .ButtonCompra{
-        margin: auto 0;
-        color: rgb(0, 0, 0);
+    .Dark_CountPrice .DarkCompra{
+        transition: all .6s ease-in-out;
+        color: rgb(253, 253, 253);
+        font-weight: 400;
+        border: 1px solid rgba(6, 6, 6, 0.19) !important;
+        background-color: rgba(0, 0, 0, 0);
+        border-radius: 15px;
         font-weight: 600;
         border: 1px solid rgb(231, 231, 231) !important;
-        background-color: #3f3f3faa;
         border-radius: 15px;
     }
     
-    .CountPrice_AddCart{
-        margin: 2rem;
+    .DarkCountPrice_AddCart{
+        filter: invert(100%);
         border: none;
         width: 35px;
-        transition: all .4s ease-in-out;
+        height: 35px;
+        transition: all .6s ease-in-out;
     }
-    .CountPrice_AddCart:hover{
+    .DarkCountPrice_AddCart:hover{
         cursor: pointer;
         transform: scale(1.1);
     }
-
-    /*  */
-
-    .Detail_Description{
+    /* Detail Description */
+    
+    .Dark_Description{
+        transition: all .6s ease-in-out;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        color: white;
         width: 90%;
         margin: auto;
         border-radius: 15px;
-        background: #FFFFFF;
+        background: #2d2c2f;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
-    .Detail_Description_Detail{
-        padding: 0;
+    .Dark_Description_Detail{
+        padding: 3vh;
         width: 100%;   
     }
-    .Detail_Description_Detail h2 {
+    .Dark_Description_Detail h2 {
         font-weight: 300;
         font-size: 1vh;
     }
-    .Detail_Description_Detail p {
+    .Dark_Description_Detail p {
         margin-top: 0 !important;
         width: 90% !important;
         margin: auto;
@@ -417,14 +426,46 @@
         font-weight: 400;
         font-size: 1rem;
     }
-    /*  */
-
-    .Detail_Description_payment{
+    .DarkuserData{
+        display: flex;
+        justify-content: space-evenly;
+        align-content:flex-start;
+        align-items: flex-end;
+    }
+    .DarkuserData h1{
+        color: #fcfafa;
+        margin: 0;
+        text-decoration: underline 2px !important;
+    }
+    .DarkuserData h2{
+        color: #00A650;
+        margin: 0;
+    }
+    .DarkuserData img{
+        width: 40px;
+    }
+    .Dark_Description_payment h1{
+        font-size: 1.6rem;
+        color: #fbfbfb !important;
+        font-weight: 400 !important;
+    }
+    .Dark_Description_Detail h2 {
+        font-weight: 300;
+        font-size: 4vh;
+    }
+    .Dark_Description_Detail p {
+        margin-top: 4vh;
+        width: 70%;
+        line-height: 5vh;
+        font-weight: 400;
+        font-size: 2vh;
+    }
+    .Dark_Description_payment{
         border-left: none;
         border-top: rgba(125, 124, 124, 0.531) 1px solid;
-        margin:0 auto;
-        width: 90%;
-        padding: 0;
+        margin-top:10rem;
+        width: 100%;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
     }
@@ -435,9 +476,9 @@
         justify-content: space-evenly;
     }
     .Payment_methods div{
-        margin: .5rem 0;
+        margin: 1.5vh 0;
     }
     .Payment_methods div img{
-        margin: 0 1vh;
+        width: 100px;
     }
 }
