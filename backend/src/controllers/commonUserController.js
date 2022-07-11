@@ -106,3 +106,20 @@ exports.blockUser = catchAsync(async (req, res, next) => {
     next(new AppError(error))
   }
 })
+
+exports.getPurchasesUser = catchAsync(async(req,res,next)=>{
+  try {
+      const {id} = req.params
+      const purchasesUser = await CommonUser.findOne({_id: id});
+      console.log('hist----',purchasesUser);
+      res.status(201).json({
+          status:'success',
+          data:{
+            purchasesUserHistory:purchasesUser.purchase_history
+          }
+      });
+  } catch (error) {
+      console.log(error);
+      next(new AppError(error));
+  }
+})

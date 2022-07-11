@@ -10,6 +10,7 @@ commonUserRouter.post('/', commonUserController.post);
 commonUserRouter.patch('/updateUser', commonUserController.updateToUser);
 commonUserRouter.patch('/toSeller/:id', commonUserController.toSeller);
 commonUserRouter.delete('/block/:id', authorizeAccessToken, roles.admin, commonUserController.blockUser);
+commonUserRouter.get('/purchase-user/:id', commonUserController.getPurchasesUser)
 
 
 module.exports = commonUserRouter;
