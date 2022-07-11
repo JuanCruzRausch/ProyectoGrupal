@@ -48,6 +48,7 @@ export default function PlaceOrderScreen() {
     window.location.href= res.data
     console.log(window.location.href)
   };
+  console.log(SingleCart?.CartItem)
   return (
     <div>
       <Helmet>
@@ -80,26 +81,26 @@ export default function PlaceOrderScreen() {
                 <Card.Body>
                   <Card.Title>Items</Card.Title>
                   <ListGroup variant="flush">
-                    {SingleCart.title !== undefined ? (
+                    {SingleCart?.CartItem.title !== undefined ? (
                       <ListGroup.Item>
                         <Row className="align-items-center">
                           <Col md={6}>
                             <img
                               className={logo}
-                              src={SingleCart.thumbnail}
-                              alt={SingleCart.title}
+                              src={SingleCart?.CartItem.thumbnail}
+                              alt={SingleCart?.CartItem.title}
                               //   className="img-fluid rounded img-thumbnail"
                             ></img>{' '}
-                            <Link to={`/${SingleCart.product}`}>
-                              {SingleCart.title}
+                            <Link to={`/${SingleCart?.CartItem.product}`}>
+                              {SingleCart?.CartItem.title}
                             </Link>
                           </Col>
                           <Col md={3}>
-                            <span>{SingleCart.quantity}</span>
+                            <span>{SingleCart?.CartItem.quantity}</span>
                           </Col>
                           <Col md={3}>
                             $
-                            {Math.round(SingleCart.quantity * SingleCart.price)}
+                            {Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -110,7 +111,7 @@ export default function PlaceOrderScreen() {
                             <Col md={6}>
                               <img
                                 className={logo}
-                                src={item.thumbnail}
+                                src={item.pictures[0]}
                                 alt={item.title}
                                 //   className="img-fluid rounded img-thumbnail"
                               ></img>{' '}
@@ -142,8 +143,8 @@ export default function PlaceOrderScreen() {
                         <Col>Items</Col>
                         <Col>
                           $
-                          {SingleCart.price !== undefined
-                            ? Math.round(SingleCart.quantity * SingleCart.price)
+                          {SingleCart?.CartItem.price !== undefined
+                            ? Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)
                             : Number(PrecioTotal).toFixed(2)}
                         </Col>
                       </Row>
@@ -167,9 +168,9 @@ export default function PlaceOrderScreen() {
                         <Col>
                           <strong>
                             $
-                            {SingleCart.price !== undefined
+                            {SingleCart?.CartItem.price !== undefined
                               ? Math.round(
-                                  SingleCart.quantity * SingleCart.price
+                                  SingleCart?.CartItem.quantity * SingleCart?.CartItem.price
                                 )
                               : Number(PrecioTotal).toFixed(2)}
                           </strong>
@@ -183,7 +184,7 @@ export default function PlaceOrderScreen() {
                           onClick={placeOrderHandler}
                           disabled={
                             cartItem.length === 0 &&
-                            SingleCart.price == undefined
+                            SingleCart?.CartItem.price == undefined
                           }
                         >
                           Comprar
