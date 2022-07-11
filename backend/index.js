@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 const {Server} = require('socket.io')
 dotenv.config({ path: "./.env" });
 const app = require("./src/app");
-const cors = require("cors")
+const cors = require("cors");
+const PublicationTest = require("./src/models/PublicationTest")
 
 app.use(cors)
 
@@ -32,8 +33,11 @@ const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
 
 io.on("connection", (socket)=>{
   
-  socket.on("comentarios", (data)=>{
-
+  socket.on("comentarios", async (data)=>{
+    const {_id, chat } = data
+    const publication = await PublicationTest.findOne({_id:_id})
+    publication.questions=[...chat]
+    publication.save()
     console.log("comentario", data)
     socket.broadcast.emit("envio_front", data.chat)
     socket.emit("envio_front", data.chat)
