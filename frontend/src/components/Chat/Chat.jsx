@@ -155,12 +155,12 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                <div>
                    <div className={PyR_content_Respuesta}>
                    {/* {product_seller_id===seller?._id? */}
-                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                   {/* <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button> */}
                    {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
-                   {message?.coments?.map((coment, index)=>(
+                   {product_seller_id===seller._id&&message?.coments?.map((coment, index)=>(
                         <div key={index}>
                             <p>
                                 {coment.time}-{coment.user_name}
@@ -170,10 +170,10 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </p>
                         </div>
                     ))}
-                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                   {product_seller_id===seller._id&&<form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                         <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                         <button type="submit" >Responder</button>
-                   </form>
+                   </form>}
                 </div>:tokenProductId === _id &&
                <div>
                    <div className={PyR_content_Pregunta}>
@@ -193,12 +193,12 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </p>
                         </div>
                     ))}
-                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                   {product_seller_id===seller._id&&<form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                         <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                       
 
                         <button type="submit" >Responder</button>
-                   </form>
+                   </form>}
                 </div>
                 
                }

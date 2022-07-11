@@ -148,7 +148,7 @@ exports.createOrder = async (req, res, next) => {
 
     res.json(response.data.links[1].href); //-- devuelvo el link de pago
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     next(error);
   }
 };
