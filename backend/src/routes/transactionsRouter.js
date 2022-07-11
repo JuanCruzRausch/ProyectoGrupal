@@ -1,7 +1,7 @@
 const { Router } = require('express');
-const postTransactionController = require('../controllers/transactionsController');
+const transactionController = require('../controllers/transactionsController');
 const transactionsRouter = Router();
 
-transactionsRouter.post('/', postTransactionController.postTransaction);
+transactionsRouter.post('/', transactionController.postTransaction);
 
 module.exports = transactionsRouter;
