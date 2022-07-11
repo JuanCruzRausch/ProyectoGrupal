@@ -1,4 +1,4 @@
-.chat_header{
+/* .chat_header{
     padding: 0;
 }
 .chat_footer form{
@@ -57,7 +57,7 @@
     border-radius: 10px;
     padding: 10px;
     height: max-content;
-
+    position: relative;
 }
 .button{
     height: 45px;
@@ -70,8 +70,12 @@
     width: 150px;
     margin-left: 2rem;
     align-self: center;
+} */
+.PyR_content_Respuesta button{
+    position: absolute;
+    right: 0;
+    top: 0
 }
-
 @media screen and (max-width:600px) {
 
     .chat_header{
