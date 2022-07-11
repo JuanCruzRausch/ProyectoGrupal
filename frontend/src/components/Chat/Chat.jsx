@@ -13,7 +13,7 @@ import {chat_header,
 import { useDispatch } from 'react-redux';
 
 
-export default function Chat({socket, _id}) {
+export default function Chat({socket, _id, questions}) {
     
     const dispatch = useDispatch()
     const chat = useSelector(state => state.interactionsReducer.chat)
@@ -29,7 +29,6 @@ export default function Chat({socket, _id}) {
     const submitMessage = (e) => {
         e.preventDefault()
         if(message.data!==""){
-            setChat( [...chat, {...message}])
             sendMessage()
         }
     }
@@ -37,6 +36,10 @@ export default function Chat({socket, _id}) {
          dispatch({type: "SET_CHAT", payload: data})
          
     }
+    React.useEffect(()=>{
+        questions?.length? setChat([...questions]):null
+    },[questions])
+
     React.useEffect(()=>{
         seller?setMessage({
             _id: _id + chat.length,
@@ -52,11 +55,11 @@ export default function Chat({socket, _id}) {
         return () =>{socket.off()}
     },[chat])
 
-    const handleOnSubmitComent = (e, _id) => {
+    const handleOnSubmitComent = (e, coment_id) => {
         e.preventDefault()
         const arr = [...chat]
         arr.forEach(message =>{
-            if (message._id === _id){
+            if (message._id === coment_id){
                 message.coments.push(message.coment)
                 message.coment = "";
             }
@@ -109,7 +112,7 @@ export default function Chat({socket, _id}) {
            
             {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
-               {message.seller_id===seller._id?
+               {message?.seller_id===seller._id?
                <div>
                    <p>{message.time}- {message?.name? message.name :"anonimo"}</p>
                    <h3 className={PyR_content_Respuesta}>{message?.data}</h3>

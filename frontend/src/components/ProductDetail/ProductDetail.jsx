@@ -232,7 +232,7 @@ function ProductDetail(props) {
         </div>
       </div>
      
-      <Chat socket={socket} _id={State._id}/>
+      <Chat socket={socket} _id={State._id} questions={State.questions}/>
       
       <ToastContainer
         position="top-right"

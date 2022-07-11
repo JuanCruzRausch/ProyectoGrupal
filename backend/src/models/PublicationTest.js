@@ -131,8 +131,7 @@ const publicationTestSchema = new Schema({
     enum: [1, 2, 3],
   },
   questions: {
-    type: [Schema.Types.ObjectId],
-    ref: 'QandA',
+    type: Array
   },
   transactions: {
     type: [Schema.Types.ObjectId],
