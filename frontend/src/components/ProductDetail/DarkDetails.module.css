@@ -351,10 +351,11 @@
         margin: 1em auto;
     }
     .Dark_Item_text h2{
-        align-self: flex-start;
+        align-self: center;
         color: rgb(255, 255, 255);
         font-weight: 300;
         font-size: 2vh;
+        margin-bottom: 2rem;
     }
     .EnvioGratis{
         color: #00A650 !important;
@@ -387,6 +388,7 @@
     
     .DarkCountPrice_AddCart{
         filter: invert(100%);
+        margin: 2rem;
         border: none;
         width: 35px;
         height: 35px;

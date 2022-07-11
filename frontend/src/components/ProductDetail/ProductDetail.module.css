@@ -368,6 +368,7 @@
         color: rgb(0, 0, 0);
         font-weight: 300;
         font-size: 2vh;
+        margin-bottom: 2rem;
     }
     .EnvioGratis{
         color: #00A650 !important;
