@@ -173,7 +173,6 @@ exports.captureOrder = async (req, res, next) => {
     const buyer = await CommonUser.findOne({ _id: buyer_id });
     const publications = buyer.purchase_order.products.map((e) => e);
     const pubs = [];
-    console.log(publications.length);
 
     for (let i = 0; i < publications.length; i++) {
       pubs.push(await PublicationTest.findById(publications[i].publicationId));
@@ -204,10 +203,25 @@ exports.captureOrder = async (req, res, next) => {
         {
           $push: {
             purchase_history: [newTransaction._id],
-          }
+          },
         },
         { new: true }
       );
+      const seller = await Seller.findById({ _id: purchase_units[i].seller });
+      const queDevolves = await Seller.findByIdAndUpdate(
+        { _id: purchase_units[i].seller },
+        {
+          transactionsTotal: {
+            transactionHistory: [
+              ...seller.transactionsTotal.transactionHistory,
+              newTransaction._id,
+            ],
+            total : seller.transactionsTotal.total + 1
+          },
+        },
+        { new: true }
+      );
+      console.log('\n', queDevolves);
     }
 
     await CommonUser.updateOne(
@@ -228,9 +242,6 @@ exports.captureOrder = async (req, res, next) => {
       });
       pubUpdate.stock.stockTotal -= pub.quantity;
       pubUpdate.save();
-      const seller = await Seller.findOne({ _id: pubUpdate.seller.toString() });
-      seller.transactionsTotal.total += 1;
-      seller.save();
     }
     res.status(200).json({ status: 'success', data: 'success' });
   } catch (error) {
