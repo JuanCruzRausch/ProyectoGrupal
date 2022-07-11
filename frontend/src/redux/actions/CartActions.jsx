@@ -7,6 +7,8 @@ export const CLEAR_CART = "CLEAR_CART"
 export const INCREASE = "INCREASE"
 export const DECREASE = "DECREASE"
 export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
+
+
 export function AddToCart(id,count){
     return async(dispatch) => {
             axios("http://localhost:5050/publicationtest/"+id)
@@ -27,6 +29,7 @@ export function AddToCart(id,count){
 }
 
 export function OrderSingleProduct(id,count){
+    console.log(id,count);
     return async(dispatch) => {
             axios("http://localhost:5050/publicationtest/" + id)
             .then(res=> 
@@ -35,7 +38,7 @@ export function OrderSingleProduct(id,count){
                  payload: {
                   product:  res.data.data.publi._id,
                   title:     res.data.data.publi.title,
-                  thumbnail:    res.data.data.publi.thumbnail,
+                  thumbnail:    res.data.data.publi.pictures[0],
                   price:    res.data.data.publi.price,
                   stock: res.data.data.publi.stock,
                   quantity: count,
