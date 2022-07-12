@@ -2,6 +2,7 @@ const Seller = require('../models/Seller');
 const CommonUser = require('../models/CommonUser');
 const PublicationTest = require('../models/PublicationTest');
 const DeletedPublication = require('../models/DeletedPublication');
+const Transaction = require('../models/Transaction');
 const apiFeatures = require('../utils/apiFeatures');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -240,11 +241,28 @@ exports.reactivate = catchAsync(async (req, res, next) => {
 exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
   try {
       const {id} = req.params
-      const transactionsSeller = await Seller.findOne({user: id});
+      const transactionsSeller = await Seller.findOne({user: id})
+      const transaction = await Transaction.find().where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
+    .populate({
+      path:'buyer',
+      model: 'CommonUser',
+      select: 'name'
+    })
+    .populate({
+      path:'transaction.publication',
+      model: 'PublicationTest',
+      select: 'price picture title'
+    })
       res.status(201).json({
           status:'success',
           data:{
-              transactionSellerHistory: transactionsSeller.transactionsTotal.transactionHistory
+            transaction
+          }
+      });
+      res.status(201).json({
+          status:'success',
+          data:{
+              transaction
           }
       });
   } catch (error) {
