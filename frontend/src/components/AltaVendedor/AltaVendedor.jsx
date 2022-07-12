@@ -1,13 +1,19 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
+import { Form_Div } from "./AltaVendedor.module.css";
+import {DarkForm_Div} from "../PerfilEditar/DarkEditar.module.css"
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
 import { addSeller, patchToSeller, setUser } from "../../redux/actions/userAction"
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
+
+import { ToastContainer, toast } from 'react-toastify';
+
 export default function AltaVendedor() {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const [checkout, setCheckout] =  React.useState(false)
   const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate()
@@ -57,15 +63,25 @@ export default function AltaVendedor() {
       dispatch(addSeller({...seller,user: user._id}))
       .then(()=> dispatch( patchToSeller( user._id)))
       .then(()=> dispatch(setUser(auth0user)))
-      .then(()=> alert("success"))
+      .then(()=> toast.success('Perfil dado de alta correctamente', {
+        position: 'top-right',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }))
       .catch(error => console.log(error))
-      
+      setTimeout(() =>{
+        navigate("/perfil")
+      },1500)
     }
     
   };
   return (
     <div className="container">
-      <div className={Form_Div}>
+      <div className={isdarkMode ? DarkForm_Div : Form_Div}>
         <h1 className="my-3">Alta de Vendedor</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">
@@ -172,15 +188,24 @@ export default function AltaVendedor() {
           
           <input require onChange={()=>  setCheckout(!checkout)} 
           type="checkbox" name="condiciones" />
-          <Form.Label for="condiciones">Aceptar los términos y condiciones <a href="pagina_condiciones.html">condiciones</a></Form.Label>
- 
-
+          <Form.Label for="condiciones">Aceptar los <a onClick={() => navigate("/terminos-y-condiciones")}>términos y condiciones</a></Form.Label>
           </Form.Group>
           <div className="mb-3">
             <Button type="submit">Aceptar</Button>
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

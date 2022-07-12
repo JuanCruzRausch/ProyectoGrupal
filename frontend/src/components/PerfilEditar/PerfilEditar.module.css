@@ -29,6 +29,8 @@
 }
 
 .Form_Div {
+  transition: all .6s ease-in-out;
+
   width: 50%;
   margin:2rem auto;
   background-color: #fff;
@@ -37,4 +39,49 @@
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
   padding: 15px !important;
   padding: 0;
+}
+
+@media screen and (max-width:600px) {
+  .container{
+    width: 90%;
+    margin: auto;
+  }
+  .Detail_Links{
+    display: flex;
+    margin: 2vh 0;
+    background: none !important;
+  }
+  .Detail_Links  img{
+    width: 35px;
+    
+  }
+  .Detail_Links a{
+    margin-left: 3vh;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 2.5vh;  
+    align-self: center;
+    align-content: center;
+  }
+  .Detail_Links a h2{
+    margin: auto;
+    font-size: 2.1vh !important;
+    font-weight: 700 !important;
+    color: black;  
+  }
+  .Form_Div {
+    transition: all .6s ease-in-out;
+
+    width: 90% !important;
+    margin:2rem auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
+    padding: 15px !important;
+    padding: 0;
+  }
+  
 }

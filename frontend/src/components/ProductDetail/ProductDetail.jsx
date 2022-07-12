@@ -180,27 +180,6 @@ function ProductDetail(props) {
           </h2>
         </div>
       </div>
-      <div >
-        <form className={isdarkMode? Dark_Description : Detail_Description}>
-            {State?.stock?.options?.map(option=>{
-          return(
-            <div>
-               <input type="radio" name="combination" value={option._id}/>
-              {option?.combination?.map(combi=>{
-                return(
-                  <div >
-                    <span key={combi._id}>
-                      <label htmlFor="">{combi.name}:</label>
-                      <br />
-                      <label htmlFor="">{combi.value}</label>
-                    </span>
-                  </div>)})}  
-            </div>
-          )
-        })}
-        </form>
-            </div>
-
       <div className={isdarkMode ? Dark_CountPrice : Detail_CountPrice}>
         <h1>US$ {State?.price}</h1>
         <Count
@@ -208,11 +187,8 @@ function ProductDetail(props) {
           count={count}
           stockTotal={State?.stock?.stockTotal}
         />
-        <button onClick={()=> handleSetOrder()} className={isdarkMode? DarkCompra:  ButtonCompra}>Comprar</button>
         <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
-
-           
 
       <div className={isdarkMode ? Dark_Description : Detail_Description}>
         <div className={isdarkMode ? Dark_Description_Detail : Detail_Description_Detail}>
@@ -238,7 +214,7 @@ function ProductDetail(props) {
               <h2>{State?.seller.brand}</h2>
               <h2>{State?.seller.reputation?.status}</h2>
               {
-                State?.seller.reputation?.votes.length > 0 ?
+                State?.seller.reputation?.votes?.length > 0 ?
                 <h2>{State?.seller.reputation?.votes}</h2>
                 :null
               }

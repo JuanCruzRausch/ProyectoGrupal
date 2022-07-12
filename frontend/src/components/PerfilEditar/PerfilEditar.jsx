@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
-import { container, Form_Div, Detail_Links } from './PerfilEditar.module.css';
+import { Form_Div } from './PerfilEditar.module.css';
+import { DarkForm_Div } from './DarkEditar.module.css'
 import { useSelector, useDispatch } from 'react-redux';
 import countries from '../Json/countries.jsx';
 import states from '../Json/states.jsx';
@@ -12,7 +13,8 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
-  console.log(user)
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const [image, setImage] = React.useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -69,13 +71,16 @@ export default function AltaVededor() {
       draggable: true,
       progress: undefined,
     });
+    setTimeout(()=>{
+      navigate("/perfil")
+    },1500)
   };
   return (
     <div>
       <Helmet>
         <title>Actualizar-Perfil</title>
       </Helmet>
-      <div className={Form_Div}>
+      <div className={isdarkMode ? DarkForm_Div : Form_Div}>
         <h1 className="my-3">Actualizar Perfil</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">

@@ -4,18 +4,19 @@ import arrow from '../../assets/img/leftarrow.png'
 import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
 import {TermsContainer} from './Terms.module.css'
 import {TermsContainerDark, DetailDark} from './TermsDark.module.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 function Terms() {
+    const navigate = useNavigate()
     const mode = useSelector((state)=> state.darkMode)
     const { isdarkMode } = mode;
   return (
     <div className={isdarkMode ? TermsContainerDark : TermsContainer}>
     <div className={isdarkMode? DetailDark : Detail_Links}>
         <img src={arrow} alt="back" />
-        <Link to="/">
-          <h2>Home</h2>
-        </Link>
+        <a onClick={() => navigate(-1)}>
+          <h2>Atras</h2>
+        </a>
       </div>
         <Accordion defaultActiveKey={['0']} alwaysOpen>
             <Accordion.Item eventKey="0">

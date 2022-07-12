@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Container_card, Container_Perfil, container_seller, Container_text,Container_img_button, IniciarSesion, Buttons, adress,Vendedor, Admin, Common }  from './Perfil.module.css'
+import {
+  DarkContainer,
+  DarkText
+} from './DarkPerfil.module.css'
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
 import SellerProfile from '../Seller/SellerProfile';
+
+
+
 export default function Perfil() {
-
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const userState = useSelector( state => state.userReducer.user)
   const sellerState = useSelector ( state => state.userReducer.seller)
   const registered = userState?.registration_date.split("-")
@@ -17,7 +24,7 @@ export default function Perfil() {
   return (
 <div className={Container}>
     { isAuthenticated? (
-    <div className={Container_card}>
+    <div className={isdarkMode ? DarkContainer :  Container_card}>
       <div>
 
           <div className={Container_Perfil}>

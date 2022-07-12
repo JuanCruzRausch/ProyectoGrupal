@@ -11,6 +11,7 @@ img{
   transition: all .6s ease-in-out;
 }
 .darkmode{
+    z-index: 1;
     position: fixed;
     right: 25px;
     display: flex;
