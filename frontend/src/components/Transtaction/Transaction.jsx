@@ -21,7 +21,9 @@ navigate("/")
 
   return (
     <div>
-        
+        <button onClick={() => navigate("/")}>
+          Regresar 
+        </button>
     </div>
   )
 }
