@@ -13,6 +13,7 @@ import arrow from '../../assets/img/leftarrow.png';
 import { ToastContainer, toast } from 'react-toastify';
 import Chat from "../Chat/Chat"
 import io from "socket.io-client"
+import url from '../../ulr';
 import {
   Detail_container,
   Detail_Links,
@@ -49,7 +50,7 @@ import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
 import Rating from '../Rating/Rating';
 
-const socket = io.connect("http://localhost:5050")
+const socket = io.connect(`${url}`)
 
 function ProductDetail(props) {
   const mode = useSelector((state)=> state.darkMode)
