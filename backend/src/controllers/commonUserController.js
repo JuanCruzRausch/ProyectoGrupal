@@ -1,4 +1,6 @@
 const CommonUser = require('../models/CommonUser');
+const Transaction = require('../models/Transaction');
+const Seller = require('../models/Seller');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAccessTokenAdmin, apiAuth0 } = require('../utils/apiAdminAuth0');
@@ -108,18 +110,24 @@ exports.blockUser = catchAsync(async (req, res, next) => {
 })
 
 exports.getPurchasesUser = catchAsync(async(req,res,next)=>{
-  try {
-      const {id} = req.params
-      const purchasesUser = await CommonUser.findOne({_id: id});
-      console.log('hist----',purchasesUser);
+
+    const {id} = req.params
+    const transactionsUser = await CommonUser.findOne({_id: id})
+    const transaction = await Transaction.find().where('_id').in(transactionsUser.purchase_history)
+    .populate({
+      path:'transaction.seller',
+      model: 'Seller',
+      select: 'brand'
+    })
+    .populate({
+      path:'transaction.publication',
+      model: 'PublicationTest',
+      select: 'price picture title'
+    })
       res.status(201).json({
           status:'success',
           data:{
-            purchasesUserHistory:purchasesUser.purchase_history
+            transaction
           }
       });
-  } catch (error) {
-      console.log(error);
-      next(new AppError(error));
-  }
 })
