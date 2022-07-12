@@ -58,15 +58,15 @@
     min-height: 3rem;
     background-color: antiquewhite;
     border-radius: 10px;
-    padding: 10px;
+
     height: max-content;
     position: relative;
 }        
 .PyR_container form button {
     /* color: white; */
     border-radius: 15px;
+    
 }
-
 .button{
     height: 45px;
     font-size: 1.3rem;
@@ -77,14 +77,21 @@
     color: white;
     width: 150px;
     margin-left: 2rem;
-    align-self: center;
 }
 .inputRes form button{
-    color:#00A650;
     margin-left: 5px;
     border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background-color:  #006a33;
+    color: white;
+    width: auto;
+    margin-left: 1rem;
 }
 .inputRes form input{
+    margin: 1rem 0;
     border-radius: 10px;
     border: rgb(182, 182, 182) solid 1px;
 }
@@ -140,7 +147,6 @@
             color: grey;
             background-color: rgb(209, 248, 235);
             border-radius: 10px;
-            padding: 10px;
         }
         
         .PyR_content_Respuesta{ 
@@ -150,7 +156,6 @@
             font-size: 2vh;
             background-color: antiquewhite;
             border-radius: 10px;
-            padding: 10px;
             width: auto;
         }
         .button{
