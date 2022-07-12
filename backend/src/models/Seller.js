@@ -31,7 +31,7 @@ const sellerSchema = new Schema({
     ref: 'PublicationTest',
   },
   reputation: {
-    average: Number,
+    average: {type: Number},
     total_votes: [Number],
   },
   transactionsTotal: {
@@ -65,13 +65,6 @@ const sellerSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'QandA',
   },
-});
-
-sellerSchema.post('save', function(next){
-  let sum = this.reputation.total_votes.reduce((prev,curr)=>prev+curr,0)
-  let prom = Math.floor(sum/this.reputation.total_votes.length);
-  this.reputation.average = prom;
-  next()
 });
 
 const Seller = model('Seller', sellerSchema);
