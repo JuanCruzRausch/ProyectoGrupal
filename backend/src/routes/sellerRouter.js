@@ -20,5 +20,6 @@ sellerRouter
   .post(sellerController.postAndDeletePublication)
   .patch(sellerController.passtoInactive)
   .put(sellerController.reactivate);
+sellerRouter.route('/transactions-seller/:id').get(sellerController.getTransactionSeller);
 
 module.exports = sellerRouter;

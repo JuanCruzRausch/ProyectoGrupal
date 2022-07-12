@@ -1,5 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
-const Transaction = require("../models/Transaction")
+const Transaction = require("../models/Transaction");
 
 exports.postTransaction = catchAsync(async(req,res,next)=>{
     const newTransaction = await Transaction.create({
