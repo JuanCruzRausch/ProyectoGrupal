@@ -3,6 +3,7 @@ import React from 'react'
 import {useSelector} from "react-redux"
 import {chat_header,
     chat_body, 
+    inputRes,
     button,
     chat_footer,
     PyR_container,
@@ -181,7 +182,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </h3>
                         </div>
                     ))}
-                   {(<div>
+                   {(<div className={inputRes}>
                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                             <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                             <button type="submit" >Responder</button>
