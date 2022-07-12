@@ -30,7 +30,6 @@
 
 .Form_Div {
   transition: all .6s ease-in-out;
-
   width: 50%;
   margin:2rem auto;
   background-color: #fff;
@@ -73,7 +72,6 @@
   }
   .Form_Div {
     transition: all .6s ease-in-out;
-
     width: 90% !important;
     margin:2rem auto;
     background-color: #fff;
