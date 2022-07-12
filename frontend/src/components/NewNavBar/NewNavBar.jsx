@@ -166,20 +166,22 @@ function NewNavBar(props) {
           </div>
         {    (togglemenu || screen >768) && (
             <div className={NavMenu}>
+            <div className={isdarkMode ? darkA : null}>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
                 {categories?.map((category) => {
-                    return (
+                  return (
                     <NavDropdown.Item
-                        key={category._id}
-                        className={DropdownA}
-                        onClick={(e) => handleOnSelectCategory(e, category.name)}
-                        href="#"
+                    key={category._id}
+                    className={DropdownA}
+                    onClick={(e) => handleOnSelectCategory(e, category.name)}
+                    href="#"
                     >
                         {category.name}
                     </NavDropdown.Item>
                     );
-                })}
-                </NavDropdown>
+                  })}
+              </NavDropdown>
+            </div>
             <div className={searchdata}>
                 <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
                     <input
