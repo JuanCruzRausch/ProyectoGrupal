@@ -54,6 +54,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
         socket.on("envio_front", (data)=>{
             const {_id, chat} = data
             setTokenProductId(_id)
+            
             setChat( chat)
         })
         return () =>{socket.off()}
@@ -153,27 +154,30 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <div className={PyR_content}>
                {tokenProductId===_id && product_seller_id===message.seller_id?
                <div>
-                   <div className={PyR_content_Respuesta}>
+                   <div className={PyR_content_Pregunta}>
                    {/* {product_seller_id===seller?._id? */}
                    {/* <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button> */}
                    {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
-                   {product_seller_id===seller._id&&message?.coments?.map((coment, index)=>(
-                        <div key={index}>
+                   {message?.coments?.map((coment, index)=>(
+                        <div key={index} className={PyR_content_Respuesta}>
                             <p>
                                 {coment.time}-{coment.user_name}
                             </p>
-                            <p>
+                            <h3>
                                 {coment.coment}
-                            </p>
+                            </h3>
                         </div>
                     ))}
-                   {product_seller_id===seller._id&&<form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                        <button type="submit" >Responder</button>
-                   </form>}
+                   {product_seller_id===seller._id&&
+                   <div>
+                       <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                            <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                            <button type="submit" >Responder</button>
+                         </form>
+                   </div>}
                 </div>:tokenProductId === _id &&
                <div>
                    <div className={PyR_content_Pregunta}>
@@ -188,17 +192,21 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                              <p>
                                 {coment?.time}-{coment?.user_name}--{coment?.date}
                             </p>
-                            <p>
+                            <h3>
                                 {coment?.coment}
-                            </p>
+                            </h3>
                         </div>
                     ))}
-                   {product_seller_id===seller._id&&<form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                      
+                   {product_seller_id===seller._id&&(
+                   <div>    
+                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                                <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                            
 
-                        <button type="submit" >Responder</button>
-                   </form>}
+                                <button type="submit" >Responder</button>
+                        </form>
+                   </div>
+                   )}
                 </div>
                 
                }
