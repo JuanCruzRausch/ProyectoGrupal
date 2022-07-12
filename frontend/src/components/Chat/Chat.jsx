@@ -141,13 +141,13 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <h1>preguntas y respuestas</h1>
              <hr />
         <div className={chat_footer}>
-            <form action="" onSubmit={(e)=> submitMessage(e)}>
+            {product_seller_id!==seller._id&&<form action="" onSubmit={(e)=> submitMessage(e)}>
                 <input name="data" value={message?.data} onChange={(e)=>handleOnChange(e.target.name, e.target.value)}type="text" id="" />
                 <br />
                 <button className={button} type="submit" >
                     Preguntar
                 </button>
-            </form>
+            </form>}
         </div>
            
             {chat?.map((message, index)=> ( 
@@ -155,9 +155,9 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                {tokenProductId===_id && product_seller_id===message.seller_id?
                <div>
                    <div className={PyR_content_Pregunta}>
-                   {/* {product_seller_id===seller?._id? */}
-                   {/* <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button> */}
-                   {/* :null} */}
+                   {product_seller_id!==seller?._id?
+                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                   :null} 
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
@@ -171,24 +171,26 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </h3>
                         </div>
                     ))}
-                   {product_seller_id===seller._id&&
-                   <div>
+                   {(<div>
                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                             <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                             <button type="submit" >Responder</button>
                          </form>
-                   </div>}
+                   </div>)}
                 </div>:tokenProductId === _id &&
                <div>
                    <div className={PyR_content_Pregunta}>
-                   {/* {tokenProductId === _id && product_seller_id===seller?._id? */}
-                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
-                    {/* :null} */}
+                   {product_seller_id!==seller?._id?
+                    <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                     :null} 
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
                         <div className={PyR_content_Respuesta} key = {index}>
+                            {product_seller_id===seller?._id?
+                            <button className='button btn danger' onClick={()=>deleteComent2(message._id, index)}>X</button>
+                            :null} 
                              <p>
                                 {coment?.time}-{coment?.user_name}--{coment?.date}
                             </p>
@@ -197,12 +199,10 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </h3>
                         </div>
                     ))}
-                   {product_seller_id===seller._id&&(
+                   {(
                    <div>    
                         <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                                 <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                            
-
                                 <button type="submit" >Responder</button>
                         </form>
                    </div>
