@@ -49,6 +49,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
 
   }
   function handleAddtoCart() {
+    
     const hasProduct = selector.find(x => x.product === id)
 
     if(hasProduct){
