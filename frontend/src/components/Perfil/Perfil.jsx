@@ -118,7 +118,7 @@ export default function Perfil() {
                         <button>Historial de Ventas</button>
                       </Link>
                     ) : null}
-                    <Link to="/perfil/historial">
+                    <Link to="/perfil/compras">
                       <button>Historial de compras</button>
                     </Link>
                   </div>

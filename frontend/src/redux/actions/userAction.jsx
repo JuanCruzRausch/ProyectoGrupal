@@ -2,6 +2,8 @@ import axios from "axios"
 
 export const SET_USER = "SET_USER"
 export const SET_SELLER = "SET_SELLER"
+export const SET_SALES = "SET_SALES"
+export const SET_PURCHASES = "SET_PURCHASES"
 
 export function addSeller (data) {
   return async (dispatch) => {
@@ -52,8 +54,14 @@ export function updateUser(data) {
 
 export function getSales (seller_id) {
   return async (dispatch) => {
-    console.log(seller_id)
     return axios(`http://localhost:5050/seller/transactions-seller/${seller_id}`)
-    .then(res => console.log(res.data.data))
+    .then(res => dispatch({type: SET_SALES , payload: res.data.data.transaction }))
+  }
+}
+
+export function getPurchases (user_id) {
+  return async (dispatch) => {
+    return axios(`http://localhost:5050/commonuser/purchase-user/${user_id}`)
+    .then(res =>  dispatch({type: SET_PURCHASES , payload: res.data.data.transaction }))
   }
 }
