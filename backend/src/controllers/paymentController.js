@@ -253,36 +253,130 @@ exports.captureOrder = async (req, res, next) => {
 
 exports.toCanceled = catchAsync(async (req, res, next) => {
   let { id } = req.params;
-  const transaction = await Transaction.findByIdAndUpdate(
+
+  const transaction = await Transaction.findById(id);
+
+  if (!transaction) {
+    return next(new AppError('There is no transaction with that id', 404));
+  }
+
+  const trans = await Transaction.findByIdAndUpdate(
     id,
-    { transaction: { status: 'rejected' } },
+    { transaction: { ...transaction.transaction, status: 'rejected' } },
     { new: true }
   );
-  if (!transaction) {
-    return next(new AppError('There are no transaction with that id', 404));
+
+  const publication = await PublicationTest.findById(
+    transaction.transaction.publication
+  );
+
+  const seller = await Seller.findById(transaction.transaction.seller);
+
+  if (!publication) {
+    return next(new AppError('there is no publication with that id', 404));
   }
+  if (!seller) {
+    return next(new AppError('there is no seller with that id', 404));
+  }
+
+  const pub = await PublicationTest.findByIdAndUpdate(
+    transaction.transaction.publication,
+    {
+      stock: {
+        ...publication.stock,
+        stockTotal:
+          publication.stock.stockTotal + transaction.transaction.quantity,
+      },
+    },
+    { new: true }
+  );
+
+  const sel = await Seller.findByIdAndUpdate(
+    transaction.transaction.seller,
+    {
+      transactionsTotal: {
+        ...seller.transactionsTotal,
+        canceled: seller.transactionsTotal.canceled + 1,
+      },
+    },
+    { new: true }
+  );
+
   res.status(200).json({
     status: 'success',
     data: {
-      transaction,
+      transaction: trans,
     },
   });
 });
 
 exports.toFulfilled = catchAsync(async (req, res, next) => {
   let { id } = req.params;
-  const transaction = await Transaction.findByIdAndUpdate(
-    id,
-    { transaction: { status: 'fulfilled' } },
-    { new: true }
-  );
+
+  let transaction = await Transaction.findById(id);
+
   if (!transaction) {
     return next(new AppError('There are no transaction with that id', 404));
   }
+
+  const trans = await Transaction.findByIdAndUpdate(
+    id,
+    { transaction: { ...transaction.transaction, status: 'fulfilled' } },
+    { new: true }
+  );
+
+  const publication = await PublicationTest.findById(
+    transaction.transaction.publication
+  );
+
+  const seller = await Seller.findById(transaction.transaction.seller);
+
+  if (!publication) {
+    return next(new AppError('there is no publication with that id', 404));
+  }
+  if (!seller) {
+    return next(new AppError('there is no seller with that id', 404));
+  }
+
+  const pub = await PublicationTest.findByIdAndUpdate(
+    transaction.transaction.publication,
+    {
+      totalSold: publication.totalSold + transaction.transaction.quantity,
+    },
+    { new: true }
+  );
+
+  let active = [];
+  let inactive = [];
+
+  if (pub.status) {
+    active = seller.active_pub;
+    inactive = seller.inactive_pub;
+  } else {
+    active = seller.active_pub.filter((e) => e + '' !== pub._id + '');
+    inactive = [...seller.inactive_pub, pub._id];
+  }
+
+  const sel = await Seller.findByIdAndUpdate(
+    transaction.transaction.seller,
+    {
+      total_earnings:
+        seller.total_earnings +
+        transaction.transaction.earnings.seller_earnings,
+      transactionsTotal: {
+        ...seller.transactionsTotal,
+        completed: seller.transactionsTotal.completed + 1,
+      },
+      active_pub: [...active],
+      inactive_pub: [...inactive],
+    },
+    { new: true }
+  );
+
   res.status(200).json({
     status: 'success',
     data: {
-      transaction,
+      transaction: trans,
     },
   });
 });
