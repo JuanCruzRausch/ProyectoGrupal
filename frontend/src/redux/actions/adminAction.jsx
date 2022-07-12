@@ -1,4 +1,5 @@
 import axios from 'axios'
+import url from '../../ulr'
 export const GET_ALL_USER = "GET_ALL_USER"
 export const LOCK_USER = "LOCK_USER"
 export const SAVE_TOKEN = "SAVE_TOKEN"
@@ -7,7 +8,7 @@ export function getUsers (token) {
 
     return async (dispatch)=>{
         dispatch({type:SAVE_TOKEN, payload: token})
-        axios("http://localhost:5050/stats/listUsers",{
+        axios(`${url}/stats/listUsers`,{
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -19,14 +20,14 @@ export function getUsers (token) {
 export function lockUser (userId, token) {
     return async(dispatch)=>{
         console.log(userId)
-        axios.delete(`http://localhost:5050/commonuser/block/${userId}?block=true`, {
+        axios.delete(`${url}/commonuser/block/${userId}?block=true`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         } )
         .then((res)=>{
             console.log(res)
-            axios("http://localhost:5050/stats/listUsers",{
+            axios(`${url}/stats/listUsers`,{
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
@@ -40,14 +41,14 @@ export function lockUser (userId, token) {
 export function unlockUser (userId, token) {
     return async(dispatch)=>{
         console.log(userId)
-        axios.delete(`http://localhost:5050/commonuser/block/${userId}?block="false"`, {
+        axios.delete(`${url}/commonuser/block/${userId}?block="false"`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         } )
         .then((res)=>{
             console.log(res)
-            axios("http://localhost:5050/stats/listUsers",{
+            axios(`${url}/stats/listUsers`,{
                 headers: {
                   Authorization: `Bearer ${token}`
                 }

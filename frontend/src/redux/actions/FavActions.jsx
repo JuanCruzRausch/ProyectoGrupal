@@ -1,11 +1,12 @@
 import axios from 'axios'
+import url from '../../ulr';
 export const ADD_TO_FAV = "ADD_TO_FAV"
 export const REMOVE_FROM_FAV = "REMOVE_FROM_FAV"
 
 export function AddToFav(id){
     console.log(id);
     return async(dispatch) => {
-            axios("http://localhost:5050/publicationtest/" + id)
+            axios(`${url}/publicationtest/` + id)
             .then(res=> 
                  dispatch({
                  type: ADD_TO_FAV, 

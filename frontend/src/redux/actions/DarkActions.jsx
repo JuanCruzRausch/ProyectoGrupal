@@ -1,5 +1,6 @@
 export const DARK_MODE = "DARK_MODE";
 
+
 export const handledarkMode = (e) => async (dispatch) => {
     // getting the true or false value from the parameter and saving that to localstorage
     localStorage.setItem("darkmode", e);

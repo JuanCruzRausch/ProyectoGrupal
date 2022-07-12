@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import url from '../../ulr';
 import low from '../../assets/img/icons_Products/podium_last.png';
 import medium from '../../assets/img/icons_Products/podium_second.png';
 import high from '../../assets/img/icons_Products/podium_first.png';
@@ -124,7 +125,7 @@ function CreateProduct() {
       let f = new FormData();
       f.append('image', images[i][0]);
       let result = await axios
-        .post('http://localhost:5050/upload-image', f, {
+        .post(`${url}/upload-image`, f, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .catch((res) => console.log(res));
