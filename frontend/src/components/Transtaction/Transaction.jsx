@@ -16,6 +16,7 @@ useEffect(()=>{
           icon: "success",
         });
         dispatch(getTransaction(queries))
+        navigate("/")
 },[])
 navigate("/")
 
