@@ -34,6 +34,8 @@ import { useEffect } from "react";
 import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Transaction from "./components/Transtaction/Transaction";
+import Ventas from "./components/Ventas/Ventas";
+import Compras from "./components/Compras/Compras";
 
 const WS = "http://localhost:5050"
 
@@ -71,12 +73,13 @@ function App() {
         </label>
         </div>
         <Routes>
+          <Route path="/perfil/compras" element={ <Compras />} />
+          <Route path="/perfil/ventas" element={ <Ventas />} />
           <Route path="/transaction/" element={ <Transaction />} />
           <Route path="/admin/userlist" element={ <UserList /> } />
           <Route path="/privacidad" element={ <Privacy /> } />
           <Route path="/terminos-y-condiciones" element={ <Terms /> } />
           <Route path="/perfil/historial/rating" element={ <Rating /> }/>
-          <Route path="/perfil/historial" element={ <Historial /> } />
           <Route path="/perfil/vendedor" element={<SellerProfile />} />
           <Route path="/perfil/altavendedor" element={<AltaVendedor />} />
           <Route path="/perfil/marca" element={<Brand />} />
