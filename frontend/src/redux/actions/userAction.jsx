@@ -49,3 +49,11 @@ export function updateUser(data) {
     .then(response=> console.log(response))
   }
 }
+
+export function getSales (seller_id) {
+  return async (dispatch) => {
+    console.log(seller_id)
+    return axios(`http://localhost:5050/seller/transactions-seller/${seller_id}`)
+    .then(res => console.log(res.data.data))
+  }
+}

@@ -113,6 +113,11 @@ export default function Perfil() {
                         <button>Perfil de Vendedor</button>
                       </Link>
                     ) : null}
+                    {userState?.authorization?.roles.includes('seller') ? (
+                      <Link to="/perfil/ventas">
+                        <button>Historial de Ventas</button>
+                      </Link>
+                    ) : null}
                     <Link to="/perfil/historial">
                       <button>Historial de compras</button>
                     </Link>
