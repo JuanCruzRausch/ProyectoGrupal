@@ -3,7 +3,7 @@ const {authorizeAccessToken} = require('../utils/authorizeAccessToken')
 const {roles} = require('../utils/roles')
 
 
-const {getActiveUsersCount, getListUsers, getTotalSales, getAllActivePubs} = require('../controllers/statsController')
+const {getActiveUsersCount, getListUsers, getTotalSales, getAllActivePubs, getCategoriesQ} = require('../controllers/statsController')
 
 const statsRouter = Router();
 
@@ -11,5 +11,6 @@ statsRouter.get('/getActiveUsersCount', authorizeAccessToken, roles.admin, getAc
 statsRouter.get('/listUsers', authorizeAccessToken, roles.admin, getListUsers)
 statsRouter.get('/getAllActivePubs', authorizeAccessToken, roles.admin, getAllActivePubs)
 statsRouter.get('/gettotalsales', authorizeAccessToken, roles.admin, getTotalSales)
+statsRouter.get('/getcategoriesq',  getCategoriesQ);
 
 module.exports = statsRouter;
