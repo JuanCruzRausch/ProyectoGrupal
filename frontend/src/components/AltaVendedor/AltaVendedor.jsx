@@ -1,14 +1,19 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
-import { Container_Small, Form_Div } from "./AltaVendedor.module.css";
+import { Form_Div } from "./AltaVendedor.module.css";
+import {DarkForm_Div} from "../PerfilEditar/DarkEditar.module.css"
 import { useSelector, useDispatch } from "react-redux";
 import countries from "../Json/countries.jsx";
 import states from "../Json/states.jsx";
 import { addSeller, patchToSeller, setUser } from "../../redux/actions/userAction"
 import { useNavigate } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import { ToastContainer, toast } from 'react-toastify';
+
 export default function AltaVendedor() {
+  const mode = useSelector((state)=> state.darkMode)
+  const { isdarkMode } = mode;
   const [checkout, setCheckout] =  React.useState(false)
   const { loginWithRedirect } = useAuth0();
   const navigate = useNavigate()
@@ -68,13 +73,15 @@ export default function AltaVendedor() {
         progress: undefined,
       }))
       .catch(error => console.log(error))
-      
+      setTimeout(() =>{
+        navigate("/perfil")
+      },1500)
     }
     
   };
   return (
     <div className="container">
-      <div className={Form_Div}>
+      <div className={isdarkMode ? DarkForm_Div : Form_Div}>
         <h1 className="my-3">Alta de Vendedor</h1>
         <form onSubmit={(e) => onHandleSubmit(e)}>
           <Form.Group className="mb-3" controlId="name">
