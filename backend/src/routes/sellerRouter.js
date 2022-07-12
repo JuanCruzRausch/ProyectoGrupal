@@ -12,7 +12,6 @@ sellerRouter
 sellerRouter
   .route('/:id')
   .get(sellerController.getSeller)
-  .patch(sellerController.updateActivePubs);
 sellerRouter
   .route('/getAll', authorizeAccessToken, roles.admin, sellerController.getAllSellers)
 sellerRouter
