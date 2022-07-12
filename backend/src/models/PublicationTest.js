@@ -141,6 +141,10 @@ const publicationTestSchema = new Schema({
     average: {type:Number},
     total_votes:[Number],
   },
+  reviews:{
+    type:[Schema.Types.ObjectId],
+    ref:'Reviews'
+  }
 });
 
 publicationTestSchema.pre('save', function (next) {
