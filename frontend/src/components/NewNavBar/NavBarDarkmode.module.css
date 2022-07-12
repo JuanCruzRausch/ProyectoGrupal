@@ -12,3 +12,6 @@
     color: rgb(138, 138, 138) !important;
     transition: all .6s ease-in-out;
 }
+.darkA {
+    color: black;
+}

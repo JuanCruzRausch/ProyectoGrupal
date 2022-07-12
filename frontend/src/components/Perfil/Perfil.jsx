@@ -29,11 +29,11 @@ export default function Perfil() {
   const userState = useSelector((state) => state.userReducer.user);
   const sellerState = useSelector((state) => state.userReducer.seller);
   const registered = userState?.registration_date.split('-');
-  console.log(userState);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   },[])
+
   return (
     <div>
       <Helmet>
