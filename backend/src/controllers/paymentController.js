@@ -213,7 +213,7 @@ exports.captureOrder = async (req, res, next) => {
         { _id: purchase_units[i].seller },
         {
           transactionsTotal: {
-            ...transactionsTotal,
+            ...seller.transactionsTotal,
             transactionHistory: [
               ...seller.transactionsTotal.transactionHistory,
               newTransaction._id,
@@ -224,6 +224,11 @@ exports.captureOrder = async (req, res, next) => {
         { new: true }
       );
       console.log('\n', queDevolves);
+      const publi = await PublicationTest.findOne({
+        _id: purchase_units[i].publication,
+      });
+      publi.stock.stockTotal-=purchase_units[i].quantity;
+      publi.save();
     }
 
     await CommonUser.updateOne(
@@ -237,14 +242,6 @@ exports.captureOrder = async (req, res, next) => {
     );
 
     //purchase_history: buyer.purchase_history.concat({publication_id: new mongoose.mongo.ObjectId(newTransaction._id)})
-
-    for (let pub of publications) {
-      const pubUpdate = await PublicationTest.findOne({
-        _id: pub.publicationId,
-      });
-      pubUpdate.stock.stockTotal -= pub.quantity;
-      pubUpdate.save();
-    }
     res.status(200).json({ status: 'success', data: 'success' });
   } catch (error) {
     console.log(error);
