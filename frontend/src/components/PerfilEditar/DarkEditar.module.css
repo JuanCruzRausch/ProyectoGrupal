@@ -1,0 +1,36 @@
+.DarkForm_Div{
+        transition: all .6s ease-in-out;
+        width: 50%;
+        margin:2rem auto;
+        border-radius: 10px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
+        padding: 15px !important;
+        padding: 0;
+        background: #2d2c2f;
+    }
+
+    .DarkForm_Div h1, label{
+        transition: all .6s ease-in-out;
+        color: #fff;
+    }
+    .DarkForm_Div input {
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
+        background-color: #868686;
+    }
+    .DarkForm_Div input:placeholder-shown{
+        color: white;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
+    }
+@media screen and (max-width:600px) {
+    .DarkForm_Div {
+        transition: all .6s ease-in-out;
+        width: 90% !important;
+        margin:2rem auto;
+        border-radius: 10px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2); 
+        padding: 15px !important;
+        padding: 0;
+      }
+}
