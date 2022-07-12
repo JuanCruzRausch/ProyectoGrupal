@@ -62,11 +62,6 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
 
     React.useEffect(()=>{
         setChat([])
-        // socket.on("envio_front", (data)=>{
-        //             const {_id, chat} = data
-        //             setTokenProductId(_id)
-        //             setChat( chat)
-        //         })
     },[])
 
     React.useEffect(()=>{
@@ -130,9 +125,22 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
         })
     }
 
-    const deleteComent = (message_id) =>{
+    const deleteMessage = (message_id) =>{
         const newChat = chat.filter(message => message._id!== message_id)
         socket.emit("comentarios", {_id, chat:newChat})
+    }
+
+    const deleteComent = (message_id, index) =>{
+        let newMessage
+        let arr = [...chat]
+        arr.filter(message =>{
+            if (message._id===message_id){
+                newMessage = message.coments.filter((coment, id) => id !== index )
+                message.coments = [...newMessage]
+            }
+        })
+     
+        socket.emit("comentarios", {_id, chat:[...arr]})
     }
 
     return (
@@ -155,13 +163,16 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                {tokenProductId===_id &&  <div>
                    <div className={PyR_content_Pregunta}>
                    {product_seller_id!==seller?._id?
-                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                   <button className='button btn danger' onClick={()=>deleteMessage(message._id)}>X</button>
                    :null} 
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
                         <div key={index} className={PyR_content_Respuesta}>
+                            {coment.user_id === user?._id?
+                                <button className='button btn danger' onClick={()=>deleteComent(message._id, index)}>X</button>
+                            :null} 
                             <p>
                                 {coment.time}-{coment.user_name}
                             </p>
