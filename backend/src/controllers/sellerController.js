@@ -241,7 +241,7 @@ exports.reactivate = catchAsync(async (req, res, next) => {
 exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
   try {
       const {id} = req.params
-      const transactionsSeller = await Seller.findOne({user: id})
+      const transactionsSeller = await Seller.findOne({_id: id})
       const transaction = await Transaction.find().where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
     .populate({
       path:'buyer',
