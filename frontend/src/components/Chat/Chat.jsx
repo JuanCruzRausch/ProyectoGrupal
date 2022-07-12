@@ -3,6 +3,7 @@ import React from 'react'
 import {useSelector} from "react-redux"
 import {chat_header,
     chat_body, 
+    inputRes,
     button,
     chat_footer,
     PyR_container,
@@ -62,11 +63,6 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
 
     React.useEffect(()=>{
         setChat([])
-        // socket.on("envio_front", (data)=>{
-        //             const {_id, chat} = data
-        //             setTokenProductId(_id)
-        //             setChat( chat)
-        //         })
     },[])
 
     React.useEffect(()=>{
@@ -130,9 +126,22 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
         })
     }
 
-    const deleteComent = (message_id) =>{
+    const deleteMessage = (message_id) =>{
         const newChat = chat.filter(message => message._id!== message_id)
         socket.emit("comentarios", {_id, chat:newChat})
+    }
+
+    const deleteComent = (message_id, index) =>{
+        let newMessage
+        let arr = [...chat]
+        arr.filter(message =>{
+            if (message._id===message_id){
+                newMessage = message.coments.filter((coment, id) => id !== index )
+                message.coments = [...newMessage]
+            }
+        })
+     
+        socket.emit("comentarios", {_id, chat:[...arr]})
     }
 
     return (
@@ -141,28 +150,30 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <h1>preguntas y respuestas</h1>
              <hr />
         <div className={chat_footer}>
-            <form action="" onSubmit={(e)=> submitMessage(e)}>
+            {product_seller_id!==seller._id&&<form action="" onSubmit={(e)=> submitMessage(e)}>
                 <input name="data" value={message?.data} onChange={(e)=>handleOnChange(e.target.name, e.target.value)}type="text" id="" />
                 <br />
                 <button className={button} type="submit" >
                     Preguntar
                 </button>
-            </form>
+            </form>}
         </div>
            
             {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
-               {tokenProductId===_id && product_seller_id===message.seller_id?
-               <div>
+               {tokenProductId===_id &&  <div>
                    <div className={PyR_content_Pregunta}>
-                   {/* {product_seller_id===seller?._id? */}
-                   {/* <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button> */}
-                   {/* :null} */}
+                   {product_seller_id!==seller?._id?
+                   <button className='button btn danger' onClick={()=>deleteMessage(message._id)}>X</button>
+                   :null} 
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
                         <div key={index} className={PyR_content_Respuesta}>
+                            {coment.user_id === user?._id?
+                                <button className='button btn danger' onClick={()=>deleteComent(message._id, index)}>X</button>
+                            :null} 
                             <p>
                                 {coment.time}-{coment.user_name}
                             </p>
@@ -171,42 +182,12 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </h3>
                         </div>
                     ))}
-                   {product_seller_id===seller._id&&
-                   <div>
+                   {(<div className={inputRes}>
                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                             <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                             <button type="submit" >Responder</button>
                          </form>
-                   </div>}
-                </div>:tokenProductId === _id &&
-               <div>
-                   <div className={PyR_content_Pregunta}>
-                   {/* {tokenProductId === _id && product_seller_id===seller?._id? */}
-                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
-                    {/* :null} */}
-                        <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
-                        <h3 >{message?.data}</h3>
-                   </div>
-                   {message?.coments?.map((coment, index)=>(
-                        <div className={PyR_content_Respuesta} key = {index}>
-                             <p>
-                                {coment?.time}-{coment?.user_name}--{coment?.date}
-                            </p>
-                            <h3>
-                                {coment?.coment}
-                            </h3>
-                        </div>
-                    ))}
-                   {product_seller_id===seller._id&&(
-                   <div>    
-                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                                <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                            
-
-                                <button type="submit" >Responder</button>
-                        </form>
-                   </div>
-                   )}
+                   </div>)}
                 </div>
                 
                }
