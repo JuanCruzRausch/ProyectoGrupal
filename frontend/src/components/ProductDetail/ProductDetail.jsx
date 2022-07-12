@@ -93,6 +93,7 @@ function ProductDetail(props) {
 
   function ADDtoCart(){
     const hasProduct = selector.find(x => x.product === State?._id)
+
     if(hasProduct){
       if(hasProduct.quantity>=hasProduct?.stock.stockTotal || hasProduct.stock.stockTotal - hasProduct.quantity - count < 0){
         toast.error('Se ha superado el limite de Stock disponible', {
@@ -116,7 +117,7 @@ function ProductDetail(props) {
          draggable: true,
          progress: undefined,
        })  
-       dispatch(AddToCart(RES?._id, count))
+       dispatch(AddToCart(State?._id, count))
      }  
   }   
   else {
