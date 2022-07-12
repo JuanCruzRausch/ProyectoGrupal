@@ -131,15 +131,15 @@ const publicationTestSchema = new Schema({
     enum: [1, 2, 3],
   },
   questions: {
-    type: Array
+    type: Array,
   },
   transactions: {
     type: [Schema.Types.ObjectId],
     ref: 'Transaction',
   },
   rating: {
-    average: {type:Number},
-    total_votes:[Number],
+    average: { type: Number },
+    total_votes: [Number],
   },
   reviews:{
     type:[Schema.Types.ObjectId],
@@ -150,6 +150,8 @@ const publicationTestSchema = new Schema({
 publicationTestSchema.pre('save', function (next) {
   if (this.stock.stockTotal <= 0) {
     this.status = false;
+  } else {
+    this.status = true;
   }
   next();
 });
