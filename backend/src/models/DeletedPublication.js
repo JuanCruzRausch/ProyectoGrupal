@@ -37,7 +37,7 @@ const DeletedPublicationSchema = new Schema({
   currency: {
     type: String,
     enum: ['USD', 'ARS'],
-    default: 'ARS',
+    default: 'USD',
   },
   status: {
     type: Boolean,
@@ -131,16 +131,20 @@ const DeletedPublicationSchema = new Schema({
     enum: [1, 2, 3],
   },
   questions: {
-    type: [Schema.Types.ObjectId],
-    ref: 'QandA',
+    type: Array,
   },
   transactions: {
     type: [Schema.Types.ObjectId],
     ref: 'Transaction',
   },
   rating: {
-    type: Number,
+    average: { type: Number },
+    total_votes: [Number],
   },
+  reviews:{
+    type:[Schema.Types.ObjectId],
+    ref:'Reviews'
+  }
 });
 
 const DeletedPublication = model(
