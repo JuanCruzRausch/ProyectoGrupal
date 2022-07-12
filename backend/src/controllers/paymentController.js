@@ -213,11 +213,12 @@ exports.captureOrder = async (req, res, next) => {
         { _id: purchase_units[i].seller },
         {
           transactionsTotal: {
+            ...transactionsTotal,
             transactionHistory: [
               ...seller.transactionsTotal.transactionHistory,
               newTransaction._id,
             ],
-            total: seller.transactionsTotal.total + 1,
+            total: seller.transactionsTotal.total + 1
           },
         },
         { new: true }
