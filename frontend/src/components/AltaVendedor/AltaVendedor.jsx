@@ -71,11 +71,13 @@ export default function AltaVendedor() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      }))
-      .catch(error => console.log(error))
+      }),
       setTimeout(() =>{
         navigate("/perfil")
       },1500)
+      )
+      
+      .catch(error => console.log(error))
     }
     
   };

@@ -30,7 +30,6 @@
 
 .Form_Div {
   transition: all .6s ease-in-out;
-
   width: 50%;
   margin:2rem auto;
   background-color: #fff;
@@ -40,7 +39,10 @@
   padding: 15px !important;
   padding: 0;
 }
-
+.Form_Div h1, label{
+  transition: all .6s ease-in-out;
+  color: rgb(140, 140, 140) !important;
+}
 @media screen and (max-width:600px) {
   .container{
     width: 90%;

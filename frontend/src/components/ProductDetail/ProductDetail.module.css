@@ -80,6 +80,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-content: space-between;
+    align-items: center;
 }
 .Detail_Item_text h1{
     font-style: normal;
@@ -117,7 +118,6 @@
     margin: 1.6vh 0;
 }
 .Detail_Item_text h2{
-    align-self: flex-start;
     color: rgb(0, 0, 0);
     font-weight: 300;
     font-size: 2vh;
@@ -202,14 +202,13 @@
 }
 .Detail_Description_Detail h2 {
     font-weight: 300;
-    font-size: 4vh;
+    font-size: 2rem !important;
 }
 .Detail_Description_Detail p {
     margin-top: 4vh;
-    width: 70%;
-    line-height: 5vh;
+    width: 75%;
+    line-height: 2rem;
     font-weight: 400;
-    font-size: 2vh;
 }
 .Detail_Description_payment h1{
     font-size: 1.6rem;
@@ -223,6 +222,10 @@
     padding: 3vh;
     display: flex;
     flex-direction: column;
+}
+.Detail_Description_payment h2{
+    font-size: 2rem !important;
+    font-weight: 300;
 }
 .Payment_methods{
     margin-top: 5vh;

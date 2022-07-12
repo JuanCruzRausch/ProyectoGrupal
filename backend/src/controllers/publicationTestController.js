@@ -187,7 +187,8 @@ exports.getPublicationTestID = catchAsync(async (req, res, next) => {
     .populate({ path: 'category', select: '-subcategories -__v' })
     .populate({ path: 'subCategory', select: '-properties -__v' })
     .populate({ path: 'questions' })
-    .populate({ path: 'transactions' });
+    .populate({ path: 'transactions' })
+    .populate({path: 'reviews'});
 
   if (!publi) {
     return next(new AppError('The id does not match with any product', 404));
