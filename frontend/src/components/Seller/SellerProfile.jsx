@@ -61,6 +61,7 @@ export default function SellerProfile() {
     (state) => state.userReducer.seller
   );
   const userState = useSelector((state) => state.userReducer.user);
+  const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -140,7 +141,7 @@ export default function SellerProfile() {
     dispatch(activePublication(productId, userState._id))
 
   }
-
+  console.log(SellerState);
   return (
     <div className={Container}>
       <div className={Detail_Links}>
@@ -162,12 +163,10 @@ export default function SellerProfile() {
                   </Link>
                 </div>
                 <div className={Container_text}>
-                  <h1> nombre: {user.name}</h1>
-                  <h2> Email: {user.email}</h2>
-                  <h2> dirección: {perfil.address}</h2>
-                  <h2> reputación: {perfil.reputation}</h2>
-                  <h2> status: {perfil.status}</h2>
-                  <h2> registrado desde: {perfil.register_date}</h2>
+                  <h1> nombre: {userState.name}</h1>
+                  <h2> Email: {userState.email}</h2>
+                  <h2> Ciudad: {userState?.address?.city}</h2>
+                  <h2> registrado desde: {userState.registration_date}</h2>
                   <div>
                     transacciones:
                     <div>
