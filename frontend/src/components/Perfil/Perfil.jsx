@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
 import SellerProfile from '../Seller/SellerProfile';
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 export default function Perfil() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -30,6 +31,9 @@ export default function Perfil() {
   const registered = userState?.registration_date.split('-');
   console.log(userState);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
   return (
     <div>
       <Helmet>

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteProduct, inactivePublication, activePublication } from "../../redux/actions/index"
 import swal from 'sweetalert'
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -53,6 +54,9 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../Auth0/login";
 export default function SellerProfile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
   const seller = useSelector(
     (state) => state.userReducer.seller
   );
