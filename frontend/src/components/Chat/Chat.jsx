@@ -19,7 +19,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     const mode = useSelector((state)=> state.darkMode)
     const { isdarkMode } = mode;
     const dispatch = useDispatch()
-    const chat = useSelector(state => state.interactionsReducer.chat)
+    const [chat, setChat] = React.useState([])
     const [message, setMessage] = React.useState({})
     const seller = useSelector(state => state.userReducer.seller)
     const user = useSelector( state => state.userReducer.user)
@@ -34,14 +34,10 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     const submitMessage = (e) => {
         e.preventDefault()
         if(message.data!==""){
-
             sendMessage()
         }
     }
-    const setChat = (data) =>{
-         dispatch({type: "SET_CHAT", payload: data})
-         
-    }
+   
     React.useEffect(()=>{
         questions?.length? setChat([...questions]):null
     },[questions])
@@ -58,10 +54,33 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
         socket.on("envio_front", (data)=>{
             const {_id, chat} = data
             setTokenProductId(_id)
+            
             setChat( chat)
         })
         return () =>{socket.off()}
     },[chat])
+
+    React.useEffect(()=>{
+        setChat([])
+        // socket.on("envio_front", (data)=>{
+        //             const {_id, chat} = data
+        //             setTokenProductId(_id)
+        //             setChat( chat)
+        //         })
+    },[])
+
+    React.useEffect(()=>{
+
+        setChat
+        return () =>{
+            setChat([])
+            socket.off()}
+        
+    },[])
+
+    React.useEffect(()=>{
+        setTokenProductId(_id)
+    },[_id])
 
     const handleOnSubmitComent = (e, coment_id) => {
         e.preventDefault()
@@ -91,7 +110,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                 message.coment=value
             }
         })
-            dispatch(setChat(chat))
+            setChat(chat)
         
     }
     const handleOnChange = (name, value) =>{
@@ -135,29 +154,36 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <div className={PyR_content}>
                {tokenProductId===_id && product_seller_id===message.seller_id?
                <div>
-                   <div className={PyR_content_Respuesta}>
-                   {product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                   <div className={PyR_content_Pregunta}>
+                   {/* {product_seller_id===seller?._id? */}
+                   {/* <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button> */}
+                   {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
-                        <div key={index}>
+                        <div key={index} className={PyR_content_Respuesta}>
                             <p>
                                 {coment.time}-{coment.user_name}
                             </p>
-                            <p>
+                            <h3>
                                 {coment.coment}
-                            </p>
+                            </h3>
                         </div>
                     ))}
-                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                        <button type="submit" >Responder</button>
-                   </form>
-                </div>:
+                   {product_seller_id===seller._id&&
+                   <div>
+                       <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                            <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                            <button type="submit" >Responder</button>
+                         </form>
+                   </div>}
+                </div>:tokenProductId === _id &&
                <div>
                    <div className={PyR_content_Pregunta}>
-                   {tokenProductId === _id && product_seller_id===seller?._id?<button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>:null}
+                   {/* {tokenProductId === _id && product_seller_id===seller?._id? */}
+                   <button className='button btn danger' onClick={()=>deleteComent(message._id)}>X</button>
+                    {/* :null} */}
                         <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
                         <h3 >{message?.data}</h3>
                    </div>
@@ -166,17 +192,21 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                              <p>
                                 {coment?.time}-{coment?.user_name}--{coment?.date}
                             </p>
-                            <p>
+                            <h3>
                                 {coment?.coment}
-                            </p>
+                            </h3>
                         </div>
                     ))}
-                   <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
-                        <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
-                      
+                   {product_seller_id===seller._id&&(
+                   <div>    
+                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
+                                <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
+                            
 
-                        <button type="submit" >Responder</button>
-                   </form>
+                                <button type="submit" >Responder</button>
+                        </form>
+                   </div>
+                   )}
                 </div>
                 
                }
