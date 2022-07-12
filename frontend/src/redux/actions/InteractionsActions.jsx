@@ -9,7 +9,7 @@ export const getTransaction = (queries) => {
         //if (res.data.data.transactions[0].status === 'pending') {
         dispatch({ type: 'CLEAR_CART' });
         //  }
-        dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res});
+        dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res.data.data});
       }
     );
   };
