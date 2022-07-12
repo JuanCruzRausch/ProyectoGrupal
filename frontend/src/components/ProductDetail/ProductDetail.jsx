@@ -238,7 +238,7 @@ function ProductDetail(props) {
               <h2>{State?.seller.brand}</h2>
               <h2>{State?.seller.reputation?.status}</h2>
               {
-                State?.seller.reputation?.votes.length > 0 ?
+                State?.seller.reputation?.votes?.length > 0 ?
                 <h2>{State?.seller.reputation?.votes}</h2>
                 :null
               }
