@@ -65,3 +65,19 @@ export function getPurchases (user_id) {
     .then(res =>  dispatch({type: SET_PURCHASES , payload: res.data.data.transaction }))
   }
 }
+
+export function reject (transaction, user_id) {
+  return async (dispatch) => {
+    return axios.patch(`http://localhost:5050/payment/purchase-canceled/${transaction}`)
+    .then((res)=>axios(`http://localhost:5050/seller/transactions-seller/${seller_id}`)
+    .then(res => dispatch({type: SET_SALES , payload: res.data.data.transaction })))
+  }
+}
+
+export function arrived (transaction, user_id) {
+  return async (dispatch) => {
+    return axios.patch(`http://localhost:5050/payment/purchase-arrived/${transaction}`)
+    .then((res)=> axios(`http://localhost:5050/commonuser/purchase-user/${user_id}`)
+    . then(res =>  dispatch({type: SET_PURCHASES , payload: res.data.data.transaction })))
+  }
+}
