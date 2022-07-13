@@ -101,19 +101,19 @@ export default function SellerProfile() {
 
   const deletePublication = (productId) => {
     swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      title: 'Desea eliminar el producto?',
+      text: 'Una vez eliminado, no podra recuperarse',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal('Su producto se encuentra a salvo', {
+        swal('El producto fue eliminado', {
           icon: 'success',
         });
         dispatch(deleteProduct(productId, userState._id));
       } else {
-        swal('Your imaginary file is safe!');
+        swal('El producto no fue eliminado');
       }
     });
   };
@@ -148,9 +148,6 @@ export default function SellerProfile() {
                 <div className={Container_Perfil}>
                   <div className={Container_img_button}>
                     <img src={userState?.photo} alt="perfil-img" />
-                    <Link to="/perfil/editar">
-                      <button>Editar perfil</button>
-                    </Link>
                     <Link to="/perfil/ventas">
                         <button>Historial de Ventas</button>
                     </Link>
