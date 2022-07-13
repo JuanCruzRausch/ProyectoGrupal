@@ -119,7 +119,7 @@ function Cart() {
                 <div className={ItemsContainer_SingleItem} key={i}>
                   <img src={e.thumbnail}/>
                   <h1>{e.title}</h1>
-                  <h2>Total: ${Math.round(e.price*e.quantity)}</h2>
+                  <h2>Total: US$ {Math.round(e.price*e.quantity)}</h2>
                   <div className={Buttons}>
                     <button onClick={() =>{
                       if(e.quantity>1){
@@ -147,7 +147,7 @@ function Cart() {
               </div>
               <div className={Cart_Checkout}>
                 <div className={Checkout_total}>
-                <h1>Total: $ {Math.ceil(PrecioTotal)}</h1>
+                <h1>Total:US$ {Math.ceil(PrecioTotal)}</h1>
               </div>
               <button onClick={()=>navigate('/shipping')}>Checkout</button>
               <button onClick={() => handleClear()}>Borrar carrito</button>
@@ -178,7 +178,7 @@ function Cart() {
                     <Link to={`/products/${e.product}`}>
                         {e.title}
                     </Link>
-                    <h2>${e.price}</h2>
+                    <h2>US$ {e.price}</h2>
                     <h2>{e.province}</h2>
                     {
                     e.freeShipping == true ? <h2 className={Gratis}>Envio Gratuito</h2> : null
