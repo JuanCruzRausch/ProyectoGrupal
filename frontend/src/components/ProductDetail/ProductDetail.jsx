@@ -188,7 +188,14 @@ function ProductDetail(props) {
           count={count}
           stockTotal={State?.stock?.stockTotal}
         />
-        <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
+        {
+          State?.stock.stockTotal>0 ? 
+        <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart}onClick={() => ADDtoCart()} src={cart} 
+        alt="agregar"/>
+        :
+        null
+        }
+
       </div>
       <div className={isdarkMode ? Dark_Description : Detail_Description}>
         <h2>Comentarios Sobre este producto({State?.reviews?.length})</h2>
