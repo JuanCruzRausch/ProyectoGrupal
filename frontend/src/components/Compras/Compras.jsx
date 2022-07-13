@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { container, modal_body, input_modal } from './Compras.module.css';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import arrow from '../../assets/img/leftarrow.png';
 import { Detail_Links } from '../PerfilEditar/PerfilEditar.module.css';
 import { DetailDark } from '../Terms/TermsDark.module.css';
@@ -14,6 +14,7 @@ import StarRating from '../Rating/StarRating';
 import { Form } from 'react-bootstrap';
 import { sendReview } from '../../redux/actions/InteractionsActions';
 import { Helmet } from 'react-helmet-async';
+import swal from 'sweetalert';
 export default function Compras() {
   const navigate = useNavigate();
   const mode = useSelector((state) => state.darkMode);
@@ -40,6 +41,13 @@ export default function Compras() {
     });
   };
   const handleSend = () => {
+    setShow(!show)
+    swal({
+      title: "Good job!",
+      text: "You clicked the button!",
+      icon: "success",
+      button: "Aww yiss!",
+    });
     dispatch(sendReview(publication, seller, user?._id, review));
     setSeller('');
     setPublication('');
@@ -105,7 +113,7 @@ export default function Compras() {
                     </Link>
                   </td>
                 )}
-                <td>{purchase?.publication?.price}</td>
+                <td>${purchase?.transaction?.publication?.price}</td>
                 <td>{purchase?.transaction?.quantity}</td>
                 <td>{purchase?.transaction?.seller?.brand}</td>
                 <td>{purchase?.transaction?.status}</td>
