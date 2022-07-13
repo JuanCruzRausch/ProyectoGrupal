@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { container, modal_body, input_modal } from "./Compras.module.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import arrow from '../../assets/img/leftarrow.png'
+import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
+import { DetailDark} from '../Terms/TermsDark.module.css'
 import { getPurchases, reject, arrived } from "../../redux/actions/userAction";
 import { Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import StarRating from "../Rating/StarRating";
 import { Form } from "react-bootstrap";
 import { sendReview } from '../../redux/actions/InteractionsActions'
 export default function Compras() {
+  const navigate = useNavigate()
+  const mode = useSelector((state) => state.darkMode);
+  const { isdarkMode } = mode;
   const [show, setShow] = useState(false);
   const purchases = useSelector((state) => state.userReducer.purchases);
   const user = useSelector((state) => state.userReducer.user);
@@ -50,7 +56,13 @@ export default function Compras() {
  
   return (
     <div className={container}>
-      <Table>
+      <div className={isdarkMode? DetailDark : Detail_Links}>
+        <img src={arrow} alt="back" />
+        <a onClick={() => navigate(-1)}>
+          <h2>Atras</h2>
+        </a>
+      </div>
+      <Table striped bordered hover variant={isdarkMode? "dark" : "light"} responsive="sm">
         <thead>
           <tr>
             <th>ID</th>
@@ -68,17 +80,17 @@ export default function Compras() {
             <tr>
               <td>{purchase._id}</td>
               {purchase?.transaction?.publication?.title ? (
-                <Link
+                 <td><Link
                   to={`/products/${purchase?.transaction?.publication?._id}`}
                 >
-                  <td>{purchase?.transaction?.publication?.title}</td>
-                </Link>
+                 {purchase?.transaction?.publication?.title}
+                </Link></td>
               ) : (
-                <Link
+                <td><Link
                   to={`/products/${purchase?.transaction?.publication?._id}`}
                 >
-                  <td>{purchase?.transaction?.publication?._id}</td>
-                </Link>
+                  {purchase?.transaction?.publication?._id}
+                </Link></td>
               )}
               <td>{purchase?.publication?.price}</td>
               <td>{purchase?.transaction?.quantity}</td>

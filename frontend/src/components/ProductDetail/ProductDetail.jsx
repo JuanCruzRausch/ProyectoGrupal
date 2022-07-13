@@ -32,6 +32,8 @@ import {
   Payment_methods,
   Detail_Item_pictures,
   SelectedImg,
+  Review,
+  ReviewsContainer
 } from './ProductDetail.module.css';
 import {
   Dark_Item_text,
@@ -42,6 +44,8 @@ import {
   DarkCountPrice_AddCart,
   Dark_text_stockOut,
   DarkStock, 
+  DarkReviews,
+  DarkReview,
   Dark_Description_payment
 } from './DarkDetails.module.css'
 import { DetailDark} from '../Terms/TermsDark.module.css'
@@ -197,17 +201,24 @@ function ProductDetail(props) {
         }
 
       </div>
-      <div className={isdarkMode ? Dark_Description : Detail_Description}>
+
+
+      <div className={isdarkMode ? DarkReviews : ReviewsContainer}>
         <h2>Comentarios Sobre este producto({State?.reviews?.length})</h2>
-        {
-          State?.reviews?.map((e,i) => (
-          <> 
-            <h3>{e.review}</h3>
-            <Rating rating={State?.rating?.total_votes[i]}/>
-          </>
-          ))
-        }
+        <hr/>
+          <div>
+            {
+              State?.reviews?.map((e,i) => (
+              <div className={isdarkMode ? DarkReview : Review }> 
+                <h3>{e.review}</h3>
+                <Rating rating={State?.rating?.total_votes[i]}/>
+              </div>
+              ))
+            }
+        </div>
       </div>
+
+
       <div className={isdarkMode ? Dark_Description : Detail_Description}>
         <div className={isdarkMode ? Dark_Description_Detail : Detail_Description_Detail}>
           <h2>Descripción</h2>

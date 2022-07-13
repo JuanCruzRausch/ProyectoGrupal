@@ -4,8 +4,15 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getSales } from '../../redux/actions/userAction'
 import { Table }  from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import arrow from '../../assets/img/leftarrow.png'
+import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
+import { DetailDark} from '../Terms/TermsDark.module.css'
+
 export default function Ventas() {
+  const navigate = useNavigate()
+  const mode = useSelector((state) => state.darkMode);
+  const { isdarkMode } = mode;
   const sales = useSelector(state => state.userReducer.sales)
   const seller = useSelector(state => state.userReducer.seller)
   const dispatch = useDispatch()
@@ -14,8 +21,13 @@ export default function Ventas() {
   },[seller])
     return (
     <div className={container}>
-        <Table>
-
+      <div className={isdarkMode? DetailDark : Detail_Links}>
+        <img src={arrow} alt="back" />
+        <a onClick={() => navigate(-1)}>
+          <h2>Atras</h2>
+        </a>
+      </div>
+        <Table striped bordered hover variant={isdarkMode? "dark" : "light"} responsive="sm">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -33,12 +45,13 @@ export default function Ventas() {
                  {sales?.map(sale =>(
                      <tr>
                         <td>{sale?._id}</td>
-                        <Link to={`/products/${sale?.transaction?.publication?._id}`}><td >{sale?.transaction?.publication?.title}</td></Link>
-                        <td>{sale?.transaction?.publication?.price}</td>
+                        <td ><Link to={`/products/${sale?.transaction?.publication?._id}`}>{sale?.transaction?.publication?.title}</Link></td>
+                        <td>US$ {sale?.transaction?.publication?.price}</td>
                         <td>{sale?.transaction?.quantity}</td>
                         <td>{sale?.buyer?.name}</td>
-                        <td>{sale?.transaction?.earnings?.seller_earnings.toFixed(2)}</td>
-                        <td>{sale?.transaction?.status}</td>
+                        <td>US$ {sale?.transaction?.earnings?.seller_earnings.toFixed(2)}</td>
+                        <td>{sale?.transaction?.status === "pending" ? "pendiente" : "completado/rechazado"}</td>
+
                         <td>{sale?.dateOfBuy?.substring(0, 10)}</td>
                     </tr>
                  ))}   

@@ -2,8 +2,8 @@ import React from 'react'
 import { Accordion } from 'react-bootstrap'
 import arrow from '../../assets/img/leftarrow.png'
 import { Detail_Links } from "../PerfilEditar/PerfilEditar.module.css";
-import {TermsContainer} from './Terms.module.css'
 import {TermsContainerDark, DetailDark} from './TermsDark.module.css'
+import {TermsContainer} from './Terms.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 function Terms() {
