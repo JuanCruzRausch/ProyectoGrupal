@@ -81,7 +81,7 @@ export default function PlaceOrderScreen() {
                 <Card.Body>
                   <Card.Title>Items</Card.Title>
                   <ListGroup variant="flush">
-                    {SingleCart?.CartItem.title !== undefined ? (
+                    {SingleCart?.CartItem?.title !== undefined ? (
                       <ListGroup.Item>
                         <Row className="align-items-center">
                           <Col md={6}>
