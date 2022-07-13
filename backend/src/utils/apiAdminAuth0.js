@@ -2,19 +2,6 @@ const axios = require('axios');
 const AppError = require('./appError');
 const circularJSON = require('circular-json')
 
-const getConfigTokenAdmin = {
-  method: 'POST',
-  url: 'https://mercadodeenanos.us.auth0.com/oauth/token',
-  headers: { 'content-type': 'application/x-www-form-urlencoded' },
-  data: new URLSearchParams({
-    grant_type: 'client_credentials',
-    client_id: 'AbuaVoPP6epR0dp9DWh1oEif4fCH3GiT',
-    client_secret:
-      'jghCPrUhV0NcJ88ZLXYXNk2Z9Bq_d4A2Ue8Eqo2PfN10NpB1kQ80jivTvnmQ0acp',
-    audience: 'https://mercadodeenanos.us.auth0.com/api/v2/',
-  }),
-};
-
 exports.getAccessTokenAdmin = async () => {
   try {
     const data = new URLSearchParams({
@@ -36,7 +23,6 @@ exports.getAccessTokenAdmin = async () => {
 };
 
 exports.apiAuth0 = {
-
   listUsers: async (token) => {
     const response = await axios.get(
       'https://mercadodeenanos.us.auth0.com/api/v2/users',
@@ -118,18 +104,22 @@ exports.apiAuth0 = {
     return circularJSON.stringify(response)
   },
   assingRolesToAUser: async (token, id, body) => {
-    const response = await axios.post(
-      `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`,
-      body,
-      {
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
-          'cache-control': 'no-cache'
-        },
-      }
-    )
-    return circularJSON.stringify(response);
+    try {
+      const response = await axios.post(
+        `https://mercadodeenanos.us.auth0.com/api/v2/users/${id}/roles`,
+        body,
+        {
+          headers: {
+            'content-type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            'cache-control': 'no-cache'
+          },
+        }
+      )
+      return circularJSON.stringify(response);
+    } catch (error) {
+      throw error
+    }
   },
   assingPermissionsToUser: async (token, id, body) => {
     const response = await axios.post(

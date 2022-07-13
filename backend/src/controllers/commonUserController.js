@@ -1,10 +1,12 @@
 const CommonUser = require('../models/CommonUser');
 const Transaction = require('../models/Transaction');
 const Seller = require('../models/Seller');
+const Rol = require('../models/Roles');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAccessTokenAdmin, apiAuth0 } = require('../utils/apiAdminAuth0');
 const apiFeatures = require('../utils/apiFeatures');
+
 
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
@@ -40,7 +42,7 @@ exports.updateToUser = async (req, res, next) => {
     const { _id, name, nickname, country, address, phone, credit_card, photo } =
       req.body;
     const lastname = req.body.last_name;
-    const userUpdated = await CommonUser.updateOne(
+    await CommonUser.updateOne(
       { _id: _id },
       {
         name,
@@ -54,13 +56,18 @@ exports.updateToUser = async (req, res, next) => {
         authorization: { roles: ['buyer'] },
       }
     );
-    console.log(userUpdated);
-    const user = await CommonUser.findOne({ _id });
+    //Asignación de rol a Buyer
+    const user = await CommonUser.findOne({_id})
+    const token = await getAccessTokenAdmin()
+    const rol_id = await Rol.findOne({name: 'Buyer'})
+    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+
     res.status(200).json({
       status: 'success',
       data: user,
     });
   } catch (error) {
+    console.log(error)
     return next(new AppError('bad request', 400));
   }
 };
@@ -91,6 +98,14 @@ exports.toSeller = catchAsync(async (req, res, next) => {
   if (!userToSeller) {
     return next(new AppError('No user found to update with that ID', 404));
   }
+
+    // asignacion de rol seller
+    const user = await CommonUser.findOne({_id: req.params.id})
+    const token = await getAccessTokenAdmin()
+    const rol_id = await Rol.findOne({name: 'Seller'})
+    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+  
+  
 
   res.status(200).json({
     status: 'success',
