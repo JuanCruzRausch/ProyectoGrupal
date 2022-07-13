@@ -15,6 +15,7 @@ import Chat from '../Chat/Chat';
 import io from 'socket.io-client';
 import url from '../../ulr';
 import {
+  Modals,
   Detail_container,
   Detail_Links,
   Detail_Item,
@@ -33,15 +34,18 @@ import {
   Payment_methods,
   Detail_Item_pictures,
   SelectedImg,
+  ReviewsContainerModal,
   Review,
   ReviewsContainer,
 } from './ProductDetail.module.css';
 import {
+  ModalsDark,
   Dark_Item_text,
   Dark_Description,
   Dark_Description_Detail,
   Dark_CountPrice,
   DarkCompra,
+  DarkReviewsModal,
   DarkCountPrice_AddCart,
   Dark_text_stockOut,
   DarkStock,
@@ -54,10 +58,13 @@ import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
 import { GetSingleProduct } from '../../redux/actions';
 import Rating from '../Rating/Rating';
 import { Helmet } from 'react-helmet-async';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const socket = io.connect(`${url}`);
 
 function ProductDetail(props) {
+  const [show, setShow] = useState(false);
   const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;
   const dispatch = useDispatch();
@@ -234,12 +241,15 @@ function ProductDetail(props) {
           <h2>Comentarios Sobre este producto({State?.reviews?.length})</h2>
           <hr />
           <div>
-            {State?.reviews?.map((e, i) => (
+            {State?.reviews?.slice(0,3).map((e, i) => (
               <div className={isdarkMode ? DarkReview : Review}>
                 <h3>{e.review}</h3>
                 <Rating rating={State?.rating?.total_votes[i]} />
               </div>
             ))}
+                  <Button variant="primary" onClick={() => setShow(true)}>
+                    Ver todas los comentarios
+                  </Button>
           </div>
         </div>
 
@@ -301,6 +311,28 @@ function ProductDetail(props) {
           pauseOnHover
         />
       </div>
+      <Modal
+        className={isdarkMode? ModalsDark : Modals}
+        size="lg"
+        show={show}
+        onHide={() => setShow(false)}
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton closeVariant="white">
+        </Modal.Header>
+        <Modal.Body>
+        <div className={isdarkMode ? DarkReviewsModal : ReviewsContainerModal}>
+          <h2>Comentarios Sobre este producto({State?.reviews?.length})</h2>
+          <hr />
+            {State?.reviews?.map((e, i) => (
+              <div className={isdarkMode ? DarkReview : Review}>
+                <h3>{e.review}</h3>
+                <Rating rating={State?.rating?.total_votes[i]} />
+              </div>
+            ))}
+        </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

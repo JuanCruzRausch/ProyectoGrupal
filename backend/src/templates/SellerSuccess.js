@@ -210,182 +210,21 @@ exports.SellerSuccess = (info) =>{
                                                     style="background-color:#fee600;color:#000;width:650px"
                                                     width="650">
                                                     <tbody>
-                                                        <tr>
-                                                            <td class="m_-208038626744013380column" width="100%"
-                                                                style="font-weight:400;text-align:left;vertical-align:top;padding-top:15px;padding-bottom:35px;border-top:0;border-right:0;border-bottom:0;border-left:0">
-                                                                <table width="100%" border="0" cellpadding="10"
-                                                                    cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <div align="center">
-                                                                                    <a href="#m_-208038626744013380_"
-                                                                                        style="text-decoration:none;display:inline-block;color:#000;background-color:#fff;border-radius:15px;width:auto;border-top:1px solid #fff;font-weight:400;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #fff;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
-                                                                                            style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal"><span
-                                                                                                style="font-size:16px;line-height:2;word-break:break-word"><span
-                                                                                                    style="font-size:18px;line-height:36px"><strong>Ver
-                                                                                                        venta</strong></span></span></span></a>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
-                                    role="presentation">
-                                    <tbody>
                                         <tr>
-                                            <td>
-                                                <table
-                                                    class="m_-208038626744013380row-content m_-208038626744013380stack"
-                                                    align="center" border="0" cellpadding="0" cellspacing="0"
-                                                    role="presentation"
-                                                    style="background-color:#fee600;color:#333;width:650px"
-                                                    width="650">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="m_-208038626744013380column" width="50%"
-                                                                style="font-weight:400;text-align:left;vertical-align:top;background-color:#fff;border-bottom:18px solid #d6e7f0;border-left:18px solid #d6e7f0;border-right:18px solid #d6e7f0;border-top:18px solid #d6e7f0;padding-left:15px">
-                                                                <table class="m_-208038626744013380image_block"
-                                                                    width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="width:100%;padding-right:0;padding-left:0;padding-top:5px">
-                                                                                <div align="center"
-                                                                                    style="line-height:10px"><img
-                                                                                        src="https://ci4.googleusercontent.com/proxy/k515wsmiSA1xmMaaVxoGL_zKO66ufp9Kq5sciLDgaORQ9PUGr70K1PQ2grxlJ-ycQAC-exqk2D2jw84rYS4wAJuxo1aw0uzv8ENV8mc87s5tuy3nmDBgDc_-1EegbQ=s0-d-e1-ft#https://publictemplates.wbsrvcx.com/t/shipping-confirmation/002-shipped.png"
-                                                                                        style="display:block;height:auto;border:0;width:123px;max-width:100%"
-                                                                                        width="123" alt="Image"
-                                                                                        title="Image"
-                                                                                        class="CToWUd"></div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation"
-                                                                    style="word-break:break-word">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="padding-bottom:5px;padding-left:15px;padding-right:15px;padding-top:15px">
-                                                                                <div style="font-family:sans-serif">
-                                                                                    <div
-                                                                                        style="font-size:12px;color:#fc7318;line-height:1.2;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
-                                                                                        <p
-                                                                                            style="margin:0;font-size:14px;text-align:left">
-                                                                                            <span
-                                                                                                style="font-size:24px"><span
-                                                                                                    style="font-size:24px"><strong>Dirección</strong></span><strong
-                                                                                                    style="font-size:24px">&nbsp;de
-                                                                                                </strong><span
-                                                                                                    style="font-size:24px"><strong>envío</strong></span><strong
-                                                                                                    style="font-size:24px">&nbsp;</strong></span>
-                                                                                        </p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation"
-                                                                    style="word-break:break-word">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="padding-bottom:15px;padding-left:15px;padding-right:15px;padding-top:5px">
-                                                                                <div style="font-family:sans-serif">
-                                                                                    <div
-                                                                                        style="font-size:12px;color:#555;line-height:1.5;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
-                                                                                        <p
-                                                                                            style="margin:0;font-size:14px">
-                                                                                            <strong>HARRY MAC
-                                                                                                INTOSH</strong><br>123
-                                                                                            Anywhere
-                                                                                            road<br>Anywhere, IT
-                                                                                            82933</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="padding-bottom:20px;padding-left:10px;padding-right:10px;padding-top:10px;text-align:left">
-                                                                                <div
-                                                                                    style="text-decoration:none;display:inline-block;color:#fff;background-color:#fc7318;border-radius:15px;width:auto;border-top:1px solid #fc7318;font-weight:400;border-right:1px solid #fc7318;border-bottom:1px solid #fc7318;border-left:1px solid #fc7318;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all">
-                                                                                    <span
-                                                                                        style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal"><span
-                                                                                            style="font-size:16px;line-height:2;word-break:break-word"><strong>Sigue
-                                                                                                tu
-                                                                                                envío</strong></span></span>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </td>
-                                                            <td class="m_-208038626744013380column" width="50%"
-                                                                style="font-weight:400;text-align:left;vertical-align:top;border-top:0;border-right:0;border-bottom:0;border-left:0">
-                                                                <table class="m_-208038626744013380image_block"
-                                                                    width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="width:100%;padding-right:0;padding-left:0;padding-top:5px">
-                                                                                <div align="center"
-                                                                                    style="line-height:10px"><img
-                                                                                        src="https://ci5.googleusercontent.com/proxy/7B3_lvRhf07GCryAPNUhCdQnRlUcZaHBRo45n_J9DZlW52sWunMQNrNtXBtWk5vfHocws73gUZbIlHN2Ukt4-HS3j3nRcvXllmVbA2iz0PTAZkNnvJ6zKMs3vVjpCcaTe4ubtmy-zhPipDx0ItiJdavXOnN8CGRC4WIUIW1rTi4orY2uyEFo=s0-d-e1-ft#https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/d12425a2-57e5-445b-896d-425ad79fd2ca/1183196/user.png"
-                                                                                        style="display:block;height:auto;border:0;width:146px;max-width:100%"
-                                                                                        width="146" class="CToWUd">
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="width:100%;text-align:center">
-                                                                                <h1
-                                                                                    style="margin:0;color:#555;font-size:23px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;line-height:120%;text-align:center;direction:ltr;font-weight:700;letter-spacing:normal;margin-top:0;margin-bottom:0">
-                                                                                    <span>Datos del
-                                                                                        comprador:</span></h1>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table width="100%" border="0" cellpadding="0"
-                                                                    cellspacing="0" role="presentation"
-                                                                    style="word-break:break-word">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td
-                                                                                style="padding-top:10px;padding-right:10px;padding-bottom:15px;padding-left:10px">
-                                                                                <div
-                                                                                    style="color:#000;font-size:19px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;font-weight:400;line-height:120%;text-align:left;direction:ltr;letter-spacing:0">
-                                                                                    <p style="margin:0">
-                                                                                        <strong>HARRY MAC
-                                                                                            INTOSH</strong><br>123
-                                                                                        Anywhere road<br>Anywhere,
-                                                                                        IT 82933</p>
+                                            <td class="m_-208038626744013380column" width="100%"
+                                                style="font-weight:400;text-align:left;vertical-align:top;padding-top:15px;padding-bottom:35px;border-top:0;border-right:0;border-bottom:0;border-left:0">
+                                                    <table width="100%" border="0" cellpadding="10"
+                                                        cellspacing="0" role="presentation">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div align="center">
+                                                                        <a href="#m_-208038626744013380_"
+                                                                            style="text-decoration:none;display:inline-block;color:#000;background-color:#fff;border-radius:15px;width:auto;border-top:1px solid #fff;font-weight:400;border-right:1px solid #fff;border-bottom:1px solid #fff;border-left:1px solid #fff;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
+                                                                                style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal"><span
+                                                                                    style="font-size:16px;line-height:2;word-break:break-word"><span
+                                                                                        style="font-size:18px;line-height:36px"><strong>Ver
+                                                                                            venta</strong></span></span></span></a>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>
