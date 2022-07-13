@@ -32,12 +32,12 @@ export default function Perfil() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, []);
 
   return (
     <div>
       <Helmet>
-        <title>ML7E_Perfil</title>
+        <title>ML7E Perfil</title>
       </Helmet>
       <div className={Container}>
         {isAuthenticated ? (
@@ -192,7 +192,9 @@ export default function Perfil() {
                         return <h2>el casi admin😎</h2>;
                       }
                       if (rol === 'common') {
-                        return <h2 className={Common}>Por favor revise su correo</h2>;
+                        return (
+                          <h2 className={Common}>Por favor revise su correo</h2>
+                        );
                       }
                     })}
                   </div>
