@@ -13,6 +13,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../redux/actions/CartActions';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../Loading/Loading'
+import url from '../../ulr';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
@@ -31,6 +33,7 @@ export default function PlaceOrderScreen() {
   const userState = useSelector((state) => state.userReducer.user);
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
   const SingleCart = useSelector((state) => state.CartReducer.SingleCart);
+  const loading = useSelector(state => state.productReducer.loading)
   const PrecioTotal = JSON.stringify(
     state.reduce((prev, next) => prev + next.price * next.quantity, 0)
   );
@@ -38,14 +41,9 @@ export default function PlaceOrderScreen() {
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
     console.log(window.location.href);
-    // sendOrder(userState?._id,{
-    //   PrecioTotal,
-    //   cartItem,
-    //   shippingAddress,
-    //   userState,
-    // })
+    dispatch({type:"SET_LOADING", payload:"spin"})
     let res = await axios.post(
-      'http://localhost:5050/payment/create-order/' + userState?._id,
+      `${url}/payment/create-order/` + userState?._id,
       { PrecioTotal, cartItem, shippingAddress, userState }
     );
     window.location.href = res.data;
@@ -185,6 +183,7 @@ export default function PlaceOrderScreen() {
                         </Col>
                       </Row>
                     </ListGroup.Item>
+                    {loading==="spin"&&<Loading/>}
                     <ListGroup.Item>
                       <div className="d-grid">
                         <Button
