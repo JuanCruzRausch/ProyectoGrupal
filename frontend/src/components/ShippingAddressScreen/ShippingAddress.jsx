@@ -46,8 +46,8 @@ function ShippingAddress() {
 
   useEffect(() => {
     if (!user?.email_verified) {
-      loginWithRedirect()
-      navigate(-1)
+      loginWithRedirect();
+      navigate(-1);
     }
   }, [user, navigate]);
   const handleOnChange = (e, id) => {
@@ -82,7 +82,7 @@ function ShippingAddress() {
   return (
     <div>
       <Helmet>
-        <title>Envio</title>
+        <title>ML7E Envio</title>
       </Helmet>
       <div className={Container}>
         <CheckoutSteps step1 step2></CheckoutSteps>
