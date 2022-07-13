@@ -215,11 +215,7 @@ exports.captureOrder = async (req, res, next) => {
         { new: true }
       );
       const seller = await Seller.findById(purchase_units[i].seller);
-<<<<<<< HEAD
-      const queDevolves = await Seller.findByIdAndUpdate(
-=======
       await Seller.findByIdAndUpdate(
->>>>>>> signInnavbar
          purchase_units[i].seller,
         {
           transactionsTotal: {
@@ -233,11 +229,6 @@ exports.captureOrder = async (req, res, next) => {
         },
         { new: true }
       );
-<<<<<<< HEAD
-      console.log('\n', queDevolves);
-=======
-
->>>>>>> signInnavbar
       const publi = await PublicationTest.findOne({
         _id: purchase_units[i].publication,
       });
@@ -260,12 +251,8 @@ exports.captureOrder = async (req, res, next) => {
       address : buyer.address
     })
 
-<<<<<<< HEAD
-    //purchase_history: buyer.purchase_history.concat({publication_id: new mongoose.mongo.ObjectId(newTransaction._id)})
-=======
     sendEmail(buyer.email, 'Compra realizada exitosamente', template)
     
->>>>>>> signInnavbar
     res.status(200).json({ status: 'success', data: 'success' });
   } catch (error) {
     console.log(error);
@@ -313,11 +300,7 @@ exports.toCanceled = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-<<<<<<< HEAD
-  const sel = await Seller.findByIdAndUpdate(
-=======
   await Seller.findByIdAndUpdate(
->>>>>>> signInnavbar
     transaction.transaction.seller,
     {
       transactionsTotal: {
@@ -328,13 +311,10 @@ exports.toCanceled = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-<<<<<<< HEAD
-=======
   const template = Error(id)
   const user = await CommonUser.findOne({_id: seller.user })
   sendEmail(user.email, 'Venta cancelada por el comprador', template)
 
->>>>>>> signInnavbar
   res.status(200).json({
     status: 'success',
     data: {
@@ -390,11 +370,7 @@ exports.toFulfilled = catchAsync(async (req, res, next) => {
     inactive = [...seller.inactive_pub, pub._id];
   }
 
-<<<<<<< HEAD
-  const sel = await Seller.findByIdAndUpdate(
-=======
   await Seller.findByIdAndUpdate(
->>>>>>> signInnavbar
     transaction.transaction.seller,
     {
       total_earnings:
@@ -410,15 +386,12 @@ exports.toFulfilled = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-<<<<<<< HEAD
-=======
   const user_seller = await CommonUser.findOne({_id: seller.user })
   const user_buyer = await CommonUser.findOne({_id: transaction.buyer})
 
   const template_confirmation = Confirmation()
   const template_sellerSuccess = SellerSuccess()
 
->>>>>>> signInnavbar
   res.status(200).json({
     status: 'success',
     data: {

@@ -220,29 +220,15 @@ exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
 })
 
 
-<<<<<<< HEAD
-exports.getTransactionsSellerLastMonth = async(req, res, next) => {
-  try{
-    const {id} = req.params
-    const transactionsSeller = await Seller.findOne({_id: id})
-    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
-=======
 exports.getSalesLastMonth = async(req, res, next) => {
   try{
     const {id} = req.params
     const transactionsSeller = await Seller.findOne({_id: id})
     const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity transaction.status').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
->>>>>>> signInnavbar
     const sales = []
     transaction.filter(e =>  e.dateOfBuy.getMonth() === new Date(Date.now()).getMonth() && e.transaction.status === 'fulfilled' ).forEach((e,i) => {
       sales[e.dateOfBuy.getDate()] = sales[e.dateOfBuy.getDate()]? (sales[e.dateOfBuy.getDate()] + e.transaction.quantity) : e.transaction.quantity
     })
-<<<<<<< HEAD
-
-    res.status(200).json({
-      status: 'success',
-      data: sales
-=======
     const days = []
     const day = new Date(Date.now()).getDate()
     for (let i = 1; i < day+1; i++) {
@@ -257,7 +243,6 @@ exports.getSalesLastMonth = async(req, res, next) => {
         sales: sales,
         days: days
       }
->>>>>>> signInnavbar
     })  
   }catch(error){
    next(new AppError(error))
