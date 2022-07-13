@@ -20,6 +20,6 @@ sellerRouter
   .patch(sellerController.passtoInactive)
   .put(sellerController.reactivate);
 sellerRouter.route('/transactions-seller/:id').get(sellerController.getTransactionSeller);
-sellerRouter.route('/stats/:id').get(sellerController.getSalesLastMonth);
+sellerRouter.route('/stats/:id').get(sellerController.getTransactionsSellerLastMonth);
 
 module.exports = sellerRouter;
