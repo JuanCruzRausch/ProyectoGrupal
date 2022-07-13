@@ -58,7 +58,7 @@ function NewNavBar(props) {
     const CartState = useSelector(state => state.CartReducer.cart.cartItem)
     const [search, setSearch] = useState('');
     const seller = useSelector(state => state.userReducer.seller)
-    const categories = useSelector((state) => state.productReducer.Categories);
+    const categories = useSelector((state) => state.productReducer.allCategories);
     const userLogged = useSelector((state) => state.userReducer.user)
     const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
     const toggleNav = () =>{
