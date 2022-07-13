@@ -1,6 +1,6 @@
 exports.orderConfirmation = (info) => {
 
-    const {id, total_price, products, address, estimated_delivery_date } = info
+    const {products, address} = info
     
     const template = `
     <html> 
@@ -434,7 +434,7 @@ exports.orderConfirmation = (info) => {
                                                                                         <p
                                                                                             style="margin:0;font-size:14px;text-align:left">
                                                                                             <span
-                                                                                                style="font-size:16px;color:#2190e3"><strong>${e.name}</strong></span>
+                                                                                                style="font-size:16px;color:#2190e3"><strong>${e.title}</strong></span>
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -454,8 +454,7 @@ exports.orderConfirmation = (info) => {
                                                                                         style="font-size:12px;color:#555;line-height:1.2;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
                                                                                         <p
                                                                                             style="margin:0;font-size:14px;text-align:left">
-                                                                                            Sed et justo molestie,
-                                                                                            convallis ipsumac.</p>
+                                                                                            ${e.condition}</p>
                                                                                     </div>
                                                                                 </div>
                                                                             </td>
@@ -587,7 +586,7 @@ exports.orderConfirmation = (info) => {
                                                                                             style="font-size:12px;color:#555;line-height:1.5;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif">
                                                                                             <p
                                                                                                 style="margin:0;font-size:14px">
-                                                                                                 <p>${address.street} ${address.number}<br>${address.province}, ${address.postalCode}</p>
+                                                                                                 <p>${address.street} ${address.number}<br>${address.city}, ${address.postalcode}</p>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>

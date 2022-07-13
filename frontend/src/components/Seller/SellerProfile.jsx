@@ -55,6 +55,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../Auth0/login';
 import { Helmet } from 'react-helmet-async';
 import LogoutButton from '../Auth0/logout';
+
 export default function SellerProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,6 +67,7 @@ export default function SellerProfile() {
   const userState = useSelector((state) => state.userReducer.user);
   const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(salesLastWeek(SellerState?._id))
@@ -101,19 +103,19 @@ export default function SellerProfile() {
 
   const deletePublication = (productId) => {
     swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      title: 'Desea eliminar el producto?',
+      text: 'Una vez eliminado, no podra recuperarse',
       icon: 'warning',
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        swal('Su producto se encuentra a salvo', {
+        swal('El producto fue eliminado', {
           icon: 'success',
         });
         dispatch(deleteProduct(productId, userState._id));
       } else {
-        swal('Your imaginary file is safe!');
+        swal('El producto no fue eliminado');
       }
     });
   };
@@ -148,9 +150,6 @@ export default function SellerProfile() {
                 <div className={Container_Perfil}>
                   <div className={Container_img_button}>
                     <img src={userState?.photo} alt="perfil-img" />
-                    <Link to="/perfil/editar">
-                      <button>Editar perfil</button>
-                    </Link>
                     <Link to="/perfil/ventas">
                         <button>Historial de Ventas</button>
                     </Link>
@@ -221,13 +220,10 @@ export default function SellerProfile() {
                       </h2>
                       <h2>${product?.price}</h2>
                       <h3>Vendidos:{product?.totalSold}</h3>
-                      <button onClick={() => deletePublication(product._id)}>
-                        X
-                      </button>
                       <button
                         onClick={() => desactivarPublication(product._id)}
                       >
-                        ocultar
+                        X
                       </button>
                     </div>
                     <hr />
@@ -244,7 +240,7 @@ export default function SellerProfile() {
                 <Line data={data} />
               </div>
             </div>
-            <h1 className={Titles}>Publicaciones ocultas</h1>
+            <h1 className={Titles}>Publicaciones eliminadas</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
                 {
@@ -282,9 +278,11 @@ export default function SellerProfile() {
                     </div>
                   ))
                   :
-                  <h2>
-                    No tienes publicaciones inactivas
-                  </h2>
+                <div className={EmptyPub}>
+                    <h2>
+                       No tienes publicaciones eliminadas
+                    </h2>
+                </div>
                 }
               </div>
             </div>
