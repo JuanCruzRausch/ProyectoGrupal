@@ -34,9 +34,9 @@ import { useEffect } from "react";
 import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Transaction from "./components/Transtaction/Transaction";
+import url from "./ulr";
 
-const WS = "http://localhost:5050"
-
+const WS = url
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
