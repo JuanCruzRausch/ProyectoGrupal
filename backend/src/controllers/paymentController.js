@@ -208,9 +208,9 @@ exports.captureOrder = async (req, res, next) => {
         },
         { new: true }
       );
-      const seller = await Seller.findById({ _id: purchase_units[i].seller });
+      const seller = await Seller.findById(purchase_units[i].seller);
       const queDevolves = await Seller.findByIdAndUpdate(
-        { _id: purchase_units[i].seller },
+         purchase_units[i].seller,
         {
           transactionsTotal: {
             ...seller.transactionsTotal,
