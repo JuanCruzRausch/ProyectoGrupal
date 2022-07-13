@@ -53,8 +53,12 @@ export function setAlert() {
 export function addPublication( id,data ) {
   return async (dispatch) => {
     return axios.post(`${url}/publicationtest/`+id, data)
-    .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
-    .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
+    .then(res => {
+      dispatch({type:SET_LOADING, payload:"none"})
+      dispatch({type: PUBLICATION_ALERT, payload: "success"})})
+    .catch(res=> {
+      dispatch({type:SET_LOADING, payload:"none"})
+      dispatch({type: PUBLICATION_ALERT, payload: "error"})})
   }
 }
 
@@ -89,7 +93,7 @@ export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
     axios(`${url}/categories`)
-    .then(res =>{ console.log(res)
+    .then(res =>{ 
       dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})}) 
     axios(`${url}/stats/getcategoriesQ`)
         .then(res=> {
