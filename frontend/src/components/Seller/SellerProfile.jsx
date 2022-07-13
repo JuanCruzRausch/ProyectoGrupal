@@ -260,45 +260,7 @@ export default function SellerProfile() {
                 ))}
               </div>
             </div>
-            <h1 className={Titles}>Pendientes</h1>
-            <div className={Container3y4}>
-              <div className={Container_card3}>
-                <h1>Preguntas pendientes de responder</h1>
-                <hr />
-                <div className={PreguntasPreguntas}>
-                  <div className={Preguntas}>
-                    <h2>Aceite Motul 8100 X-Cess 5w40 X 5 Lts.</h2>
-                    <h2>$8250</h2>
-                  </div>
-                  <h3>Hola, tenes stock? gracias</h3>
-                </div>
-                <hr />
-                <div className={PreguntasPreguntas}>
-                  <div className={Preguntas}>
-                    <h2>
-                      Xiaomi Mi Smart Band 6 1.56 Caja De Plástico Pc Black
-                    </h2>
-                    <h2>$5400</h2>
-                  </div>
-                  <h3>se puede jugar al fortnite?</h3>
-                </div>
-                <hr />
-                <div className={PreguntasPreguntas}>
-                  <div className={Preguntas}>
-                    <h2>Escultura de enano de blancanieves </h2>
-                    <h2>$2500</h2>
-                  </div>
-                  <h3>Hola, cuantos enanos vienen? gracias</h3>
-                </div>
-                <hr />
-              </div>
-              <div className={Container_card4}>
-                <h1>Ventas para despachar</h1>
-                <h2>No tenés ventas por preparar :( :( :( </h2>
-              </div>
             </div>
-            <div className={Container_card5}></div>
-          </div>
         ) : (
           <div className={Login}>
             <LoginButton />
