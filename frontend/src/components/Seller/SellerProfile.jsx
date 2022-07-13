@@ -53,7 +53,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../Auth0/login';
 import { Helmet } from 'react-helmet-async';
-import Ventas from '../Ventas/Ventas';
+import LogoutButton from '../Auth0/logout';
 export default function SellerProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -134,6 +134,10 @@ export default function SellerProfile() {
                     <Link to="/perfil/editar">
                       <button>Editar perfil</button>
                     </Link>
+                    <Link to="/perfil/ventas">
+                        <button>Historial de Ventas</button>
+                    </Link>
+                    <LogoutButton />
                   </div>
                     <div className={Container_text}>
                       <h2>
@@ -267,8 +271,6 @@ export default function SellerProfile() {
                 }
               </div>
             </div>
-            <h1 className={Titles}>Historial de ventas</h1>
-            <Ventas />
             </div>
         ) : (
           <div className={Login}>
