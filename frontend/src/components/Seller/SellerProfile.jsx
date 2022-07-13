@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -6,6 +6,7 @@ import {
   inactivePublication,
   activePublication,
 } from '../../redux/actions/index';
+import { salesLastWeek } from '../../redux/actions/userAction'
 import swal from 'sweetalert';
 import { useEffect } from 'react';
 import {
@@ -58,29 +59,45 @@ export default function SellerProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const lastWeek = useSelector((state) => state.userReducer.lastWeek)
+  console.log("lastWeek", lastWeek)
   const seller = useSelector((state) => state.userReducer.seller);
   const userState = useSelector((state) => state.userReducer.user);
   const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(salesLastWeek(SellerState?._id))
+  },[SellerState])
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const data3 = {
-    labels: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30,
-    ],
-    datasets: [
-      {
-        label: 'Ventas',
-        data: [
-          12, 19, 43, 55, 62, 73, 24, 73, 84, 60, 15, 46, 2, 3, 77, 34, 32, 56,
-          2, 35, 6, 13, 45, 123, 34, 100, 20, 45, 56, 84,
-        ],
-        borderColor: 'rgb(3, 249, 60)',
-        backgroundColor: 'rgba(248, 248, 248, 0.5)',
-      },
-    ],
-  };
+  const [data, setData] = useState(null)
+  
+  useEffect(()=>{
+    setData({
+      labels: lastWeek?.days,
+      datasets: [
+        {
+          label: 'Ventas',
+          data: lastWeek?.sales,
+          borderColor: 'rgb(3, 249, 60)',
+          backgroundColor: 'rgba(248, 248, 248, 0.5)',
+        },
+      ],
+    })
+  },[lastWeek])
+  
+  // const data = {
+  //   labels: lastWeek?.days,
+  //   datasets: [
+  //     {
+  //       label: 'Ventas',
+  //       data: lastWeek?.sales,
+  //       borderColor: 'rgb(3, 249, 60)',
+  //       backgroundColor: 'rgba(248, 248, 248, 0.5)',
+  //     },
+  //   ],
+  // };
 
   const deletePublication = (productId) => {
     swal({
@@ -184,7 +201,7 @@ export default function SellerProfile() {
             <h1 className={Titles}>Publicaciones</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
-{                seller?.active_pub.length > 0 ? seller?.active_pub?.map((product) => (
+{                seller?.active_pub?.length > 0 ? seller?.active_pub?.map((product) => (
                   <div key={product._id}>
                     <div className={SingleProduct}>
                       <img
@@ -223,15 +240,15 @@ export default function SellerProfile() {
               }
               </div>
               <div className={Container_card2}>
-                <h2>Ventas en los ultimos 30 días</h2>
-                <Line data={data3} />
+                <h2>Ventas del Mes</h2>
+                <Line data={data} />
               </div>
             </div>
             <h1 className={Titles}>Publicaciones ocultas</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
                 {
-                  seller?.inactive_pub.length > 0 ?
+                  seller?.inactive_pub?.length > 0 ?
                   seller?.inactive_pub?.map((product) => (
                     <div key={product._id}>
                       <div className={SingleProduct}>

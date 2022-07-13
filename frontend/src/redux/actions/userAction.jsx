@@ -5,6 +5,7 @@ export const SET_USER = "SET_USER"
 export const SET_SELLER = "SET_SELLER"
 export const SET_SALES = "SET_SALES"
 export const SET_PURCHASES = "SET_PURCHASES"
+export const LAST_WEEK = "LAST_WEEK"
 
 export function addSeller (data) {
   return async (dispatch) => {
@@ -80,5 +81,12 @@ export function arrived (transaction, user_id) {
     return axios.patch(`${url}/payment/purchase-arrived/${transaction}`)
     .then((res)=> axios(`${url}/commonuser/purchase-user/${user_id}`)
     .then(res =>  dispatch({type: SET_PURCHASES , payload: res.data.data.transaction })))
+  }
+}
+
+export function  salesLastWeek  (seller_id) {
+  return async (dispatch) => {
+    return axios(`${url}/seller/stats/${seller_id}`)
+    .then(res=> dispatch({type: LAST_WEEK, payload: res.data.data }))
   }
 }
