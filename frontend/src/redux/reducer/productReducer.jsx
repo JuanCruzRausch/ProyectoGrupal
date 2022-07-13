@@ -32,7 +32,7 @@ const initialState = {
   loading:"none",
   SingleItem:[],
   pagina: 1,
-  Categories: [],
+  allCategories: [],
   categories: [],
   signUpAlert: '',
   maxMinPrice:{
@@ -77,7 +77,7 @@ function productReducer(state = initialState, { type, payload }) {
     case GET_ALL_CATEGORIES:
       return {
         ...state,
-        Categories:[...payload]
+        allCategories:[...payload]
       }
 
     case GET_PRODUCTS_BY_CATEGORY:

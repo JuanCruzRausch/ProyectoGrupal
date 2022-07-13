@@ -88,15 +88,15 @@ export function GetSingleProduct(id){
 export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
-    return axios(`${url}/categories`)
-    .then(res =>{ 
-      res.data.data.categories.forEach(element => {
-        axios(`${url}/publicationtest?category=`+ element._id)
-        .then(res2=> {
-          arr.push({...element, count: res2.data.results})}) 
-        .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
-    })
-  })}
+    axios(`${url}/categories`)
+    .then(res =>{ console.log(res)
+      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})}) 
+    axios(`${url}/stats/getcategoriesQ`)
+        .then(res=> {
+          dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data})
+        })
+        .then(()=> {})   
+    }
 }
 
 
@@ -184,9 +184,8 @@ export function getAllCategory(payload) {
  }
 
  export function getCategoriesStats (){
-   return async (dispatch) =>{
-     axios(`${url}/stats/getcategoriesQ`)
-     .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
-   }
- }
-
+  return async (dispatch) =>{
+    axios(`${url}/stats/getcategoriesQ`)
+    .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
+  }
+}

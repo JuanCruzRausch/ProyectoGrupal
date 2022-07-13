@@ -62,17 +62,16 @@ export default function SellerProfile() {
   }, []);
 
   const lastWeek = useSelector((state) => state.userReducer.lastWeek)
+  console.log("lastWeek", lastWeek)
   const seller = useSelector((state) => state.userReducer.seller);
   const userState = useSelector((state) => state.userReducer.user);
   const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
   
   const dispatch = useDispatch();
-
   useEffect(()=>{
     dispatch(salesLastWeek(SellerState?._id))
   },[SellerState])
-
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [data, setData] = useState({labels:[], datasets:[]})
   

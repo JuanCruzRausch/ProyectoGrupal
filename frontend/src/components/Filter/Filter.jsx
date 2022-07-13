@@ -7,15 +7,17 @@ const Filter = (props) => {
 
   const category = useSelector((state)=> state.productReducer.category)
   const sort = useSelector((state)=> state.productReducer.sort)
-  const categories = useSelector((state) => state.productReducer.Categories);
+  const allCategories = useSelector((state) => state.productReducer.allCategories);
+  const categories = useSelector((state) => state.productReducer.categories);
   const {max, min} = useSelector((state) => state.productReducer.maxMinPrice)
   const dispatch = useDispatch();
+
   const handleOnSelectCategory = async(e, categoryName) => {
     
     dispatch(setActive(1));
     e.preventDefault();
     props.scrollTo();
-    const cat = categories.find(cat => cat.name===categoryName)
+    const cat = allCategories.find(cat => cat.name===categoryName)
     setCategory(cat._id)
     let sortToSend
     sort==="A-Z"&&(sortToSend = "title")
@@ -42,7 +44,7 @@ const Filter = (props) => {
                 onClick={(e) => handleOnSelectCategory(e, category.name)}
                 href="#"
               >
-                {category.name||"subcategorías"} ({category.count || 0})
+                {category.name||"subcategorías"} ({category.quantity || 0})
               </a>
             </div>
           );
