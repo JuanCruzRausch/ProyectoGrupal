@@ -1,8 +1,9 @@
 
-import { GET_ALL_USER, SAVE_TOKEN } from '../actions/adminAction'
+import { GET_ALL_USER, SAVE_TOKEN, ADMIN_DATA } from '../actions/adminAction'
 const initialState = {
     allUsers: null,
-    token:""
+    token:"", 
+    adminData:null
 }
 
 export default function adminReducer(state = initialState, { type, payload }){
@@ -11,6 +12,8 @@ export default function adminReducer(state = initialState, { type, payload }){
             return {...state, allUsers: payload}
         case SAVE_TOKEN:
             return {...state, token: payload}
+        case ADMIN_DATA:
+            return {...state, adminData: payload}
             default: return state
     }
 }

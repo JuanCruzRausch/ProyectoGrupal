@@ -16,7 +16,8 @@ import {
   SET_LOADING, 
   PUBLICATION_SELLER,
   SET_ORDER,
-  SET_CATEGORY
+  SET_CATEGORY,
+  SET_CATEGORIES_STATS
 } from '../actions/index';
 
 const initialState = {
@@ -32,6 +33,7 @@ const initialState = {
   SingleItem:[],
   pagina: 1,
   Categories: [],
+  categories: [],
   signUpAlert: '',
   maxMinPrice:{
     max: Infinity,
@@ -52,7 +54,8 @@ function productReducer(state = initialState, { type, payload }) {
       return {...state, loading: payload}
     case PUBLICATION_ALERT:
       return {...state, publicationAlert: payload}
-
+    case SET_CATEGORIES_STATS:
+      return {...state, categories: payload}
     case PRICE:
       if((payload.max-payload.min)>=0){
         if(payload.max<=0) payload.max = Infinity
