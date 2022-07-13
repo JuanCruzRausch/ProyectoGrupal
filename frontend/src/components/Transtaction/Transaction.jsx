@@ -11,10 +11,7 @@ export default function Transaction () {
     const dispatch = useDispatch()
     const transaction = useSelector(state => state.interactionsReducer.transaction)
 useEffect(()=>{
-        swal({
-          title: `transacción exitosa`,
-          icon: "success",
-        });
+       
         dispatch(getTransaction(queries))
         navigate("/")
 },[])

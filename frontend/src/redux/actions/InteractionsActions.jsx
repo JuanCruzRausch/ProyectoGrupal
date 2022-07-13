@@ -9,8 +9,16 @@ export const getTransaction = (queries) => {
         //if (res.data.data.transactions[0].status === 'pending') {
         dispatch({ type: 'CLEAR_CART' });
         //  }
-        dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res});
+        dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res.data.data});
       }
-    );
+    )
+    .catch(()=> dispatch({ type: 'CLEAR_CART' }))
   };
 };
+
+export const sendReview = (publication_id, seller_id, user_id, review) =>{
+  return async (dispatch) => {
+    axios.patch(`http://localhost:5050/reputation/${publication_id}/${seller_id}/${user_id}`, review)
+    .then((res)=> console.log(res))
+  }
+}

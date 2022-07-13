@@ -11,7 +11,7 @@ export default function Ventas() {
   const dispatch = useDispatch()
   useEffect(()=>{
     dispatch(getSales(seller?._id))
-  },[user])
+  },[seller])
     return (
     <div className={container}>
         <Table>

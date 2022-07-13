@@ -1,10 +1,14 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {FaStar} from 'react-icons/fa'
 import './Rating.css'
-function StarRating() {
+function StarRating({getRating}) {
     const [rating,setRating] = useState(null)
     const [hover,sethover] = useState(null)
+
+    useEffect(()=>{
+      getRating(rating)
+    },[rating])
   return (
     <div>
         {[...Array(5)].map((star, i) =>{
