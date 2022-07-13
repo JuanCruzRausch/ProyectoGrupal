@@ -55,23 +55,26 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../Auth0/login';
 import { Helmet } from 'react-helmet-async';
 import LogoutButton from '../Auth0/logout';
+
 export default function SellerProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const lastWeek = useSelector((state) => state.userReducer.lastWeek)
-  console.log("lastWeek", lastWeek)
   const seller = useSelector((state) => state.userReducer.seller);
   const userState = useSelector((state) => state.userReducer.user);
   const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
+  
   const dispatch = useDispatch();
+
   useEffect(()=>{
     dispatch(salesLastWeek(SellerState?._id))
   },[SellerState])
+
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({labels:[], datasets:[]})
   
   useEffect(()=>{
     setData({
@@ -218,13 +221,10 @@ export default function SellerProfile() {
                       </h2>
                       <h2>${product?.price}</h2>
                       <h3>Vendidos:{product?.totalSold}</h3>
-                      <button onClick={() => deletePublication(product._id)}>
-                        X
-                      </button>
                       <button
                         onClick={() => desactivarPublication(product._id)}
                       >
-                        ocultar
+                        X
                       </button>
                     </div>
                     <hr />
@@ -241,7 +241,7 @@ export default function SellerProfile() {
                 <Line data={data} />
               </div>
             </div>
-            <h1 className={Titles}>Publicaciones ocultas</h1>
+            <h1 className={Titles}>Publicaciones eliminadas</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
                 {
@@ -279,9 +279,11 @@ export default function SellerProfile() {
                     </div>
                   ))
                   :
-                  <h2>
-                    No tienes publicaciones inactivas
-                  </h2>
+                <div className={EmptyPub}>
+                    <h2>
+                       No tienes publicaciones eliminadas
+                    </h2>
+                </div>
                 }
               </div>
             </div>
