@@ -11,7 +11,7 @@ function Rating({rating}) {
             name='rating' 
             value={rating} 
             />
-            <FaStar color={"#c2af01"} className='star'
+            <FaStar color={"#f1dd01"} className='star'
             size={25}
             />
         </label>)

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClearFromCart, DeleteFromCart, IncreaseCart, DecreaseCart, AddToCart } from '../../redux/actions/CartActions';
-import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem, FavDiv, AddCartFav} from './Cart.module.css';
+import { CartDiv,ItemsContainer,ItemsContainer_SingleItem,ItemsInCart,Cart_Checkout,Checkout_total, EmptyCartContainer,Buttons,EliminarItem, FavDiv, AddCartFav, container} from './Cart.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import EmptyCart from '../../assets/img/emptycart.png';
 import {ToastContainer, toast} from 'react-toastify'
@@ -106,7 +106,7 @@ function Cart() {
 
   const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
   return (
-    <div>
+    <div className={container}>
       <div className={CartDiv}>
         <h1>Tu carrito de compras</h1>
         <hr />
@@ -165,7 +165,7 @@ function Cart() {
         </div>
       </div>
       {
-        FavState && isAuthenticated ? 
+        FavState.length>0 && isAuthenticated ? 
         <div className={FavDiv}>
           <h1>productos que te han interesado</h1>
           <div className={ItemsContainer}>
