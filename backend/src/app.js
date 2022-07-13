@@ -17,7 +17,7 @@ const statsRouter = require('./routes/statsRouter')
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config({ path: "./.env" });
-
+const path=require('path');
 
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 const {roles} = require('./utils/roles')
@@ -27,6 +27,7 @@ const reputationRouter = require('./routes/reputationRouter');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname,'public')));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors({ origin: 'http://localhost:3000' }));
