@@ -25,7 +25,7 @@ export const SET_CATEGORY = "SET_CATEGORY"
 
 export function signUp(data) {
   return async (dispatch) => {
-    return axios.post("${url}/users/signup",{
+    return axios.post(`${url}/users/signup`,{
       ...data,
       photo:"",
     })

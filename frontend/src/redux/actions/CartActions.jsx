@@ -50,9 +50,9 @@ export function OrderSingleProduct(id,count){
 }
 
 export async function sendOrder (id,data){
-    let url = ''
+    let urls = ''
     await axios.post(`${url}/payment/create-order/`+id,data)
-    .then(res =>  url = res.data)
+    .then(res =>  urls = res.data)
 }
 export function IncreaseCart(id){
     return{

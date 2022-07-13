@@ -19,7 +19,7 @@ export const getTransaction = (queries) => {
 
 export const sendReview = (publication_id, seller_id, user_id, review) =>{
   return async (dispatch) => {
-    axios.patch(`http://localhost:5050/reputation/${publication_id}/${seller_id}/${user_id}`, review)
+    axios.patch(`${url}/reputation/${publication_id}/${seller_id}/${user_id}`, review)
     .then((res)=> console.log(res))
   }
 }
