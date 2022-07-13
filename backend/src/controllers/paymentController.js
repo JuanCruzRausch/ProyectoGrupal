@@ -393,6 +393,9 @@ exports.toFulfilled = catchAsync(async (req, res, next) => {
   const template_confirmation = Confirmation()
   const template_sellerSuccess = SellerSuccess()
 
+  sendEmail(user_seller.email, 'Compra confirmada!', template_sellerSuccess)
+  sendEmail(user_buyer.email, 'Compra confirmada!', template_confirmation)
+
   res.status(200).json({
     status: 'success',
     data: {
