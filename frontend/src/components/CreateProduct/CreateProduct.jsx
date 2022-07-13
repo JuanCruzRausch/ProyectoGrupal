@@ -8,6 +8,7 @@ import free from '../../assets/img/icons_Products/free.png';
 import normal from '../../assets/img/icons_Products/correo.png';
 import seller from '../../assets/img/icons_Products/seller.png';
 import pickup from '../../assets/img/icons_Products/-person.png';
+import Loading from '../Loading/Loading'
 import { Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -38,7 +39,7 @@ function CreateProduct() {
     window.scrollTo(0, 0);
   }, []);
   const { isAuthenticated } = useAuth0();
-  const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
+  const CATEGORIAS = useSelector((state) => state.productReducer.allCategories);
   const alert = useSelector((state) => state.productReducer.publicationAlert);
   const userState = useSelector((state) => state.userReducer.user);
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function CreateProduct() {
   const [images, setImages] = useState([]);
   const [stockTotal, setStockTotal] = useState(0);
   const { _id } = useSelector((state) => state.userReducer.seller);
+  const loading = useSelector(state => state.productReducer.loading)
   const [data, setData] = useState({
     title: '',
     description: '',
@@ -124,6 +126,7 @@ function CreateProduct() {
     }
 
     let arrayImg = [];
+    dispatch({type:"SET_LOADING", payload:"spin"})
     for (let i = 0; i < images.length; i++) {
       let f = new FormData();
       f.append('image', images[i][0]);
@@ -185,6 +188,7 @@ function CreateProduct() {
       </Helmet>
 
       <div className={CreateDiv}>
+        
         {userState?.authorization?.roles.includes('seller') ? (
           <div>
             <h1>Publica tu Producto</h1>
@@ -477,6 +481,7 @@ function CreateProduct() {
                   </div>
                 ) : null}
               </Form.Group>
+                {loading==="spin"&&<Loading/>}
               <div className={img}>
                 <div>
                   <h1>Cantidad Total: {stockTotal}</h1>
@@ -486,6 +491,7 @@ function CreateProduct() {
                 </span>
               </div>
             </Form>
+           
           </div>
         ) : (
           <LoginButton />
