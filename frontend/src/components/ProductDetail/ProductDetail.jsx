@@ -11,13 +11,8 @@ import gps from '../../assets/img/gps.png';
 import user from '../../assets/img/user.png';
 import arrow from '../../assets/img/leftarrow.png';
 import { ToastContainer, toast } from 'react-toastify';
-<<<<<<< HEAD
 import Chat from "../Chat/Chat"
 import io from "socket.io-client"
-=======
-import Chat from '../Chat/Chat';
-import io from 'socket.io-client';
->>>>>>> Dev
 import url from '../../ulr';
 import {
   Modals,
@@ -66,11 +61,7 @@ import { Helmet } from 'react-helmet-async';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-<<<<<<< HEAD
-const socket = io.connect(`${url}`)
-=======
 const socket = io.connect(`${url}`);
->>>>>>> Dev
 
 function ProductDetail(props) {
   const [show, setShow] = useState(false);
