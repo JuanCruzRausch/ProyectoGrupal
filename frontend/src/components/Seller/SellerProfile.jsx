@@ -121,6 +121,7 @@ export default function SellerProfile() {
       </div>
       {isAuthenticated ? (
         <div>
+        
           <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings.toFixed(2)}</h1>
           {isAuthenticated ? (<h1 className={Titles}>Perfil de Vendedor:</h1>) : null}
           {isAuthenticated ? (
