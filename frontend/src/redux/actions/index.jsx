@@ -89,10 +89,8 @@ export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
     axios(`${url}/categories`)
-    .then(res =>{ 
-      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data})})
-        
-    
+    .then(res =>{ console.log(res)
+      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})}) 
     axios(`${url}/stats/getcategoriesQ`)
         .then(res=> {
           dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data})
