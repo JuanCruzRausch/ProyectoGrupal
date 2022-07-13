@@ -8,6 +8,7 @@ const {
   getTotalSales,
   getAllActivePubs,
   getAllResults,
+  getCategoriesQ,
 } = require('../controllers/statsController');
 
 const statsRouter = Router();
@@ -32,5 +33,5 @@ statsRouter.get(
   getTotalSales
 );
 statsRouter.get('/getresults', getAllResults);
-
+statsRouter.get('/getcategoriesq', getCategoriesQ);
 module.exports = statsRouter;
