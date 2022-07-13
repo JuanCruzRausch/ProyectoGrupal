@@ -14,7 +14,7 @@ import {Count,Counterstock,Counter,counterbutton} from './Count.module.css'
              }
           </div>
           <div className={Counterstock}>
-           <h2>stock disponible<br/>{stockTotal}</h2>
+           <h2>Stock disponible<br/>{stockTotal}</h2>
           </div>
        </div>
      )

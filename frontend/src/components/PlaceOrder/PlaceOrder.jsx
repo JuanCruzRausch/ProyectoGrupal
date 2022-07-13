@@ -13,6 +13,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../redux/actions/CartActions';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../Loading/Loading'
+import url from '../../ulr';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
@@ -28,31 +30,30 @@ export default function PlaceOrderScreen() {
   //   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   //   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   //   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  const userState = useSelector( state => state.userReducer.user)
+  const userState = useSelector((state) => state.userReducer.user);
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
   const SingleCart = useSelector((state) => state.CartReducer.SingleCart);
+  const loading = useSelector(state => state.productReducer.loading)
   const PrecioTotal = JSON.stringify(
     state.reduce((prev, next) => prev + next.price * next.quantity, 0)
   );
   const dispatch = useDispatch();
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
-    console.log(window.location.href)
-      // sendOrder(userState?._id,{
-      //   PrecioTotal,
-      //   cartItem,
-      //   shippingAddress,
-      //   userState,
-      // })
-    let res =  await axios.post("http://localhost:5050/payment/create-order/"+userState?._id,{PrecioTotal,cartItem,shippingAddress,userState,})
-    window.location.href= res.data
-    console.log(window.location.href)
+    console.log(window.location.href);
+    dispatch({type:"SET_LOADING", payload:"spin"})
+    let res = await axios.post(
+      `${url}/payment/create-order/` + userState?._id,
+      { PrecioTotal, cartItem, shippingAddress, userState }
+    );
+    window.location.href = res.data;
+    console.log(window.location.href);
   };
-  console.log(SingleCart?.CartItem)
+  console.log(SingleCart?.CartItem);
   return (
     <div>
       <Helmet>
-        <title>Orden de Compra</title>
+        <title>ML7E Orden de Compra</title>
       </Helmet>
       <div className={GeneralContainer}>
         <CheckoutSteps step1 step2 step3></CheckoutSteps>
@@ -81,7 +82,7 @@ export default function PlaceOrderScreen() {
                 <Card.Body>
                   <Card.Title>Items</Card.Title>
                   <ListGroup variant="flush">
-                    {SingleCart?.CartItem.title !== undefined ? (
+                    {SingleCart?.CartItem?.title !== undefined ? (
                       <ListGroup.Item>
                         <Row className="align-items-center">
                           <Col md={6}>
@@ -100,7 +101,10 @@ export default function PlaceOrderScreen() {
                           </Col>
                           <Col md={3}>
                             $
-                            {Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)}
+                            {Math.round(
+                              SingleCart?.CartItem.quantity *
+                                SingleCart?.CartItem.price
+                            )}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -109,12 +113,23 @@ export default function PlaceOrderScreen() {
                         <ListGroup.Item key={item.product}>
                           <Row className="align-items-center">
                             <Col md={6}>
-                              <img
+                              {
+                                item.thumbnail ? 
+                                <img
                                 className={logo}
-                                src={item.thumbnail[0]}
+                                src={item.thumbnail}
                                 alt={item.title}
                                 //   className="img-fluid rounded img-thumbnail"
-                              ></img>{' '}
+                              />
+                              : null
+                              }
+                              <img
+                                className={logo}
+                                src={item?.thumbnail}
+                                alt={item.title}
+                                //   className="img-fluid rounded img-thumbnail"
+                              />
+                              {' '}
                               <Link to={`/products/${item.product}`}>
                                 {item.title}
                               </Link>
@@ -144,7 +159,10 @@ export default function PlaceOrderScreen() {
                         <Col>
                           $
                           {SingleCart?.CartItem.price !== undefined
-                            ? Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)
+                            ? Math.round(
+                                SingleCart?.CartItem.quantity *
+                                  SingleCart?.CartItem.price
+                              )
                             : Number(PrecioTotal).toFixed(2)}
                         </Col>
                       </Row>
@@ -157,13 +175,15 @@ export default function PlaceOrderScreen() {
                             $
                             {SingleCart?.CartItem.price !== undefined
                               ? Math.round(
-                                  SingleCart?.CartItem.quantity * SingleCart?.CartItem.price
+                                  SingleCart?.CartItem.quantity *
+                                    SingleCart?.CartItem.price
                                 )
                               : Number(PrecioTotal).toFixed(2)}
                           </strong>
                         </Col>
                       </Row>
                     </ListGroup.Item>
+                    {loading==="spin"&&<Loading/>}
                     <ListGroup.Item>
                       <div className="d-grid">
                         <Button

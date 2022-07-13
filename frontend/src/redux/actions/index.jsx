@@ -21,6 +21,7 @@ export const SET_LOADING = "SET_LOADING";
 export const DELETE_PUBLICATION = "DELETE_PUBLICATION";
 export const SET_ORDER = "SET_ORDER"
 export const SET_CATEGORY = "SET_CATEGORY"
+export const SET_CATEGORIES_STATS = "SET_CATEGORIES_STATS"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -52,8 +53,12 @@ export function setAlert() {
 export function addPublication( id,data ) {
   return async (dispatch) => {
     return axios.post(`${url}/publicationtest/`+id, data)
-    .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
-    .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
+    .then(res => {
+      dispatch({type:SET_LOADING, payload:"none"})
+      dispatch({type: PUBLICATION_ALERT, payload: "success"})})
+    .catch(res=> {
+      dispatch({type:SET_LOADING, payload:"none"})
+      dispatch({type: PUBLICATION_ALERT, payload: "error"})})
   }
 }
 
@@ -87,15 +92,15 @@ export function GetSingleProduct(id){
 export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
-    return axios(`${url}/categories`)
+    axios(`${url}/categories`)
     .then(res =>{ 
-      res.data.data.categories.forEach(element => {
-        axios(`${url}/publicationtest?category=`+ element._id)
-        .then(res2=> {
-          arr.push({...element, count: res2.data.results})}) 
-        .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
-    })
-  })}
+      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data.categories})}) 
+    axios(`${url}/stats/getcategoriesQ`)
+        .then(res=> {
+          dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data})
+        })
+        .then(()=> {})   
+    }
 }
 
 
@@ -160,9 +165,6 @@ export function inactivePublication (_id, userID){
     return axios.patch(`${url}/seller/`+_id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
-      dispatch({
-        type: DELETE_PUBLICATION
-      })
     })
   }
 }
@@ -185,3 +187,9 @@ export function getAllCategory(payload) {
   }
  }
 
+ export function getCategoriesStats (){
+  return async (dispatch) =>{
+    axios(`${url}/stats/getcategoriesQ`)
+    .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
+  }
+}

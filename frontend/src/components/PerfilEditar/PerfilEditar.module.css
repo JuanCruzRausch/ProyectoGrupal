@@ -20,12 +20,14 @@
   font-size: 2.5vh;  
   align-self: center;
   align-content: center;
+  cursor: pointer;
 }
 .Detail_Links a h2{
   margin: auto;
   font-size: 2.1vh !important;
   font-weight: 700 !important;
   color: black;  
+  cursor: pointer;
 }
 
 .Form_Div {

@@ -1,6 +1,7 @@
 .container{
-    width:90%;
-    margin: auto;
+    width:80%;
+    margin: 4rem auto;
+    min-height: 70vh;
 }
 .modal{
     position: fixed !important;
@@ -10,4 +11,13 @@
 }
 .input_modal{
     margin-left: 1rem !important;
+}
+.container table{
+    text-align: center;
+}
+
+@media screen and (max-width:600px) {
+    .container{
+        width:100%;
+    }
 }

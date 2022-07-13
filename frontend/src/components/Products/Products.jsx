@@ -87,8 +87,7 @@ function Products({ refElement, scrollTo }) {
             {!productos.length && loading === 'spin' && <Loading />}
             {!productos.length && loading === 'enanos' && (
               <div className={ErrorEnano}>
-                <h1>los enanitos no hicieron los productos.</h1>
-                <h1>los enanitos exigen un aumento salarial</h1>
+                <h1>los enanitos no pudieron traer el producto solicitado</h1>
                 <img src={sindicato} />
               </div>
             )}

@@ -32,12 +32,12 @@ export default function Perfil() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  },[])
+  }, []);
 
   return (
     <div>
       <Helmet>
-        <title>ML7E_Perfil</title>
+        <title>ML7E Perfil</title>
       </Helmet>
       <div className={Container}>
         {isAuthenticated ? (
@@ -64,7 +64,7 @@ export default function Perfil() {
                             <br />
                             <div>
                               <label htmlFor="">
-                                facebook: {sellerState.social_net.fb}
+                                Facebook: {sellerState.social_net.fb}
                               </label>
                             </div>
                           </div>
@@ -72,14 +72,14 @@ export default function Perfil() {
                         <div>
                           {sellerState?.social_net?.tw ? (
                             <label htmlFor="">
-                              twitter: {sellerState.social_net.tw}
+                              Twitter: {sellerState.social_net.tw}
                             </label>
                           ) : null}
                         </div>
                         <div>
                           {sellerState?.social_net?.ig ? (
                             <label htmlFor="">
-                              instagram: {sellerState.social_net.ig}
+                              Instagram: {sellerState.social_net.ig}
                             </label>
                           ) : null}
                         </div>
@@ -192,20 +192,22 @@ export default function Perfil() {
                         return <h2>el casi admin😎</h2>;
                       }
                       if (rol === 'common') {
-                        return <h2 className={Common}>Por favor revise su correo</h2>;
+                        return (
+                          <h2 className={Common}>Por favor revise su correo</h2>
+                        );
                       }
                     })}
                   </div>
                   {userState?.registration_date && (
                     <div>
-                      <h3> registrado desde: </h3>
+                      <h3> Registrado desde: </h3>
                       <h2>
                         {registered[1]}/{registered[0]}
                       </h2>
                     </div>
                   )}
                   <div>
-                    <h3> télefono: </h3>
+                    <h3> Télefono: </h3>
                     <h2>{userState?.phone}</h2>
                   </div>
                   {userState?.credit_card ? (

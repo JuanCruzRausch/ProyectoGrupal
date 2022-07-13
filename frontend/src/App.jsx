@@ -37,6 +37,7 @@ import Transaction from "./components/Transtaction/Transaction";
 import url from "./ulr";
 import Ventas from "./components/Ventas/Ventas";
 import Compras from "./components/Compras/Compras";
+import { Helmet } from "react-helmet-async";
 
 const WS = url
 function App() {
@@ -63,6 +64,9 @@ function App() {
       : app 
       }>
       <BrowserRouter>
+      <Helmet>
+        <link rel="icon" type="image/x-icon" href="/src/assets/img/logoML7E.png" />
+      </Helmet>
          <NewNavBar scrollTo={scrollToSort}/> 
        <div className={darkmode}>
         <input type="checkbox" className={checkbox} id="checkbox" onChange={switchDarkMode} checked={isdarkMode} />

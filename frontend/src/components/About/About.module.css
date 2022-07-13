@@ -1,14 +1,89 @@
 .AboutUs{
+    transition: all .6s ease-in-out;
     width: 80%;
     margin: auto;
-    background-color: #fff;
     border-radius: 15px;
+    padding: 15px;
+}
+.AboutUsDark{
+    transition: all .6s ease-in-out;
+    width: 80%;
+    margin: auto;
+    border-radius: 15px;
+    padding: 15px;
+}
+.AboutUsDark h2{
+    transition: all .6s ease-in-out;
+    margin: 3rem 0;
+    font-size: 2.5rem !important;
+    color: white;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.AboutUsDark h1{
+    transition: all .6s ease-in-out;
+    font-size: 2rem !important;
+    color: white;
+}
+.AboutUs h2{
+    transition: all .6s ease-in-out;
+    margin: 3rem 0;
+    font-size: 2.5rem !important;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.AboutUs h1{
+    transition: all .6s ease-in-out;
+    font-size: 2rem !important;
+    color: rgb(0, 0, 0);
 }
 .AboutTeam{
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 70%;
     justify-content: space-around;
-    margin: 0 auto;
+    margin: 4rem auto !important;
+}
+.AboutTeam div img{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+.SingleContainer{
+    border-radius: 20px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 400px;
+    width: 250px;
+    border: 1px rgba(249, 249, 249, 0.1) solid;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+.TextContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(174, 255, 228);
+    border-radius: 20px !important;
+}
+.GHyLDn{
+    margin-top: 2rem;
+    width: 100%;
+    background-color: rgb(174, 255, 228) !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

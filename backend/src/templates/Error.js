@@ -1,5 +1,5 @@
-exports.orderConfirmation = () => {
-    const error = `
+exports.orderConfirmation = (id) => {
+  const error = `
     <html>
     <div class="">
     <div class="aHl"></div>
@@ -155,7 +155,7 @@ exports.orderConfirmation = () => {
                                                                                                             un
                                                                                                             problema
                                                                                                             con tu
-                                                                                                            venta!</span></span></strong></span>
+                                                                                                            venta! ID de la transacción: ${id}</span></span></strong></span>
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
@@ -345,6 +345,6 @@ exports.orderConfirmation = () => {
     </div>
 </div>
     </html>
-    `
-    return error
-}
+    `;
+  return error;
+};

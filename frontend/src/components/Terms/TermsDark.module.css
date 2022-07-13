@@ -20,6 +20,7 @@
 
 .DetailDark  img{
     width: 35px;
+    
   }
 
 .DetailDark a{
@@ -38,6 +39,7 @@
     font-size: 2.1vh !important;
     font-weight: 700 !important;
     color: black;  
+    cursor: pointer;
   }
 
 .DetailDark h2{
