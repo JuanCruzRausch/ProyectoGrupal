@@ -9,9 +9,9 @@
     transition: all .6s ease-in-out;
 }
 .NavDark a{
-    color: white;
+    color: rgb(138, 138, 138) !important;
     transition: all .6s ease-in-out;
 }
-.darkA a{
+.darkA {
     color: black;
 }

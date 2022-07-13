@@ -99,58 +99,6 @@ exports.getSeller = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateActivePubs = catchAsync(async (req, res, next) => {
-  const { id } = req.params; //recibe el ID del Seller
-  let idsArr = []; //Está vacío, pero vos esperá
-  const pubUpdate = await PublicationTest.find({ seller: id }).select('_id'); // Busca en las publicaciones de ese seller y solo trae el id, si es poco performante
-
-  if (!pubUpdate) {
-    return next(
-      new AppError(
-        'The publication doesnt match to any seller weeeeeiiiird',
-        404
-      )
-    );
-  }
-
-  let pubID = pubUpdate[0]._id; //pubID solamente tiene el ID ahora
-
-  const findSeller = await Seller.findById({ _id: id }); //Encuentra al vendedor con ese ID que le pasaste arriba
-
-  const activeSeller = findSeller.active_pub; //Entra a active_pub que es un arreglo, son muchos pasos pero a Mongoose le gusta caminar
-
-  console.log('ESTE ES EL SELLER ENCONTRADO', findSeller);
-  console.log('ESTE ES EL PUBID', pubID);
-  console.log('ESTE ES EL FINDSELLER ACTIVE PUB', activeSeller);
-
-  if (!activeSeller.includes(pubID)) {
-    //Si el active_pub del vendedor ya tiene ese ID del producto, entonces no lo incorpora
-    idsArr.push(pubID);
-  } else {
-    return next(
-      new AppError('This product is already in the active_pub of seller', 404)
-    );
-  }
-
-  console.log('Este es el array', idsArr);
-
-  const sellerUpdate = await Seller.findByIdAndUpdate(
-    { _id: id },
-    { $push: { active_pub: [idsArr] } },
-    {
-      //Sin ese $push mongo no te deja colocar más elementos en el active_pub
-      new: true,
-    }
-  );
-  console.log('ESTE ES EL SELLER UPDATE', sellerUpdate);
-  res.status(200).json({
-    status: 'success',
-    data: {
-      sellerUpdate,
-    },
-  });
-});
-
 exports.postAndDeletePublication = catchAsync(async (req, res, next) => {
   let deletedPub = await PublicationTest.findById(req.params.idpub);
   if (!deletedPub) {
@@ -241,7 +189,7 @@ exports.reactivate = catchAsync(async (req, res, next) => {
 exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
   try {
       const {id} = req.params
-      const transactionsSeller = await Seller.findOne({user: id})
+      const transactionsSeller = await Seller.findOne({_id: id})
       const transaction = await Transaction.find().where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
     .populate({
       path:'buyer',
@@ -270,3 +218,23 @@ exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
       next(new AppError(error));
   }
 })
+
+
+exports.getTransactionsSellerLastMonth = async(req, res, next) => {
+  try{
+    const {id} = req.params
+    const transactionsSeller = await Seller.findOne({_id: id})
+    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
+    const sales = []
+    transaction.filter(e =>  e.dateOfBuy.getMonth() === new Date(Date.now()).getMonth() && e.transaction.status === 'fulfilled' ).forEach((e,i) => {
+      sales[e.dateOfBuy.getDate()] = sales[e.dateOfBuy.getDate()]? (sales[e.dateOfBuy.getDate()] + e.transaction.quantity) : e.transaction.quantity
+    })
+
+    res.status(200).json({
+      status: 'success',
+      data: sales
+    })  
+  }catch(error){
+   next(new AppError(error))
+  }
+}

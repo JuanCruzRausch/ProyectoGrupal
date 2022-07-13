@@ -166,7 +166,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                    {product_seller_id!==seller?._id?
                    <button className='button btn danger' onClick={()=>deleteMessage(message._id)}>X</button>
                    :null} 
-                        <p>{message.time}- {message?.name? message.name :"anonimo"}--{message?.date}</p>
+                        <p>{message.time}- {message?.name? message.name :"anonimo"} {message?.date.substring(0, 10)}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(

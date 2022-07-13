@@ -12,7 +12,6 @@ sellerRouter
 sellerRouter
   .route('/:id')
   .get(sellerController.getSeller)
-  .patch(sellerController.updateActivePubs);
 sellerRouter
   .route('/getAll', authorizeAccessToken, roles.admin, sellerController.getAllSellers)
 sellerRouter
@@ -21,5 +20,6 @@ sellerRouter
   .patch(sellerController.passtoInactive)
   .put(sellerController.reactivate);
 sellerRouter.route('/transactions-seller/:id').get(sellerController.getTransactionSeller);
+sellerRouter.route('/transactions-seller-last-month/:id').get(sellerController.getTransactionsSellerLastMonth);
 
 module.exports = sellerRouter;

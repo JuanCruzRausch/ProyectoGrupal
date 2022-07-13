@@ -76,6 +76,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-content: space-between;
+    align-items: center;
 }
 .Dark_Item_text h1{
     font-style: normal;
@@ -107,15 +108,17 @@
 }
 
 .Dark_Item_text h2 span{
+    transition: all .6s ease-in-out;
     font-weight: 700;
 }
 .Dark_Item_text h2 img{
+    transition: all .6s ease-in-out;
     width: 30px;
     height: 30px;
     margin: 1.6vh 0;
+    filter: invert(100%);
 }
 .Dark_Item_text h2{
-    align-self: flex-start;
     color: rgb(255, 255, 255);
     font-weight: 300;
     font-size: 2vh;
@@ -204,14 +207,13 @@
 }
 .Dark_Description_Detail h2 {
     font-weight: 300;
-    font-size: 4vh;
+    font-size: 2rem !important;
 }
 .Dark_Description_Detail p {
     margin-top: 4vh;
-    width: 70%;
-    line-height: 5vh;
+    width: 75%;
+    line-height: 2rem;
     font-weight: 400;
-    font-size: 2vh;
 }
 .Dark_Description_payment{
     border-left: rgba(125, 124, 124, 0.531) 1px solid;
@@ -220,6 +222,10 @@
     padding: 3vh;
     display: flex;
     flex-direction: column;
+}
+.Dark_Description_payment h2{
+    font-size: 2rem !important;
+    font-weight: 300;
 }
 .Payment_methods{
     margin-top: 5vh;

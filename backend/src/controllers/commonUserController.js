@@ -1,9 +1,12 @@
 const CommonUser = require('../models/CommonUser');
 const Transaction = require('../models/Transaction');
 const Seller = require('../models/Seller');
+const Rol = require('../models/Roles');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAccessTokenAdmin, apiAuth0 } = require('../utils/apiAdminAuth0');
+const apiFeatures = require('../utils/apiFeatures');
+
 
 exports.post = catchAsync(async (req, res, next) => {
   const newUser = await CommonUser.create({
@@ -39,17 +42,32 @@ exports.updateToUser = async (req, res, next) => {
     const { _id, name, nickname, country, address, phone, credit_card, photo } =
       req.body;
     const lastname = req.body.last_name;
-    const userUpdated = await CommonUser.updateOne(
+    await CommonUser.updateOne(
       { _id: _id },
-      { name, lastname, nickname, country, address, phone, credit_card, photo, authorization: { roles: ['buyer'] } }
+      {
+        name,
+        lastname,
+        nickname,
+        country,
+        address,
+        phone,
+        credit_card,
+        photo,
+        authorization: { roles: ['buyer'] },
+      }
     );
-    console.log(userUpdated);
-    const user = await CommonUser.findOne({ _id });
+    //Asignación de rol a Buyer
+    const user = await CommonUser.findOne({_id})
+    const token = await getAccessTokenAdmin()
+    const rol_id = await Rol.findOne({name: 'Buyer'})
+    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+
     res.status(200).json({
       status: 'success',
       data: user,
     });
   } catch (error) {
+    console.log(error)
     return next(new AppError('bad request', 400));
   }
 };
@@ -81,6 +99,14 @@ exports.toSeller = catchAsync(async (req, res, next) => {
     return next(new AppError('No user found to update with that ID', 404));
   }
 
+    // asignacion de rol seller
+    const user = await CommonUser.findOne({_id: req.params.id})
+    const token = await getAccessTokenAdmin()
+    const rol_id = await Rol.findOne({name: 'Seller'})
+    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+  
+  
+
   res.status(200).json({
     status: 'success',
     data: {
@@ -90,44 +116,66 @@ exports.toSeller = catchAsync(async (req, res, next) => {
 });
 
 exports.blockUser = catchAsync(async (req, res, next) => {
-  
   try {
-    const { id } = req.params
-    const { block } = req.query
-    console.log(block)
-    const value = block==='true'?true:false
-    const token = await getAccessTokenAdmin()
-    await apiAuth0.blockUser(token.data.access_token, id, value)
-    const user = await CommonUser.findOneAndUpdate({user_id : id}, {blocked: value}, {new: true})
+    const { id } = req.params;
+    const { block } = req.query;
+    console.log(block);
+    const value = block === 'true' ? true : false;
+    const token = await getAccessTokenAdmin();
+    await apiAuth0.blockUser(token.data.access_token, id, value);
+    const user = await CommonUser.findOneAndUpdate(
+      { user_id: id },
+      { blocked: value },
+      { new: true }
+    );
     res.status(200).json({
       status: 'success',
-      data: user
-    })
+      data: user,
+    });
   } catch (error) {
-    console.log(error.response)
-    next(new AppError(error))
+    console.log(error.response);
+    next(new AppError(error));
   }
-})
+});
 
-exports.getPurchasesUser = catchAsync(async(req,res,next)=>{
-
-    const {id} = req.params
-    const transactionsUser = await CommonUser.findOne({_id: id})
-    const transaction = await Transaction.find().where('_id').in(transactionsUser.purchase_history)
+exports.getPurchasesUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const transactionsUser = await CommonUser.findOne({ _id: id });
+  const transaction = await Transaction.find()
+    .where('_id')
+    .in(transactionsUser.purchase_history)
     .populate({
-      path:'transaction.seller',
+      path: 'transaction.seller',
       model: 'Seller',
-      select: 'brand'
+      select: 'brand',
     })
     .populate({
-      path:'transaction.publication',
+      path: 'transaction.publication',
       model: 'PublicationTest',
-      select: 'price picture title'
-    })
-      res.status(201).json({
-          status:'success',
-          data:{
-            transaction
-          }
-      });
-})
+      select: 'price picture title',
+    });
+  res.status(201).json({
+    status: 'success',
+    data: {
+      transaction,
+    },
+  });
+});
+
+exports.getUserPerName = catchAsync(async (req, res, next) => {
+  const { name } = req.query;
+
+  const users = await CommonUser.find({
+    name: { $regex: name, $options: 'i' },
+  });
+
+  if (users.length <= 0) {
+    return next(new AppError('There are no users with that name', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    results: users.length,
+    data: users,
+  });
+});

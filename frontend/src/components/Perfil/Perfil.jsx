@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import LoginButton from '../Auth0/login';
 import SellerProfile from '../Seller/SellerProfile';
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 
 export default function Perfil() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -28,7 +29,10 @@ export default function Perfil() {
   const userState = useSelector((state) => state.userReducer.user);
   const sellerState = useSelector((state) => state.userReducer.seller);
   const registered = userState?.registration_date.split('-');
-  console.log(userState);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
 
   return (
     <div>
@@ -113,7 +117,12 @@ export default function Perfil() {
                         <button>Perfil de Vendedor</button>
                       </Link>
                     ) : null}
-                    <Link to="/perfil/historial">
+                    {userState?.authorization?.roles.includes('seller') ? (
+                      <Link to="/perfil/ventas">
+                        <button>Historial de Ventas</button>
+                      </Link>
+                    ) : null}
+                    <Link to="/perfil/compras">
                       <button>Historial de compras</button>
                     </Link>
                   </div>
@@ -183,7 +192,7 @@ export default function Perfil() {
                         return <h2>el casi admin😎</h2>;
                       }
                       if (rol === 'common') {
-                        return <h2 className={Common}>DATE DE ALTA GIL</h2>;
+                        return <h2 className={Common}>Por favor revise su correo</h2>;
                       }
                     })}
                   </div>

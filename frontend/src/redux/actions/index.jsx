@@ -160,6 +160,9 @@ export function inactivePublication (_id, userID){
     return axios.patch(`${url}/seller/`+_id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
+      dispatch({
+        type: DELETE_PUBLICATION
+      })
     })
   }
 }

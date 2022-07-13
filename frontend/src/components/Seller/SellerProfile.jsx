@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { deleteProduct, inactivePublication, activePublication } from "../../redux/actions/index"
 import swal from 'sweetalert'
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -53,10 +54,14 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "../Auth0/login";
 export default function SellerProfile() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  },[])
   const seller = useSelector(
     (state) => state.userReducer.seller
   );
   const userState = useSelector((state) => state.userReducer.user);
+  const SellerState = useSelector((state) => state.userReducer.seller);
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -78,35 +83,6 @@ export default function SellerProfile() {
     ],
   };
 
-  const perfil = {
-    nombre: "Juanito Perez",
-    email: "juanito312@gmail.com",
-    photo:
-      "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg",
-    address: "calle 76 # 35 - 22",
-    reputation: 5,
-    status: "platinium",
-    register_date: "20/06/2020",
-    interest: [
-      {
-        id: "MLA1367",
-        name: "Antigüedades y Colecciones",
-      },
-      {
-        id: "MLA1368",
-        name: "Arte, Librería y Mercería",
-      },
-      {
-        id: "MLA1743",
-        name: "Autos, Motos y Otros",
-      },
-    ],
-    transactions: {
-      completed: 4,
-      canceled: 2,
-      total: 9,
-    },
-  };
   const deletePublication = (productId) =>{
     swal({
       title: "Are you sure?",
@@ -117,7 +93,7 @@ export default function SellerProfile() {
     })
     .then((willDelete) => {
       if (willDelete) {
-        swal("Poof! Your imaginary file has been deleted!", {
+        swal("Su producto se encuentra a salvo", {
           icon: "success",
         });
         dispatch(deleteProduct(productId, userState._id))
@@ -132,11 +108,9 @@ export default function SellerProfile() {
   }
 
   const showPublication = (productId) =>{
-
     dispatch(activePublication(productId, userState._id))
-
   }
-
+  console.log(SellerState);
   return (
     <div className={Container}>
       <div className={Detail_Links}>
@@ -147,7 +121,9 @@ export default function SellerProfile() {
       </div>
       {isAuthenticated ? (
         <div>
-          <h1 className={Titles}>Perfil de Vendedor:</h1>
+        
+          <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings?.toFixed(2)}</h1>
+          {isAuthenticated ? (<h1 className={Titles}>Perfil de Vendedor:</h1>) : null}
           {isAuthenticated ? (
             <div className={Container_card}>
               <div className={Container_Perfil}>
@@ -158,26 +134,31 @@ export default function SellerProfile() {
                   </Link>
                 </div>
                 <div className={Container_text}>
-                  <h1> nombre: {user.name}</h1>
-                  <h2> Email: {user.email}</h2>
-                  <h2> dirección: {perfil.address}</h2>
-                  <h2> reputación: {perfil.reputation}</h2>
-                  <h2> status: {perfil.status}</h2>
-                  <h2> registrado desde: {perfil.register_date}</h2>
+                <div>
+                      <h2>Publicaciones activas: {SellerState?.active_pub?.length}</h2>
+                      <h2>Marca: {SellerState?.brand}</h2>
+                      <h2></h2>
+                      <h2></h2>
+                  </div>
                   <div>
-                    transacciones:
-                    <div>
+                    <h1>Nombre: {userState?.name}</h1>
+                    <h2> Email: {userState?.email}</h2>
+                    <h2> Ciudad: {userState?.address?.city}</h2>
+                    <h2> Registrado desde: {userState?.registration_date.substring(0, 10)}</h2>
+                  </div>
+                  <div>
+                   Transacciones:
                       <div>
-                        <h3>completadas: {perfil.transactions.completed}</h3>
+                        <h3>Completadas: {SellerState?.transactionsTotal?.completed}</h3>
                       </div>
                       <div>
-                        <h3>canceladas: {perfil.transactions.canceled}</h3>
+                        <h3>Canceladas: {SellerState?.transactionsTotal?.canceled}</h3>
                       </div>
                       <div>
-                        <h3>totales: {perfil.transactions.total}</h3>
+                        <h3>Totales: {SellerState?.transactionsTotal?.total}</h3>
                       </div>
                     </div>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -194,7 +175,8 @@ export default function SellerProfile() {
                     <h2>{product?.title}</h2>
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
-                    <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
+                    <h2>{product._id}</h2>
+                    <h3>Vendidos:{product?.totalSold}</h3>
                     <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> desactivarPublication(product._id)}>ocultar</button>
                   </div>
@@ -218,16 +200,11 @@ export default function SellerProfile() {
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
-                    <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> showPublication(product._id)}>mostrar</button>
                   </div>
                   <hr />
                  </div>
               ))}
-            </div>
-            <div className={Container_card2}>
-              <h2>ventas en los ultimos 30 días</h2>
-              <Line data={data3} />
             </div>
           </div>
           <h1 className={Titles}>Pendientes</h1>
@@ -262,7 +239,7 @@ export default function SellerProfile() {
             </div>
             <div className={Container_card4}>
               <h1>Ventas para despachar</h1>
-              <h2>No tenés ventas por preparar</h2>
+              <h2>No tenés ventas por preparar :( :( :( </h2>
             </div>
           </div>
           <div className={Container_card5}></div>

@@ -166,26 +166,28 @@ function NewNavBar(props) {
           </div>
         {    (togglemenu || screen >768) && (
             <div className={NavMenu}>
+            <div className={isdarkMode ? darkA : null}>
             <NavDropdown title="Categorías" id="navbarScrollingDropdown">
                 {categories?.map((category) => {
-                    return (
+                  return (
                     <NavDropdown.Item
-                        key={category._id}
-                        className={DropdownA}
-                        onClick={(e) => handleOnSelectCategory(e, category.name)}
-                        href="#"
+                    key={category._id}
+                    className={DropdownA}
+                    onClick={(e) => handleOnSelectCategory(e, category.name)}
+                    href="#"
                     >
                         {category.name}
                     </NavDropdown.Item>
                     );
-                })}
-                </NavDropdown>
+                  })}
+              </NavDropdown>
+            </div>
             <div className={searchdata}>
                 <Form className="d-flex" onSubmit={(e) => searchOnSubmit(e)}>
                     <input
                     type="text"
                     className={datalist}
-                    placeholder="...buscar"
+                    placeholder="...Buscar"
                     list="data"
                     onChange={(e) => searchOnChange(e)}
                     />
@@ -224,7 +226,7 @@ function NewNavBar(props) {
                     {!userLogged?.authorization?.roles.includes("seller")&&<NavDropdown.Item onClick={() => navigate("/perfil/altavendedor")}>Publica tu producto</NavDropdown.Item>}
                     <NavDropdown.Item onClick={() => navigate("/perfil")}>Perfil</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <button onClick={async()=>{
+                    {/* <button onClick={async()=>{
                       // Sirve de ejemplo para el uso de token de auth0
                       const token = await getAccessTokenSilently()
 
@@ -234,7 +236,7 @@ function NewNavBar(props) {
                           Authorization: `Bearer ${token}`
                         }
                       })
-                    }} >api Admin Auth0</button>
+                    }} >api Admin Auth0</button> */}
                     <LogoutButton />
                   </div>
                 ) : (                  

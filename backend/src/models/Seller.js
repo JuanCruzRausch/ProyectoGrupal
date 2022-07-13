@@ -31,7 +31,7 @@ const sellerSchema = new Schema({
     ref: 'PublicationTest',
   },
   reputation: {
-    average: {type: Number},
+    average: { type: Number },
     total_votes: [Number],
   },
   transactionsTotal: {
@@ -64,6 +64,10 @@ const sellerSchema = new Schema({
   answered: {
     type: [Schema.Types.ObjectId],
     ref: 'QandA',
+  },
+  total_earnings: {
+    type: Number,
+    default: 0,
   },
 });
 
