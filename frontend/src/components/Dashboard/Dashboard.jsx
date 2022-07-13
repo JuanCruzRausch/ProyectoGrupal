@@ -9,7 +9,7 @@ import { getCategoriesStats } from '../../redux/actions';
 import arrow from '../../assets/img/leftarrow.png';
 import { useDispatch, useSelector } from 'react-redux'
 import {Container, DashboardDiv,CurrentData,CurrentData1, CurrentData2,CurrentData3,CurrentData4, CurrentBars, users} from './Dashboard.module.css'
-import { getAdminData } from '../../redux/actions/adminAction'
+import { getAdminData, getAllSalesLastMonth } from '../../redux/actions/adminAction'
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 ChartJS.register(ArcElement, Tooltip, Legend);
 ChartJS.register(CategoryScale,LinearScale, PointElement,LineElement,Title,Tooltip,Legend);
@@ -20,11 +20,14 @@ function Dashboard() {
     label:[],
     datasets:[]
   })
+  const [dataSales, setDataSales] = React.useState({labels:[], datasets:[]})
   const categories = useSelector(state => state.productReducer.categories)
   const adminData = useSelector(state => state.adminReducer.adminData)
+  const allSalesLastMonth = useSelector(state => state.adminReducer.allSalesLastMonth)
   useEffect(()=>{
     dispatch( getAdminData() )
     dispatch( getCategoriesStats() )
+    dispatch(getAllSalesLastMonth())
   },[])
 
   useEffect(()=>{
@@ -68,19 +71,19 @@ function Dashboard() {
         borderWidth: 1,
       }]
     })
-  },[categories])
-  console.log(data)
-  // const data3 = {
-  //   labels: [1, 2, 3, 4, 5, 6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
-  //   datasets: [
-  //     {
-  //       label: 'Ventas',
-  //       data: [12, 19, 43, 55, 62,73,24,73,84,60,15,46,2,3,77,34,32,56,2,35,6,13,45,123,34,100,20,45,56,84],
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //     },
-  //   ],
-  // };
+    setDataSales({
+      labels: allSalesLastMonth?.days,
+      datasets: [
+        {
+          label: 'Ventas',
+          data: allSalesLastMonth?.sales,
+          borderColor: 'rgb(3, 249, 60)',
+          backgroundColor: 'rgba(248, 248, 248, 0.5)',
+        },
+      ],
+    })
+  },[categories, allSalesLastMonth])
+
   
   // const data2 = {
   //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -181,7 +184,7 @@ function Dashboard() {
           <br />
         <div className={CurrentBars}>
           <div><h2>Publicaciones por Categoría</h2><Pie data={data} /></div>
-          {/* <div><h2>ventas en los ultimos 30 días</h2><Line data={data3}/></div> */}
+          <div><h2>ventas del {new Date(Date.now()).getMonth()}/{new Date(Date.now()).getFullYear()}</h2><Line data={dataSales}/></div>
         </div>
         {/* <div className={CurrentBars}>
           <div><PolarArea data={data2}/></div>

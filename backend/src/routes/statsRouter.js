@@ -37,8 +37,6 @@ statsRouter.get('/getresults', getAllResults);
 statsRouter.get('/getcategoriesq', getCategoriesQ);
 statsRouter.get(
   '/getAllSales',
-  authorizeAccessToken,
-  roles.admin,
   getAllSales
 );
 module.exports = statsRouter;
