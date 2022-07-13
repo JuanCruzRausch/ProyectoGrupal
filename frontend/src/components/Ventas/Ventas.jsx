@@ -37,7 +37,7 @@ export default function Ventas() {
                         <td>{sale?.transaction?.publication?.price}</td>
                         <td>{sale?.transaction?.quantity}</td>
                         <td>{sale?.buyer?.name}</td>
-                        <td>{sale?.transaction?.earnings?.seller_earnings}</td>
+                        <td>{sale?.transaction?.earnings?.seller_earnings.toFixed(2)}</td>
                         <td>{sale?.transaction?.status}</td>
                         <td>{sale?.dateOfBuy?.substring(0, 10)}</td>
                     </tr>

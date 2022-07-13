@@ -1,16 +1,15 @@
 import React from 'react'
 import {FaStar} from 'react-icons/fa'
-function Rating() {
+function Rating({rating}) {
   return (
     <div>
-        {[...Array(5)].map((star, i) =>{
-          const ratingValue = i+1;        
+        {[...Array(rating)].map((star, i) =>{     
         return (
         <label>
             <input className='radioInput'
             type="radio" 
             name='rating' 
-            value={ratingValue} 
+            value={rating} 
             />
             <FaStar color={"#c2af01"} className='star'
             size={25}
