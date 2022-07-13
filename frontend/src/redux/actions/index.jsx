@@ -21,7 +21,7 @@ export const SET_LOADING = "SET_LOADING";
 export const DELETE_PUBLICATION = "DELETE_PUBLICATION";
 export const SET_ORDER = "SET_ORDER"
 export const SET_CATEGORY = "SET_CATEGORY"
-export const SET_CATEGORIES_STATS = "SET_CATEGORIES_STATS"
+
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -88,15 +88,17 @@ export function GetSingleProduct(id){
 export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
-    return axios(`${url}/categories`)
+    axios(`${url}/categories`)
     .then(res =>{ 
-      res.data.data.categories.forEach(element => {
-        axios(`${url}/publicationtest?category=`+ element._id)
-        .then(res2=> {
-          arr.push({...element, count: res2.data.results})}) 
-        .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
-    })
-  })}
+      dispatch({type: GET_ALL_CATEGORIES, payload: res.data.data})})
+        
+    
+    axios(`${url}/stats/getcategoriesQ`)
+        .then(res=> {
+          dispatch({type: "SET_CATEGORIES_STATS", payload: res.data.data})
+        })
+        .then(()=> {})   
+    }
 }
 
 
@@ -184,9 +186,8 @@ export function getAllCategory(payload) {
  }
 
  export function getCategoriesStats (){
-   return async (dispatch) =>{
-     axios(`${url}/stats/getcategoriesQ`)
-     .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
-   }
- }
-
+  return async (dispatch) =>{
+    axios(`${url}/stats/getcategoriesQ`)
+    .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
+  }
+}

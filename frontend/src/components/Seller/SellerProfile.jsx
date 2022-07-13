@@ -71,7 +71,7 @@ export default function SellerProfile() {
     dispatch(salesLastWeek(SellerState?._id))
   },[SellerState])
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({labels:[], datasets:[]})
   
   useEffect(()=>{
     setData({

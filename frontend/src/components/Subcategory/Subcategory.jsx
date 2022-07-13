@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from 'react-redux'
 
 export default function Subcategory() {
-const categories = useSelector(state => state.productReducer.Categories)
+const categories = useSelector(state => state.productReducer.allCategories)
 const category = useSelector(state => state.productReducer.category)
 const [categoryFound, setCategoryFound ]= React.useState({})
 const products = useSelector(state => state.productReducer.allProductCache)
