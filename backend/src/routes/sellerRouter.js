@@ -20,10 +20,6 @@ sellerRouter
   .patch(sellerController.passtoInactive)
   .put(sellerController.reactivate);
 sellerRouter.route('/transactions-seller/:id').get(sellerController.getTransactionSeller);
-<<<<<<< HEAD
-sellerRouter.route('/transactions-seller-last-month/:id').get(sellerController.getTransactionsSellerLastMonth);
-=======
 sellerRouter.route('/stats/:id').get(sellerController.getSalesLastMonth);
->>>>>>> signInnavbar
 
 module.exports = sellerRouter;

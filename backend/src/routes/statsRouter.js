@@ -9,10 +9,7 @@ const {
   getAllActivePubs,
   getAllResults,
   getCategoriesQ,
-<<<<<<< HEAD
-=======
   getAllSales
->>>>>>> signInnavbar
 } = require('../controllers/statsController');
 
 const statsRouter = Router();
@@ -38,11 +35,8 @@ statsRouter.get(
 );
 statsRouter.get('/getresults', getAllResults);
 statsRouter.get('/getcategoriesq', getCategoriesQ);
-<<<<<<< HEAD
-=======
 statsRouter.get(
   '/getAllSales',
   getAllSales
 );
->>>>>>> signInnavbar
 module.exports = statsRouter;
