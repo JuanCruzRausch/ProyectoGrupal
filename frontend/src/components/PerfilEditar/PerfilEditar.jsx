@@ -49,11 +49,7 @@ export default function AltaVededor() {
       f.append('image', image[0]);
       result = await axios
         .post(`${url}/upload-image`, f, {
-<<<<<<< HEAD
-          headers: { "content-type": "multipart/form-data" },
-=======
           headers: { 'content-type': 'multipart/form-data' },
->>>>>>> Dev
         })
         .catch((res) => console.log(res));
     }
