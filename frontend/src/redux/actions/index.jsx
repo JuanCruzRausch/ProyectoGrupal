@@ -1,4 +1,5 @@
 import { setSeller } from './userAction';
+import url from '../../ulr';
 
 import axios, { Axios } from 'axios'
 export const PUBLICATION_SELLER = "PUBLICATION_SELLER"
@@ -24,7 +25,7 @@ export const SET_CATEGORY = "SET_CATEGORY"
 
 export function signUp(data) {
   return async (dispatch) => {
-    return axios.post("http://localhost:5050/users/signup",{
+    return axios.post(`${url}/users/signup`,{
       ...data,
       photo:"",
     })
@@ -37,7 +38,7 @@ export function signUp(data) {
 }
 export function publicationSeller (seller_id) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/Seller/"+seller_id)
+    return axios(`${url}/Seller/`+seller_id)
     .then(res => dispatch({type:PUBLICATION_SELLER, payload: res.data.data.sell}))
     // .then(res => dispatch({type: PUBLICATION_SELLER, payload: res.data.data}))
   }
@@ -50,7 +51,7 @@ export function setAlert() {
 
 export function addPublication( id,data ) {
   return async (dispatch) => {
-    return axios.post("http://localhost:5050/publicationtest/"+id, data)
+    return axios.post(`${url}/publicationtest/`+id, data)
     .then(res => dispatch({type: PUBLICATION_ALERT, payload: "success"}))
     .catch(res=> dispatch({type: PUBLICATION_ALERT, payload: "error"}))
   }
@@ -59,7 +60,7 @@ export function addPublication( id,data ) {
 export function sort (atribute){
   console.log(atribute)
   return async (dispatch) =>{
-    return axios(`http://localhost:5050/publicationtest/?sort=${atribute}`)
+    return axios(`${url}/publicationtest/?sort=${atribute}`)
     .then(res => dispatch({type: GET_ALL_PRODUCTS, payload: res.data.data.publications}))
   }
 }
@@ -67,7 +68,7 @@ export function sort (atribute){
 export function getAllProducts() {
   return async (dispatch) => {
     dispatch({type:SET_LOADING, payload:"spin"})
-    return axios(`http://localhost:5050/publicationtest?page=1` )
+    return axios(`${url}/publicationtest?page=1` )
      .then(res => 
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
@@ -76,7 +77,7 @@ export function getAllProducts() {
 
 export function GetSingleProduct(id){
   return async(dispatch) => {
-          axios("http://localhost:5050/publicationtest/" + id)
+          axios(`${url}/publicationtest/` + id)
           .then(res=> 
               dispatch({ type: SINGLE_ITEM, payload:res.data.data.publi})
       )
@@ -86,10 +87,10 @@ export function GetSingleProduct(id){
 export function getAllCategories(){
   const arr=[]
   return async (dispatch) => {
-    return axios("http://localhost:5050/categories")
+    return axios(`${url}/categories`)
     .then(res =>{ 
       res.data.data.categories.forEach(element => {
-        axios("http://localhost:5050/publicationtest?category="+ element._id)
+        axios(`${url}/publicationtest?category=`+ element._id)
         .then(res2=> {
           arr.push({...element, count: res2.data.results})}) 
         .then(()=> dispatch({type: GET_ALL_CATEGORIES, payload: arr}))   
@@ -100,7 +101,7 @@ export function getAllCategories(){
 
 export function getPaginate(page) {
   return async (dispatch) => {
-    return axios("http://localhost:5050/publicationtest?page" + page )
+    return axios(`${url}/publicationtest?page` + page )
      .then(res => 
       dispatch({type:GET_ALL_PRODUCTS, payload: res.data.data.publications}),
     )
@@ -125,7 +126,7 @@ export function BuscarProducto(title, min, max){
     let name = title? `/byName/${title}`: "";
     let valMin = min === -Infinity? "" : `price[gte]=${min}`
     let valMax = max === Infinity? "" : `price[lte]=${max}`
-    return (await axios(`http://localhost:5050/publicationtest${name}?${valMax}&${valMin}`)
+    return (await axios(`${url}/publicationtest${name}?${valMax}&${valMin}`)
       .then((res)=>{
         return dispatch({
           type: GET_PRODUCT,
@@ -140,7 +141,7 @@ export function getProductBy(cat, min, max, sort) {
     let category = cat?`&category=${cat}`:null
     let order = sort?`&sort=${sort}`:null
     dispatch({type:SET_LOADING, payload:"spin"})
-    return axios(`http://localhost:5050/publicationtest?price[lte]=${max}&price[gte]=${min}${order}${category}` )
+    return axios(`${url}/publicationtest?price[lte]=${max}&price[gte]=${min}${order}${category}` )
     .then(res=> {
       dispatch({type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.data.publications})
     })
@@ -148,7 +149,7 @@ export function getProductBy(cat, min, max, sort) {
 }
 export function deleteProduct(id,userID){
   return async (dispatch) => {
-    return axios.post("http://localhost:5050/seller/"+id+"/"+userID)
+    return axios.post(`${url}/seller/`+id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
     })
@@ -156,7 +157,7 @@ export function deleteProduct(id,userID){
 }
 export function inactivePublication (_id, userID){
   return async (dispatch) => {
-    return axios.patch("http://localhost:5050/seller/"+_id+"/"+userID)
+    return axios.patch(`${url}/seller/`+_id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
       dispatch({
@@ -167,7 +168,7 @@ export function inactivePublication (_id, userID){
 }
 export function activePublication (_id, userID){
   return async (dispatch) => {
-    return axios.put("http://localhost:5050/seller/"+_id+"/"+userID)
+    return axios.put(`${url}/seller/`+_id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
     })

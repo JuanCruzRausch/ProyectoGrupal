@@ -23,10 +23,10 @@ mongoose
     throw err;
   });
 
-const port = process.env.port || 5050;
 
-const server = app.listen(port, () => {
-  console.log(`Aplicacion corriendo en el puerto ${port}...`);
+
+const server = app.listen(process.env.PORT || 5050, () => {
+ 
 });
 
 const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import url from '../../ulr'
 export const ADD_TO_CART = "ADD_TO_CART"
 export const ORDER_PRODUCT = "ORDER_PRODUCT"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
@@ -11,7 +12,7 @@ export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
 
 export function AddToCart(id,count){
     return async(dispatch) => {
-            axios("http://localhost:5050/publicationtest/"+id)
+            axios(`${url}/publicationtest/`+id)
             .then(res=>
                   dispatch({
                   type: ADD_TO_CART, 
@@ -31,7 +32,7 @@ export function AddToCart(id,count){
 export function OrderSingleProduct(id,count){
     console.log(id,count);
     return async(dispatch) => {
-            axios("http://localhost:5050/publicationtest/" + id)
+            axios(`${url}/publicationtest/` + id)
             .then(res=> 
                  dispatch({
                  type: ORDER_PRODUCT, 
@@ -49,9 +50,9 @@ export function OrderSingleProduct(id,count){
 }
 
 export async function sendOrder (id,data){
-    let url = ''
-    await axios.post("http://localhost:5050/payment/create-order/"+id,data)
-    .then(res =>  url = res.data)
+    let urls = ''
+    await axios.post(`${url}/payment/create-order/`+id,data)
+    .then(res =>  urls = res.data)
 }
 export function IncreaseCart(id){
     return{
