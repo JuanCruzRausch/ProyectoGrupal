@@ -139,8 +139,7 @@ export default function SellerProfile() {
                       <button>Editar perfil</button>
                     </Link>
                   </div>
-                  <div className={Container_text}>
-                    <div>
+                    <div className={Container_text}>
                       <h2>
                         Publicaciones activas: {SellerState?.active_pub?.length}
                       </h2>
@@ -179,7 +178,6 @@ export default function SellerProfile() {
                     </div>
                   </div>
                 </div>
-              </div>
             ) : (
               <div>inicie sesion</div>
             )}
@@ -198,17 +196,14 @@ export default function SellerProfile() {
                         alt={product?.title}
                       />
                       <h2>{product?.title}</h2>
+                      <h2>{product?._id}</h2>
                       <h2>
-                        Stock Disponible{' '}
+                        Stock Disponible{'  '}
                         <span>
-                          {Number(product?.stock?.stockTotal) -
-                            (product?.totalsold
-                              ? Number(product.totalsold)
-                              : 0)}
+                          {product?.stock?.stockTotal}
                         </span>
                       </h2>
                       <h2>${product?.price}</h2>
-                      <h2>{product._id}</h2>
                       <h3>Vendidos:{product?.totalSold}</h3>
                       <button onClick={() => deletePublication(product._id)}>
                         X
@@ -224,7 +219,7 @@ export default function SellerProfile() {
                 ))}
               </div>
               <div className={Container_card2}>
-                <h2>ventas en los ultimos 30 días</h2>
+                <h2>Ventas en los ultimos 30 días</h2>
                 <Line data={data3} />
               </div>
             </div>
