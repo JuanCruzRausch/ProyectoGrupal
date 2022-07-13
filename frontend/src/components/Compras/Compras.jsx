@@ -113,7 +113,7 @@ export default function Compras() {
                     </Link>
                   </td>
                 )}
-                <td>{purchase?.publication?.price}</td>
+                <td>${purchase?.transaction?.publication?.price}</td>
                 <td>{purchase?.transaction?.quantity}</td>
                 <td>{purchase?.transaction?.seller?.brand}</td>
                 <td>{purchase?.transaction?.status}</td>
