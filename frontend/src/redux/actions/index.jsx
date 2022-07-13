@@ -147,7 +147,6 @@ export function getProductBy(cat, min, max, sort) {
   };
 }
 export function deleteProduct(id,userID){
-  console.log(id,userID);
   return async (dispatch) => {
     return axios.post("http://localhost:5050/seller/"+id+"/"+userID)
     .then(res =>{
@@ -160,6 +159,9 @@ export function inactivePublication (_id, userID){
     return axios.patch("http://localhost:5050/seller/"+_id+"/"+userID)
     .then(res =>{
       dispatch(setSeller(userID))
+      dispatch({
+        type: DELETE_PUBLICATION
+      })
     })
   }
 }

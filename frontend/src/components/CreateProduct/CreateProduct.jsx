@@ -448,7 +448,6 @@ function CreateProduct() {
           </option>
         </Form.Select> */}
                     <Form.Label>Visualización</Form.Label>
-                    <Form.Label>Visibilidad</Form.Label>
                     <form
                       className={Visibility}
                       value={data.visibility}
