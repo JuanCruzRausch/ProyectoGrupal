@@ -20,6 +20,7 @@ export default function Ventas() {
   useEffect(() => {
     dispatch(getSales(seller?._id));
   }, [seller]);
+  
   return (
     <div>
       <Helmet>

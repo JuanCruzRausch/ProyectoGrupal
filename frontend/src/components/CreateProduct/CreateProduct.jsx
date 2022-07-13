@@ -34,6 +34,9 @@ import LoginButton from '../Auth0/login';
 import { Helmet } from 'react-helmet-async';
 
 function CreateProduct() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { isAuthenticated } = useAuth0();
   const CATEGORIAS = useSelector((state) => state.productReducer.Categories);
   const alert = useSelector((state) => state.productReducer.publicationAlert);

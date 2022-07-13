@@ -45,19 +45,15 @@ import {
   SingleProduct,
   Container_card1,
   Container_card2,
-  Container_card3,
-  Container_card4,
-  Container_card5,
   PublicacionesContainer,
   Titles,
-  Preguntas,
-  PreguntasPreguntas,
-  Container3y4,
+  EmptyPub,
   Login,
 } from './SellerProfile.module.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../Auth0/login';
 import { Helmet } from 'react-helmet-async';
+import Ventas from '../Ventas/Ventas';
 export default function SellerProfile() {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -184,7 +180,7 @@ export default function SellerProfile() {
             <h1 className={Titles}>Publicaciones</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
-                {seller?.active_pub?.map((product) => (
+{                seller?.active_pub.length > 0 ? seller?.active_pub?.map((product) => (
                   <div key={product._id}>
                     <div className={SingleProduct}>
                       <img
@@ -196,7 +192,6 @@ export default function SellerProfile() {
                         alt={product?.title}
                       />
                       <h2>{product?.title}</h2>
-                      <h2>{product?._id}</h2>
                       <h2>
                         Stock Disponible{'  '}
                         <span>
@@ -216,7 +211,12 @@ export default function SellerProfile() {
                     </div>
                     <hr />
                   </div>
-                ))}
+                ))
+              : <div className={EmptyPub}>
+                  <h1>No tienes publicaciones activas</h1>
+                  <h2>Deseas <span> <Link to="/publicar"> crear una? </Link></span></h2>
+                </div>
+              }
               </div>
               <div className={Container_card2}>
                 <h2>Ventas en los ultimos 30 días</h2>
@@ -226,46 +226,56 @@ export default function SellerProfile() {
             <h1 className={Titles}>Publicaciones ocultas</h1>
             <div className={Container_card1}>
               <div className={PublicacionesContainer}>
-                {seller?.inactive_pub?.map((product) => (
-                  <div key={product._id}>
-                    <div className={SingleProduct}>
-                      <img
-                        src={
-                          product?.pictures?.length > 0
-                            ? product?.pictures[0]
-                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU'
-                        }
-                        alt={product?.title}
-                      />
-                      <h2>{product?.title}</h2>
-                      <h2>
-                        Stock Disponible{' '}
-                        <span>
-                          {Number(product?.stock?.stockTotal) -
-                            (product?.totalsold
-                              ? Number(product.totalsold)
-                              : 0)}
-                        </span>
-                      </h2>
-                      <h2>${product?.price}</h2>
-                      <h3>
-                        Vendidos:{product?.totalsold ? product.totalsold : 0}
-                      </h3>
-                      <button onClick={() => showPublication(product._id)}>
-                        mostrar
-                      </button>
+                {
+                  seller?.inactive_pub.length > 0 ?
+                  seller?.inactive_pub?.map((product) => (
+                    <div key={product._id}>
+                      <div className={SingleProduct}>
+                        <img
+                          src={
+                            product?.pictures?.length > 0
+                              ? product?.pictures[0]
+                              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU'
+                          }
+                          alt={product?.title}
+                        />
+                        <h2>{product?.title}</h2>
+                        <h2>
+                          Stock Disponible{' '}
+                          <span>
+                            {Number(product?.stock?.stockTotal) -
+                              (product?.totalsold
+                                ? Number(product.totalsold)
+                                : 0)}
+                          </span>
+                        </h2>
+                        <h2>${product?.price}</h2>
+                        <h3>
+                          Vendidos:{product?.totalsold ? product.totalsold : 0}
+                        </h3>
+                        <button onClick={() => showPublication(product._id)}>
+                          mostrar
+                        </button>
+                      </div>
+                      <hr />
                     </div>
-                    <hr />
-                  </div>
-                ))}
+                  ))
+                  :
+                  <h2>
+                    No tienes publicaciones inactivas
+                  </h2>
+                }
               </div>
             </div>
+            <h1 className={Titles}>Historial de ventas</h1>
+            <Ventas />
             </div>
         ) : (
           <div className={Login}>
             <LoginButton />
           </div>
         )}
+
       </div>
     </div>
   );

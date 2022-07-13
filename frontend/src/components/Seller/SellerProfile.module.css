@@ -21,12 +21,6 @@
     text-align: center;
 }
 
-@media screen and (max-width:600px) {
-    .Container_Perfil{
-        display: flex; 
-        flex-direction: column;
-    }
-}
 .Container_card{
     box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
     border-radius: 15px;
@@ -45,7 +39,9 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+
 .PublicacionesContainer{
+    min-height: 20vh;
     background-color: #fff;
     padding: 15px;
     width: 55%; 
@@ -84,6 +80,15 @@
 .SingleProduct h2 span{
     color: green;
     font-weight: 700;
+}
+.EmptyPub{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+
 }
 .Container_card2{
     display: flex;
@@ -163,20 +168,10 @@
     margin: 10vh auto;
     background-color: #fff;
 }
-@media (max-width: 400px){
-    .Container_card{
-        width: 100%;
-    }
-}
 .Container_Perfil{
     width: 100%;
     display: flex;
     justify-content: space-evenly;
-}
-@media (max-width: 1008px){
-    .Container_Perfil{
-        flex-direction: column;
-    }
 }
 
 .Container_img_button{
@@ -202,12 +197,6 @@
     height: 200px;
     object-fit: cover;
     border-radius: 15px;
-}
-@media (max-width: 608px){
-    .Container_Perfil img{
-        width: 100%;
-        height: auto;
-    }
 }
 
 .Container_text{
@@ -268,4 +257,52 @@
 }
 .Login a {
     font-size: 3rem;
+}
+
+
+@media screen and (max-width:600px) {
+    .Container_card{
+        width: 100%;
+    }
+    .Container_Perfil{
+        display: flex; 
+        flex-direction: column;
+    }
+    .Container_card1{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .PublicacionesContainer{
+        min-height: 20vh;
+        background-color: #fff;
+        padding: 15px;
+        width: 100%; 
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 20%);
+        display: flex; 
+        flex-direction: column;
+    }
+    
+    .SingleProduct{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        margin: 1rem 0;
+    }
+    .Container_card2{
+        width: 100%;
+        margin-top: 3rem;
+    }
+    .Container_Perfil img{
+        margin: auto;
+        width: 50%;
+        height: auto;
+    }
+}
+
+@media (max-width: 1008px){
+    .Container_Perfil{
+        flex-direction: column;
+    }
 }
