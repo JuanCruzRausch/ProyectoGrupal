@@ -53,19 +53,28 @@ exports.updateToUser = async (req, res, next) => {
         phone,
         credit_card,
         photo,
+<<<<<<< HEAD
+        authorization: { roles: ['buyer'] },
+      }
+    );
+=======
       }
     );
 
+>>>>>>> signInnavbar
     //Asignación de rol a Buyer
     const user = await CommonUser.findOne({_id})
     const token = await getAccessTokenAdmin()
     const rol_id = await Rol.findOne({name: 'Buyer'})
     await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
 
+<<<<<<< HEAD
+=======
     //Asignación de rol a Buyer en la DB
     user.authorization.roles.includes('buyer')?null:user.authorization.roles.push('buyer');
     user.save();
 
+>>>>>>> signInnavbar
     res.status(200).json({
       status: 'success',
       data: user,
@@ -104,6 +113,14 @@ exports.toSeller = catchAsync(async (req, res, next) => {
   //Asignación de rol seller en la DB
   user.authorization.roles.includes('seller')?null:user.authorization.roles.push('seller');
   user.save(); 
+
+    // asignacion de rol seller
+    const user = await CommonUser.findOne({_id: req.params.id})
+    const token = await getAccessTokenAdmin()
+    const rol_id = await Rol.findOne({name: 'Seller'})
+    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+  
+  
 
   res.status(200).json({
     status: 'success',

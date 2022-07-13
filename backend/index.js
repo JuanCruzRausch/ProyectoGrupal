@@ -26,7 +26,11 @@ mongoose
 
 
 const server = app.listen(process.env.PORT || 5050, () => {
+<<<<<<< HEAD
+  // console.log(`Aplicacion corriendo en el puerto ${port}...`);
+=======
  
+>>>>>>> signInnavbar
 });
 
 const io = new Server(server,{cors:{origin:"*", method:["GET","POST"]}})
