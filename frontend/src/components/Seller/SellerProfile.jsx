@@ -175,7 +175,7 @@ export default function SellerProfile() {
                     <h2>{product?.title}</h2>
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
-                    <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
+                    <h3>Vendidos:{product?.totalSold}</h3>
                     <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> desactivarPublication(product._id)}>ocultar</button>
                   </div>
