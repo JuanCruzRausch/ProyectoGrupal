@@ -1,8 +1,17 @@
 .container_seller{
-    margin: auto;    
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
 }
 .container_seller span{
     width: 100%;
+}
+.container_seller label{
+    color: rgb(95, 95, 95) !important;
+    font-weight: 600;
 }
 .Container{
     width: 100%;
@@ -63,8 +72,8 @@
     align-content: center;
 }
 .Container_Perfil img{
-    width: 450px;
-    height: 450px;
+    width: 400px;
+    height: 400px;
     object-fit: cover ;
     align-items: center !important;
     align-content: center !important;

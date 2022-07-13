@@ -23,13 +23,13 @@ function About() {
         <title> ML7E Equipo</title>
       </Helmet>
       <div>
-        <div className={isdarkMode ? DetailDark : Detail_Links}>
-          <img src={arrow} alt="back" />
-          <Link to="/">
-            <h2>Home</h2>
-          </Link>
-        </div>
         <div className={isdarkMode ? AboutUsDark : AboutUs}>
+          <div className={isdarkMode ? DetailDark : Detail_Links}>
+            <img src={arrow} alt="back" />
+            <Link to="/">
+              <h2>Home</h2>
+            </Link>
+          </div>
           <h1>Conoce mas acerca de nuestro equipo de desarrollo</h1>
           <br /> <br />
           <h2>Equipo Back-end</h2>

@@ -1,9 +1,7 @@
 .AboutUs{
     transition: all .6s ease-in-out;
-
     width: 80%;
     margin: auto;
-    background-color: rgb(255, 255, 255);
     border-radius: 15px;
     padding: 15px;
 }
@@ -11,7 +9,6 @@
     transition: all .6s ease-in-out;
     width: 80%;
     margin: auto;
-    background-color: #2d2c2f;
     border-radius: 15px;
     padding: 15px;
 }
@@ -41,6 +38,7 @@
     color: rgb(0, 0, 0);
 }
 .AboutTeam{
+    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
