@@ -2,3 +2,12 @@
     width:90%;
     margin: auto;
 }
+.modal{
+    position: fixed !important;
+}
+.modal_body{
+    margin-left: 10rem;
+}
+.input_modal{
+    margin-left: 1rem !important;
+}

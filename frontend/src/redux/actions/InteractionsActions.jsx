@@ -11,6 +11,14 @@ export const getTransaction = (queries) => {
         //  }
         dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res.data.data});
       }
-    );
+    )
+    .catch(()=> dispatch({ type: 'CLEAR_CART' }))
   };
 };
+
+export const sendReview = (publication_id, seller_id, user_id, review) =>{
+  return async (dispatch) => {
+    axios.patch(`http://localhost:5050/reputation/${publication_id}/${seller_id}/${user_id}`, review)
+    .then((res)=> console.log(res))
+  }
+}
