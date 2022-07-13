@@ -28,7 +28,7 @@ export default function PlaceOrderScreen() {
   //   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   //   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   //   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  const userState = useSelector( state => state.userReducer.user)
+  const userState = useSelector((state) => state.userReducer.user);
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
   const SingleCart = useSelector((state) => state.CartReducer.SingleCart);
   const PrecioTotal = JSON.stringify(
@@ -37,22 +37,25 @@ export default function PlaceOrderScreen() {
   const dispatch = useDispatch();
   JSON.parse(localStorage.getItem('cart'));
   const placeOrderHandler = async () => {
-    console.log(window.location.href)
-      // sendOrder(userState?._id,{
-      //   PrecioTotal,
-      //   cartItem,
-      //   shippingAddress,
-      //   userState,
-      // })
-    let res =  await axios.post("http://localhost:5050/payment/create-order/"+userState?._id,{PrecioTotal,cartItem,shippingAddress,userState,})
-    window.location.href= res.data
-    console.log(window.location.href)
+    console.log(window.location.href);
+    // sendOrder(userState?._id,{
+    //   PrecioTotal,
+    //   cartItem,
+    //   shippingAddress,
+    //   userState,
+    // })
+    let res = await axios.post(
+      'http://localhost:5050/payment/create-order/' + userState?._id,
+      { PrecioTotal, cartItem, shippingAddress, userState }
+    );
+    window.location.href = res.data;
+    console.log(window.location.href);
   };
-  console.log(SingleCart?.CartItem)
+  console.log(SingleCart?.CartItem);
   return (
     <div>
       <Helmet>
-        <title>Orden de Compra</title>
+        <title>ML7E Orden de Compra</title>
       </Helmet>
       <div className={GeneralContainer}>
         <CheckoutSteps step1 step2 step3></CheckoutSteps>
@@ -100,7 +103,10 @@ export default function PlaceOrderScreen() {
                           </Col>
                           <Col md={3}>
                             $
-                            {Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)}
+                            {Math.round(
+                              SingleCart?.CartItem.quantity *
+                                SingleCart?.CartItem.price
+                            )}
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -144,7 +150,10 @@ export default function PlaceOrderScreen() {
                         <Col>
                           $
                           {SingleCart?.CartItem.price !== undefined
-                            ? Math.round(SingleCart?.CartItem.quantity * SingleCart?.CartItem.price)
+                            ? Math.round(
+                                SingleCart?.CartItem.quantity *
+                                  SingleCart?.CartItem.price
+                              )
                             : Number(PrecioTotal).toFixed(2)}
                         </Col>
                       </Row>
@@ -157,7 +166,8 @@ export default function PlaceOrderScreen() {
                             $
                             {SingleCart?.CartItem.price !== undefined
                               ? Math.round(
-                                  SingleCart?.CartItem.quantity * SingleCart?.CartItem.price
+                                  SingleCart?.CartItem.quantity *
+                                    SingleCart?.CartItem.price
                                 )
                               : Number(PrecioTotal).toFixed(2)}
                           </strong>
