@@ -54,7 +54,6 @@ export default function AltaVededor() {
         .catch((res) => console.log(res));
     }
     console.log(result);
-
     dispatch(
       updateUser({
         ...user,
