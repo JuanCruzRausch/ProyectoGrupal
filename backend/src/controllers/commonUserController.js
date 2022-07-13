@@ -53,14 +53,18 @@ exports.updateToUser = async (req, res, next) => {
         phone,
         credit_card,
         photo,
-        authorization: { roles: ['buyer'] },
       }
     );
+
     //Asignación de rol a Buyer
     const user = await CommonUser.findOne({_id})
     const token = await getAccessTokenAdmin()
     const rol_id = await Rol.findOne({name: 'Buyer'})
     await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+
+    //Asignación de rol a Buyer en la DB
+    user.authorization.roles.includes('buyer')?null:user.authorization.roles.push('buyer');
+    user.save();
 
     res.status(200).json({
       status: 'success',
@@ -86,31 +90,25 @@ exports.getUserEmail = async (req, res, next) => {
 };
 
 exports.toSeller = catchAsync(async (req, res, next) => {
-  const userToSeller = await CommonUser.findByIdAndUpdate(
-    req.params.id,
-    { authorization: { roles: ['seller'] } },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
 
-  if (!userToSeller) {
-    return next(new AppError('No user found to update with that ID', 404));
-  }
+  // if (!userToSeller) {
+  //   return next(new AppError('No user found to update with that ID', 404));
+  // }
 
-    // asignacion de rol seller
-    const user = await CommonUser.findOne({_id: req.params.id})
-    const token = await getAccessTokenAdmin()
-    const rol_id = await Rol.findOne({name: 'Seller'})
-    await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
+  // Asignacion de rol seller
+  const user = await CommonUser.findOne({_id: req.params.id})
+  const token = await getAccessTokenAdmin()
+  const rol_id = await Rol.findOne({name: 'Seller'})
+  await apiAuth0.assingRolesToAUser(token.data.access_token, user.user_id, {"roles": [rol_id.rol_id]})
   
-  
+  //Asignación de rol seller en la DB
+  user.authorization.roles.includes('seller')?null:user.authorization.roles.push('seller');
+  user.save(); 
 
   res.status(200).json({
     status: 'success',
     data: {
-      user: userToSeller,
+      user: user,
     },
   });
 });
