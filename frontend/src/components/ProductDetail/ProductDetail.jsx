@@ -189,7 +189,7 @@ function ProductDetail(props) {
           stockTotal={State?.stock?.stockTotal}
         />
         {
-          State?.stock.stockTotal>0 ? 
+          State?.stock?.stockTotal>0 ? 
         <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart}onClick={() => ADDtoCart()} src={cart} 
         alt="agregar"/>
         :
