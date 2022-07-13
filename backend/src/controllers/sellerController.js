@@ -21,10 +21,10 @@ exports.getAllSellers =  async(req, res, next) => {
 
 
 exports.post = catchAsync(async (req, res, next) => {
-  let userFind = await CommonUser.findOne({ _id: req.body.user });
-  if (userFind.authorization.roles.includes('seller')) {
-    return next(new AppError('The user is already logged as a Seller', 400));
-  }
+  // let userFind = await CommonUser.findOne({ _id: req.body.user });
+  // if (userFind.authorization.roles.includes('seller')) {
+  //   return next(new AppError('The user is already logged as a Seller', 400));
+  // }
 
   const newSeller = await Seller.create({
     user: req.body.user,
@@ -220,7 +220,7 @@ exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
 })
 
 
-exports.getTransactionsSellerLastMonth = async(req, res, next) => {
+exports.getSalesLastMonth = async(req, res, next) => {
   try{
     const {id} = req.params
     const transactionsSeller = await Seller.findOne({_id: id})
