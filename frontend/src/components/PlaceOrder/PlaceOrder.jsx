@@ -115,12 +115,23 @@ export default function PlaceOrderScreen() {
                         <ListGroup.Item key={item.product}>
                           <Row className="align-items-center">
                             <Col md={6}>
-                              <img
+                              {
+                                item.thumbnail ? 
+                                <img
                                 className={logo}
-                                src={item.thumbnail[0]}
+                                src={item.thumbnail}
                                 alt={item.title}
                                 //   className="img-fluid rounded img-thumbnail"
-                              ></img>{' '}
+                              />
+                              : null
+                              }
+                              <img
+                                className={logo}
+                                src={item?.thumbnail}
+                                alt={item.title}
+                                //   className="img-fluid rounded img-thumbnail"
+                              />
+                              {' '}
                               <Link to={`/products/${item.product}`}>
                                 {item.title}
                               </Link>
