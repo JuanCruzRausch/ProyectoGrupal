@@ -122,7 +122,7 @@ export default function SellerProfile() {
       {isAuthenticated ? (
         <div>
         
-          <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings.toFixed(2)}</h1>
+          <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings?.toFixed(2)}</h1>
           {isAuthenticated ? (<h1 className={Titles}>Perfil de Vendedor:</h1>) : null}
           {isAuthenticated ? (
             <div className={Container_card}>
@@ -175,6 +175,7 @@ export default function SellerProfile() {
                     <h2>{product?.title}</h2>
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
+                    <h2>{product._id}</h2>
                     <h3>Vendidos:{product?.totalSold}</h3>
                     <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> desactivarPublication(product._id)}>ocultar</button>
@@ -199,16 +200,11 @@ export default function SellerProfile() {
                     <h2>Stock Disponible <span>{(Number(product?.stock?.stockTotal))-(product?.totalsold? Number(product.totalsold): 0)}</span></h2>
                     <h2>${product?.price}</h2>
                     <h3>Vendidos:{product?.totalsold? product.totalsold: 0}</h3>
-                    <button onClick={()=> deletePublication(product._id)}>X</button>
                     <button onClick={()=> showPublication(product._id)}>mostrar</button>
                   </div>
                   <hr />
                  </div>
               ))}
-            </div>
-            <div className={Container_card2}>
-              <h2>ventas en los ultimos 30 días</h2>
-              <Line data={data3} />
             </div>
           </div>
           <h1 className={Titles}>Pendientes</h1>
@@ -243,7 +239,7 @@ export default function SellerProfile() {
             </div>
             <div className={Container_card4}>
               <h1>Ventas para despachar</h1>
-              <h2>No tenés ventas por preparar</h2>
+              <h2>No tenés ventas por preparar :( :( :( </h2>
             </div>
           </div>
           <div className={Container_card5}></div>

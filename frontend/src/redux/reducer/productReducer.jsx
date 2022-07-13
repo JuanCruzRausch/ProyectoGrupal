@@ -84,11 +84,11 @@ function productReducer(state = initialState, { type, payload }) {
         loading: payload.length>0?"none":"enanos"
       };
     case DELETE_PUBLICATION:
-      console.log(payload);
       return{
         ...state,
         publicationSeller: state.productReducer.publicationSeller.filer(e => e.id !== payload)
       }
+      
     case GET_ALL_PRODUCTS:
       return {
         ...state,
