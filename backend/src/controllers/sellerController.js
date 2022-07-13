@@ -224,8 +224,8 @@ exports.getTransactionsSellerLastMonth = async(req, res, next) => {
   try{
     const {id} = req.params
     const transactionsSeller = await Seller.findOne({_id: id})
-    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
-    const sales = []
+    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity transaction.status').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
+    const sales = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     transaction.filter(e =>  e.dateOfBuy.getMonth() === new Date(Date.now()).getMonth() && e.transaction.status === 'fulfilled' ).forEach((e,i) => {
       sales[e.dateOfBuy.getDate()] = sales[e.dateOfBuy.getDate()]? (sales[e.dateOfBuy.getDate()] + e.transaction.quantity) : e.transaction.quantity
     })
