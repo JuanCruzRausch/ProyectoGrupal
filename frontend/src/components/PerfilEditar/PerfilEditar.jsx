@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Form_Div } from './PerfilEditar.module.css';
-import { DarkForm_Div } from './DarkEditar.module.css'
+import { DarkForm_Div } from './DarkEditar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import countries from '../Json/countries.jsx';
 import states from '../Json/states.jsx';
@@ -13,7 +13,7 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 export default function AltaVededor() {
   const user = useSelector((state) => state.userReducer.user);
-  const mode = useSelector((state)=> state.darkMode)
+  const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;
   const [image, setImage] = React.useState();
   const navigate = useNavigate();
@@ -42,16 +42,16 @@ export default function AltaVededor() {
   const onHandleSubmit = async (e) => {
     e.preventDefault();
 
-    let result
-    if(image){
+    let result;
+    if (image) {
       let f = new FormData();
-      f.append("image", image[0]);
+      f.append('image', image[0]);
       result = await axios
-        .post("http://localhost:5050/upload-image", f, {
-          headers: { "content-type": "multipart/form-data" },
+        .post('http://localhost:5050/upload-image', f, {
+          headers: { 'content-type': 'multipart/form-data' },
         })
         .catch((res) => console.log(res));
-    };
+    }
     console.log(result);
 
     dispatch(
@@ -71,14 +71,14 @@ export default function AltaVededor() {
       draggable: true,
       progress: undefined,
     });
-    setTimeout(()=>{
-      navigate("/perfil")
-    },1500)
+    setTimeout(() => {
+      navigate('/perfil');
+    }, 1500);
   };
   return (
     <div>
       <Helmet>
-        <title>Actualizar-Perfil</title>
+        <title> ML7E Actualizar Perfil</title>
       </Helmet>
       <div className={isdarkMode ? DarkForm_Div : Form_Div}>
         <h1 className="my-3">Actualizar Perfil</h1>
@@ -125,7 +125,7 @@ export default function AltaVededor() {
               Seleccione un pais
             </option>
             {countries
-              .filter((e) => e.name_es !== "")
+              .filter((e) => e.name_es !== '')
               .map((country) => (
                 <option key={country.id}>{country.name}</option>
               ))}

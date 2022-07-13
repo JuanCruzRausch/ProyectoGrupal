@@ -177,7 +177,7 @@ function CreateProduct() {
   return (
     <div>
       <Helmet>
-        <title>ML7E-Publicar_Producto</title>
+        <title>ML7E Publicar Producto</title>
       </Helmet>
 
       <div className={CreateDiv}>
