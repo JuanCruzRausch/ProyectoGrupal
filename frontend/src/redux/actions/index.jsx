@@ -21,6 +21,7 @@ export const SET_LOADING = "SET_LOADING";
 export const DELETE_PUBLICATION = "DELETE_PUBLICATION";
 export const SET_ORDER = "SET_ORDER"
 export const SET_CATEGORY = "SET_CATEGORY"
+export const SET_CATEGORIES_STATS = "SET_CATEGORIES_STATS"
 // import categorias from '../../components/Json/Categorias'
 
 export function signUp(data) {
@@ -180,5 +181,12 @@ export function getAllCategory(payload) {
      payload: [...categorias]
      })
   }
+ }
+
+ export function getCategoriesStats (){
+   return async (dispatch) =>{
+     axios(`${url}/stats/getcategoriesQ`)
+     .then((res)=>dispatch({type: SET_CATEGORIES_STATS, payload: res.data.data}))
+   }
  }
 
