@@ -180,3 +180,30 @@ res.status(200).json({
   data: arrCat
 })
 });
+
+exports.getAllSales = async(req, res, next) => {
+  try{
+    const transaction = await Transaction.find()
+    const sales = []
+    transaction.filter(e =>  e.dateOfBuy.getMonth() === new Date(Date.now()).getMonth() && e.transaction.status === 'fulfilled' ).forEach((e,i) => {
+      sales[e.dateOfBuy.getDate()] = sales[e.dateOfBuy.getDate()]? (sales[e.dateOfBuy.getDate()] + e.transaction.quantity) : e.transaction.quantity
+    })
+    const days = []
+    const day = new Date(Date.now()).getDate()
+    for (let i = 1; i < day+1; i++) {
+      days.push(i)
+    }
+    for (let i = 0; i < sales.length; i++) {
+      typeof sales[i] !== 'number'?sales[i]=0:null
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        sales: sales,
+        days: days
+      }
+    })  
+  }catch(error){
+   next(new AppError(error))
+  }
+}
