@@ -193,7 +193,12 @@ export default function Perfil() {
                       }
                       if (rol === 'common') {
                         return (
-                          <h2 className={Common}>Por favor revise su correo</h2>
+                          <h2 className={Common}>Por favor, complete su perfil para comprar</h2>
+                        );
+                      }
+                      if (rol === 'buyer') {
+                        return (
+                          <h2 className={Common}>Comprador</h2>
                         );
                       }
                     })}
