@@ -99,7 +99,7 @@ export default function AltaVendedor() {
       </Helmet>
       <div className="container">
         <div className={isdarkMode ? DarkForm_Div : Form_Div}>
-          <h1 className="my-3">Alta de Vendedor</h1>
+          <h1 className="my-3">Para publicar un producto es necesario tramitar el alta como vendedor</h1>
           <form onSubmit={(e) => onHandleSubmit(e)}>
             <Form.Group className="mb-3" controlId="name">
               <Form.Label>Marca</Form.Label>
