@@ -93,7 +93,7 @@ export default function SellerProfile() {
     })
     .then((willDelete) => {
       if (willDelete) {
-        swal("Poof! Your imaginary file has been deleted!", {
+        swal("Su producto se encuentra a salvo", {
           icon: "success",
         });
         dispatch(deleteProduct(productId, userState._id))
@@ -121,7 +121,8 @@ export default function SellerProfile() {
       </div>
       {isAuthenticated ? (
         <div>
-          <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings}</h1>
+        
+          <h1 className={Titles}>Saldo: US$ {SellerState?.total_earnings.toFixed(2)}</h1>
           {isAuthenticated ? (<h1 className={Titles}>Perfil de Vendedor:</h1>) : null}
           {isAuthenticated ? (
             <div className={Container_card}>
@@ -143,7 +144,7 @@ export default function SellerProfile() {
                     <h1>Nombre: {userState?.name}</h1>
                     <h2> Email: {userState?.email}</h2>
                     <h2> Ciudad: {userState?.address?.city}</h2>
-                    <h2> Registrado desde: {userState?.registration_date}</h2>
+                    <h2> Registrado desde: {userState?.registration_date.substring(0, 10)}</h2>
                   </div>
                   <div>
                    Transacciones:

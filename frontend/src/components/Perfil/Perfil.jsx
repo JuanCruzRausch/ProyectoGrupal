@@ -192,7 +192,7 @@ export default function Perfil() {
                         return <h2>el casi admin😎</h2>;
                       }
                       if (rol === 'common') {
-                        return <h2 className={Common}>DATE DE ALTA GIL</h2>;
+                        return <h2 className={Common}>Por favor revise su correo</h2>;
                       }
                     })}
                   </div>

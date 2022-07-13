@@ -160,7 +160,7 @@ function ProductDetail(props) {
           <img className={SelectedImg} src={imgs} alt={State?.title} />
         </div>
         <div className={isdarkMode? Dark_Item_text : Detail_Item_text}>
-          <Rating />
+          <Rating rating={State?.rating?.average}/>
           <h1>{State?.title}</h1>
 
           {State?.stock?.stockTotal ? <h2 className={isdarkMode ? DarkStock : Item_text_stock}>En stock</h2> : <h2 className={isdarkMode ? Dark_text_stockOut : Item_text_stockOut}>Sin Stock disponible</h2>}
@@ -190,7 +190,17 @@ function ProductDetail(props) {
         />
         <img className={isdarkMode ? DarkCountPrice_AddCart : CountPrice_AddCart} onClick={() => ADDtoCart()} src={cart} alt="agregar"/>
       </div>
-
+      <div className={isdarkMode ? Dark_Description : Detail_Description}>
+        <h2>Comentarios Sobre este producto({State?.reviews?.length})</h2>
+        {
+          State?.reviews?.map((e,i) => (
+          <> 
+            <h3>{e.review}</h3>
+            <Rating rating={State?.rating?.total_votes[i]}/>
+          </>
+          ))
+        }
+      </div>
       <div className={isdarkMode ? Dark_Description : Detail_Description}>
         <div className={isdarkMode ? Dark_Description_Detail : Detail_Description_Detail}>
           <h2>Descripción</h2>
