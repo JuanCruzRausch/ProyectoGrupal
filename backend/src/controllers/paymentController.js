@@ -6,6 +6,12 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const axios = require('axios');
 const mongoose = require('mongoose');
+//nodemailer y templates emails
+const {sendEmail} = require('../utils/nodemailer')
+const {Confirmation} = require('../templates/Confirmation')
+const {Error} = require('../templates/Error')
+const {orderConfirmation} = require('../templates/orderConfirmation')
+const {SellerSuccess} = require('../templates/SellerSuccess')
 
 const { PAYPAL_API, PAYPAL_API_CLIENT, PAYPAL_API_SECRET } = process.env;
 
@@ -209,7 +215,7 @@ exports.captureOrder = async (req, res, next) => {
         { new: true }
       );
       const seller = await Seller.findById(purchase_units[i].seller);
-      const queDevolves = await Seller.findByIdAndUpdate(
+      await Seller.findByIdAndUpdate(
          purchase_units[i].seller,
         {
           transactionsTotal: {
@@ -223,7 +229,7 @@ exports.captureOrder = async (req, res, next) => {
         },
         { new: true }
       );
-      console.log('\n', queDevolves);
+
       const publi = await PublicationTest.findOne({
         _id: purchase_units[i].publication,
       });
@@ -240,8 +246,14 @@ exports.captureOrder = async (req, res, next) => {
         },
       }
     );
+    
+    const template = orderConfirmation({
+      products: pubs.map((e, i) => {return {price: e.price, title: e.title, quantity: publications[i].quantity, pictures: e.pictures, condition: e.condition}}),
+      address : buyer.address
+    })
 
-    //purchase_history: buyer.purchase_history.concat({publication_id: new mongoose.mongo.ObjectId(newTransaction._id)})
+    sendEmail(buyer.email, 'Compra realizada exitosamente', template)
+    
     res.status(200).json({ status: 'success', data: 'success' });
   } catch (error) {
     console.log(error);
@@ -289,7 +301,7 @@ exports.toCanceled = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-  const sel = await Seller.findByIdAndUpdate(
+  await Seller.findByIdAndUpdate(
     transaction.transaction.seller,
     {
       transactionsTotal: {
@@ -299,6 +311,10 @@ exports.toCanceled = catchAsync(async (req, res, next) => {
     },
     { new: true }
   );
+
+  const template = Error(id)
+  const user = await CommonUser.findOne({_id: seller.user })
+  sendEmail(user.email, 'Venta cancelada por el comprador', template)
 
   res.status(200).json({
     status: 'success',
@@ -355,7 +371,7 @@ exports.toFulfilled = catchAsync(async (req, res, next) => {
     inactive = [...seller.inactive_pub, pub._id];
   }
 
-  const sel = await Seller.findByIdAndUpdate(
+  await Seller.findByIdAndUpdate(
     transaction.transaction.seller,
     {
       total_earnings:
@@ -370,6 +386,12 @@ exports.toFulfilled = catchAsync(async (req, res, next) => {
     },
     { new: true }
   );
+
+  const user_seller = await CommonUser.findOne({_id: seller.user })
+  const user_buyer = await CommonUser.findOne({_id: transaction.buyer})
+
+  const template_confirmation = Confirmation()
+  const template_sellerSuccess = SellerSuccess()
 
   res.status(200).json({
     status: 'success',
