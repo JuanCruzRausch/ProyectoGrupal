@@ -21,10 +21,10 @@ exports.getAllSellers =  async(req, res, next) => {
 
 
 exports.post = catchAsync(async (req, res, next) => {
-  let userFind = await CommonUser.findOne({ _id: req.body.user });
-  if (userFind.authorization.roles.includes('seller')) {
-    return next(new AppError('The user is already logged as a Seller', 400));
-  }
+  // let userFind = await CommonUser.findOne({ _id: req.body.user });
+  // if (userFind.authorization.roles.includes('seller')) {
+  //   return next(new AppError('The user is already logged as a Seller', 400));
+  // }
 
   const newSeller = await Seller.create({
     user: req.body.user,
@@ -220,19 +220,29 @@ exports.getTransactionSeller = catchAsync(async(req,res,next)=>{
 })
 
 
-exports.getTransactionsSellerLastMonth = async(req, res, next) => {
+exports.getSalesLastMonth = async(req, res, next) => {
   try{
     const {id} = req.params
     const transactionsSeller = await Seller.findOne({_id: id})
-    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
+    const transaction = await Transaction.find({}, 'dateOfBuy transaction.quantity transaction.status').where('_id').in(transactionsSeller.transactionsTotal.transactionHistory)
     const sales = []
     transaction.filter(e =>  e.dateOfBuy.getMonth() === new Date(Date.now()).getMonth() && e.transaction.status === 'fulfilled' ).forEach((e,i) => {
       sales[e.dateOfBuy.getDate()] = sales[e.dateOfBuy.getDate()]? (sales[e.dateOfBuy.getDate()] + e.transaction.quantity) : e.transaction.quantity
     })
-
+    const days = []
+    const day = new Date(Date.now()).getDate()
+    for (let i = 1; i < day+1; i++) {
+      days.push(i)
+    }
+    for (let i = 0; i < sales.length; i++) {
+      typeof sales[i] !== 'number'?sales[i]=0:null
+    }
     res.status(200).json({
       status: 'success',
-      data: sales
+      data: {
+        sales: sales,
+        days: days
+      }
     })  
   }catch(error){
    next(new AppError(error))
