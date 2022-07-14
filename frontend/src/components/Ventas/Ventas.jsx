@@ -75,7 +75,7 @@ export default function Ventas() {
 
                 <td>{sale?.dateOfBuy?.substring(0, 10)}</td>
               </tr>
-            ))}
+            )).reverse()}
           </tbody>
         </Table>
       </div>
