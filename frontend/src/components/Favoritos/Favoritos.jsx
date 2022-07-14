@@ -54,11 +54,9 @@ function Favoritos() {
                   ))}
                 </div>
               ) : (
-                <img
-                  className={meme}
-                  src="https://i.imgflip.com/6lodcg.jpg"
-                  alt="meme"
-                />
+                <h2 className={meme}>
+                  Aun no tienes favoritos
+                </h2>
               )}
             </div>
           ) : (

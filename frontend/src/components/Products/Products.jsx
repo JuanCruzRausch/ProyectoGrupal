@@ -80,8 +80,8 @@ function Products({ refElement, scrollTo }) {
       </Helmet>
       <div className={Products_Container}>
         <Carousell />
-        <Sort ref={refElement} scrollTo={scrollTo} />
-        <div className={Cards_Filter_Container}>
+          <Sort ref={refElement} scrollTo={scrollTo} />
+          <div className={Cards_Filter_Container}>
           <Filter className={Filter_Container} scrollTo={scrollTo} />      
           <span className={Cards_Container}>
             {!productos.length && loading === 'spin' && <Loading />}
@@ -110,7 +110,7 @@ function Products({ refElement, scrollTo }) {
           </span>
         </div>
         <div className={Products_Paginate}>
-          <Pagination size="lg">{items}</Pagination>
+          <Pagination size="sm" >{items}</Pagination>
         </div>
 
       </div>
