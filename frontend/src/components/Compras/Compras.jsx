@@ -43,10 +43,10 @@ export default function Compras() {
   const handleSend = () => {
     setShow(!show)
     swal({
-      title: "Good job!",
-      text: "You clicked the button!",
+      title: "Muchas gracias!",
+      text: "Su calificacion fue enviada exitosamente",
       icon: "success",
-      button: "Aww yiss!",
+      button: "cerrar",
     });
     dispatch(sendReview(publication, seller, user?._id, review));
     setSeller('');
