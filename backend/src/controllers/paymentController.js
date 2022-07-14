@@ -101,8 +101,8 @@ exports.createOrder = async (req, res, next) => {
         brand_name: 'MercadoEnanitos',
         landing_page: 'LOGIN',
         user_action: 'PAY_NOW',
-        return_url: 'http://localhost:3000/transaction',
-        cancel_url: 'http://localhost:5050/payment/cancel-order',
+        return_url: 'https://ml-7-e-fedecarballo.vercel.app',
+        cancel_url: 'https://ml7e.herokuapp.com/payment/cancel-order',
       },
     };
 
@@ -229,7 +229,6 @@ exports.captureOrder = async (req, res, next) => {
         },
         { new: true }
       );
-
       const publi = await PublicationTest.findOne({
         _id: purchase_units[i].publication,
       });

@@ -106,6 +106,11 @@ exports.toSeller = catchAsync(async (req, res, next) => {
   user.authorization.roles.includes('seller')?null:user.authorization.roles.push('seller');
   user.save(); 
 
+    // asignacion de rol seller
+
+  
+  
+
   res.status(200).json({
     status: 'success',
     data: {

@@ -17,7 +17,7 @@ const statsRouter = require('./routes/statsRouter')
 const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config({ path: "./.env" });
-// const path=require('path');
+const path=require('path');
 
 const {authorizeAccessToken} = require('./utils/authorizeAccessToken')
 const {roles} = require('./utils/roles')
@@ -27,12 +27,12 @@ const reputationRouter = require('./routes/reputationRouter');
 
 const app = express();
 
-
+app.use(express.static(path.join(__dirname,'public')));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: "*" }));
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header(
     'Access-Control-Allow-Headers',
