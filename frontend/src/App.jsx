@@ -62,7 +62,7 @@ function App() {
      navigate("/transaction")
    } 
     // navigate("/")
-},[])
+},[queries])
 
   const scrollToSort = () => {
     scrollTo.current.scrollIntoView();
