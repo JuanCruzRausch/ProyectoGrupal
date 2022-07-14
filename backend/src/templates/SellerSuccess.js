@@ -1,5 +1,4 @@
 exports.SellerSuccess = (info) =>{
-    
 
     const venta = 
     `  
