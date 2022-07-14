@@ -455,6 +455,7 @@ function CreateProduct() {
           </option>
         </Form.Select> */}
                     <Form.Label>Visualización</Form.Label>
+                    <p>(Una vez completada la transacción se descuenta el %)</p>
                     <form
                       className={Visibility}
                       value={data.visibility}
@@ -465,16 +466,19 @@ function CreateProduct() {
                         <input type="radio" value="3" name="visibility" />
                         <img src={high} />
                         <label htmlFor="">máxima visualización</label>
+                        <p>Costo: 10%</p>
                       </div>
                       <div>
                         <input type="radio" value="2" name="visibility" />
                         <img src={medium} />
                         <label htmlFor="">visualización intermedia</label>
+                        <p>Costo: 5%</p>
                       </div>
                       <div>
                         <input type="radio" value="1" name="visibility" />
                         <img src={low} />
                         <label htmlFor="">poca visualizacion</label>
+                        <p>Costo: Gratis</p>
                       </div>
                     </form>
                   </div>
@@ -486,7 +490,7 @@ function CreateProduct() {
                   <h1>Cantidad Total: {stockTotal}</h1>
                 </div>
                 <span>
-                  <button type="submit">publicar</button>
+                  <button type="submit">Publicar</button>
                 </span>
               </div>
             </Form>

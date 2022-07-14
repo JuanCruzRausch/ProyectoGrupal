@@ -163,17 +163,11 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <div className={PyR_content}>
                {tokenProductId===_id &&  <div>
                    <div className={PyR_content_Pregunta}>
-                   {product_seller_id!==seller?._id?
-                   <button className='button btn danger' onClick={()=>deleteMessage(message._id)}>X</button>
-                   :null} 
                         <p>{message.time}- {message?.name? message.name :"anonimo"} {message?.date.substring(0, 10)}</p>
                         <h3 >{message?.data}</h3>
                    </div>
                    {message?.coments?.map((coment, index)=>(
                         <div key={index} className={PyR_content_Respuesta}>
-                            {coment.user_id === user?._id?
-                                <button className='button btn danger' onClick={()=>deleteComent(message._id, index)}>X</button>
-                            :null} 
                             <p>
                                 {coment.time}-{coment.user_name}
                             </p>
