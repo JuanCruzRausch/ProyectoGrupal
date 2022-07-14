@@ -185,9 +185,12 @@ function ProductDetail(props) {
             <img className={SelectedImg} src={imgs} alt={State?.title} />
           </div>
           <div className={isdarkMode ? Dark_Item_text : Detail_Item_text}>
+            {
+            State?.rating?.total_votes?.length> 0 ?
             <Rating rating={State?.rating?.average} />
+            : null
+            }
             <h1>{State?.title}</h1>
-
             {State?.stock?.stockTotal ? (
               <h2 className={isdarkMode ? DarkStock : Item_text_stock}>
                 En stock

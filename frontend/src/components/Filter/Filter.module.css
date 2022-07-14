@@ -15,7 +15,7 @@
     .categoryItem {
         display:inline;
     }
-    .Container{
-     flex-direction: column;  
+    .container{
+    display: none;
     }
 }

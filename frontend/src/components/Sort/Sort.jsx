@@ -1,7 +1,7 @@
 import {  setActive, getProductBy } from '../../redux/actions';
 import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import { SortContainer, SortDark } from './Sort.module.css';
+import {Form, NavDropdown} from 'react-bootstrap';
+import { SortContainer, SortDark, CATEGORIAS } from './Sort.module.css';
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -12,12 +12,18 @@ const Sort = React.forwardRef((props, ref) => {
   const mode = useSelector((state)=> state.darkMode)
   const { isdarkMode } = mode;
   const dispatch = useDispatch();
-
-
+  const categories = useSelector((state) => state.productReducer.allCategories);
+  const sort = useSelector(state => state.productReducer.sort)
   const setOrder = (val) =>{
     dispatch({type: "SET_ORDER" , payload: val})
   }
-
+  const handleOnSelectCategory = (e, categoryName) => {
+    e.preventDefault();
+    dispatch(setActive(1));
+    window.scrollTo(0, 650);
+    const cat = categories.find(cat => cat.name===categoryName)
+    dispatch(getProductBy(cat._id, min, max, sort));
+  };
   const handleChange = (e) => {
     e.preventDefault();
     setOrder(e.target.value)
@@ -46,6 +52,20 @@ const Sort = React.forwardRef((props, ref) => {
         <option >Menor Precio</option>
         <option >Mayor Precio</option>
       </Form.Select>
+      <NavDropdown className={CATEGORIAS} title="Categorías" id="navbarScrollingDropdown">
+                {categories?.map((category) => {
+                  return (
+                    <NavDropdown.Item
+                    key={category._id}
+                    
+                    onClick={(e) => handleOnSelectCategory(e, category.name)}
+                    href="#"
+                    >
+                        {category.name}
+                    </NavDropdown.Item>
+                    );
+                  })}
+              </NavDropdown>
     </div>
   );
 });

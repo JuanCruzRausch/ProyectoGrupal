@@ -89,8 +89,7 @@ export default function Perfil() {
                         <br />
                       </span>
                       <span>
-                        <div></div>
-                        <div>
+                      <div>
                           <label>Marca:</label>
                           <br /> <br />
                           {sellerState?.brand ? (
@@ -124,6 +123,9 @@ export default function Perfil() {
                     ) : null}
                     <Link to="/perfil/compras">
                       <button>Historial de compras</button>
+                    </Link>
+                    <Link to="/publicar">
+                      <button>Publica tu producto</button>
                     </Link>
                   </div>
                 </div>
