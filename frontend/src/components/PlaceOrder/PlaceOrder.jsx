@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../redux/actions/CartActions';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Loading/Loading'
-import url from '../../ulr';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();

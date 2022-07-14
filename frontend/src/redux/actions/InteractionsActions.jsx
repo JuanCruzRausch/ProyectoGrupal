@@ -1,6 +1,6 @@
 const GET_TRANSACTION = 'GET_TRANSACTION';
 import axios from 'axios';
-import url from '../../ulr';
+
 
 export const getTransaction = (queries) => {
   return async (dispatch) => {

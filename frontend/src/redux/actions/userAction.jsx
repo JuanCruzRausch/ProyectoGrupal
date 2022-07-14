@@ -1,5 +1,5 @@
 import axios from "axios"
-import url from "../../ulr"
+
 
 export const SET_USER = "SET_USER"
 export const SET_SELLER = "SET_SELLER"

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import url from '../../ulr';
 import low from '../../assets/img/icons_Products/podium_last.png';
 import medium from '../../assets/img/icons_Products/podium_second.png';
 import high from '../../assets/img/icons_Products/podium_first.png';
