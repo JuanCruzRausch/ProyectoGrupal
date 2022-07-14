@@ -148,7 +148,7 @@ export default function Perfil() {
                       </div>
                       <div>
                         <h3> Provincia:</h3>{' '}
-                        <h2>{userState?.address?.location}</h2>
+                        <h2>{userState?.address?.province}</h2>
                       </div>
                       <div>
                         <h3> Ciudad:</h3> <h2>{userState?.address?.city}</h2>
@@ -193,7 +193,12 @@ export default function Perfil() {
                       }
                       if (rol === 'common') {
                         return (
-                          <h2 className={Common}>Por favor revise su correo</h2>
+                          <h2 className={Common}>Por favor, complete su perfil para comprar</h2>
+                        );
+                      }
+                      if (rol === 'buyer') {
+                        return (
+                          <h2 className={Common}>Comprador</h2>
                         );
                       }
                     })}

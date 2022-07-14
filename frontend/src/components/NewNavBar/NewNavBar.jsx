@@ -248,7 +248,7 @@ function NewNavBar(props) {
             <Container>
               <Link to="/">
                 {userLogged?.photo?<img className={logo} src={userLogged?.photo} />
-                :<img className={logo} src={user.picture} />}
+                :<img className={logo} src={user.picture} referrerpolicy="no-referrer"/>}
               </Link>
             </Container>
           </div>

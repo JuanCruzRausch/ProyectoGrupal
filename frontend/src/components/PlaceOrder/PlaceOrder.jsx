@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 import { sendOrder } from '../../redux/actions/CartActions';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Loading/Loading'
-import url from '../../ulr';
 
 export default function PlaceOrderScreen() {
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ export default function PlaceOrderScreen() {
     console.log(window.location.href);
     dispatch({type:"SET_LOADING", payload:"spin"})
     let res = await axios.post(
-      `${url}/payment/create-order/` + userState?._id,
+      `/payment/create-order/` + userState?._id,
       { PrecioTotal, cartItem, shippingAddress, userState }
     );
     window.location.href = res.data;
@@ -123,12 +122,6 @@ export default function PlaceOrderScreen() {
                               />
                               : null
                               }
-                              <img
-                                className={logo}
-                                src={item?.thumbnail}
-                                alt={item.title}
-                                //   className="img-fluid rounded img-thumbnail"
-                              />
                               {' '}
                               <Link to={`/products/${item.product}`}>
                                 {item.title}

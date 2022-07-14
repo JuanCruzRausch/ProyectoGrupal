@@ -216,10 +216,10 @@ exports.getPublicationByName = catchAsync(async (req, res, next) => {
 
   const publications = await features.query;
 
-  const search = publications.filter((e) =>
-    e.title.toLowerCase().startsWith(title.toLowerCase())
+  const search = publications.filter((e) =>{
+    return e.title.toLowerCase().startsWith(title.toLowerCase())}
   );
-
+  
   if (!publications) {
     return next(new AppError('The id does not match with any product', 404));
   }

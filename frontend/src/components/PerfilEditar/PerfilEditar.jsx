@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
-import url from '../../ulr';
 import { Form, Button } from 'react-bootstrap';
 import { Form_Div } from './PerfilEditar.module.css';
 import { DarkForm_Div } from './DarkEditar.module.css';
@@ -48,7 +47,7 @@ export default function AltaVededor() {
       let f = new FormData();
       f.append('image', image[0]);
       result = await axios
-        .post(`${url}/upload-image`, f, {
+        .post(`/upload-image`, f, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .catch((res) => console.log(res));
@@ -133,7 +132,7 @@ export default function AltaVededor() {
           <Form.Label>Provincia</Form.Label>
           <Form.Select
             aria-label="Default select example"
-            value={user?.address?.province}
+            value={user?.address?.location}
             name="province"
             onChange={(e) => addressOnChange(e.target.name, e.target.value)}
           >

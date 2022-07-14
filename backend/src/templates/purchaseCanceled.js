@@ -1,4 +1,4 @@
-exports.orderConfirmation = (id) => {
+exports.purchase_canceled = (id) => {
   const error = `
     <html>
     <div class="">

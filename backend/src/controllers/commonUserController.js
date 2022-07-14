@@ -41,6 +41,7 @@ exports.updateToUser = async (req, res, next) => {
   try {
     const { _id, name, nickname, country, address, phone, credit_card, photo } =
       req.body;
+      console.log(address)
     const lastname = req.body.last_name;
     await CommonUser.updateOne(
       { _id: _id },
