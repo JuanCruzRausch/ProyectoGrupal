@@ -31,11 +31,8 @@ const deletedSeller = new Schema({
     ref: 'DeletedPublication',
   },
   reputation: {
-    value: Number,
-    votes: {
-      type: [Schema.Types.ObjectId],
-      ref: 'Transaction'
-    }
+    average: { type: Number },
+    total_votes: [Number],
   },
   transactionsTotal: {
     transactionHistory: {
@@ -67,6 +64,10 @@ const deletedSeller = new Schema({
   answered: {
     type: [Schema.Types.ObjectId],
     ref: 'QandA',
+  },
+  total_earnings: {
+    type: Number,
+    default: 0,
   },
 });
 

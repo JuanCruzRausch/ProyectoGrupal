@@ -48,7 +48,6 @@ const deletedUser = new Schema({
   },
   credit_card: {
     type: String,
-    validate: [validator.isCreditCard, 'Credit card data is invalid'],
   },
   photo: {
     type: String,
@@ -65,6 +64,37 @@ const deletedUser = new Schema({
     },
     strikes_total: Number,
   },
+  purchase_order: {
+    products: [{
+      publicationId: {
+        type: Schema.Types.ObjectId,
+        ref: 'PublicationTest'
+      },
+      quantity: {
+        type: Number
+      },
+    }],
+    link: {
+      type: String
+    }
+  },
+  blocked: {
+    type: Schema.Types.Boolean,
+    default: false
+  },
+  notifications: [
+    {
+      date_create: Schema.Types.Date,
+      content: Schema.Types.String,
+      state: Schema.Types.String,
+    },
+  ],
+  chats: [{ type: Schema.Types.ObjectId, ref: 'Chat' }],
+  purchase_history: {
+      type: [Schema.Types.ObjectId],
+      ref: "Transaction",
+    },
+  user_id: String
 });
 
 deletedUser.pre('save', function (next) {
