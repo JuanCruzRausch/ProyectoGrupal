@@ -215,13 +215,15 @@
     margin: auto 0;
     width: auto;
     display: flex;
+    width: 100%;
 }
 
 .ItemsContainer_SingleItem{
     margin: 20px 0;
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     justify-content: space-between !important;
+    align-items: center;
 }
 
 .ItemsContainer_SingleItem img {
@@ -229,13 +231,12 @@
     width: 50px;
 }
 .ItemsContainer_SingleItem h1{
-    width: 15%;
+    width: 100%;
 }
  .ItemsContainer_SingleItem h1, h2{
     text-align: center;
-    align-self: center;
-    align-content: center;
-    font-size: .9rem;
+    margin: 0;
+    font-size: 1rem !important;
  }
  .Buttons{
     display: flex !important;
