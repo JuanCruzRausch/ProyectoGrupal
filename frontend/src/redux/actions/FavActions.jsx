@@ -6,7 +6,7 @@ export const REMOVE_FROM_FAV = "REMOVE_FROM_FAV"
 export function AddToFav(id){
     console.log(id);
     return async(dispatch) => {
-            axios(`${url}/publicationtest/` + id)
+            axios(`/publicationtest/` + id)
             .then(res=> 
                  dispatch({
                  type: ADD_TO_FAV, 

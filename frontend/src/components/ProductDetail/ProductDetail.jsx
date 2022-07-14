@@ -60,8 +60,9 @@ import Rating from '../Rating/Rating';
 import { Helmet } from 'react-helmet-async';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
-const socket = io.connect(`${url}`);
+import dotenv from 'dotenv';
+dotenv.config();
+const socket = io.connect(process.env.REACT_APP_API || "http://localhost:5050");
 
 function ProductDetail(props) {
   const [show, setShow] = useState(false);

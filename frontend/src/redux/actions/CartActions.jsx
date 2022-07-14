@@ -12,7 +12,7 @@ export const SAVE_SHIPPING_ADDRESS = "SAVE_SHIPPING_ADDRESS"
 
 export function AddToCart(id,count){
     return async(dispatch) => {
-            axios(`${url}/publicationtest/`+id)
+            axios(`/publicationtest/`+id)
             .then(res=>
                   dispatch({
                   type: ADD_TO_CART, 
@@ -32,7 +32,7 @@ export function AddToCart(id,count){
 export function OrderSingleProduct(id,count){
     console.log(id,count);
     return async(dispatch) => {
-            axios(`${url}/publicationtest/` + id)
+            axios(`/publicationtest/` + id)
             .then(res=> 
                  dispatch({
                  type: ORDER_PRODUCT, 
@@ -51,7 +51,7 @@ export function OrderSingleProduct(id,count){
 
 export async function sendOrder (id,data){
     let urls = ''
-    await axios.post(`${url}/payment/create-order/`+id,data)
+    await axios.post(`/payment/create-order/`+id,data)
     .then(res =>  urls = res.data)
 }
 export function IncreaseCart(id){

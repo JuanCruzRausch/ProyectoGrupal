@@ -43,7 +43,7 @@ export default function PlaceOrderScreen() {
     console.log(window.location.href);
     dispatch({type:"SET_LOADING", payload:"spin"})
     let res = await axios.post(
-      `${url}/payment/create-order/` + userState?._id,
+      `/payment/create-order/` + userState?._id,
       { PrecioTotal, cartItem, shippingAddress, userState }
     );
     window.location.href = res.data;
