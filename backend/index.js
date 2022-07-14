@@ -42,6 +42,7 @@ io.on("connection", (socket)=>{
     socket.emit("envio_front", data)
   })
 
+  
   socket.on("join_room", (room)=>{
     
     // socket.join(room)
