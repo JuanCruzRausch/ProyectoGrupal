@@ -124,9 +124,11 @@ export default function Perfil() {
                     <Link to="/perfil/compras">
                       <button>Historial de compras</button>
                     </Link>
-                    <Link to="/publicar">
-                      <button>Publica tu producto</button>
-                    </Link>
+                    {userState?.authorization?.roles.includes('seller') ? (
+                      <Link to="/publicar">
+                        <button>Publica tu producto</button>
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
                 <div className={Container_text}>
@@ -184,26 +186,8 @@ export default function Perfil() {
                   <div>
                     <h3> Tipo de usuario:</h3>{' '}
                     {userState?.authorization?.roles.map((rol) => {
-                      if (rol === 'seller') {
-                        return <h2 className={Vendedor}>Vendedor</h2>;
-                      }
-                      if (rol === 'admin') {
-                        return <h2 className={Admin}>el admin😎</h2>;
-                      }
-                      if (rol === 'moderator') {
-                        return <h2>el casi admin😎</h2>;
-                      }
-                      if (rol === 'common') {
-                        return (
-                          <h2 className={Common}>Por favor, complete su perfil para comprar</h2>
-                        );
-                      }
-                      if (rol === 'buyer') {
-                        return (
-                          <h2 className={Common}>Comprador</h2>
-                        );
-                      }
-                    })}
+          }
+                    )}
                   </div>
                   {userState?.registration_date && (
                     <div>

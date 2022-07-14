@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import EmptyCart from '../../assets/img/emptycart.png';
 import {ToastContainer, toast} from 'react-toastify'
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Cart() {
@@ -14,6 +15,7 @@ function Cart() {
   let navigate = useNavigate();
   const state = useSelector((state) => state.CartReducer.cart.cartItem);
   const FavState = useSelector((state)=> state.FavReducer.Favs)
+  const userState = useSelector((state) => state.userReducer.user)
   const {isAuthenticated} = useAuth0();
   JSON.parse(localStorage.getItem('cart'));
 
@@ -103,7 +105,7 @@ function Cart() {
         })
     }
   }
-
+  console.log(userState?.email_verified === true)
   const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
   return (
     <div className={container}>
@@ -149,7 +151,18 @@ function Cart() {
                 <div className={Checkout_total}>
                 <h1>Total:US$ {Math.ceil(PrecioTotal)}</h1>
               </div>
-              <button onClick={()=>navigate('/shipping')}>Checkout</button>
+              {
+                userState?.email_verified === true ?
+                null
+                :
+                <p>Para completar la compra verifica tu correo o inicia sesion</p>
+              }
+              {
+                 userState?.email_verified === true ? 
+                 <button onClick={()=>navigate('/shipping')}>Checkout</button>
+                :
+                <Button variant="secondary" disabled>Checkout</Button>
+              }
               <button onClick={() => handleClear()}>Borrar carrito</button>
              </div> 
             </div>
