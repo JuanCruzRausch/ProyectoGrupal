@@ -229,7 +229,7 @@ exports.orderConfirmation = (info) => {
                                                                             <tr>
                                                                                 <td>
                                                                                     <div align="center">
-                                                                                        <a href="#m_-5006345486347126279_"
+                                                                                        <a href="https://ml-7-e-fedecarballo.vercel.app/"
                                                                                             style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#fc7318;border-radius:15px;width:auto;border-top:1px solid #fc7318;font-weight:400;border-right:1px solid #fc7318;border-bottom:1px solid #fc7318;border-left:1px solid #fc7318;padding-top:5px;padding-bottom:5px;font-family:Lato,Tahoma,Verdana,Segoe,sans-serif;text-align:center;word-break:keep-all"><span
                                                                                                 style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal"><span
                                                                                                     style="font-size:16px;line-height:2;word-break:break-word"><span
@@ -675,7 +675,7 @@ exports.orderConfirmation = (info) => {
                                                                                                 <span
                                                                                                     style="font-size:18px">&nbsp;<strong><a
                                                                                                             style="text-decoration:none;color:#2190e3"
-                                                                                                            href="#"
+                                                                                                            href="https://ml-7-e-fedecarballo.vercel.app/"
                                                                                                             rel="noopener">support@mercadoLos7enanitos.<wbr>com</a></strong></span><br><span
                                                                                                     style="font-size:18px">(011)22334455</span>
                                                                                             </p>
