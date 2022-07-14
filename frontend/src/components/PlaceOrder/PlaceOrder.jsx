@@ -122,12 +122,6 @@ export default function PlaceOrderScreen() {
                               />
                               : null
                               }
-                              <img
-                                className={logo}
-                                src={item?.thumbnail}
-                                alt={item.title}
-                                //   className="img-fluid rounded img-thumbnail"
-                              />
                               {' '}
                               <Link to={`/products/${item.product}`}>
                                 {item.title}
