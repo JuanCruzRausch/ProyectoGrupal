@@ -44,12 +44,12 @@ function ShippingAddress() {
     return;
   };
 
-  useEffect(() => {
-    if (!user?.email_verified) {
-      loginWithRedirect();
-      navigate(-1);
-    }
-  }, [user, navigate]);
+//  useEffect(() => {
+//    if (!user?.email_verified) {
+//      loginWithRedirect();
+//      navigate(-1);
+//    }
+//  }, [user, navigate]);
   const handleOnChange = (e, id) => {
     setValidate({
       ...validate,
