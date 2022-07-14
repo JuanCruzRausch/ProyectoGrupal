@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 //nodemailer y templates emails
 const {sendEmail} = require('../utils/nodemailer')
 const {Confirmation} = require('../templates/Confirmation')
-const {Error} = require('../templates/Error')
+const {purchase_canceled} = require('../templates/purchaseCanceled')
 const {orderConfirmation} = require('../templates/orderConfirmation')
 const {SellerSuccess} = require('../templates/SellerSuccess')
 
@@ -312,7 +312,7 @@ exports.toCanceled = catchAsync(async (req, res, next) => {
     { new: true }
   );
 
-  const template = Error(id)
+  const template = purchase_canceled(id)
   const user = await CommonUser.findOne({_id: seller.user })
   sendEmail(user.email, 'Venta cancelada por el comprador', template)
 
