@@ -131,7 +131,7 @@ function CreateProduct() {
       let f = new FormData();
       f.append('image', images[i][0]);
       let result = await axios
-        .post(`${url}/upload-image`, f, {
+        .post(`/upload-image`, f, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .catch((res) => console.log(res));
