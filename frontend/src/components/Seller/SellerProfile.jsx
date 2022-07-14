@@ -271,7 +271,7 @@ export default function SellerProfile() {
                           Vendidos:{product?.totalsold ? product.totalsold : 0}
                         </h3>
                         <button onClick={() => showPublication(product._id)}>
-                          mostrar
+                          Restaurar
                         </button>
                       </div>
                       <hr />
