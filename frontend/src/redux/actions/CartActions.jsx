@@ -1,5 +1,5 @@
 import axios from 'axios'
-import url from '../../ulr'
+
 export const ADD_TO_CART = "ADD_TO_CART"
 export const ORDER_PRODUCT = "ORDER_PRODUCT"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"

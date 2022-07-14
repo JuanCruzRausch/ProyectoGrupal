@@ -34,12 +34,11 @@ import { useEffect } from "react";
 import { app, checkbox, label, ball,darkmode, appDark } from "./App.module.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Transaction from "./components/Transtaction/Transaction";
-import url from "./ulr";
 import Ventas from "./components/Ventas/Ventas";
 import Compras from "./components/Compras/Compras";
 import { Helmet } from "react-helmet-async";
 
-const WS = url
+
 function App() {
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
@@ -51,7 +50,7 @@ function App() {
   };
   const scrollTo = useRef();
   useEffect(()=>{
-    socketIO(WS)
+    socketIO("https://ml7e.herokuapp.com/")
   },[])
 
   const scrollToSort = () => {

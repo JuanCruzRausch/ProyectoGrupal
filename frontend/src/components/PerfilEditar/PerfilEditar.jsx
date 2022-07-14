@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
-import url from '../../ulr';
 import { Form, Button } from 'react-bootstrap';
 import { Form_Div } from './PerfilEditar.module.css';
 import { DarkForm_Div } from './DarkEditar.module.css';

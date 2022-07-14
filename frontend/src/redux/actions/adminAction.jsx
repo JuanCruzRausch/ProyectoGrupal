@@ -1,5 +1,5 @@
 import axios from 'axios'
-import url from '../../ulr'
+
 export const GET_ALL_USER = "GET_ALL_USER"
 export const LOCK_USER = "LOCK_USER"
 export const SAVE_TOKEN = "SAVE_TOKEN"

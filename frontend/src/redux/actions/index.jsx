@@ -1,5 +1,4 @@
 import { setSeller } from './userAction';
-import url from '../../ulr';
 
 import axios, { Axios } from 'axios'
 export const PUBLICATION_SELLER = "PUBLICATION_SELLER"

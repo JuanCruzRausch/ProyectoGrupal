@@ -13,7 +13,6 @@ import arrow from '../../assets/img/leftarrow.png';
 import { ToastContainer, toast } from 'react-toastify';
 import Chat from '../Chat/Chat';
 import io from 'socket.io-client';
-import url from '../../ulr';
 import {
   Modals,
   Detail_container,
@@ -60,9 +59,7 @@ import Rating from '../Rating/Rating';
 import { Helmet } from 'react-helmet-async';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import dotenv from 'dotenv';
-dotenv.config();
-const socket = io.connect(process.env.REACT_APP_API || "http://localhost:5050");
+const socket = io.connect("https://ml7e.herokuapp.com/");
 
 function ProductDetail(props) {
   const [show, setShow] = useState(false);
