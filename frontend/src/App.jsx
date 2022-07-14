@@ -37,12 +37,10 @@ import Transaction from "./components/Transtaction/Transaction";
 import Ventas from "./components/Ventas/Ventas";
 import Compras from "./components/Compras/Compras";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from 'react-router'
-import { useNavigate } from 'react-router-dom'
+
 
 function App() {
-  const navigate = useNavigate()
-  const queries = useLocation().search
+
   const dispatch = useDispatch();
   const mode = useSelector((state)=> state.darkMode)
   const { isdarkMode } = mode;
@@ -56,13 +54,7 @@ function App() {
     socketIO("https://ml7e.herokuapp.com/")
   },[])
 
-  useEffect(()=>{
-   if(queries)   {
-     dispatch(getTransaction(queries))
-     navigate("/transaction")
-   } 
-    // navigate("/")
-},[queries])
+
 
   const scrollToSort = () => {
     scrollTo.current.scrollIntoView();

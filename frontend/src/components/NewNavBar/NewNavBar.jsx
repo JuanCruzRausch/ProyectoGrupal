@@ -37,9 +37,17 @@ import LogoutButton from '../Auth0/logout';
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios'
 import swal from 'sweetalert'
-
+import { useLocation } from 'react-router'
+import { getTransaction } from '../../redux/actions/InteractionsActions'
 
 function NewNavBar(props) {
+  const queries = useLocation().search
+  useEffect(()=>{
+   if(queries)   {
+     dispatch(getTransaction(queries))
+     navigate("/transaction")
+   } 
+},[queries])
     const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
