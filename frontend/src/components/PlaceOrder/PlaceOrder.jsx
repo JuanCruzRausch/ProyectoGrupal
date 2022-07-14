@@ -87,22 +87,22 @@ export default function PlaceOrderScreen() {
                           <Col md={6}>
                             <img
                               className={logo}
-                              src={SingleCart?.CartItem.thumbnail}
-                              alt={SingleCart?.CartItem.title}
+                              src={SingleCart?.CartItem?.thumbnail}
+                              alt={SingleCart?.CartItem?.title}
                               //   className="img-fluid rounded img-thumbnail"
                             ></img>{' '}
                             <Link to={`/${SingleCart?.CartItem.product}`}>
-                              {SingleCart?.CartItem.title}
+                              {SingleCart?.CartItem?.title}
                             </Link>
                           </Col>
                           <Col md={3}>
-                            <span>{SingleCart?.CartItem.quantity}</span>
+                            <span>{SingleCart?.CartItem?.quantity}</span>
                           </Col>
                           <Col md={3}>
                             $
                             {Math.round(
-                              SingleCart?.CartItem.quantity *
-                                SingleCart?.CartItem.price
+                              SingleCart?.CartItem?.quantity *
+                                SingleCart?.CartItem?.price
                             )}
                           </Col>
                         </Row>
@@ -151,10 +151,10 @@ export default function PlaceOrderScreen() {
                         <Col>Items</Col>
                         <Col>
                           $
-                          {SingleCart?.CartItem.price !== undefined
+                          {SingleCart?.CartItem?.price !== undefined
                             ? Math.round(
-                                SingleCart?.CartItem.quantity *
-                                  SingleCart?.CartItem.price
+                                SingleCart?.CartItem?.quantity *
+                                  SingleCart?.CartItem?.price
                               )
                             : Number(PrecioTotal).toFixed(2)}
                         </Col>
@@ -168,8 +168,8 @@ export default function PlaceOrderScreen() {
                             $
                             {SingleCart?.CartItem.price !== undefined
                               ? Math.round(
-                                  SingleCart?.CartItem.quantity *
-                                    SingleCart?.CartItem.price
+                                  SingleCart?.CartItem?.quantity *
+                                    SingleCart?.CartItem?.price
                                 )
                               : Number(PrecioTotal).toFixed(2)}
                           </strong>
@@ -184,7 +184,7 @@ export default function PlaceOrderScreen() {
                           onClick={placeOrderHandler}
                           disabled={
                             cartItem.length === 0 &&
-                            SingleCart?.CartItem.price == undefined
+                            SingleCart?.CartItem?.price == undefined
                           }
                         >
                           Comprar
