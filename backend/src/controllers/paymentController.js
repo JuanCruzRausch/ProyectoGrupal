@@ -101,7 +101,7 @@ exports.createOrder = async (req, res, next) => {
         brand_name: 'MercadoEnanitos',
         landing_page: 'LOGIN',
         user_action: 'PAY_NOW',
-        return_url: 'http://localhost:3000/transaction',
+        return_url: 'https://ml-7-e-fedecarballo.vercel.app',
         cancel_url: 'https://ml7e.herokuapp.com/payment/cancel-order',
       },
     };
