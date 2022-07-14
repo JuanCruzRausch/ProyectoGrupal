@@ -10,7 +10,7 @@ export function getUsers (token) {
 
     return async (dispatch)=>{
         dispatch({type:SAVE_TOKEN, payload: token})
-        axios(`${url}/stats/listUsers`,{
+        axios(`/stats/listUsers`,{
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -22,14 +22,14 @@ export function getUsers (token) {
 export function lockUser (userId, token) {
     return async(dispatch)=>{
         console.log(userId)
-        axios.delete(`${url}/commonuser/block/${userId}?block=true`, {
+        axios.delete(`/commonuser/block/${userId}?block=true`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         } )
         .then((res)=>{
             console.log(res)
-            axios(`${url}/stats/listUsers`,{
+            axios(`/stats/listUsers`,{
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
@@ -43,14 +43,14 @@ export function lockUser (userId, token) {
 export function unlockUser (userId, token) {
     return async(dispatch)=>{
         console.log(userId)
-        axios.delete(`${url}/commonuser/block/${userId}?block="false"`, {
+        axios.delete(`/commonuser/block/${userId}?block="false"`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
         } )
         .then((res)=>{
             console.log(res)
-            axios(`${url}/stats/listUsers`,{
+            axios(`/stats/listUsers`,{
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
@@ -62,14 +62,14 @@ export function unlockUser (userId, token) {
 
 export function getAdminData(){
     return async (dispatch) =>{
-        axios(`${url}/stats/getresults`)
+        axios(`/stats/getresults`)
         .then(res => dispatch({type:ADMIN_DATA, payload: res.data.data}))
     }
 }
 
 export function getAllSalesLastMonth  () {
     return async (dispatch) => {
-      return axios(`${url}/stats/getAllSales`)
+      return axios(`/stats/getAllSales`)
       .then(res=> dispatch({type: ALL_SALES_LAST_MONTH, payload: res.data.data }))
     }
   }

@@ -47,7 +47,7 @@ export default function AltaVededor() {
       let f = new FormData();
       f.append('image', image[0]);
       result = await axios
-        .post(`${url}/upload-image`, f, {
+        .post(`/upload-image`, f, {
           headers: { 'content-type': 'multipart/form-data' },
         })
         .catch((res) => console.log(res));
