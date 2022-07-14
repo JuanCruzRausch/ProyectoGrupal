@@ -12,9 +12,13 @@ import { DetailDark } from '../Terms/TermsDark.module.css';
 import { AboutUs, AboutTeam, SingleContainer, GHyLDn, TextContainer, AboutUsDark} from './About.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import{ AiFillLinkedin, AiFillGithub} from 'react-icons/ai'
 import { Helmet } from 'react-helmet-async';
 function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;
   return (

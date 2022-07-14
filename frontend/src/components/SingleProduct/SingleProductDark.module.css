@@ -89,16 +89,26 @@
    transform: scale(1.3);
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:760px) {
     
 .SingleProduct_containerDark{
-    margin: 1.5rem auto;
+    height: max-content;
     width: 99%;
+    margin: 1.5rem auto;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     transition: all .6s ease-in-out;
 }
-
+.SingleProduct_imgDark{
+    align-items: center;
+    justify-content: center;
+    height:90px;
+    width: 90px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: auto;
+}
 .SingleProduct_imgDark img{
     height:90px !important;
     width: 90px !important;
@@ -111,35 +121,35 @@
     cursor: pointer;
 }
 .SingleProduct_textDark{
+    align-items: center;
     margin: auto; 
     width: 80%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
 }
 .SingleProduct_textDark h1{
-    font-size: 1.3rem;
-    width: 80%;
+    font-size: 1rem;
     margin: 1rem 0;
     font-weight: 300;
 }
 .SingleProduct_textDark h2{
-    align-self: flex-start;
+    align-self: center;
+    width: 100%;
     font-size: 1.8rem !important;
     font-weight: 700;
 }
 .SingleProduct_textDark h3{
-    align-self: flex-start;
+    align-self: center;
     color: #00A650 !important;
     font-size: 1rem !important;
     font-weight: 400 !important;
 }
 .SingleProduct_buttonsDark{
-    width: 200px;
+    width: 100%;
     display: flex;
-    justify-self: flex-end;
-    flex-direction: column; 
-    justify-content: space-between;
+    flex-direction: row; 
+    justify-content: space-around;
 }
 .SingleProduct_buttonsDark button{
     margin: auto;

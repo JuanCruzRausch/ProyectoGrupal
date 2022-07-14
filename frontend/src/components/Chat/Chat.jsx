@@ -147,7 +147,7 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
     return (
     <div>
          <div className={isdarkMode ? Dark_PyR : PyR_container}>
-             <h1>preguntas y respuestas</h1>
+             <h1>Preguntas y Respuestas</h1>
              <hr />
         <div className={chat_footer}>
             {product_seller_id!==seller._id&&<form action="" onSubmit={(e)=> submitMessage(e)}>

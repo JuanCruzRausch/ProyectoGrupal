@@ -38,7 +38,6 @@
     color: rgb(0, 0, 0);
 }
 .AboutTeam{
-    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
