@@ -111,7 +111,7 @@ function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav })
         <Link to={`/products/${id}`}>
           <h1 onClick={() => dispatch(GetSingleProduct(id))}>{name}</h1>
         </Link>
-        <h2>$ {price}</h2>
+        <h2>US$ {price}</h2>
         {
           Shipping == true ? <h3>Envío Gratis</h3> : null
         }
