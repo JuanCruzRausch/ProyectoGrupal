@@ -231,7 +231,7 @@ exports.getSalesLastMonth = async(req, res, next) => {
     })
     const days = []
     const day = new Date(Date.now()).getDate()
-    for (let i = 1; i < day+1; i++) {
+    for (let i = 0; i < day+1; i++) {
       days.push(i)
     }
     for (let i = 0; i < sales.length; i++) {
