@@ -120,19 +120,20 @@
 }
 .SingleProduct_text h1{
     font-size: 1.3rem;
-    width: 80%;
+    width: 60%;
     margin: 1rem 0;
     color: #333333;
     font-weight: 300;
 }
 .SingleProduct_text h2{
-    align-self: flex-start;
-    font-size: 1.8rem !important;
+    align-self: center;
+    width: 100%;
+    font-size: 1.2rem !important;
     font-weight: 700;
     color: #000000;
 }
 .SingleProduct_text h3{
-    align-self: flex-start;
+    align-self: center;
     color: #00A650 !important;
     font-size: 1rem !important;
     font-weight: 400 !important;
@@ -170,19 +171,30 @@
 @media screen and (max-width:760px) {
     
 .SingleProduct_container{
+    height: max-content;
     margin: 1.5rem auto;
-    width: 99%;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     background-color: #fff;
     transition: all .6s ease-in-out;
 }
-
-.SingleProduct_img img{
+.SingleProduct_img{
+    align-items: center;
+    justify-content: center;
     height:90px;
     width: 90px;
     object-fit: contain;
+    border-radius: 12px;
     margin: auto;
+}
+
+.SingleProduct_img img{
+    align-items: center;
+    justify-content: center;
+    height:90px;
+    width: 90px;
+    object-fit: contain;
     border-radius: 12px;
 }
 
@@ -190,37 +202,36 @@
     cursor: pointer;
 }
 .SingleProduct_text{
+    align-items: center;
     margin: auto; 
     width: 80%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
 }
 .SingleProduct_text h1{
-    font-size: 1.3rem;
-    width: 80%;
+    font-size: 1rem;
     margin: 1rem 0;
     color: #333333;
     font-weight: 300;
 }
 .SingleProduct_text h2{
-    align-self: flex-start;
+    align-self: center;
     font-size: 1.8rem !important;
     font-weight: 700;
     color: #000000;
 }
 .SingleProduct_text h3{
-    align-self: flex-start;
+    align-self: center;
     color: #00A650 !important;
     font-size: 1rem !important;
     font-weight: 400 !important;
 }
 .SingleProduct_buttons{
-    width: 200px;
+    width: 100%;
     display: flex;
-    justify-self: flex-end;
-    flex-direction: column; 
-    justify-content: space-between;
+    flex-direction: row; 
+    justify-content: space-around;
 }
 .SingleProduct_buttons button{
     margin: auto;

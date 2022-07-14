@@ -202,7 +202,7 @@ function CreateProduct() {
                   onChange={(e) => handleOnChange(e)}
                   required
                 />
-                <Form.Label>Descripcion</Form.Label>
+                <Form.Label>Descripción</Form.Label>
                 <Form.Control
                   name="description"
                   value={data.description}
@@ -212,7 +212,7 @@ function CreateProduct() {
                   rows={4}
                   required
                 />
-                <Form.Label>Imagenes (.jpg .jpeg .png)</Form.Label>
+                <Form.Label>Imágenes (.jpg .jpeg .png)</Form.Label>
                 <Form.Control
                   type="file"
                   multiple
@@ -239,7 +239,7 @@ function CreateProduct() {
                   onChange={(e) => priceValidation(e)}
                   required
                 />
-                <Form.Label>Categoria</Form.Label>
+                <Form.Label>Categoría</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   value={data.category}
@@ -247,7 +247,7 @@ function CreateProduct() {
                   onChange={(e) => handleOnChange(e)}
                 >
                   <option value="" disabled default>
-                    Seleccione una categoria
+                    Seleccione una categoría
                   </option>
                   {CATEGORIAS?.filter((e) => e.name !== '').map((e) => (
                     <option key={e.id}>{e.name}</option>
@@ -262,7 +262,7 @@ function CreateProduct() {
                     onChange={(e) => handleOnChange(e)}
                   >
                     <option value="" disabled default>
-                      Seleccione una categoria
+                      Seleccione una categoría
                     </option>
                     {subcategories?.subcategories.map((e) => (
                       <option value={e.name} key={e.id}>
@@ -277,7 +277,7 @@ function CreateProduct() {
                   <Form aria-label="Default select example">
                     <div className={linea}></div>
                     <div>
-                      <h2>características Especiales:</h2>
+                      <h2>Características Especiales:</h2>
                     </div>
                     {objects?.properties.map((e, i) => (
                       <div key={e._id}>
@@ -350,7 +350,7 @@ function CreateProduct() {
                           name="shippingType"
                         />
                         <img src={normal} />
-                        <label htmlFor="">Envio por Correo</label>
+                        <label htmlFor="">Envío por Correo</label>
                       </div>
                       <div>
                         <input
@@ -425,7 +425,7 @@ function CreateProduct() {
                       onChange={(e) => handleOnChange(e)}
                     >
                       <option value="" disabled default>
-                        Seleccione una provincia
+                        Seleccione una Província
                       </option>
                       {states
                         .filter((e) => e.country_name === 'Argentina')
