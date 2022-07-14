@@ -47,7 +47,7 @@ function NewNavBar(props) {
      dispatch(getTransaction(queries))
      navigate("/transaction")
    } 
-},[queries])
+},[])
     const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
