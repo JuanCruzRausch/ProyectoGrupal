@@ -133,7 +133,7 @@ export default function AltaVededor() {
           <Form.Label>Provincia</Form.Label>
           <Form.Select
             aria-label="Default select example"
-            value={user?.address?.province}
+            value={user?.address?.location}
             name="province"
             onChange={(e) => addressOnChange(e.target.name, e.target.value)}
           >
