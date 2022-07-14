@@ -69,7 +69,7 @@ function App() {
       <Helmet>
         <link rel="icon" type="image/x-icon" href="/src/assets/img/logoML7E.png" />
       </Helmet>
-         <NewNavBar scrollTo={scrollToSort}/> 
+         <NewNavBar path="/" scrollTo={scrollToSort}/> 
        <div className={darkmode}>
         <input type="checkbox" className={checkbox} id="checkbox" onChange={switchDarkMode} checked={isdarkMode} />
         <label htmlFor="checkbox" className={label}>
