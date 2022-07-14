@@ -149,7 +149,7 @@ export default function Compras() {
                 </td>
                 <td>{purchase?.dateOfBuy?.substring(0, 10)}</td>
               </tr>
-            ))}
+            )).reverse()}
           </tbody>
         </Table>
         <div>
