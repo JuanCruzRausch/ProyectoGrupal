@@ -102,7 +102,7 @@ exports.createOrder = async (req, res, next) => {
         landing_page: 'LOGIN',
         user_action: 'PAY_NOW',
         return_url: 'http://localhost:3000/transaction',
-        cancel_url: 'http://localhost:5050/payment/cancel-order',
+        cancel_url: 'https://ml7e.herokuapp.com/payment/cancel-order',
       },
     };
 
