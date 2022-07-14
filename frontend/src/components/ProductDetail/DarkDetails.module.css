@@ -45,6 +45,7 @@
     justify-content: space-evenly;
 }
 .Dark_Item_image{
+
     width:50%;
     display: flex;
     flex-direction: row;

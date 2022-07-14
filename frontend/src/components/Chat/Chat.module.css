@@ -47,6 +47,7 @@
     padding: 10px;
     height: max-content;
     position: relative;
+    margin-top: 1rem;
 
 }
 
@@ -58,9 +59,10 @@
     min-height: 3rem;
     background-color: antiquewhite;
     border-radius: 10px;
-
+    padding: 1rem;
     height: max-content;
     position: relative;
+    margin-top: 1rem;
 }        
 .PyR_container form button {
     /* color: white; */

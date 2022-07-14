@@ -186,8 +186,23 @@ export default function Perfil() {
                   <div>
                     <h3> Tipo de usuario:</h3>{' '}
                     {userState?.authorization?.roles.map((rol) => {
-          }
-                    )}
+                      if (rol === 'seller') {
+                        return <h2 className={Vendedor}>Vendedor</h2>;
+                      }
+                      if (rol === 'admin') {
+                        return <h2 className={Admin}>Administrador</h2>;
+                      }
+                      if (rol === 'common') {
+                        return (
+                          <h2 className={Common}>Comprador</h2>
+                        );
+                      }
+                      if (rol === 'buyer') {
+                        return (
+                          <h2 className={Common}>Comprador</h2>
+                        );
+                      }
+                    })}
                   </div>
                   {userState?.registration_date && (
                     <div>

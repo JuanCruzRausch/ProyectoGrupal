@@ -30,7 +30,7 @@ export default function AltaVendedor() {
     return { type: 'SET_SELLER', payload };
   };
   React.useEffect(() => {
-    if (user?.authorization?.roles[0] === 'seller') {
+    if (user?.authorization?.roles.includes('seller')) {
       navigate('/perfil');
     }
     if (!isAuthenticated) {
