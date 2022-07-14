@@ -106,6 +106,7 @@ exports.createOrder = async (req, res, next) => {
       },
     };
 
+
     const params = new URLSearchParams();
     params.append('grant_type', 'client_credentials');
     //Genero el access token
@@ -115,6 +116,9 @@ exports.createOrder = async (req, res, next) => {
       'https://api-m.sandbox.paypal.com/v1/oauth2/token',
       params,
       {
+
+        
+
         headers: {
           Content_Type: 'application/x-www-form-urlencoded',
         },
