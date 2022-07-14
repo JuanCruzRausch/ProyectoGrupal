@@ -148,7 +148,7 @@ export default function Perfil() {
                       </div>
                       <div>
                         <h3> Provincia:</h3>{' '}
-                        <h2>{userState?.address?.location}</h2>
+                        <h2>{userState?.address?.province}</h2>
                       </div>
                       <div>
                         <h3> Ciudad:</h3> <h2>{userState?.address?.city}</h2>
