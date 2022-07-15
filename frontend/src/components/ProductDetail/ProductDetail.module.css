@@ -372,7 +372,7 @@
     .Detail_Item_pictures{
         margin: 1rem;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: space-evenly;
     }
     .Detail_Item_image .SelectedImg{

@@ -166,7 +166,7 @@ export default function PlaceOrderScreen() {
                         <Col>
                           <strong>
                             $
-                            {SingleCart?.CartItem.price !== undefined
+                            {SingleCart?.CartItem?.price !== undefined
                               ? Math.round(
                                   SingleCart?.CartItem?.quantity *
                                     SingleCart?.CartItem?.price

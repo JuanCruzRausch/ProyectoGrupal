@@ -75,13 +75,16 @@ function ProductDetail(props) {
 
   useEffect(() => {
     dispatch(GetSingleProduct(!State.length ? params._id : State.length));
+    return() => {
+      dispatch({ type: "SINGLE_ITEM", payload:{}})
+    }
   }, []);
 
   useEffect(() => {
     setimgs(
       State?.pictures?.length > 0
         ? State?.pictures[0]
-        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNAyavuNov5sCvf5ryQrCGBHDVUJEz8VCMVA&usqp=CAU'
+        : null
     );
   }, [State]);
 
