@@ -42,12 +42,7 @@ import { getTransaction } from '../../redux/actions/InteractionsActions'
 
 function NewNavBar(props) {
   const queries = useLocation().search
-  useEffect(()=>{
-   if(queries)   {
-     dispatch(getTransaction(queries))
-     navigate("/transaction")
-   } 
-},[])
+
     const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -82,6 +77,13 @@ function NewNavBar(props) {
     }
     window.addEventListener("resize", changeWidth)
   }, [])
+
+  useEffect(()=>{
+    if(queries)   {
+      dispatch(getTransaction(queries))
+      navigate("/transaction")
+    } 
+ },[])
 
     useEffect(() => {
       user?
