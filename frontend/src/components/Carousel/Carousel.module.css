@@ -5,7 +5,6 @@
     background-color: rgba(26, 26, 26, 0.235);
     backdrop-filter: blur(4px);
     color: white !important;
-    border-radius: 15px;
 }
 
 .CarouselContainer img{

@@ -12,11 +12,12 @@ img{
 }
 .darkmode{
     z-index: 1;
-    position: fixed;
+    position: absolute;
     right: 25px;
     display: flex;
     justify-content: center;  
     margin: 30px 0;
+    top: 0;
   }
   
   .darkmode .dark {
@@ -53,4 +54,17 @@ img{
   
   .darkmode .checkbox:checked + .label .ball{
     transform: translateX(20px);
+  }
+
+  @media screen and (max-width:600px) {
+    .darkmode{
+      transform: rotate(90deg);
+      z-index: 32445436;
+      right: 25px;
+      top: 0;
+      display: flex;
+      justify-content: center;  
+      margin: 25px 0;
+    }
+
   }

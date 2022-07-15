@@ -91,7 +91,7 @@ function Terms() {
           <Accordion.Item eventKey="3">
             <Accordion.Header>#4 Privacidad de datos</Accordion.Header>
             <Accordion.Body>
-              En Mercado Lo 7 Enanitos hacemos un uso responsable de la
+              En Mercado Los 7 Enanitos hacemos un uso responsable de la
               información personal, protegiendo la privacidad de las Personas
               Usuarias que nos confiaron sus datos y tomando las medidas
               necesarias para garantizar la seguridad en nuestro Ecosistema
@@ -105,13 +105,13 @@ function Terms() {
               y Condiciones, podremos advertir, suspender, restringir o
               inhabilitar temporal o definitivamente su cuenta, sin perjuicio de
               otras sanciones que se establezcan en las reglas de uso
-              particulares de los servicios de Mercado Lo 7 Enanitos.
+              particulares de los servicios de Mercado Los 7 Enanitos.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5">
             <Accordion.Header>#6 Responsabilidad</Accordion.Header>
             <Accordion.Body>
-              Mercado Lo 7 Enanitos será responsable por cualquier defecto en la
+              Mercado Los 7 Enanitos será responsable por cualquier defecto en la
               prestación de su servicio, en la medida en que le sea imputable y
               con el alcance previsto en las leyes vigentes.
             </Accordion.Body>
@@ -119,7 +119,7 @@ function Terms() {
           <Accordion.Item eventKey="6">
             <Accordion.Header>#7 Tarifas</Accordion.Header>
             <Accordion.Body>
-              Mercado Lo 7 Enanitos podrá cobrar por sus servicios y la Persona
+              Mercado Los 7 Enanitos podrá cobrar por sus servicios y la Persona
               Usuaria se compromete a pagarlos a tiempo.
               <br />
               <br />
@@ -129,7 +129,7 @@ function Terms() {
               temporalmente por promociones en favor de las Personas Usuarias.
               <br />
               <br />
-              La Persona Usuaria autoriza a Mercado Lo 7 Enanitos a retener y/o
+              La Persona Usuaria autoriza a Mercado Los 7 Enanitos a retener y/o
               debitar los fondos existentes y/o futuros de su cuenta y/o de las
               cuentas bancarias que haya registrado en ella, para saldar las
               tarifas impagas o cualquier otra deuda que pudiera tener.
@@ -147,7 +147,7 @@ function Terms() {
           <Accordion.Item eventKey="7">
             <Accordion.Header>#8 Propiedad Intelectual</Accordion.Header>
             <Accordion.Body>
-              Mercado Lo 7 Enanitos y/o sus sociedades relacionadas son
+              Mercado Los 7 Enanitos y/o sus sociedades relacionadas son
               propietarias de todos los derechos de propiedad intelectual sobre
               sus sitios, todo su contenido, servicios, productos, marcas,
               nombres comerciales, logos, diseños, imágenes, frases
@@ -159,17 +159,17 @@ function Terms() {
               nacionales e internacionales.
               <br />
               <br />
-              Aunque Mercado Lo 7 Enanitos otorga permiso para usar sus
+              Aunque Mercado Los 7 Enanitos otorga permiso para usar sus
               productos y servicios conforme a lo previsto en los Términos y
               Condiciones, esto no implica una autorización para usar su
               Propiedad Intelectual, excepto consentimiento previo y expreso de
-              Mercado Lo 7 Enanitos y/o sus sociedades vinculadas. En cualquier
+              Mercado Los 7 Enanitos y/o sus sociedades vinculadas. En cualquier
               caso, los usuarios vendedores que usen dichos productos y
               servicios no podrán utilizar la Propiedad Intelectual de Mercado
               Lo 7 Enanitos de una manera que cause confusión en el público y
               deberán llevar a cabo su actividad comercial bajo una marca o
               nombre comercial propio y distintivo, que no resulte confundible
-              con la marca Mercado Lo 7 Enanitos y su familia de marcas
+              con la marca Mercado Los 7 Enanitos y su familia de marcas
               “Mercado”.
             </Accordion.Body>
           </Accordion.Item>
