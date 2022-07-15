@@ -7,7 +7,7 @@ import {
   sort,
   setActive,
   getAllCategories
-} from '../../redux/actions/index';
+} from '../../redux/actions/productAction';
 import SingleProduct from '../SingleProduct/SingleProduct';
 import Sort from '../Sort/Sort';
 import Filter from '../Filter/Filter';

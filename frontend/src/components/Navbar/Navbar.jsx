@@ -16,7 +16,7 @@ import {
   getProductByCategory,
   BuscarProducto,
   setActive,
-} from '../../redux/actions';
+} from '../../redux/actions/productAction';
 import { setUser } from '../../redux/actions/userAction'
 import {
   Navbarc,

@@ -18,7 +18,7 @@ import {
   SET_ORDER,
   SET_CATEGORY,
   SET_CATEGORIES_STATS
-} from '../actions/index';
+} from '../actions/productAction';
 
 const initialState = {
   category:'',

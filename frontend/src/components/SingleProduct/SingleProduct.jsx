@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useState } from 'react';
-import { GetSingleProduct } from '../../redux/actions';
+import { GetSingleProduct } from '../../redux/actions/productAction';
 
 
 function SingleProduct({ image, name, price, id, ADDtoCart,Shipping, ADDtoFav }) {

@@ -4,16 +4,18 @@ import axios from 'axios';
 
 export const getTransaction = (queries) => {
   return async (dispatch) => {
+    dispatch({type: "SET_LOADING", payload: "spin"})
     axios(`/payment/capture-order` + queries).then(
       (res) => {
-        //PARA PROBAR!!!!
-        //if (res.data.data.transactions[0].status === 'pending') {
+        dispatch({type: "SET_LOADING", payload: "none"})
         dispatch({ type: 'CLEAR_CART' });
-        //  }
         dispatch({ type: 'SET_TRANSACTION_DETAIL', payload: res.data.data});
       }
     )
-    .catch(()=> dispatch({ type: 'CLEAR_CART' }))
+    .catch(()=>{
+      dispatch({type: "SET_LOADING", payload: "none"})
+      dispatch({ type: 'CLEAR_CART' })})
+
   };
 };
 

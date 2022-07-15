@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { subtitle, container, categoryItem } from './Filter.module.css';
-import { getProductBy,setActive } from '../../redux/actions';
+import { getProductBy,setActive } from '../../redux/actions/productAction';
 import PriceFilter from '../PriceFilter/PriceFilter';
 import Subcategory from '../Subcategory/Subcategory';
 const Filter = (props) => {

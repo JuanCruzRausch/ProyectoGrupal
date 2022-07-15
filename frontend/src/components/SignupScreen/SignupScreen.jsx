@@ -3,7 +3,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { Small_Container, Form_Div } from './Signup.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../../redux/actions';
+import { signUp } from '../../redux/actions/productAction';
 import swal from 'sweetalert';
 
 export default function SignupScreen() {

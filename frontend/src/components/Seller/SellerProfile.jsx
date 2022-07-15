@@ -5,7 +5,7 @@ import {
   deleteProduct,
   inactivePublication,
   activePublication,
-} from '../../redux/actions/index';
+} from '../../redux/actions/productAction';
 import { salesLastWeek } from '../../redux/actions/userAction'
 import swal from 'sweetalert';
 import { useEffect } from 'react';

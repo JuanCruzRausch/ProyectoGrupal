@@ -1,4 +1,4 @@
-import {  setActive, getProductBy } from '../../redux/actions';
+import {  setActive, getProductBy } from '../../redux/actions/productAction';
 import React, { useState, useEffect } from 'react';
 import {Form, NavDropdown} from 'react-bootstrap';
 import { SortContainer, SortDark, CATEGORIAS } from './Sort.module.css';

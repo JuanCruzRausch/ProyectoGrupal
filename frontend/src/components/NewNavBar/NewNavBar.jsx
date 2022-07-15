@@ -27,7 +27,7 @@ import {
   setActive,
   publicationSeller,
   getAllProducts
-} from '../../redux/actions/index';
+} from '../../redux/actions/productAction';
 import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';
@@ -42,12 +42,7 @@ import { getTransaction } from '../../redux/actions/InteractionsActions'
 
 function NewNavBar(props) {
   const queries = useLocation().search
-  useEffect(()=>{
-   if(queries)   {
-     dispatch(getTransaction(queries))
-     navigate("/transaction")
-   } 
-},[])
+
     const sort = useSelector(state => state.productReducer.sort)
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -82,6 +77,13 @@ function NewNavBar(props) {
     }
     window.addEventListener("resize", changeWidth)
   }, [])
+
+  useEffect(()=>{
+    if(queries)   {
+      dispatch(getTransaction(queries))
+      navigate("/transaction")
+    } 
+ },[])
 
     useEffect(() => {
       user?
