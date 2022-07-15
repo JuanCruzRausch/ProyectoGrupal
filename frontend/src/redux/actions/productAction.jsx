@@ -62,7 +62,7 @@ export function addPublication( id,data ) {
 }
 
 export function sort (atribute){
-  console.log(atribute)
+  
   return async (dispatch) =>{
     return axios(`/publicationtest/?sort=${atribute}`)
     .then(res => dispatch({type: GET_ALL_PRODUCTS, payload: res.data.data.publications}))

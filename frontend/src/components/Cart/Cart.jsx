@@ -105,7 +105,7 @@ function Cart() {
         })
     }
   }
-  console.log(userState?.email_verified === true)
+  
   const PrecioTotal = JSON.stringify(state.reduce((prev, next)=> prev + next.price*next.quantity, 0))
   return (
     <div className={container}>
