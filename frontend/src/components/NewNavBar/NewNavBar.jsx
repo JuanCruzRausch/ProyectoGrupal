@@ -68,14 +68,7 @@ function NewNavBar(props) {
         settogglemenu(!togglemenu)
     }
 
-    useEffect(()=>{
-      console.log(queries)
-     if(queries)   {
-       dispatch(getTransaction(queries))
-       navigate("/transaction")
-     } 
-  },[])
- 
+
   useEffect(()=> {
     
       dispatch(getAllCategories())
@@ -87,9 +80,11 @@ function NewNavBar(props) {
   }, [])
 
   useEffect(()=>{
-    if(queries)   {
-      dispatch(getTransaction(queries))
-      navigate("/transaction")
+    if(queries){
+      if (queries.includes("token")){
+        dispatch(getTransaction(queries))
+        navigate("/transaction")
+      }
     } 
  },[])
 

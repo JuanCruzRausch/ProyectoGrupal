@@ -42,7 +42,7 @@ function CartReducer(state = CartInitialState, { type, payload }) {
       localStorage.setItem('prices', JSON.stringify(TotalPrice))
       
       const product = state.cart.cartItem.find(x => x.product === item.product);
-      console.log(item)
+     
       if (product) {
         return {
           ...state,

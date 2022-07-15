@@ -3,7 +3,7 @@ const axios = require('axios');
 
 exports.signup = async (req, res, next) => {
   try {
-    console.log(req.body);
+  
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
@@ -20,7 +20,7 @@ exports.signup = async (req, res, next) => {
       },
     });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).json({
       status: 'fail',
       message: e,

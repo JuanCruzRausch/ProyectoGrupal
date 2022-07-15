@@ -46,12 +46,10 @@ io.on("connection", (socket)=>{
   socket.on("join_room", (room)=>{
     
     // socket.join(room)
-    console.log(`usuario con id ${socket.id} se unió a la sala ${room} `)
+    
   })
   
-  socket.on("disconnect", ()=>{
-    console.log("user is disconected")
-  })
+
 })
 
 
