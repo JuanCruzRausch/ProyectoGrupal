@@ -8,8 +8,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 
-axios.defaults.baseURL =   "http://localhost:5050" ;
-// axios.defaults.baseURL =   "https://ml7e.herokuapp.com/" || "http://localhost:5050" ;
+// axios.defaults.baseURL =   "http://localhost:5050" ;
+axios.defaults.baseURL =   "https://ml7e.herokuapp.com/" || "http://localhost:5050" ;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
