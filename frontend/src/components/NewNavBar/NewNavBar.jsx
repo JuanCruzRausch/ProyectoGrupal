@@ -67,6 +67,14 @@ function NewNavBar(props) {
     const toggleNav = () =>{
         settogglemenu(!togglemenu)
     }
+
+    useEffect(()=>{
+      console.log(queries)
+     if(queries)   {
+       dispatch(getTransaction(queries))
+       navigate("/transaction")
+     } 
+  },[])
  
   useEffect(()=> {
     
