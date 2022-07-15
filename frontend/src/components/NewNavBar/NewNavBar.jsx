@@ -27,7 +27,7 @@ import {
   setActive,
   publicationSeller,
   getAllProducts
-} from '../../redux/actions/index';
+} from '../../redux/actions/productAction';
 import { setUser, setSeller } from '../../redux/actions/userAction'
 import EmptyCart from '../../assets/img/emptycart.png'
 import cart from '../../assets/img/cartICON.png';

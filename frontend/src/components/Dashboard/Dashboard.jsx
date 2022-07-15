@@ -5,7 +5,7 @@ import {Detail_Links } from '../PerfilEditar/PerfilEditar.module.css';
 import { PolarArea } from 'react-chartjs-2';
 import { Line } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
-import { getCategoriesStats } from '../../redux/actions';
+import { getCategoriesStats } from '../../redux/actions/productAction';
 import arrow from '../../assets/img/leftarrow.png';
 import { useDispatch, useSelector } from 'react-redux'
 import {Container, DashboardDiv,CurrentData,CurrentData1, CurrentData2,CurrentData3,CurrentData4, CurrentBars, users} from './Dashboard.module.css'

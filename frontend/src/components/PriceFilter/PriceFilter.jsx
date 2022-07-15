@@ -1,6 +1,6 @@
 import React from 'react'
 import { widthInput} from './PriceFilter.module.css'
-import { setMaxMinPrice } from '../../redux/actions'
+import { setMaxMinPrice } from '../../redux/actions/productAction'
 import { useDispatch, useSelector } from 'react-redux'
 
 export default function PriceFilter() {

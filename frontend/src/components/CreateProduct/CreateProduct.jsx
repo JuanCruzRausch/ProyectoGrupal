@@ -23,9 +23,9 @@ import {
 } from './CreateProduct.module.css';
 import states from '../Json/states.jsx';
 import { useEffect } from 'react';
-import { getAllCategories } from '../../redux/actions';
+import { getAllCategories } from '../../redux/actions/productAction';
 import axios from 'axios';
-import { addPublication, setAlert } from '../../redux/actions/index';
+import { addPublication, setAlert } from '../../redux/actions/productAction';
 import { setSeller } from '../../redux/actions/userAction';
 import swal from 'sweetalert';
 import { useAuth0 } from '@auth0/auth0-react';

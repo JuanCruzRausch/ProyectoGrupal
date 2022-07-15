@@ -54,7 +54,7 @@ import {
 } from './DarkDetails.module.css';
 import { DetailDark } from '../Terms/TermsDark.module.css';
 import { AddToCart, OrderSingleProduct } from '../../redux/actions/CartActions';
-import { GetSingleProduct } from '../../redux/actions';
+import { GetSingleProduct } from '../../redux/actions/productAction';
 import Rating from '../Rating/Rating';
 import { Helmet } from 'react-helmet-async';
 import Button from 'react-bootstrap/Button';
