@@ -114,7 +114,6 @@
 }
 .Nav input{
     height: 40px;
-    width: 350px;
 }
 .Nav input, button{
     border: none !important;
@@ -180,7 +179,10 @@
         margin: 1rem 0;
     }
     .searchdata2 img{
-        width: 20px !important;
+        width: 30px !important;
+    }
+    .searchdata2 form{
+        justify-content: space-between;
     }
     .NavMenu{
         flex-direction: column;
