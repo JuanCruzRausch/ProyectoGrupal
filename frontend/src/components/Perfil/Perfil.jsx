@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Container,
   Container_card,
@@ -21,8 +21,10 @@ import LoginButton from '../Auth0/login';
 import SellerProfile from '../Seller/SellerProfile';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
+import { Button, Form } from 'react-bootstrap';
 
 export default function Perfil() {
+  const navigate = useNavigate()
   const { user, isAuthenticated, isLoading } = useAuth0();
   const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;
@@ -34,6 +36,9 @@ export default function Perfil() {
     window.scrollTo(0, 0);
   }, []);
 
+  function handleGoTo(e){
+    navigate(e.target.value)
+  }
   return (
     <div>
       <Helmet>
@@ -84,7 +89,9 @@ export default function Perfil() {
                           ) : null}
                         </div>
                         <label>
-                          <Link to="/perfil/redessociales">editar</Link>
+                          <Link to="/perfil/redessociales">
+                            <Button variant="primary">Editar</Button>
+                            </Link>
                         </label>
                         <br />
                       </span>
@@ -97,33 +104,45 @@ export default function Perfil() {
                           ) : null}
                         </div>
                         <label htmlFor="">
-                          <Link to="/perfil/marca">editar</Link>
+                          <Link to="/perfil/marca">
+                            <Button variant="primary">Editar</Button>
+                          </Link>
                         </label>
                       </span>
                     </div>
                   )}
                   <div className={Buttons}>
-                    <Link to="/perfil/editar">
-                      <button>Editar perfil</button>
-                    </Link>
-                    {userState?.authorization?.roles.includes('admin') ? (
-                      <Link to="/admin/dashboard">
-                        <button>Administra el sitio</button>
-                      </Link>
+                    <Form.Select onChange={(e) => handleGoTo(e)}>
+                      <option default value=" ">
+                            Opciones de perfil
+                      </option>
+                      <option value="/perfil/editar">
+                          Editar perfil
+                      </option>
+                      {userState?.authorization?.roles.includes('admin') ? (
+                       <option value="/admin/dashboard">
+                        Administra el sitio
+                      </option> 
                     ) : null}
+                      {userState?.authorization?.roles.includes('seller') ? (
+                       <option value="/perfil/ventas">
+                        Historial de Ventas
+                      </option> 
+                    ) : null}
+                    <option value="/perfil/compras">
+                      Historial de compras
+                    </option>                                   
+                   {userState?.authorization?.roles.includes('seller') ? (
+                    <option value="/admin/dashboard">
+                     Administra el sitio
+                   </option> 
+                 ) : null}
+                    </Form.Select>
                     {userState?.authorization?.roles.includes('seller') ? (
                       <Link to="/perfil/vendedor">
                         <button>Perfil de Vendedor</button>
                       </Link>
                     ) : null}
-                    {userState?.authorization?.roles.includes('seller') ? (
-                      <Link to="/perfil/ventas">
-                        <button>Historial de Ventas</button>
-                      </Link>
-                    ) : null}
-                    <Link to="/perfil/compras">
-                      <button>Historial de compras</button>
-                    </Link>
                     {userState?.authorization?.roles.includes('seller') ? (
                       <Link to="/publicar">
                         <button>Publica tu producto</button>

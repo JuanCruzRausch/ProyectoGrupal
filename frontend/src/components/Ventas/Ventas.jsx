@@ -11,6 +11,10 @@ import { DetailDark } from '../Terms/TermsDark.module.css';
 import { Helmet } from 'react-helmet-async';
 
 export default function Ventas() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navigate = useNavigate();
   const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;

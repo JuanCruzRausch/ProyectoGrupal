@@ -3,7 +3,7 @@
     padding: 15px;
     width: 65%;
     margin: 3rem auto;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.502);
     border-radius: 15px;
 }
 .CreateForm div{
@@ -15,7 +15,7 @@
     margin: 1rem auto;
     font-weight: 700;
     font-size: 2rem;
-    color: #0000007c;
+    color: #000000b5 !important;
     margin: 1rem auto;
 }
 .CreateDiv form p{
@@ -159,3 +159,24 @@
     width: 80px;
   }
 
+@media screen and (max-width:600px) {
+    .CreateDiv{
+        padding: 15px;
+        width: 95%;
+        margin: 3rem auto;
+        background-color: rgba(255, 255, 255, 0.498);
+        border-radius: 15px;
+    }
+    .CreateDiv form input, select,textarea{
+        width: 75% !important;
+        border-radius: 15px !important;
+        margin: auto !important;
+    }
+    .CreateDiv form div label{
+        margin: 1rem auto;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #000000b1 !important;
+        margin: 1rem auto;
+    }
+}
