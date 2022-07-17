@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {Form, NavDropdown} from 'react-bootstrap';
 import { SortContainer, SortDark, CATEGORIAS } from './Sort.module.css';
 import { useDispatch, useSelector } from 'react-redux'
+import PriceFilter from '../PriceFilter/PriceFilter';
 
 
 const Sort = React.forwardRef((props, ref) => {
@@ -66,6 +67,9 @@ const Sort = React.forwardRef((props, ref) => {
                     );
                   })}
               </NavDropdown>
+      <div className={CATEGORIAS}>
+        <PriceFilter />
+      </div>
     </div>
   );
 });
