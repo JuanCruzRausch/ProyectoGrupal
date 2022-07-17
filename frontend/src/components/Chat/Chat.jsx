@@ -150,15 +150,19 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
              <h1>Preguntas y Respuestas</h1>
              <hr />
         <div className={chat_footer}>
-            {product_seller_id!==seller._id&&<form action="" onSubmit={(e)=> submitMessage(e)}>
-                <input name="data" value={message?.data} onChange={(e)=>handleOnChange(e.target.name, e.target.value)}type="text" id="" />
-                <br />
-                <button className={button} type="submit" >
-                    Preguntar
-                </button>
-            </form>}
+        {
+        user? 
+        product_seller_id!==seller._id&&<form action="" onSubmit={(e)=> submitMessage(e)}>
+            <input name="data" value={message?.data} onChange={(e)=>handleOnChange(e.target.name, e.target.value)}type="text" id="" />
+            <button className={button} type="submit" >
+                Preguntar
+            </button>
+        </form>
+        :<p>
+            Por favor Inicia sesión para dejar una pregunta
+        </p>
+        }
         </div>
-           
             {chat?.map((message, index)=> ( 
              <div className={PyR_content}>
                {tokenProductId===_id &&  <div>
@@ -176,17 +180,19 @@ export default function Chat({socket, _id, questions, product_seller_id}) {
                             </h3>
                         </div>
                     ))}
-                   {(<div className={inputRes}>
+                    {
+                        user ? (<div className={inputRes}>
                        <form action="" onSubmit={(e)=>handleOnSubmitComent(e, message._id)}>
                             <input name="coment" onChange={(e)=>handleOnChangeComent(e.target.value, message._id)} value={message.coment} />
                             <button type="submit" >Responder</button>
                          </form>
-                   </div>)}
+                   </div>)
+                    : null
+                    }
                 </div>
-                
                }
              </div>
-)    )}
+        ))}
      </div>
        
     </div>

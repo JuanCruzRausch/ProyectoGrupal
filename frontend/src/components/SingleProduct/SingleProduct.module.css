@@ -242,7 +242,7 @@
     padding: 12px;
 }
 .AddToCart:hover{
-    transform: scale(1.3);
+    transform: scale(1.1);
 }
 .SingleProduct_buttons button img{
     width: 35px;
@@ -252,7 +252,7 @@
     transition: all .6s ease-in-out;
 }
 .ProductFav:hover{
-   transform: scale(1.3);
+   transform: scale(1.1);
 }
 }
 }

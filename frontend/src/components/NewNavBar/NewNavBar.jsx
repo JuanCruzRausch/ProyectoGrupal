@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom'
 import {Nav, NavLinked,NavLinkActive, Bars, NavMenu, NavBtn,NavLinkBtn,Cart,cartIMG, DropdownA, datalist, LoginContainer,logo,NavContainer,searchdata, searchdata2 } from './NewNavBar.module.css'
+import noti from '../../assets/img/notis/noti.png'
 import {DarkcartIMG, NavDark, darkA} from './NavBarDarkmode.module.css'
 import { getUsers } from '../../redux/actions/adminAction'
-import {FaBars} from 'react-icons/fa'
+
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import lupa from '../../assets/img/lupa.png'
@@ -225,7 +226,9 @@ function NewNavBar(props) {
                 </NavLink>
                 {
                   isAuthenticated ? 
-                  (<Link to="/favoritos"><img className={ isdarkMode ? DarkcartIMG : cartIMG } src={Favoritos} alt="favoritos" /></Link>) 
+                  (<><Link to="/favoritos"><img className={ isdarkMode ? DarkcartIMG : cartIMG } src={Favoritos} alt="favoritos" /></Link>
+                  <img src={noti} className={ isdarkMode ? DarkcartIMG : cartIMG }/></>
+                  ) 
                   : null
                 }
           {isAuthenticated ? (

@@ -15,7 +15,12 @@ import { Form } from 'react-bootstrap';
 import { sendReview } from '../../redux/actions/InteractionsActions';
 import { Helmet } from 'react-helmet-async';
 import swal from 'sweetalert';
+
+
 export default function Compras() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   const mode = useSelector((state) => state.darkMode);
   const { isdarkMode } = mode;

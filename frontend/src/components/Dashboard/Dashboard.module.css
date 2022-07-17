@@ -63,3 +63,74 @@
     width: 35%;
     
 }
+
+@media screen and (max-width:600px) {
+    .users{
+   
+        text-align: center;
+    }
+    .Container{
+        width: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    .Container div{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+    }
+    .DashboardDiv{
+        width: 100%;
+    }
+    .DashboardDiv h1{
+        padding: 15px;
+        font-size: 2rem;
+        font-weight: 400;
+    }
+    .CurrentData{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+        justify-content: space-around;
+    }
+    .CurrentData div{
+        display: flex;
+        flex-direction: column;
+        border-radius: 15px;
+        width: auto;
+        height: auto;  
+        align-content: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin: 1rem 0;
+    }
+    .CurrentData h3{
+        color: white;
+        font-size: 1.1rem !important;
+    }
+    
+    .CurrentData1{
+        background-color: #ff6961 !important;
+    }
+    .CurrentData2{
+        background-color: #77dd77 !important;
+    }
+    .CurrentData3{
+        background-color: #ffda9e !important;
+    
+    }
+    .CurrentData4{
+        background-color: #84b6f4 !important;
+    
+    }
+    .CurrentBars{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center !important;
+    }
+    .CurrentBars div{
+        width: auto;
+    }    
+}

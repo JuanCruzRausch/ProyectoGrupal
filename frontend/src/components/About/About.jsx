@@ -31,7 +31,7 @@ function About() {
           <div className={isdarkMode ? DetailDark : Detail_Links}>
             <img src={arrow} alt="back" />
             <Link to="/">
-              <h2>Home</h2>
+              <h2>Inicio</h2>
             </Link>
           </div>
           <h1>Conoce mas acerca de nuestro equipo de desarrollo</h1>

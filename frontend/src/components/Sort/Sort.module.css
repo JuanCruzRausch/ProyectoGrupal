@@ -1,5 +1,5 @@
 .SortContainer{
-    margin-top: 3vh;
+    margin-top: 1rem !important;
     display: flex;
     justify-content: flex-end;
     align-self: flex-end;
@@ -17,7 +17,7 @@
     background: rgba(0, 0, 0, 0) !important;
 }
 .SortDark{
-    margin-top: 3vh;
+    margin-top: 1rem !important;
     display: flex;
     justify-content: flex-end;
     align-self: flex-end;
@@ -44,6 +44,10 @@
     }
     .CATEGORIAS{
         display: flex;
+        margin: 1rem 0;
+    }
+    .CATEGORIAS a{
+        color: rgb(97, 97, 97);
     }
     .SortDark{
         margin-top: 3vh;

@@ -46,6 +46,7 @@ img{
     margin:0 auto;
 }
 .container{
+    min-height: 70vh;
     text-align: center;
 }
 .container h1{
