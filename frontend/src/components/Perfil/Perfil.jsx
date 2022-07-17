@@ -116,28 +116,24 @@ export default function Perfil() {
                       <option default value=" ">
                             Opciones de perfil
                       </option>
-                      <option value="/perfil/editar">
-                          Editar perfil
-                      </option>
                       {userState?.authorization?.roles.includes('admin') ? (
                        <option value="/admin/dashboard">
                         Administra el sitio
                       </option> 
-                    ) : null}
+                      ) : null}
+                        <option value="/perfil/editar">
+                            Editar perfil
+                        </option>
                       {userState?.authorization?.roles.includes('seller') ? (
                        <option value="/perfil/ventas">
-                        Historial de Ventas
-                      </option> 
-                    ) : null}
-                    <option value="/perfil/compras">
-                      Historial de compras
-                    </option>                                   
-                   {userState?.authorization?.roles.includes('seller') ? (
-                    <option value="/admin/dashboard">
-                     Administra el sitio
-                   </option> 
-                 ) : null}
+                          Historial de Ventas
+                        </option> 
+                      ) : null}
+                      <option value="/perfil/compras">
+                        Historial de compras
+                      </option>                                   
                     </Form.Select>
+
                     {userState?.authorization?.roles.includes('seller') ? (
                       <Link to="/perfil/vendedor">
                         <button>Perfil de Vendedor</button>
