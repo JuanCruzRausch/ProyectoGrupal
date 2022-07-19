@@ -226,8 +226,9 @@ function NewNavBar(props) {
                 </NavLink>
                 {
                   isAuthenticated ? 
-                  (<><Link to="/favoritos"><img className={ isdarkMode ? DarkcartIMG : cartIMG } src={Favoritos} alt="favoritos" /></Link>
-                  <img src={noti} className={ isdarkMode ? DarkcartIMG : cartIMG }/></>
+                  (<><Link to="/favoritos"><img className={ isdarkMode ? DarkcartIMG : cartIMG } src={Favoritos} alt="favoritos" /></Link> 
+                {/* <img src={noti} className={ isdarkMode ? DarkcartIMG : cartIMG }/> */}
+                </>
                   ) 
                   : null
                 }
